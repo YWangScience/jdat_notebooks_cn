@@ -1,0 +1,1739 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LMC中YSOs的IFU &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="MIRI LRS 窄缝光谱学：使用 JWST 管道进行光谱提取" href="../MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html" />
+    <link rel="prev" title="MRS立方体分析" href="../MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LMC中YSOs的IFU</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">导入所需的内容</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">检查导入内容的版本</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">设置输出目录以存放图形和光谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">设置绘图参数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">设置数据路径</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gb">请注意，数据文件大小约为2 GB，因此下载时间将根据您的互联网速度而有所不同。您也可以直接使用下面的链接进行下载。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">加载并显示数据立方体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">修剪立方体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d2d">从3D立方体生成2D图像，方法可以是平均值、中央値或总和</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">绘制图像以进行视觉检查</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wcs">绘制带有WCS坐标的合成图像并保存图形</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils">使用 photutils 识别所有点源</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">获取所有点源的列表</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">提取并绘制所有源的光谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">制作提取源的表格</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#irs-yso">从此使用斯皮策IRS YSO光谱进行科学测试案例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">拟合通用连续谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">寻找发射线和吸收线</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">识别发射线和吸收线</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yso">根据检测到的谱线对YSO进行分类</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">绘制光谱并标记发射和吸收特征</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lmcysosifu">
+<h1>LMC中YSOs的IFU<a class="headerlink" href="#lmcysosifu" title="Link to this heading">#</a></h1>
+<p><strong>用例：</strong> 自动检测点源并提取光度数据于三维立方体中。分析光谱线。<br></p>
+<p><strong>数据：</strong> ALMA 13CO 数据立方体。<br></p>
+<p><strong>工具：</strong> specutils, photutils, astropy。<br></p>
+<p><strong>跨仪器：</strong> NIRSpec, MIRI。<br></p>
+<p><strong>文档：</strong> 本笔记本是STScI更大<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理数据分析工具生态系统</a>的一部分，可以直接从<a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks">JDAT笔记本GitHub目录</a>中<a class="reference external" href="https://github.com/spacetelescope/dat_pyinthesky/tree/main/jdat_notebooks/MRS_Mstar_analysis">下载</a>。<br></p>
+<p>LMC是研究大质量恒星形成的理想场所，因为它相对较近（距离约50 kpc），并且呈面向观测者的方向，使我们能够解析单个恒星形成区域，消除视线混淆。斯皮策（Spitzer）和赫歇尔（Herschel）调查通过从3微米到500微米的光度测量，识别了LMC中数千个年轻恒星对象（YSOs），并且对8个太阳质量的YSOs的探测是完整的。</p>
+<p>我们知道，大质量恒星形成发生在密集的分子气体中。阿尔玛（ALMA）对12CO和13CO分子气体的观测显示，碰撞的细丝可能是使气体密度高达10^6 cm^-3的机制。在阿尔玛观测到的碰撞CO气体细丝的中心，观察到了质量高达50个太阳质量的大质量恒星。</p>
+<p>詹姆斯·韦伯太空望远镜（JWST）上的仪器将具有比斯皮策太空望远镜高10倍的角分辨率和超过当前仪器百倍的灵敏度。使用MIRI和NIRCam对YSOs的观测将完整到1个太阳质量的YSOs，而斯皮策观测只能完整到8个太阳质量的YSOs。LMC中的大质量YSOs很可能是一个小的YSO簇，借助MRS我们可以获取簇中单个对象的光谱。这将成为理解恒星形成和星团形成的强大工具。</p>
+<p>在第一部分中，我使用ALMA的13CO数据立方体读取数据并制作图形。在这个笔记本中显示的区域内有近400颗大质量恒星。这个笔记本的目标之一是使用photutils自动检测点源并在给定的3D立方体中提取光度。第二部分中，我使用斯皮策/IRS的已知早期阶段YSOs的光谱。YSOs具有特定的吸收和发射线。目标是首先使用specutils找到重要的谱线，以确定某个对象是否为YSO，基于存在或不存在的谱线。接下来的步骤是根据检测到的发射和吸收线，识别YSO是阶段I（大多数被CO2冰特征嵌入）、阶段II（更进化，具有冰和硅酸盐吸收特征）还是阶段III（几乎是平坦的光谱，带有PAH发射）。</p>
+<section id="id1">
+<h2>导入所需的内容<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>  <span class="c1"># 导入Astropy单位模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.wcs</span><span class="w"> </span><span class="kn">import</span> <span class="n">WCS</span>  <span class="c1"># 导入天文坐标系统模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">ascii</span>  <span class="c1"># 导入ASCII输入输出模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.nddata</span><span class="w"> </span><span class="kn">import</span> <span class="n">StdDevUncertainty</span>  <span class="c1"># 导入标准偏差不确定性模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>  <span class="c1"># 导入表格模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">sigma_clipped_stats</span>  <span class="c1"># 导入sigma裁剪统计模块</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>  <span class="c1"># 导入urllib请求模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">spectral_cube</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpectralCube</span>  <span class="c1"># 导入光谱立方体模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.detection</span><span class="w"> </span><span class="kn">import</span> <span class="n">DAOStarFinder</span>  <span class="c1"># 导入DAO星体查找器模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.aperture</span><span class="w"> </span><span class="kn">import</span> <span class="n">CircularAperture</span>  <span class="c1"># 导入圆形光圈模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spectrum1D</span><span class="p">,</span> <span class="n">SpectralRegion</span>  <span class="c1"># 导入光谱1D和光谱区域模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">snr</span>  <span class="c1"># 导入信噪比分析模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils.fitting</span><span class="w"> </span><span class="kn">import</span> <span class="n">fit_generic_continuum</span><span class="p">,</span> <span class="n">find_lines_derivative</span>  <span class="c1"># 导入拟合通用连续谱和查找线的导数模块</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline  # 在Jupyter Notebook中内联显示图形
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入matplotlib库中的pyplot模块，用于绘图</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>检查导入内容的版本<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">aplpy</span>  <span class="c1"># 导入aplpy库，用于天文数据可视化</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">aplpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">aplpy_version</span>  <span class="c1"># 获取aplpy库的版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Aplpy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aplpy_version</span><span class="p">))</span>  <span class="c1"># 打印aplpy库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astrodendro</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">astrodendro_version</span>  <span class="c1"># 导入astrodendro库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Astrodendro: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">astrodendro_version</span><span class="p">))</span>  <span class="c1"># 打印astrodendro库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">astropy_version</span>  <span class="c1"># 导入astropy库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Astropy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">astropy_version</span><span class="p">))</span>  <span class="c1"># 打印astropy库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">jwst_version</span>  <span class="c1"># 导入jwst库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;JWST: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jwst_version</span><span class="p">))</span>  <span class="c1"># 打印JWST库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">matplotlib_version</span>  <span class="c1"># 导入matplotlib库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matplotlib: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">matplotlib_version</span><span class="p">))</span>  <span class="c1"># 打印matplotlib库的版本信息</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>  <span class="c1"># 导入numpy库，用于数值计算</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">numpy_version</span>  <span class="c1"># 获取numpy库的版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numpy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numpy_version</span><span class="p">))</span>  <span class="c1"># 打印numpy库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">pandas_version</span>  <span class="c1"># 导入pandas库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pandas_version</span><span class="p">))</span>  <span class="c1"># 打印pandas库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">photutils_version</span>  <span class="c1"># 导入photutils库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Photutils: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">photutils_version</span><span class="p">))</span>  <span class="c1"># 打印photutils库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">scipy_version</span>  <span class="c1"># 导入scipy库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scipy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scipy_version</span><span class="p">))</span>  <span class="c1"># 打印scipy库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">specutils_version</span>  <span class="c1"># 导入specutils库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specutils: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">specutils_version</span><span class="p">))</span>  <span class="c1"># 打印specutils库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">spectral_cube</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">spectral_cube_version</span>  <span class="c1"># 导入spectral_cube库并获取版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SpectralCube: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spectral_cube_version</span><span class="p">))</span>  <span class="c1"># 打印spectral_cube库的版本信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>设置输出目录以存放图形和光谱<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>用户需要设置他们希望输出文件存放的路径。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于处理文件和目录</span>
+
+<span class="n">output_images</span> <span class="o">=</span> <span class="s1">&#39;./Images&#39;</span>  <span class="c1"># 输出图像的存放路径</span>
+<span class="n">output_spectra</span> <span class="o">=</span> <span class="s1">&#39;./Spectra&#39;</span>  <span class="c1"># 输出光谱的存放路径</span>
+
+<span class="c1"># 遍历输出图像和光谱的目录列表</span>
+<span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="p">[</span><span class="n">output_images</span><span class="p">,</span> <span class="n">output_spectra</span><span class="p">]:</span>
+    
+    <span class="c1"># 检查目录是否存在</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>  <span class="c1"># 如果不存在，则创建该目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>设置绘图参数<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义绘图参数的字典</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>  <span class="c1"># 图例字体大小</span>
+    <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>   <span class="c1"># 坐标轴标签字体大小</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>   <span class="c1"># 坐标轴标题字体大小</span>
+    <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>   <span class="c1"># x轴刻度标签字体大小</span>
+    <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>   <span class="c1"># y轴刻度标签字体大小</span>
+    <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>      <span class="c1"># 线条宽度</span>
+    <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>       <span class="c1"># 坐标轴线宽度</span>
+    <span class="s1">&#39;animation.html&#39;</span><span class="p">:</span> <span class="s1">&#39;html5&#39;</span>  <span class="c1"># 动画输出格式</span>
+<span class="p">}</span>
+
+<span class="c1"># 更新绘图参数</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># 更新最大打开警告参数为0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.max_open_warning&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>设置数据路径<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>使用来自大麦哲伦云（LMC）中一个已知星形成区域的ALMA 13CO数据，该区域拥有近150个大质量年轻恒星（YSOs）。</p>
+<section id="gb">
+<h3>请注意，数据文件大小约为2 GB，因此下载时间将根据您的互联网速度而有所不同。您也可以直接使用下面的链接进行下载。<a class="headerlink" href="#gb" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于文件和目录操作</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>  <span class="c1"># 导入urllib.request模块，用于下载文件</span>
+
+<span class="n">data_file</span> <span class="o">=</span> <span class="s1">&#39;./LMC_13CO.fits&#39;</span>  <span class="c1"># 定义数据文件的路径</span>
+
+<span class="c1"># 检查文件是否存在</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;LMC_13CO.fits&quot;</span><span class="p">):</span>  <span class="c1"># 如果文件存在</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LMC_13CO.fits Already Exists&quot;</span><span class="p">)</span>  <span class="c1"># 打印文件已存在的消息</span>
+<span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果文件不存在</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading LMC_13CO.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印正在下载的消息</span>
+
+    <span class="c1"># 定义文件下载的URL</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/MIRI_IFU_YSOs_in_the_LMC/LMC_13CO.fits&#39;</span>
+
+    <span class="c1"># 下载文件并保存到指定路径</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;./LMC_13CO.fits&#39;</span><span class="p">)</span>  <span class="c1"># 从URL下载文件并保存为LMC_13CO.fits</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>加载并显示数据立方体<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从指定的文件中读取光谱立方体数据，hdu=1表示读取第一个数据单元</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">SpectralCube</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">hdu</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+
+<span class="c1"># 打印光谱立方体的基本信息</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>修剪立方体<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>不确定JWST MRS立方体的情况，但在ALMA中，立方体的开始和结束部分数据质量较差，因此如果需要，可以裁剪立方体以减小其大小。在这个例子中，我使用了整个立方体。</p>
+<p>如果您想将立方体裁剪到特定的光谱范围，请执行以下操作：</p>
+<p>subcube = cube.spectral_slab(240 * (u.m/u.s), 265 * (u.m/u.s))</p>
+<p>cube = subcube</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 允许进行大规模操作</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">allow_huge_operations</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># 获取立方体的最小子立方体</span>
+<span class="n">cmin</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">minimal_subcube</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d2d">
+<h2>从3D立方体生成2D图像，方法可以是平均值、中央値或总和<a class="headerlink" href="#d2d" title="Link to this heading">#</a></h2>
+<p>这一步是为了寻找点源。在定位点源后，您将应用孔径光度法（aperture photometry）来提取光谱。</p>
+<p><strong>代码可能需要一些时间</strong>，因为数据立方体很大。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cont_img</span> <span class="o">=</span> <span class="n">cmin</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 对cmin数组在第0轴（行）上进行求和，生成一个新的二维图像cont_img</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h2>绘制图像以进行视觉检查<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>这是为了查看您是否能看到任何发射，并确保您拥有正确的数据立方体。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>  <span class="c1"># 创建一个新的图形对象</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># 显示图像数据，cont_img.value包含图像的像素值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 自动调整子图参数，以给图形的各个部分留出足够的空间</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wcs">
+<h2>绘制带有WCS坐标的合成图像并保存图形<a class="headerlink" href="#wcs" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;13CO&#39;</span>  <span class="c1"># 定义变量name，赋值为&#39;13CO&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F</span> <span class="o">=</span> <span class="n">aplpy</span><span class="o">.</span><span class="n">FITSFigure</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">hdu</span><span class="p">,</span> <span class="n">north</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 创建FITSFigure对象，设置北方向</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">show_colorscale</span><span class="p">()</span>  <span class="c1"># 显示颜色比例尺</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>  <span class="c1"># 添加标签，位置相对，字体大小和加粗设置</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">axis_labels</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>  <span class="c1"># 设置坐标轴标签的字体大小</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">tick_labels</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">)</span>  <span class="c1"># 设置刻度标签的字体大小和压缩样式</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_images</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>  <span class="c1"># 保存图像为PDF格式，设置分辨率为300 dpi</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="photutils">
+<h2>使用 photutils 识别所有点源<a class="headerlink" href="#photutils" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 空数组用于存储值</span>
+<span class="n">name_val</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储对象名称</span>
+<span class="n">source_val</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储源值</span>
+<span class="n">ra_val</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储右升角值</span>
+<span class="n">dec_val</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储 declination 值</span>
+
+<span class="c1"># 计算累积图像的均值、中位数和标准差</span>
+<span class="n">mean</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">sigma_clipped_stats</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># 使用 sigma 裁剪统计方法计算均值、中位数和标准差</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h2>获取所有点源的列表<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>请注意，通常使用 <code class="docutils literal notranslate"><span class="pre">3*std</span></code> 来寻找高于噪声水平的源，但我这样做时发现有 247 个点源。因此，我将其调整为 <code class="docutils literal notranslate"><span class="pre">6*std</span></code>，以查看 4 个点源并确保此步骤有效。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建DAOStarFinder对象，设置全宽半最大值（fwhm）和阈值</span>
+<span class="n">daofind</span> <span class="o">=</span> <span class="n">DAOStarFinder</span><span class="p">(</span><span class="n">fwhm</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">6</span><span class="o">*</span><span class="n">std</span><span class="p">)</span>
+
+<span class="c1"># 在减去中位数后的图像中寻找星源</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="n">daofind</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">median</span><span class="p">)</span> 
+
+<span class="c1"># 打印场中源的数量</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Number of sources in field: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h2>提取并绘制所有源的光谱<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p><strong>此步骤可能需要一些时间来运行。</strong></p>
+<p>进行视觉检查，以确认所有点源是否已被识别，尽管最终结果应该是不需要这样做。此外，作为科学用户，我希望算法能够从数学上告诉我什么是点源，什么不是。应该有一些标准来区分点源和扩展源，用户不应该需要进行视觉检查。在这四个源中，有两个是噪声光谱，因为它们检测到了ALMA立方体边界上的噪声峰值，这是ALMA数据立方体中常见的现象。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使表格与RA和DEC坐标一致</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果sources列表不为空</span>
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">sources</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>  <span class="c1"># 遍历sources的每一列</span>
+
+        <span class="n">sources</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%.8g</span><span class="s1">&#39;</span>  <span class="c1"># 设置每列的显示格式为8位有效数字</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>  <span class="c1"># 打印sources表格</span>
+
+    <span class="c1"># 将xcentroid和ycentroid转换为RA和DEC坐标</span>
+
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">]])</span>  <span class="c1"># 创建包含x和y中心的表格</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">WCS</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>  <span class="c1"># 创建WCS对象以转换坐标</span>
+
+    <span class="n">radec_lst</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">pixel_to_world</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">])</span>  <span class="c1"># 将像素坐标转换为世界坐标</span>
+
+    <span class="c1"># 使用圆形光圈提取点源的光谱</span>
+
+    <span class="k">for</span> <span class="n">countS</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sources</span><span class="p">):</span>  <span class="c1"># 遍历每个源</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">radec_lst</span><span class="p">[</span><span class="n">countS</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="s1">&#39;hmsdms&#39;</span><span class="p">))</span>  <span class="c1"># 以hms dms格式打印RA和Dec值</span>
+
+        <span class="n">name_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># 将名称添加到name_val列表</span>
+
+        <span class="n">source_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">countS</span><span class="p">)</span>  <span class="c1"># 将源索引添加到source_val列表</span>
+
+        <span class="n">ra_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radec_lst</span><span class="p">[</span><span class="n">countS</span><span class="p">]</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>  <span class="c1"># 将RA值（度）添加到ra_val列表</span>
+
+        <span class="n">dec_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radec_lst</span><span class="p">[</span><span class="n">countS</span><span class="p">]</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>  <span class="c1"># 将DEC值（度）添加到dec_val列表</span>
+
+        <span class="c1"># 帧的大小</span>
+
+        <span class="n">ysize_pix</span> <span class="o">=</span> <span class="n">cmin</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 获取y轴像素大小</span>
+
+        <span class="n">xsize_pix</span> <span class="o">=</span> <span class="n">cmin</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># 获取x轴像素大小</span>
+
+        <span class="c1"># 为源设置一些质心像素</span>
+
+        <span class="n">ycent_pix</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">][</span><span class="n">countS</span><span class="p">]</span>  <span class="c1"># 获取y中心像素</span>
+
+        <span class="n">xcent_pix</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">][</span><span class="n">countS</span><span class="p">]</span>  <span class="c1"># 获取x中心像素</span>
+
+        <span class="c1"># 为源创建一个光圈半径</span>
+
+        <span class="c1"># 这可以是用户根据自己的科学专业知识输入的内容。</span>
+
+        <span class="n">apertureRad_pix</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 设置光圈半径为2像素</span>
+
+        <span class="c1"># 为光圈创建一个掩膜数组</span>
+
+        <span class="n">yy</span><span class="p">,</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">([</span><span class="n">ysize_pix</span><span class="p">,</span> <span class="n">xsize_pix</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 检查ycentpix和xcentpix的顺序是否正确</span>
+
+        <span class="n">radius</span> <span class="o">=</span> <span class="p">((</span><span class="n">yy</span> <span class="o">-</span> <span class="n">ycent_pix</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">xx</span> <span class="o">-</span> <span class="n">xcent_pix</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>  <span class="c1"># 在帧中创建一个圆形</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">&lt;=</span> <span class="n">apertureRad_pix</span>  <span class="c1"># 选择光圈半径内的像素</span>
+
+        <span class="n">maskedcube</span> <span class="o">=</span> <span class="n">cmin</span><span class="o">.</span><span class="n">with_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>  <span class="c1"># 创建一个掩膜立方体</span>
+
+        <span class="n">pixInAp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 计算光圈内的像素数量</span>
+
+        <span class="n">spectrum</span> <span class="o">=</span> <span class="n">maskedcube</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 从仅包含光圈的区域提取光谱</span>
+
+        <span class="n">noisespectrum</span> <span class="o">=</span> <span class="n">maskedcube</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 提取源的噪声光谱</span>
+
+        <span class="c1"># 从背景测量光谱。使用围绕源的光环。</span>
+
+        <span class="n">an_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">radius</span> <span class="o">&gt;</span> <span class="n">apertureRad_pix</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">radius</span> <span class="o">&lt;=</span> <span class="n">apertureRad_pix</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 选择光环内的像素</span>
+
+        <span class="n">an_maskedcube</span> <span class="o">=</span> <span class="n">cmin</span><span class="o">.</span><span class="n">with_mask</span><span class="p">(</span><span class="n">an_mask</span><span class="p">)</span>  <span class="c1"># 创建一个掩膜立方体</span>
+
+        <span class="c1"># 绘制从圆形光圈提取的光谱：通过求和提取</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># 创建一个图形窗口</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">maskedcube</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Source&#39;</span><span class="p">)</span>  <span class="c1"># 绘制源光谱</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为频率</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Kelvin&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为开尔文</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>  <span class="c1"># 在图形上方添加源名称</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="n">radec_lst</span><span class="p">[</span><span class="n">countS</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="s1">&#39;decimal&#39;</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>  <span class="c1"># 添加RA和DEC值</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>  <span class="c1"># 添加图例</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整布局以避免重叠</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭图形</span>
+
+        <span class="n">positions_pix</span> <span class="o">=</span> <span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">])</span>  <span class="c1"># 获取像素位置</span>
+
+        <span class="n">apertures</span> <span class="o">=</span> <span class="n">CircularAperture</span><span class="p">([</span><span class="n">positions_pix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">countS</span><span class="p">],</span> <span class="n">positions_pix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">countS</span><span class="p">]],</span> <span class="n">r</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>  <span class="c1"># 创建圆形光圈对象</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>  <span class="c1"># 创建新图形</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建1行2列的子图，选择第一个子图</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示背景图像</span>
+
+        <span class="n">apertures</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># 绘制光圈</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 选择第二个子图</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cont_img</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示背景图像</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整布局以避免重叠</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h2>制作提取源的表格<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个包含天体信息的表格，包含名称、源编号、右升角和 declination</span>
+<span class="n">sourceExtSpecTab</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="n">name_val</span><span class="p">,</span> <span class="n">source_val</span><span class="p">,</span> <span class="n">ra_val</span><span class="p">,</span> <span class="n">dec_val</span><span class="p">],</span> 
+
+                         <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;source_no&quot;</span><span class="p">,</span> <span class="s2">&quot;ra&quot;</span><span class="p">,</span> <span class="s2">&quot;dec&quot;</span><span class="p">))</span>
+
+<span class="c1"># 打印表格内容</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sourceExtSpecTab</span><span class="p">)</span>   
+
+<span class="c1"># 生成输出文件的完整路径，文件名为 &#39;YSOsourcesSpec_list.csv&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_spectra</span><span class="p">,</span> <span class="s1">&#39;YSOsourcesSpec_list.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 将表格数据写入 CSV 文件，允许覆盖同名文件</span>
+<span class="n">ascii</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sourceExtSpecTab</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_spectra</span><span class="p">,</span> <span class="s1">&#39;YSOsourcesSpec_list.csv&#39;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="irs-yso">
+<h2>从此使用斯皮策IRS YSO光谱进行科学测试案例<a class="headerlink" href="#irs-yso" title="Link to this heading">#</a></h2>
+<p>(1) 在光谱中寻找谱线。来自H₂O、NH₃、CH₃OH、HCOOH和H₂CO的5-7微米范围内的冰特征难以识别，因为与多环芳烃（PAH）存在混淆。15.2微米的CO₂冰吸收特征更易于识别。更为演化的年轻恒星对象（YSOs）将在6.2微米、7.7微米、8.6微米、11.3微米和12.7微米处具有PAH和精细结构特征。但PAH和精细结构可能意味着一个更为演化的H II区，而不是一个嵌入的YSO。YSOs预计会有H₂发射。光化学区（PDRs）和冲击波在YSO环境附近都会导致H₂发射。</p>
+<p>(2) 更详细地观察冰特征、PAH特征和硅酸盐特征。</p>
+<p>(3) 识别YSOs。</p>
+<p>用户可以决定要检查哪个YSO，YSO1、YSO2或YSO3，并相应地注释掉代码。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置 YSO1 数据的路径</span>
+<span class="n">YSO1</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/MIRI_IFU_YSOs_in_the_LMC/yso1_108_spec.txt&#39;</span>
+
+<span class="c1"># 设置 YSO2 数据的路径</span>
+<span class="c1"># YSO2 = &#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/MIRI_IFU_YSOs_in_the_LMC/yso2_102_spec.txt&#39;</span>
+
+<span class="c1"># 设置 YSO3 数据的路径</span>
+<span class="c1"># YSO3 = &#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/MIRI_IFU_YSOs_in_the_LMC/yso3_4536_spec.txt&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在这一部分中也选择 YSO1、YSO2 或 YSO3。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 读取光谱数据并进行初步可视化检查</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">YSO1</span><span class="p">)</span>  <span class="c1"># 从YSO1文件中读取数据</span>
+
+<span class="c1"># data = ascii.read(YSO2)  # 从YSO2文件中读取数据（注释掉）</span>
+<span class="c1"># data = ascii.read(YSO3)  # 从YSO3文件中读取数据（注释掉）</span>
+
+<span class="c1"># 检查数据的列名，如果第一列名为&#39;col1&#39;</span>
+<span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">colnames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;col1&#39;</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;wave_mum&#39;</span>  <span class="c1"># 将第一列重命名为&#39;wavelength_mum&#39;</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cSpec_Jy&#39;</span>   <span class="c1"># 将第二列重命名为&#39;cSpec_Jy&#39;</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;col3&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;errFl_Jy&#39;</span>   <span class="c1"># 将第三列重命名为&#39;errFl_Jy&#39;</span>
+
+<span class="c1"># 将数据转换为适当的单位</span>
+<span class="n">wav</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;wave_mum&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 波长：微米</span>
+<span class="n">fl</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cSpec_Jy&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Jy</span>        <span class="c1"># 流量密度：Jy</span>
+<span class="n">efl</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;errFl_Jy&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Jy</span>       <span class="c1"># 流量误差：Jy</span>
+
+<span class="c1"># 创建一个1D光谱对象</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wav</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="n">fl</span><span class="p">,</span> <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">efl</span><span class="p">))</span>  
+
+<span class="c1"># 创建一个图形对象</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;spectrum&#39;</span><span class="p">)</span>  <span class="c1"># 绘制光谱曲线</span>
+
+<span class="c1"># 设置坐标轴标签</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Flux ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置流量单位标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>  <span class="c1"># 添加图例</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整布局以适应图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h2>拟合通用连续谱<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>在拟合一个通用的连续谱（continuum）时，似乎在5微米到7微米以及17微米到25微米的范围内，连续谱被高估了，而没有排除任何波长。这导致了发射线（emission lines）和吸收线（absorption lines）的错误识别。相反，我在5-13微米范围内拟合了一个连续谱，并在13-35微米范围内拟合了另一个连续谱。这提供了一个更好的连续谱减去后的光谱（continuum subtracted spectrum）。但这意味着我需要跟踪两份不同的吸收和发射特征的线列表（line lists）。如果我能拟合一个连续谱，那将更好。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 计算信噪比</span>
+<span class="n">sig2noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">snr</span><span class="p">(</span><span class="n">spec</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算并四舍五入信噪比</span>
+
+<span class="c1"># 为排除几个谱线，拟合波长大于13微米的一个连续谱</span>
+<span class="n">to_exclude_1</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">,</span> <span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">,</span> <span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">]</span>  <span class="c1"># 定义要排除的谱线/区域</span>
+<span class="n">exclude_region_1</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="n">to_exclude_1</span><span class="p">)</span>  <span class="c1"># 创建一个specutils区域</span>
+
+<span class="c1"># 为排除硅酸盐吸收特征，拟合波长小于13微米的另一个连续谱</span>
+<span class="n">to_exclude_2</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">,</span> <span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">]</span>  <span class="c1"># 定义要排除的谱线/区域</span>
+<span class="n">exclude_region_2</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="n">to_exclude_2</span><span class="p">)</span>  <span class="c1"># 创建一个specutils区域</span>
+
+<span class="n">continuum_model_1</span> <span class="o">=</span> <span class="n">fit_generic_continuum</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">exclude_regions</span><span class="o">=</span><span class="n">exclude_region_1</span><span class="p">)</span>  <span class="c1"># 生成第一个连续谱模型</span>
+<span class="n">continuum_model_2</span> <span class="o">=</span> <span class="n">fit_generic_continuum</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">exclude_regions</span><span class="o">=</span><span class="n">exclude_region_2</span><span class="p">)</span>  <span class="c1"># 生成第二个连续谱模型</span>
+<span class="n">y_continuum_1</span> <span class="o">=</span> <span class="n">continuum_model_1</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">)</span>  <span class="c1"># 将第一个连续谱模型应用于1D光谱对象</span>
+<span class="n">y_continuum_2</span> <span class="o">=</span> <span class="n">continuum_model_2</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">)</span>  <span class="c1"># 将第二个连续谱模型应用于1D光谱对象</span>
+
+<span class="c1"># 生成去除连续谱和归一化的光谱。两者都需要用于后续分析。</span>
+<span class="n">spec_norm_2</span> <span class="o">=</span> <span class="n">spec</span> <span class="o">/</span> <span class="n">y_continuum_2</span>  <span class="c1"># 归一化光谱</span>
+
+<span class="n">count_axis</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 初始化计数轴</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">:</span>  <span class="c1"># 遍历光谱轴</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">13.0</span><span class="p">:</span>  <span class="c1"># 如果波长小于13微米</span>
+        <span class="n">count_axis</span> <span class="o">=</span> <span class="n">count_axis</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 计数器加一</span>
+
+<span class="c1"># 将变量赋值以提高可读性</span>
+<span class="n">spec_contsub_1</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="n">count_axis</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">)]</span> <span class="o">-</span> <span class="n">y_continuum_1</span><span class="p">[</span><span class="n">count_axis</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">)]</span>  <span class="c1"># 去除连续谱1</span>
+<span class="n">spec_contsub_2</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">count_axis</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_continuum_2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">count_axis</span><span class="p">]</span>  <span class="c1"># 去除连续谱2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制连续谱和光谱</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个10x6英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Source&#39;</span><span class="p">)</span>  <span class="c1"># 绘制源光谱</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">y_continuum_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Continuum Fit to lambda &gt; 13 microns&#39;</span><span class="p">)</span>  <span class="c1"># 绘制波长大于13微米的连续谱拟合</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">y_continuum_2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Continuum Fit to lambda &lt; 13 microns&#39;</span><span class="p">)</span>  <span class="c1"># 绘制波长小于13微米的连续谱拟合</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置x轴标签为波长，并格式化单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Flux ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置y轴标签为通量，并格式化单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>  <span class="c1"># 添加图例，去掉边框，设置字体大小为中等</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 自动调整子图参数，使之填充整个图像区域</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭图形窗口</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制去除连续谱的光谱</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个10x6英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_contsub_1</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_contsub_1</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第一个去除连续谱的光谱，颜色为黑色</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_contsub_2</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_contsub_2</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第二个去除连续谱的光谱，颜色为黑色</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>  <span class="c1"># 绘制y=0的红色水平线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置x轴标签，显示波长单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Flux ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置y轴标签，显示通量单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图参数，使之填充整个图像区域</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭图形窗口</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h2>寻找发射线和吸收线<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>常见的年轻恒星对象（YSO）谱线包括PAH发射线、冰吸收线和硅酸盐吸收线。</p>
+<p>对于<code class="docutils literal notranslate"><span class="pre">find_lines_derivative()</span></code>函数，使用信噪比（SNR）阈值会比使用通量阈值更好。</p>
+<p>用户需要根据他们正在检查的YSO（YSO1、YSO2或YSO3）来移除相应的注释。如果使用的是SNR阈值，那么这个过程可以更自动化一些。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 在连续体减去的光谱中查找发射线和吸收线。</span>
+
+<span class="c1"># 这将打印出两个发射线列表和两个吸收线列表。</span>
+
+<span class="k">if</span> <span class="n">sig2noise</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># 如果信噪比大于10</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">find_lines_derivative</span><span class="p">(</span><span class="n">spec_contsub_1</span><span class="p">,</span> <span class="n">flux_threshold</span><span class="o">=</span><span class="mf">0.020</span><span class="p">)</span>  <span class="c1"># 查找YSO 1的发射和吸收线</span>
+
+    <span class="c1"># lines = find_lines_derivative(spec_contsub_1, flux_threshold=0.03)  # 查找YSO 2的发射和吸收线</span>
+
+    <span class="c1"># lines = find_lines_derivative(spec_contsub_1, flux_threshold=0.02)  # 查找YSO 3的发射和吸收线</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果找到的线条数量大于0</span>
+
+        <span class="n">emissionlines_1</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;line_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;emission&#39;</span><span class="p">]</span>  <span class="c1"># 获取发射线列表</span>
+
+        <span class="n">abslines_1</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;line_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;absorption&#39;</span><span class="p">]</span>  <span class="c1"># 获取吸收线列表</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of emission lines found:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">emissionlines_1</span><span class="p">))</span>  <span class="c1"># 打印找到的发射线数量</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of absorption lines found:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">abslines_1</span><span class="p">))</span>  <span class="c1"># 打印找到的吸收线数量</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果没有找到线条</span>
+
+        <span class="n">emissionlines_1</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化发射线列表为空</span>
+
+        <span class="n">abslines_1</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化吸收线列表为空</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No emission lines found!&quot;</span><span class="p">)</span>  <span class="c1"># 打印未找到发射线的消息</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">find_lines_derivative</span><span class="p">(</span><span class="n">spec_contsub_2</span><span class="p">,</span> <span class="n">flux_threshold</span><span class="o">=</span><span class="mf">0.020</span><span class="p">)</span>  <span class="c1"># 查找YSO 1的发射和吸收线</span>
+
+    <span class="c1"># lines = find_lines_derivative(spec_contsub_2, flux_threshold=0.03)  # 查找YSO 2的发射和吸收线</span>
+
+    <span class="c1"># lines = find_lines_derivative(spec_contsub_2, flux_threshold=0.02)  # 查找YSO 3的发射和吸收线</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果找到的线条数量大于0</span>
+
+        <span class="n">emissionlines_2</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;line_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;emission&#39;</span><span class="p">]</span>  <span class="c1"># 获取发射线列表</span>
+
+        <span class="n">abslines_2</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;line_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;absorption&#39;</span><span class="p">]</span>  <span class="c1"># 获取吸收线列表</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of emission lines found:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">emissionlines_2</span><span class="p">))</span>  <span class="c1"># 打印找到的发射线数量</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of absorption lines found:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">abslines_2</span><span class="p">))</span>  <span class="c1"># 打印找到的吸收线数量</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果没有找到线条</span>
+
+        <span class="n">emissionlines_2</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化发射线列表为空</span>
+
+        <span class="n">abslines_2</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化吸收线列表为空</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No emission lines found!&quot;</span><span class="p">)</span>  <span class="c1"># 打印未找到发射线的消息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 提取大于13微米的发射线</span>
+
+<span class="k">if</span> <span class="n">emissionlines_1</span><span class="p">:</span>  <span class="c1"># 如果存在发射线1</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_center&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 高斯线中心初始化为0微米</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_amp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">jansky</span>  <span class="c1"># 高斯线幅度初始化为0焦耳/秒/平方米</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_stddev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 高斯线标准差初始化为0微米</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_FWHM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 高斯线全宽半高初始化为0微米</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1e-20</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">W</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 高斯线面积初始化为1e-20的对数值（瓦特/平方米）</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;no_AltRestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 可能的线数量初始化为0</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;RestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 最近实验测量线的静止波长初始化为0</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;diff_ft_wav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 初始线波长估计与拟合高斯之间的差异初始化为0</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;line_suspect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 如果波长位置差异较大则设置为1，初始化为0</span>
+
+    <span class="n">emissionlines_1</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;                 &quot;</span>  <span class="c1"># 用于存储线名称的字符串初始化</span>
+
+    <span class="c1"># 遍历光谱中找到的所有发射线</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">emlines</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">emissionlines_1</span><span class="p">):</span>  <span class="c1"># 对于每个发射线</span>
+
+        <span class="c1"># 查看原始平滑光谱中找到的线周围的区域</span>
+
+        <span class="n">sw_line</span> <span class="o">=</span> <span class="n">emissionlines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.001</span>  <span class="c1"># 线的下边界</span>
+
+        <span class="n">lw_line</span> <span class="o">=</span> <span class="n">emissionlines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.001</span>  <span class="c1"># 线的上边界</span>
+
+        <span class="n">line_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="n">sw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">lw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>  <span class="c1"># 创建光谱区域</span>
+
+        <span class="c1"># 线中心变量</span>
+
+        <span class="n">line_cnr</span> <span class="o">=</span> <span class="n">emissionlines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>  <span class="c1"># 获取当前线的中心</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">emissionlines_1</span><span class="p">)</span>  <span class="c1"># 打印发射线1的信息</span>
+
+<span class="c1"># 提取小于13微米的发射线</span>
+
+<span class="k">if</span> <span class="n">emissionlines_2</span><span class="p">:</span>  <span class="c1"># 如果存在发射线2</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_center&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 高斯线中心初始化为0微米</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_amp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">jansky</span>  <span class="c1"># 高斯线幅度初始化为0焦耳/秒/平方米</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_stddev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 高斯线标准差初始化为0微米</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_FWHM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 高斯线全宽半高初始化为0微米</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1e-20</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">W</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 高斯线面积初始化为1e-20的对数值（瓦特/平方米）</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;no_AltRestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 可能的线数量初始化为0</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;RestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 最近实验测量线的静止波长初始化为0</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;diff_ft_wav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 初始线波长估计与拟合高斯之间的差异初始化为0</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;line_suspect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 如果波长位置差异较大则设置为1，初始化为0</span>
+
+    <span class="n">emissionlines_2</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;                 &quot;</span>  <span class="c1"># 用于存储线名称的字符串初始化</span>
+
+    <span class="c1"># 遍历光谱中找到的所有发射线</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">emlines2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">emissionlines_2</span><span class="p">):</span>  <span class="c1"># 对于每个发射线</span>
+
+        <span class="c1"># 查看原始平滑光谱中找到的线周围的区域</span>
+
+        <span class="n">sw_line</span> <span class="o">=</span> <span class="n">emissionlines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.01</span>  <span class="c1"># 线的下边界</span>
+
+        <span class="n">lw_line</span> <span class="o">=</span> <span class="n">emissionlines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.01</span>  <span class="c1"># 线的上边界</span>
+
+        <span class="n">line_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="n">sw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">lw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>  <span class="c1"># 创建光谱区域</span>
+
+        <span class="c1"># 线中心变量</span>
+
+        <span class="n">line_cnr</span> <span class="o">=</span> <span class="n">emissionlines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>  <span class="c1"># 获取当前线的中心</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">emissionlines_2</span><span class="p">)</span>  <span class="c1"># 打印发射线2的信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 提取大于13微米的吸收线</span>
+
+<span class="k">if</span> <span class="n">abslines_1</span><span class="p">:</span>  <span class="c1"># 如果存在吸收线1</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_center&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 初始化高斯线中心为0微米</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_amp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">jansky</span>  <span class="c1"># 初始化高斯线幅度为0焦耳/秒/平方米/赫兹</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_stddev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 初始化高斯线标准差为0微米</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_FWHM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 初始化高斯线全宽半高为0微米</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;gauss_line_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1e-20</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">W</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 初始化高斯线面积为-20的对数值</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;no_AltRestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 可能的特征线数量初始化为0</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;RestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 最近实验测量线的静止波长初始化为0</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;diff_ft_wav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 初始线波长估计与拟合高斯之间的差异初始化为0</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;line_suspect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 如果波长位置差异较大则设置为1，初始化为0</span>
+
+    <span class="n">abslines_1</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;                 &quot;</span>  <span class="c1"># 用于存储线名称的字符串初始化</span>
+
+    <span class="c1"># 遍历光谱中找到的所有吸收线</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">absorplines</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">abslines_1</span><span class="p">):</span>  <span class="c1"># 使用enumerate获取索引和吸收线</span>
+
+        <span class="c1"># 查看原始平滑光谱中找到的线周围的区域</span>
+        <span class="n">sw_line</span> <span class="o">=</span> <span class="n">abslines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.01</span>  <span class="c1"># 计算下边界</span>
+        <span class="n">lw_line</span> <span class="o">=</span> <span class="n">abslines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.01</span>  <span class="c1"># 计算上边界</span>
+        <span class="n">line_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="n">sw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">lw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>  <span class="c1"># 创建光谱区域对象</span>
+
+        <span class="c1"># 线中心的变量</span>
+        <span class="n">line_cnr_abs</span> <span class="o">=</span> <span class="n">abslines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>  <span class="c1"># 获取当前吸收线的中心</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">abslines_1</span><span class="p">)</span>  <span class="c1"># 打印吸收线1的信息</span>
+
+<span class="c1"># 提取小于13微米的吸收线</span>
+
+<span class="k">if</span> <span class="n">abslines_2</span><span class="p">:</span>  <span class="c1"># 如果存在吸收线2</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_center&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 初始化高斯线中心为0微米</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_amp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">jansky</span>  <span class="c1"># 初始化高斯线幅度为0焦耳/秒/平方米/赫兹</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_stddev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 初始化高斯线标准差为0微米</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_FWHM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 初始化高斯线全宽半高为0微米</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;gauss_line_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1e-20</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">W</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 初始化高斯线面积为-20的对数值</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;no_AltRestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 可能的特征线数量初始化为0</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;RestWav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 最近实验测量线的静止波长初始化为0</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;diff_ft_wav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># 初始线波长估计与拟合高斯之间的差异初始化为0</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;line_suspect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 如果波长位置差异较大则设置为1，初始化为0</span>
+
+    <span class="n">abslines_2</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;                 &quot;</span>  <span class="c1"># 用于存储线名称的字符串初始化</span>
+
+    <span class="c1"># 遍历光谱中找到的所有吸收线</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">absorplines2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">abslines_2</span><span class="p">):</span>  <span class="c1"># 使用enumerate获取索引和吸收线</span>
+
+        <span class="c1"># 查看原始平滑光谱中找到的线周围的区域</span>
+        <span class="n">sw_line</span> <span class="o">=</span> <span class="n">abslines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.01</span>  <span class="c1"># 计算下边界</span>
+        <span class="n">lw_line</span> <span class="o">=</span> <span class="n">abslines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.01</span>  <span class="c1"># 计算上边界</span>
+        <span class="n">line_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="n">sw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">lw_line</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>  <span class="c1"># 创建光谱区域对象</span>
+
+        <span class="c1"># 线中心的变量</span>
+        <span class="n">line_cnr_abs</span> <span class="o">=</span> <span class="n">abslines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>  <span class="c1"># 获取当前吸收线的中心</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">abslines_2</span><span class="p">)</span>  <span class="c1"># 打印吸收线2的信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h2>识别发射线和吸收线<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>PAH发射特征：6.2微米，7.7微米，8.6微米，11.3微米，12.0微米，12.7微米，14.2微米，16.2微米</p>
+<p>硅酸盐吸收特征：10.0 微米，18.0 微米，23.0 微米</p>
+<p>CO2冰的吸收特征：15.2微米</p>
+<p>其他冰特征：CO（4.67微米）、H2O + HCOOH（6微米）、CH3OH（6.89微米）、CH4（7.7微米）</p>
+<p>如果这8条发射线和8条吸收线都不存在，那么这就不是一个年轻恒星对象（YSO）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 首次查看PAH发射特征</span>
+
+<span class="n">pah_emission</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.2</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">,</span> <span class="mf">8.6</span><span class="p">,</span> <span class="mf">11.3</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.7</span><span class="p">,</span> <span class="mf">14.2</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 已知YSO PAH发射线的列表</span>
+
+<span class="n">len_pah_list</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pah_emission</span><span class="p">)</span>  <span class="c1"># PAH发射线的数量</span>
+
+<span class="n">pah_emission_detected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储检测到的发射线的空列表</span>
+
+<span class="n">line_cnr_list_1</span> <span class="o">=</span> <span class="n">emissionlines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">]</span>  <span class="c1"># 从第一个光谱提取的发射线列表</span>
+
+<span class="n">len_line_list</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cnr_list_1</span><span class="p">)</span>  <span class="c1"># 第一个光谱的发射线数量</span>
+
+<span class="n">line_cnr_list_2</span> <span class="o">=</span> <span class="n">emissionlines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">]</span>  <span class="c1"># 从第二个光谱提取的发射线列表</span>
+
+<span class="n">len_line_list2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cnr_list_2</span><span class="p">)</span>  <span class="c1"># 第二个光谱的发射线数量</span>
+
+<span class="n">count_pah1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 计数第一个光谱中存在多少PAH发射线</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_pah_list</span><span class="p">):</span>  <span class="c1"># 遍历所有PAH发射线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list</span><span class="p">):</span>  <span class="c1"># 遍历第一个光谱中的发射线</span>
+
+        <span class="c1"># 检查PAH发射线是否在发射线的±0.15微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.15</span> <span class="o">&lt;</span> <span class="n">pah_emission</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">:</span>
+            <span class="n">count_pah1</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 如果找到匹配，计数加一</span>
+
+<span class="n">count_pah2</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 计数第二个光谱中存在多少PAH发射线</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_pah_list</span><span class="p">):</span>  <span class="c1"># 遍历所有PAH发射线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list2</span><span class="p">):</span>  <span class="c1"># 遍历第二个光谱中的发射线</span>
+
+        <span class="c1"># 检查PAH发射线是否在发射线的±0.15微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.15</span> <span class="o">&lt;</span> <span class="n">pah_emission</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">:</span>
+            <span class="n">count_pah2</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 如果找到匹配，计数加一</span>
+
+<span class="n">pah_emission_detected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储检测到的发射线的空列表</span>
+
+<span class="n">count_pah</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 重置计数</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_pah_list</span><span class="p">):</span>  <span class="c1"># 遍历所有PAH发射线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list</span><span class="p">):</span>  <span class="c1"># 遍历第一个光谱中的发射线</span>
+
+        <span class="c1"># 检查PAH发射线是否在发射线的±0.15微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.15</span> <span class="o">&lt;</span> <span class="n">pah_emission</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">:</span>
+            <span class="n">pah_emission_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>  <span class="c1"># 将检测到的发射线添加到列表中</span>
+            <span class="n">count_pah</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 计数加一</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list2</span><span class="p">):</span>  <span class="c1"># 遍历第二个光谱中的发射线</span>
+
+        <span class="c1"># 检查PAH发射线是否在发射线的±0.15微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.15</span> <span class="o">&lt;</span> <span class="n">pah_emission</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">:</span>
+            <span class="n">pah_emission_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>  <span class="c1"># 将检测到的发射线添加到列表中</span>
+            <span class="n">count_pah</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 计数加一</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count_pah</span><span class="si">}</span><span class="s2"> PAH emission lines detected in spectrum&quot;</span><span class="p">)</span>  <span class="c1"># 输出检测到的PAH发射线数量</span>
+
+<span class="k">if</span> <span class="n">count_pah</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果检测到的PAH发射线数量大于0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pah_emission_detected</span><span class="p">)</span>  <span class="c1"># 输出检测到的PAH发射线</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 查找硅酸盐吸收特征</span>
+
+<span class="n">sil_absorption</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 已知的YSO硅酸盐吸收线列表</span>
+
+<span class="n">len_sil_list</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sil_absorption</span><span class="p">)</span>  <span class="c1"># 硅酸盐吸收线的数量</span>
+
+<span class="n">sil_absorption_detected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储检测到的线的空数组</span>
+
+<span class="n">line_cnr_list_1</span> <span class="o">=</span> <span class="n">abslines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">]</span>  <span class="c1"># 从第一个光谱提取的吸收线列表</span>
+
+<span class="n">len_line_list</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cnr_list_1</span><span class="p">)</span>  <span class="c1"># 第一个光谱的吸收线数量</span>
+
+<span class="n">line_cnr_list_2</span> <span class="o">=</span> <span class="n">abslines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">]</span>  <span class="c1"># 从第二个光谱提取的吸收线列表</span>
+
+<span class="n">len_line_list2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cnr_list_2</span><span class="p">)</span>  <span class="c1"># 第二个光谱的吸收线数量</span>
+
+<span class="n">count_sil1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 计数第一个光谱中存在的硅酸盐吸收线数量</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_sil_list</span><span class="p">):</span>  <span class="c1"># 遍历所有硅酸盐吸收线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list</span><span class="p">):</span>  <span class="c1"># 遍历第一个光谱中的吸收线</span>
+
+        <span class="k">if</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">&lt;</span> <span class="n">sil_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">:</span>  <span class="c1"># 检查吸收特征是否在允许范围内</span>
+
+            <span class="n">count_sil1</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 如果找到，计数加一</span>
+
+<span class="n">count_sil2</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 计数第二个光谱中存在的硅酸盐吸收线数量</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_sil_list</span><span class="p">):</span>  <span class="c1"># 遍历所有硅酸盐吸收线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list2</span><span class="p">):</span>  <span class="c1"># 遍历第二个光谱中的吸收线</span>
+
+        <span class="k">if</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">&lt;</span> <span class="n">sil_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">:</span>  <span class="c1"># 检查吸收特征是否在允许范围内</span>
+
+            <span class="n">count_sil2</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 如果找到，计数加一</span>
+
+            
+
+<span class="n">sil_absorption_detected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储检测到的线的空数组</span>
+
+<span class="n">count_sil</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 重置计数</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_sil_list</span><span class="p">):</span>  <span class="c1"># 遍历所有硅酸盐吸收线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list</span><span class="p">):</span>  <span class="c1"># 遍历第一个光谱中的吸收线</span>
+
+        <span class="k">if</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">&lt;</span> <span class="n">sil_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">:</span>  <span class="c1"># 检查吸收特征是否在允许范围内</span>
+
+            <span class="n">sil_absorption_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sil_absorption</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 将检测到的吸收线添加到列表中</span>
+
+            <span class="n">count_sil</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 计数加一</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list2</span><span class="p">):</span>  <span class="c1"># 遍历第二个光谱中的吸收线</span>
+
+        <span class="k">if</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">&lt;</span> <span class="n">sil_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">:</span>  <span class="c1"># 检查吸收特征是否在允许范围内</span>
+
+            <span class="n">sil_absorption_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sil_absorption</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 将检测到的吸收线添加到列表中</span>
+
+            <span class="n">count_sil</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 计数加一</span>
+
+            
+
+<span class="c1"># 移除相同线的多重检测</span>
+
+<span class="n">drop_dups_sil</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sil_absorption_detected</span><span class="p">))</span>  <span class="c1"># 使用集合去重</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">drop_dups_sil</span><span class="p">)</span><span class="si">}</span><span class="s2"> silicate absorption lines detected in spectrum&quot;</span><span class="p">)</span>  <span class="c1"># 打印检测到的硅酸盐吸收线数量</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 寻找冰的吸收特征</span>
+
+<span class="n">ice_absorption</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.67</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.9</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">,</span> <span class="mf">15.2</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">micron</span>  <span class="c1"># 已知的YSO冰吸收线列表</span>
+
+<span class="n">len_ice_list</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ice_absorption</span><span class="p">)</span>  <span class="c1"># 冰吸收线数量</span>
+
+<span class="n">ice_absorption_detected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 用于存储检测到的吸收线的空数组</span>
+
+<span class="n">line_cnr_list_1</span> <span class="o">=</span> <span class="n">abslines_1</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">]</span>  <span class="c1"># 从第一个光谱提取的吸收线列表</span>
+
+<span class="n">len_line_list</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cnr_list_1</span><span class="p">)</span>  <span class="c1"># 第一个光谱的吸收线数量</span>
+
+<span class="n">line_cnr_list_2</span> <span class="o">=</span> <span class="n">abslines_2</span><span class="p">[</span><span class="s2">&quot;line_center&quot;</span><span class="p">]</span>  <span class="c1"># 从第二个光谱提取的吸收线列表</span>
+
+<span class="n">len_line_list2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cnr_list_2</span><span class="p">)</span>  <span class="c1"># 第二个光谱的吸收线数量</span>
+
+<span class="n">count_ice1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 计数第一个光谱中存在多少冰吸收线</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_ice_list</span><span class="p">):</span>  <span class="c1"># 遍历所有冰吸收线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list</span><span class="p">):</span>  <span class="c1"># 遍历第一个光谱的吸收线</span>
+
+        <span class="c1"># 检查冰吸收线是否在光谱吸收线的±0.2微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">ice_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">:</span>   
+            <span class="n">count_ice1</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 如果找到匹配，计数加一</span>
+
+<span class="n">count_ice2</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 计数第二个光谱中存在多少冰吸收线</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_ice_list</span><span class="p">):</span>  <span class="c1"># 遍历所有冰吸收线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list2</span><span class="p">):</span>  <span class="c1"># 遍历第二个光谱的吸收线</span>
+
+        <span class="c1"># 检查冰吸收线是否在光谱吸收线的±0.2微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">ice_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">:</span> 
+            <span class="n">count_ice2</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 如果找到匹配，计数加一</span>
+            
+
+<span class="n">ice_absorption_detected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 用于存储检测到的吸收线的空数组</span>
+
+<span class="n">count_ice</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 重置计数</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_ice_list</span><span class="p">):</span>  <span class="c1"># 遍历所有冰吸收线</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list</span><span class="p">):</span>  <span class="c1"># 遍历第一个光谱的吸收线</span>
+
+        <span class="c1"># 检查冰吸收线是否在光谱吸收线的±0.2微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">ice_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">:</span>
+            <span class="n">ice_absorption_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ice_absorption</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 添加检测到的吸收线</span>
+            <span class="n">count_ice</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 计数加一</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len_line_list2</span><span class="p">):</span>  <span class="c1"># 遍历第二个光谱的吸收线</span>
+
+        <span class="c1"># 检查冰吸收线是否在光谱吸收线的±0.2微米范围内</span>
+        <span class="k">if</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">ice_absorption</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">line_cnr_list_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">:</span>
+            <span class="n">ice_absorption_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ice_absorption</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 添加检测到的吸收线</span>
+            <span class="n">count_ice</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 计数加一</span>
+             
+
+<span class="c1"># 移除重复检测的相同吸收线</span>
+
+<span class="n">drop_dups_ice</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ice_absorption_detected</span><span class="p">))</span>  <span class="c1"># 使用集合去重</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">drop_dups_ice</span><span class="p">)</span><span class="si">}</span><span class="s2"> ice absorption lines detected in spectrum&quot;</span><span class="p">)</span>  <span class="c1"># 打印检测到的冰吸收线数量</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="yso">
+<h2>根据检测到的谱线对YSO进行分类<a class="headerlink" href="#yso" title="Link to this heading">#</a></h2>
+<p>如果出现多个分类，用户需要仔细观察，YSO可能处于两者之间。例如，如果你得到“这是一个Class 2 YSO”和“这是一个Class 3 YSO”，那么原恒星可能处于这两个阶段之间的演化过程，成为一个Class 2/3 YSO。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如果没有检测到PAH、硅酸盐和冰的吸收线，则打印“这不是一个YSO”</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">pah_emission_detected</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sil_absorption_detected</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ice_absorption_detected</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is not a YSO.&quot;</span><span class="p">)</span>  <span class="c1"># 打印不是YSO的信息</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 否则，判断是否为YSO 1（最年轻、最嵌入的YSO，具有15.2微米的CO2吸收特征）</span>
+    <span class="k">if</span> <span class="n">drop_dups_ice</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">drop_dups_sil</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">count_ice</span><span class="p">):</span>  <span class="c1"># 遍历冰吸收检测的计数</span>
+            <span class="k">if</span> <span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">15.4</span> <span class="ow">and</span> <span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">15.0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a Class 1 YSO.&quot;</span><span class="p">)</span>  <span class="c1"># 打印YSO 1的分类</span>
+
+    <span class="c1"># 否则，判断是否为YSO 2（更成熟的YSO，具有其他冰吸收和硅酸盐吸收特征）</span>
+    <span class="k">if</span> <span class="n">drop_dups_sil</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a Class 2 YSO.&quot;</span><span class="p">)</span>  <span class="c1"># 打印YSO 2的分类</span>
+
+    <span class="k">elif</span> <span class="n">count_pah</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">drop_dups_ice</span><span class="p">:</span>  <span class="c1"># 如果没有PAH且有冰的特征</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">count_ice</span><span class="p">):</span>  <span class="c1"># 遍历冰吸收检测的计数</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">4.87</span> <span class="ow">and</span> <span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">4.47</span><span class="p">)</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">5.8</span> <span class="ow">and</span> <span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">6.2</span><span class="p">)</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">6.69</span> <span class="ow">and</span> <span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">7.09</span><span class="p">)</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">7.5</span> <span class="ow">and</span> <span class="n">ice_absorption_detected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">7.7</span><span class="p">)):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a Class 2 YSO.&quot;</span><span class="p">)</span>  <span class="c1"># 打印YSO 2的分类</span>
+
+    <span class="c1"># 否则，如果检测到PAH发射特征，则为YSO 3</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count_pah</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">drop_dups_ice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">count_pah</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">drop_dups_sil</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a Class 3 YSO.&quot;</span><span class="p">)</span>  <span class="c1"># 打印YSO 3的分类</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h2>绘制光谱并标记发射和吸收特征<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个图形，设置大小为10x6英寸</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_contsub_1</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_contsub_1</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第一个光谱的连续谱，颜色为黑色</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_contsub_2</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_contsub_2</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第二个光谱的连续谱，颜色为黑色</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置x轴标签为波长，单位为光谱轴的单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Flux ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置y轴标签为通量，单位为光谱的单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>  <span class="c1"># 绘制y=0的水平线，颜色为红色</span>
+
+<span class="n">max_emission_plot_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">spec_contsub_2</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>  <span class="c1"># 计算最大发射绘图y值，取第二个光谱通量的最大值的四倍</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pah_emission_detected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果检测到PAH发射线</span>
+    <span class="n">pah_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pah_emission_detected</span><span class="p">]</span>  <span class="c1"># 提取PAH发射线的值</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">pah_vals</span><span class="p">,</span> <span class="o">-</span><span class="n">max_emission_plot_y</span><span class="p">,</span> <span class="n">max_emission_plot_y</span><span class="p">,</span>  <span class="c1"># 绘制PAH发射线的垂直线</span>
+               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PAH emission&#39;</span><span class="p">)</span>  <span class="c1"># 颜色为红色，线型为虚线，标签为&#39;PAH emission&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PAH emission lines detected: &quot;</span><span class="p">,</span> <span class="n">pah_emission_detected</span><span class="p">)</span>  <span class="c1"># 打印检测到的PAH发射线</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sil_absorption_detected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果检测到硅吸收线</span>
+    <span class="n">sil_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sil_absorption_detected</span><span class="p">]</span>  <span class="c1"># 提取硅吸收线的值</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">sil_vals</span><span class="p">,</span> <span class="o">-</span><span class="n">max_emission_plot_y</span><span class="p">,</span> <span class="n">max_emission_plot_y</span><span class="p">,</span>  <span class="c1"># 绘制硅吸收线的垂直线</span>
+               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;silicate absorption&#39;</span><span class="p">)</span>  <span class="c1"># 颜色为蓝色，线型为虚线，标签为&#39;silicate absorption&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;silicate absorption lines detected: &quot;</span><span class="p">,</span> <span class="n">sil_absorption_detected</span><span class="p">)</span>  <span class="c1"># 打印检测到的硅吸收线</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ice_absorption_detected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果检测到冰吸收线</span>
+    <span class="n">ice_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ice_absorption_detected</span><span class="p">]</span>  <span class="c1"># 提取冰吸收线的值</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">ice_vals</span><span class="p">,</span> <span class="o">-</span><span class="n">max_emission_plot_y</span><span class="p">,</span> <span class="n">max_emission_plot_y</span><span class="p">,</span>  <span class="c1"># 绘制冰吸收线的垂直线</span>
+               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ice absorption&#39;</span><span class="p">)</span>  <span class="c1"># 颜色为绿色，线型为虚线，标签为&#39;ice absorption&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ice absorption lines detected: &quot;</span><span class="p">,</span> <span class="n">ice_absorption_detected</span><span class="p">)</span>  <span class="c1"># 打印检测到的冰吸收线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>  <span class="c1"># 设置x轴范围为5到35</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>  <span class="c1"># 显示图例，设置字体大小为中等，边框关闭</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 自动调整子图参数，使之填充整个图像区域</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示绘制的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭当前图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您没有提供任何代码或具体内容</span><span class="err">。</span><span class="n">如果您能提供一些JWST望远镜数据处理的Python代码</span><span class="err">，</span><span class="n">我将很乐意为您添加中文注释并保持代码结构不变</span><span class="err">。</span><span class="n">请将代码粘贴在这里</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">MRS立方体分析</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MIRI LRS 窄缝光谱学：使用 JWST 管道进行光谱提取</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">导入所需的内容</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">检查导入内容的版本</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">设置输出目录以存放图形和光谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">设置绘图参数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">设置数据路径</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gb">请注意，数据文件大小约为2 GB，因此下载时间将根据您的互联网速度而有所不同。您也可以直接使用下面的链接进行下载。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">加载并显示数据立方体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">修剪立方体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d2d">从3D立方体生成2D图像，方法可以是平均值、中央値或总和</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">绘制图像以进行视觉检查</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wcs">绘制带有WCS坐标的合成图像并保存图形</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils">使用 photutils 识别所有点源</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">获取所有点源的列表</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">提取并绘制所有源的光谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">制作提取源的表格</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#irs-yso">从此使用斯皮策IRS YSO光谱进行科学测试案例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">拟合通用连续谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">寻找发射线和吸收线</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">识别发射线和吸收线</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yso">根据检测到的谱线对YSO进行分类</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">绘制光谱并标记发射和吸收特征</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

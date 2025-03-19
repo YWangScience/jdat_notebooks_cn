@@ -1,0 +1,1958 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>使用 NSClean 清理 NIRSpec BOTS 产品中的残余 1/f 噪声 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="使用 NSClean 清理 NIRSpec MOS 产品中的残余 1/f 噪声" href="MOS_NSClean_example_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>使用 NSClean 清理 NIRSpec BOTS 产品中的残余 1/f 噪声</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">笔记本目标</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1. 介绍 <a name="introduction"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2. 导入库 <a name="imports"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. 下载数据 <a name="data"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spec2pipeline-nsclean">4. 运行 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code> 而不进行 NSClean（原始数据） <a name="nsclean_skipped"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract1d">4.1 修改 EXTRACT1D 参考文件 <a name="extract1d_mod"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nsclean-1-f">5. 使用 NSClean 清理 1/f 噪声（默认管道掩模） <a name="nsclean_default"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.1 验证掩模（默认管道掩模） <a name="verify_default_mask"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">5.2 比较原始数据与清理后的数据（默认管道掩模） <a name="nsclean_default_compare"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6. 使用 NSClean（替代掩膜）清理 1/f 噪声 <a name="nsclean_alternate"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.1 验证掩模（备用掩模） <a name="verify_alternate_mask"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">6.2 原始数据与清理数据的比较（备用掩膜） <a name="nsclean_alternate_compare"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7. 使用 NSClean 清理 1/f 噪声（手动修改的掩膜） <a name="nsclean_modified"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.1 验证掩模（手动修改的掩模） <a name="verify_modified_mask"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">7.2 原始数据与清理数据（手动修改的掩模）比较 <a name="nsclean_modified_compare"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">8. 结论 <a name="conclusion"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">关于笔记本 <a name="about"></a></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><a id="top"></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="nsclean-nirspec-bots-1-f">
+<h1>使用 NSClean 清理 NIRSpec BOTS 产品中的残余 1/f 噪声<a class="headerlink" href="#nsclean-nirspec-bots-1-f" title="Link to this heading">#</a></h1>
+<hr style="border:1px solid black">
+<section id="id1">
+<h2>笔记本目标<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>本笔记本的目标是通过去除残余的 1/f 噪声来生成清理后的 BOTS (<em>_rateint.fits</em>) 文件。这些清理后的文件将作为 3 (<code class="docutils literal notranslate"><span class="pre">TSO3Pipeline</span></code>) 管道的输入。</p>
+</section>
+<section id="id2">
+<h2>目录<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul>
+<li><ol class="arabic simple">
+<li><p><a class="reference internal" href="#introduction"><span class="xref myst">介绍</span></a></p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p><a class="reference internal" href="#imports"><span class="xref myst">导入库</span></a></p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="3">
+<li><p><a class="reference internal" href="#data"><span class="xref myst">下载数据</span></a></p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="4">
+<li><p><a class="reference internal" href="#nsclean_skipped"><span class="xref myst">在不使用 NSClean 的情况下运行 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code>（原始数据）</span></a></p></li>
+</ol>
+<ul class="simple">
+<li><p>4.1 <a class="reference internal" href="#extract1d_mod"><span class="xref myst">修改 EXTRACT1D 参考文件</span></a></p></li>
+</ul>
+</li>
+<li><ol class="arabic simple" start="5">
+<li><p><a class="reference internal" href="#nsclean_default"><span class="xref myst">使用 NSClean 清理 1/f 噪声（默认管道掩模）</span></a></p></li>
+</ol>
+<ul class="simple">
+<li><p>5.1 <a class="reference internal" href="#verify_default_mask"><span class="xref myst">验证掩模（默认管道掩模）</span></a></p></li>
+<li><p>5.2 <a class="reference internal" href="#nsclean_default_compare"><span class="xref myst">比较原始数据与清理数据（默认管道掩模）</span></a></p></li>
+</ul>
+</li>
+<li><ol class="arabic simple" start="6">
+<li><p><a class="reference internal" href="#nsclean_alternate"><span class="xref myst">使用 NSClean 清理 1/f 噪声（替代掩模）</span></a></p></li>
+</ol>
+<ul class="simple">
+<li><p>6.1 <a class="reference internal" href="#verify_alternate_mask"><span class="xref myst">验证掩模（替代掩模）</span></a></p></li>
+<li><p>6.2 <a class="reference internal" href="#nsclean_alternate_compare"><span class="xref myst">比较原始数据与清理数据（替代掩模）</span></a></p></li>
+</ul>
+</li>
+<li><ol class="arabic simple" start="7">
+<li><p><a class="reference internal" href="#nsclean_modified"><span class="xref myst">使用 NSClean 清理 1/f 噪声（手动修改的掩模）</span></a></p></li>
+</ol>
+<ul class="simple">
+<li><p>7.1 <a class="reference internal" href="#verify_modified_mask"><span class="xref myst">验证掩模（手动修改的掩模）</span></a></p></li>
+<li><p>7.2 <a class="reference internal" href="#nsclean_modified_compare"><span class="xref myst">比较原始数据与清理数据（手动修改的掩模）</span></a></p></li>
+</ul>
+</li>
+<li><ol class="arabic simple" start="8">
+<li><p><a class="reference internal" href="#conclusion"><span class="xref myst">结论</span></a></p></li>
+</ol>
+</li>
+<li><p><a class="reference internal" href="#about"><span class="xref myst">关于笔记本</span></a></p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>1. 介绍 <a name="introduction"></a><a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>JWST NIRSpec 仪器有许多特性和特点，观察者在规划观测和解释数据时应当注意。其中一个显著特征是在提取的 1-D 光谱中出现负值和/或过剩通量，通常伴有不规则的波长依赖性起伏。这种伪影的原因是相关噪声，称为 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-near-infrared-spectrograph/nirspec-instrument-features-and-caveats#NIRSpecInstrumentFeaturesandCaveats-1/fnoise">1/f 噪声</a>，源于低水平的探测器热不稳定性，在 2-D 计数率图像中表现为垂直条带，尤其是在 NRS2 探测器的曝光中。虽然 IRS2 读出模式减少了这种效应，但并未完全消除。</p>
+<p>为了解决这个问题，JWST 科学校准管道集成了由 Bernard Rauscher 开发的外部包，称为 <a class="reference external" href="https://webb.nasa.gov/content/forScientists/publications.html#NSClean">NSClean</a>，并在 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code> 中通过 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/nsclean/main.html">NSCleanStep</a> 实现。该算法利用探测器的暗区在傅里叶空间中拟合背景模型。它需要一个输入掩模来识别探测器的所有暗区。掩模越全面、越完整，背景拟合效果越好。</p>
+<p>在本笔记本中，我们将使用集成到管道中的 NSClean 算法，利用默认参数动态生成的掩模来去除 1/f 噪声。在某些情况下，这个掩模可能不够完整或过于严格，无法实现最佳的噪声去除。为了解决这个问题，我们演示了如何手动修改默认掩模，以及如何通过调整 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/nsclean/arguments.html">NSCleanStep 参数</a> 创建替代掩模。如有需要，请参阅 <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1538-3873/ad1b36/pdf">NSClean 文档</a>，获取有关手动创建自定义掩模的一些建议。</p>
+<p>本笔记本利用了在 BOTS G395H 光栅中观察到的 WASP-39b 的过境数据，作为 <a class="reference external" href="https://www.stsci.edu/jwst/science-execution/approved-programs/dd-ers/program-1366">JWST 早期发布科学计划 ERS-1366</a> 观测 3 的示例。</p>
+</section>
+<section id="id4">
+<h2>2. 导入库 <a name="imports"></a><a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------- 设置CRDS环境变量 ----------</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于操作系统相关功能</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">jwst</span>  <span class="c1"># 导入jwst模块，用于JWST相关功能</span>
+
+<span class="c1"># 设置CRDS上下文为指定的.pmap文件</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_CONTEXT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;jwst_1215.pmap&#39;</span>
+
+<span class="c1"># 设置CRDS缓存路径为用户主目录下的crds_cache文件夹</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/crds_cache&#39;</span>
+
+<span class="c1"># 设置CRDS服务器的URL</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;https://jwst-crds.stsci.edu&#39;</span>
+
+<span class="c1"># 打印CRDS缓存位置</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CRDS cache location: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CRDS_PATH&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 打印JWST校准管道的版本信息</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;JWST Calibration Pipeline Version=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jwst</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
+
+<span class="c1"># 打印当前操作的CRDS上下文（注释掉的代码）</span>
+<span class="c1"># print(&quot;Current Operational CRDS Context = {}&quot;.format(crds.get_default_context()))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ------ General Imports ------</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tt</span>  <span class="c1"># 导入time库，用于时间相关操作</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>  <span class="c1"># 导入logging库，用于记录日志</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>  <span class="c1"># 导入warnings库，用于警告管理</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>  <span class="c1"># 导入json库，用于处理JSON数据</span>
+
+<span class="c1"># ------ JWST Calibration Pipeline Imports ------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">crds.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">api</span>  <span class="c1"># 从CRDS客户端导入API模块，用于数据检索</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">stpipe</span><span class="w"> </span><span class="kn">import</span> <span class="n">crds_client</span>  <span class="c1"># 从stpipe导入CRDS客户端，用于数据处理</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.pipeline.calwebb_spec2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spec2Pipeline</span>  <span class="c1"># 导入JWST的Spec2Pipeline，用于光谱数据处理</span>
+
+<span class="c1"># ------ Plotting/Stats Imports ------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  <span class="c1"># 从matplotlib导入pyplot，用于绘图</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从Astropy导入fits模块，用于处理FITS文件</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_jwst_file</span><span class="p">,</span> <span class="n">plot_dark_data</span><span class="p">,</span> <span class="n">plot_cleaned_data</span><span class="p">,</span> <span class="n">plot_spectra</span>  <span class="c1"># 导入自定义工具函数</span>
+
+<span class="c1"># Hide all log and warning messages.  # 隐藏所有日志和警告消息</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>  <span class="c1"># 禁用错误级别的日志</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>  <span class="c1"># 忽略运行时警告</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>3. 下载数据 <a name="data"></a><a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>本笔记本的输入数据包含通过NIRSpec BOTS模式使用G395H光栅观测的WASP-39b的过境。该数据集是<a class="reference external" href="https://www.stsci.edu/jwst/science-execution/approved-programs/dd-ers/program-1366">JWST早期发布科学计划ERS-1366</a>的一部分，具体为观测3。它由456次积分组成，每次积分有70组，使用SUB2048子阵列（每次积分每组2048 x 32像素的阵列大小）。整个观测持续了10.56小时，并分为三个部分。本笔记本将以第二部分（seg002）为例。然而，需要注意的是，在进入<code class="docutils literal notranslate"><span class="pre">TSO3Pipeline</span></code>之前，所有部分必须首先通过<code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code>进行处理。</p>
+<p>有关当前和计划中的JWST时间序列观测（TSO）程序的全面概述，特别是涉及使用NIRSpec BOTS模式的过境系外行星的程序，请参考<a class="reference external" href="https://www.stsci.edu/~nnikolov/TrExoLiSTS/JWST/trexolists.html">TrExoLiSTS</a>。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义下载目录</span>
+<span class="n">mast_products_dir</span> <span class="o">=</span> <span class="s2">&quot;./mast_products/&quot;</span>
+
+<span class="c1"># 检查目录是否存在</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">mast_products_dir</span><span class="p">):</span>
+    
+    <span class="c1"># 如果目录不存在，则创建该目录</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">mast_products_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 该笔记本专注于第二个分段。</span>
+
+<span class="n">obs_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;jw01366003001_04101_00001-seg002&quot;</span><span class="p">]</span>  <span class="c1"># 观测ID列表</span>
+
+<span class="n">detectors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># 包含探测器NRS1和NRS2的列表</span>
+
+<span class="c1"># 指定计数率产品的名称。</span>
+
+<span class="n">rateints_names</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储计数率产品名称的列表</span>
+
+<span class="k">for</span> <span class="n">obs_id</span> <span class="ow">in</span> <span class="n">obs_ids</span><span class="p">:</span>  <span class="c1"># 遍历每个观测ID</span>
+
+    <span class="k">for</span> <span class="n">detector</span> <span class="ow">in</span> <span class="n">detectors</span><span class="p">:</span>  <span class="c1"># 遍历每个探测器</span>
+
+        <span class="n">rateints_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">obs_id</span><span class="si">}</span><span class="s2">_nrs</span><span class="si">{</span><span class="n">detector</span><span class="si">}</span><span class="s2">_rateints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 生成计数率文件名并添加到列表中</span>
+
+<span class="c1"># 下载所有的FITS文件。</span>
+
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">rateints_names</span><span class="p">:</span>  <span class="c1"># 遍历每个文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印正在下载的文件名</span>
+
+    <span class="n">get_jwst_file</span><span class="p">(</span>  <span class="c1"># 调用函数下载文件</span>
+
+        <span class="n">name</span><span class="p">,</span>  <span class="c1"># 文件名</span>
+
+        <span class="n">mast_api_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># API令牌，默认为None</span>
+
+        <span class="n">save_directory</span><span class="o">=</span><span class="n">mast_products_dir</span><span class="p">,</span>  <span class="c1"># 保存目录</span>
+
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="spec2pipeline-nsclean">
+<h2>4. 运行 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code> 而不进行 NSClean（原始数据） <a name="nsclean_skipped"></a><a class="headerlink" href="#spec2pipeline-nsclean" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>下面的单元格执行 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code>，在处理过程中明确跳过 NSClean 步骤。生成的二级产品将作为参考点，展示在未去除 1/f 噪声的情况下，计数率图像和最终提取光谱的外观。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置用于运行管道的目录，跳过NSClean处理</span>
+<span class="n">stage2_nsclean_skipped_dir</span> <span class="o">=</span> <span class="s2">&quot;./stage2_nsclean_skipped/&quot;</span>
+
+<span class="c1"># 检查目录是否存在</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stage2_nsclean_skipped_dir</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">stage2_nsclean_skipped_dir</span><span class="p">)</span>  <span class="c1"># 如果目录不存在，则创建该目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="extract1d">
+<h3>4.1 修改 EXTRACT1D 参考文件 <a name="extract1d_mod"></a><a class="headerlink" href="#extract1d" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black">
+<p>我们调整 <code class="docutils literal notranslate"><span class="pre">extract_1d</span></code> 步骤的默认参数参考文件，特别是修改提取宽度孔径。这一修改是必要的，因为当前的处理流程并未对 2D 光谱进行重采样以校正光谱（去除曲率）。因此，我们依赖于较宽的提取孔径，尤其是对于 NRS2。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># EXTRACT1D 参考文件，用于 BOTS 数据 NRS1。</span>
+
+<span class="n">refs</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">dump_references</span><span class="p">(</span><span class="n">crds_client</span><span class="o">.</span><span class="n">get_context_used</span><span class="p">(</span><span class="s1">&#39;jwst&#39;</span><span class="p">),</span>  <span class="c1"># 获取JWST上下文的参考文件</span>
+
+                           <span class="p">[</span><span class="s1">&#39;jwst_nirspec_extract1d_0006.json&#39;</span><span class="p">])</span>  <span class="c1"># 指定需要的参考文件</span>
+
+<span class="n">extract_1d_ref</span> <span class="o">=</span> <span class="n">refs</span><span class="p">[</span><span class="s1">&#39;jwst_nirspec_extract1d_0006.json&#39;</span><span class="p">]</span>  <span class="c1"># 获取提取的参考文件路径</span>
+
+<span class="c1"># 以读取模式打开 EXTRACT1D 参考文件。</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ref_file</span><span class="p">:</span>  <span class="c1"># 打开参考文件</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ref_file</span><span class="p">)</span>  <span class="c1"># 读取 JSON 数据</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span>
+
+        <span class="s2">&quot;extract_width&quot;</span>
+
+    <span class="p">]</span> <span class="o">=</span> <span class="mi">27</span>  <span class="c1"># 提取孔径半径（单位：像素），可以修改。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;xstart&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># 设置起始 x 坐标</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod2_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除 nod2_offset。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod3_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除 nod3_offset。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod5_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除 nod5_offset。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span>
+
+        <span class="s2">&quot;extract_width&quot;</span>
+
+    <span class="p">]</span> <span class="o">=</span> <span class="mi">27</span>  <span class="c1"># 提取孔径半径（单位：像素），可以修改。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;xstart&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># 设置起始 x 坐标</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod2_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除 nod2_offset。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod3_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除 nod3_offset。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod5_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除 nod5_offset。</span>
+
+<span class="c1"># 将更改写入新文件。</span>
+
+<span class="n">newData</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 将参数转换为格式化的 JSON 字符串</span>
+
+<span class="c1"># 添加后缀 &#39;_bots&#39; 以区分文件与默认版本。</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs1_bots.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>  <span class="c1"># 创建新文件</span>
+
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">newData</span><span class="p">)</span>  <span class="c1"># 写入新数据</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># EXTRACT1D参考文件用于BOTS数据NRS2。</span>
+
+<span class="n">refs</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">dump_references</span><span class="p">(</span><span class="n">crds_client</span><span class="o">.</span><span class="n">get_context_used</span><span class="p">(</span><span class="s1">&#39;jwst&#39;</span><span class="p">),</span>  <span class="c1"># 获取JWST上下文使用的参考文件</span>
+                           <span class="p">[</span><span class="s1">&#39;jwst_nirspec_extract1d_0006.json&#39;</span><span class="p">])</span>  <span class="c1"># 指定要获取的参考文件名</span>
+
+<span class="n">extract_1d_ref</span> <span class="o">=</span> <span class="n">refs</span><span class="p">[</span><span class="s1">&#39;jwst_nirspec_extract1d_0006.json&#39;</span><span class="p">]</span>  <span class="c1"># 提取指定的EXTRACT1D参考文件</span>
+
+<span class="c1"># 以读模式打开EXTRACT1D参考文件。</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ref_file</span><span class="p">:</span>  <span class="c1"># 打开文件进行读取</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ref_file</span><span class="p">)</span>  <span class="c1"># 将文件内容加载为JSON格式的字典</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span>  <span class="c1"># 访问第一个光圈的参数</span>
+
+        <span class="s2">&quot;extract_width&quot;</span>
+
+    <span class="p">]</span> <span class="o">=</span> <span class="mi">27</span>  <span class="c1"># 提取光圈半径，单位为像素，可以修改。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod2_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除nod2_offset参数。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod3_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除nod3_offset参数。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod5_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除nod5_offset参数。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span>  <span class="c1"># 访问第二个光圈的参数</span>
+
+        <span class="s2">&quot;extract_width&quot;</span>
+
+    <span class="p">]</span> <span class="o">=</span> <span class="mi">27</span>  <span class="c1"># 提取光圈半径，单位为像素，可以修改。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod2_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除nod2_offset参数。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod3_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除nod3_offset参数。</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;apertures&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nod5_offset&quot;</span><span class="p">)</span>  <span class="c1"># 移除nod5_offset参数。</span>
+
+<span class="c1"># 将更改写入新文件。</span>
+
+<span class="n">newData</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 将修改后的参数转换为JSON格式字符串，并格式化为4个空格缩进</span>
+
+<span class="c1"># 添加后缀&#39;_bots&#39;以区分该文件与默认版本。</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs2_bots.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>  <span class="c1"># 创建新文件并写入</span>
+
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">newData</span><span class="p">)</span>  <span class="c1"># 将新数据写入文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr style="border:1px solid black"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 原始数据（未应用NSClean）。</span>
+
+<span class="c1"># 估计运行时间：10分钟（可能会有所不同）。</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录开始时间</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rateints_names</span><span class="p">:</span>  <span class="c1"># 遍历每个速率积分文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>  <span class="c1"># 打印正在处理的文件名</span>
+
+    <span class="k">if</span> <span class="s2">&quot;nrs1&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 检查文件名中是否包含&quot;nrs1&quot;</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs1_bots.json&quot;</span>  <span class="c1"># 设置提取1D参考文件名</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果不是&quot;nrs1&quot;</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs2_bots.json&quot;</span>  <span class="c1"># 设置提取1D参考文件名</span>
+
+    <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>  <span class="c1"># 调用Spec2Pipeline处理数据</span>
+
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span>  <span class="c1"># 输入文件路径</span>
+
+        <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+
+        <span class="n">steps</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># 处理步骤配置</span>
+
+            <span class="c1"># 为光谱数据分配波长解决方案。</span>
+
+            <span class="s2">&quot;assign_wcs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 不跳过此步骤</span>
+
+            <span class="c1"># 从NIRSpec图像中去除相关读噪声（1/f噪声）。</span>
+
+            <span class="s2">&quot;nsclean&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过此步骤</span>
+
+            <span class="s2">&quot;extract_2d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 获取2D切片。</span>
+
+            <span class="s2">&quot;srctype&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 分配源类型：&#39;point&#39;或&#39;extended&#39;。</span>
+
+            <span class="c1"># 我们选择跳过此步骤，因为它可能引入虚假像素</span>
+
+            <span class="c1"># 这会影响光曲线的散射。</span>
+
+            <span class="s2">&quot;flat_field&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过此步骤</span>
+
+            <span class="c1"># 我们也跳过此步骤，因为BOTS系外行星观测是相对的。</span>
+
+            <span class="s2">&quot;photom&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过此步骤</span>
+
+            <span class="c1"># 估计在2D光谱中被标记为DO_NOT_USE的像素的通量值。</span>
+
+            <span class="s2">&quot;pixel_replace&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 像素替换配置</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;n_adjacent_cols&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># 邻近列数</span>
+
+                <span class="s2">&quot;algorithm&quot;</span><span class="p">:</span> <span class="s2">&quot;fit_profile&quot;</span><span class="p">,</span>  <span class="c1"># 使用的算法</span>
+
+            <span class="p">},</span>
+
+            <span class="s2">&quot;extract_1d&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 1D提取配置</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;override_extract1d&quot;</span><span class="p">:</span> <span class="n">extract1dref</span><span class="p">,</span>  <span class="c1"># 覆盖提取1D参考文件</span>
+
+                <span class="s2">&quot;apply_apcorr&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不应用光圈校正</span>
+
+                <span class="s2">&quot;subtract_background&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不减去背景</span>
+
+            <span class="p">},</span>
+
+            <span class="c1"># &#39;dispaxis&#39;: 1, &#39;xstart&#39;: 100, &#39;xstop&#39;: 150, &#39;extract_width&#39;: 10},</span>
+
+        <span class="p">},</span>
+
+        <span class="n">output_dir</span><span class="o">=</span><span class="n">stage2_nsclean_skipped_dir</span><span class="p">,</span>  <span class="c1"># 输出目录</span>
+
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;calints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的calints文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;x1dints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的x1dints文件名</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录结束时间</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run time: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span> <span class="s2">&quot; min&quot;</span><span class="p">)</span>  <span class="c1"># 打印运行时间</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nsclean-1-f">
+<h2>5. 使用 NSClean 清理 1/f 噪声（默认管道掩模） <a name="nsclean_default"></a><a class="headerlink" href="#nsclean-1-f" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>如果在 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code> 的 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/nsclean/index.html">NSClean 步骤</a> 中未提供用户自定义的掩模文件，管道将根据默认参数生成一个掩模。该掩模将识别任何未被照亮的像素。也就是说，掩模必须包含 True 和 False 值，其中 True 表示该像素是黑暗的，False 表示该像素是照亮的（不是黑暗的）。</p>
+<p>默认情况下，管道将以下探测器区域标记为照亮的非黑暗区域（False）：</p>
+<ul class="simple">
+<li><p>被指定为 FS 数据的科学区域的像素。</p></li>
+<li><p>5-σ 异常值（默认值）</p></li>
+<li><p>在速率数据中设置为 NaN 的任何像素。</p></li>
+</ul>
+<p>要调整掩模中的异常值检测，可以尝试修改 <code class="docutils literal notranslate"><span class="pre">n_sigma</span></code> 参数（将在下一节中探讨）。较高的值将识别较少的异常值，而较低的值将识别更多的异常值。</p>
+<p>默认生成的掩模将在下面保存和分析。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置用于运行NSClean的目录，使用默认参数。</span>
+
+<span class="n">stage2_nsclean_default_dir</span> <span class="o">=</span> <span class="s2">&quot;./stage2_nsclean_default/&quot;</span>  <span class="c1"># 定义默认目录路径</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stage2_nsclean_default_dir</span><span class="p">):</span>  <span class="c1"># 检查目录是否存在</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">stage2_nsclean_default_dir</span><span class="p">)</span>  <span class="c1"># 如果目录不存在，则创建该目录。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1/f 噪声清理数据（默认 NSClean 管道掩膜）。</span>
+
+<span class="c1"># 估计运行时间：36 分钟（可能会有所不同）。</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录开始时间</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rateints_names</span><span class="p">:</span>  <span class="c1"># 遍历每个速率积分名称</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>  <span class="c1"># 打印正在处理的文件名</span>
+
+    <span class="k">if</span> <span class="s2">&quot;nrs1&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 如果文件名中包含 &quot;nrs1&quot;</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs1_bots.json&quot;</span>  <span class="c1"># 设置提取1D参考文件名</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 否则</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs2_bots.json&quot;</span>  <span class="c1"># 设置提取1D参考文件名</span>
+
+    <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>  <span class="c1"># 调用 Spec2Pipeline 处理数据</span>
+
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span>  <span class="c1"># 输入文件路径</span>
+
+        <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+
+        <span class="n">steps</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># 定义处理步骤</span>
+
+            <span class="c1"># 为光谱数据分配波长解决方案。</span>
+
+            <span class="s2">&quot;assign_wcs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;save_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 赋值 WCS</span>
+
+            <span class="c1"># 从 NIRSpec 图像中去除相关读噪声（1/f 噪声）。</span>
+
+            <span class="s2">&quot;nsclean&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;save_mask&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;save_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 噪声清理</span>
+
+            <span class="s2">&quot;extract_2d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 获取 2D 剪切图。</span>
+
+            <span class="s2">&quot;srctype&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 分配源类型：&#39;point&#39; 或 &#39;extended&#39;。</span>
+
+            <span class="c1"># 我们选择跳过此步骤，因为它可能会引入虚假像素</span>
+
+            <span class="c1"># 这会影响光曲线的散射。</span>
+
+            <span class="s2">&quot;flat_field&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过平场校正</span>
+
+            <span class="c1"># 我们也跳过此步骤，因为 BOTS 系外行星观测是相对的。</span>
+
+            <span class="s2">&quot;photom&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过光度校正</span>
+
+            <span class="c1"># 估计在 2D 光谱中标记为 DO_NOT_USE 的像素的通量值。</span>
+
+            <span class="s2">&quot;pixel_replace&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 像素替换步骤</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过</span>
+
+                <span class="s2">&quot;n_adjacent_cols&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># 邻近列数</span>
+
+                <span class="s2">&quot;algorithm&quot;</span><span class="p">:</span> <span class="s2">&quot;fit_profile&quot;</span><span class="p">,</span>  <span class="c1"># 使用的算法</span>
+
+            <span class="p">},</span>
+
+            <span class="s2">&quot;extract_1d&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 提取 1D 数据</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过</span>
+
+                <span class="s2">&quot;override_extract1d&quot;</span><span class="p">:</span> <span class="n">extract1dref</span><span class="p">,</span>  <span class="c1"># 覆盖提取1D参考</span>
+
+                <span class="s2">&quot;apply_apcorr&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不应用光圈校正</span>
+
+                <span class="s2">&quot;subtract_background&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不减去背景</span>
+
+            <span class="p">},</span>
+
+            <span class="c1"># &#39;dispaxis&#39;: 1, &#39;xstart&#39;: 100, &#39;xstop&#39;: 150, &#39;extract_width&#39;: 10},</span>
+
+        <span class="p">},</span>
+
+        <span class="n">output_dir</span><span class="o">=</span><span class="n">stage2_nsclean_default_dir</span><span class="p">,</span>  <span class="c1"># 输出目录</span>
+
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;assign_wcs.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;mask.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的掩膜文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;nsclean.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的噪声清理文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;calints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的校准积分文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;x1dints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的1D积分文件名</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录结束时间</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run time: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span> <span class="s2">&quot; min&quot;</span><span class="p">)</span>  <span class="c1"># 打印运行时间</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-warning">
+<p><b>警告：</b></p>
+<p>在某些情况下，NSClean步骤可能无法找到背景噪声的拟合。如果掩模中没有足够的暗数据（标记为True），则可能会发生这种失败。特别是，掩模中的每一列（除了前4列和最后4列）必须包含一些标记为True的像素。背景拟合过程会逐列考虑，因此如果某一列没有数据可供拟合，则会崩溃。如果发生失败，请检查下面图像中的掩模，确保每一列至少有一些True值。</p>
+</div><section id="id6">
+<h3>5.1 验证掩模（默认管道掩模） <a name="verify_default_mask"></a><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black">
+<p>检查掩模与速率数据，以确保它仅保留探测器的暗区。</p>
+<p>请注意，仍然存在一些剩余的照明区域，主要是由于瞬态伪影，如宇宙射线和雪球。</p>
+<p>此外，对于某些数据集，探测器上可能存在多个未被WCS边界框掩盖的照明区域。在此数据中，请注意掩模未覆盖光谱轨迹的蓝端区域。该区域是被照明的，但尚未校准。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制带有屏蔽区域的速率数据。</span>
+
+<span class="c1"># 从管道中构建的即时屏蔽列表。</span>
+<span class="n">nsclean_default_masks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">stage2_nsclean_default_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_mask.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS1的屏蔽文件路径</span>
+    <span class="n">stage2_nsclean_default_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_mask.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS2的屏蔽文件路径</span>
+<span class="p">]</span>
+
+<span class="c1"># 绘制每组相关的速率数据和屏蔽文件。</span>
+<span class="k">for</span> <span class="n">rateint_file</span><span class="p">,</span> <span class="n">mask_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">,</span> <span class="n">nsclean_default_masks</span><span class="p">):</span>
+    <span class="n">plot_dark_data</span><span class="p">(</span>
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rateint_file</span><span class="p">,</span>  <span class="c1"># 速率数据文件的完整路径</span>
+        <span class="n">mask_file</span><span class="p">,</span>                          <span class="c1"># 对应的屏蔽文件</span>
+        <span class="n">slice_index</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                   <span class="c1"># 切片索引</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>                            <span class="c1"># 绘图的轴</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;rows&quot;</span><span class="p">,</span>                     <span class="c1"># 布局方式</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>默认的管道掩模（pipeline mask）对于NRS2掩模会遮盖整个计数率图像（countrate image）。</p>
+</section>
+<section id="id7">
+<h3>5.2 比较原始数据与清理后的数据（默认管道掩模） <a name="nsclean_default_compare"></a><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black">
+<p>现在我们可以将清理后的数据（使用默认管道掩模）与原始速率文件进行比较，并验证1/f噪声是否已减少。</p>
+<p>在许多情况下，清理过程会在速率文件中引入新的伪影。这些伪影应仔细检查，并与噪声减少的好处进行权衡。如果瞬态伪影（如雪球）干扰了清理过程，手动编辑掩模以将这些区域排除在背景拟合之外可能是有益的。为此，可以尝试调整异常值检测阈值或直接编辑掩模数组中的特定像素（将在接下来的几个部分中探讨）。否则，请参考<a class="reference external" href="https://iopscience.iop.org/article/10.1088/1538-3873/ad1b36/pdf">NSClean文档</a>以获取有关手动编辑的其他建议。</p>
+<p>请注意，在下面的图像中，有一些值与原始速率文件存在较大的相对差异（在下面的相对差异图像中显示）。这些是清理过程的伪影。</p>
+<p>此外，还有更广泛的低水平残余背景效应（在右侧的相对差异图像中显示，散布的异常值通过σ裁剪识别，并被掩模隐藏）。这些包括我们试图去除的背景模式：色散方向上的1/f噪声变化以及全帧数据中框架顶部和底部的画框效应。然而，清理过程中可能还会因过拟合暗数据而引入低水平伪影。</p>
+<p>仔细检查这两幅残余图像，以了解清理过程对您数据的影响。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制原始数据和清理后的数据，以及残差图。</span>
+
+<span class="c1"># 定义清理后的默认掩膜文件路径列表</span>
+<span class="n">cleaned_default_masks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">stage2_nsclean_default_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_nsclean.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS1清理后的文件路径</span>
+    <span class="n">stage2_nsclean_default_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_nsclean.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS2清理后的文件路径</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历每个关联的rateint数据文件和清理后的文件</span>
+<span class="k">for</span> <span class="n">rateint_file</span><span class="p">,</span> <span class="n">cleaned_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">,</span> <span class="n">cleaned_default_masks</span><span class="p">):</span>
+    <span class="c1"># 调用函数绘制清理后的数据</span>
+    <span class="n">plot_cleaned_data</span><span class="p">(</span>
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rateint_file</span><span class="p">,</span>  <span class="c1"># 原始数据文件路径</span>
+        <span class="n">cleaned_file</span><span class="p">,</span>                       <span class="c1"># 清理后的数据文件路径</span>
+        <span class="n">slice_index</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                   <span class="c1"># 切片索引</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;rows&quot;</span>                      <span class="c1"># 布局方式</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>默认的NRS2管道掩模会遮盖整个计数率图像，因此在应用NSClean时没有任何差异。</p>
+<p>比较从清理后的数据中提取的光谱与从原始计数率文件中提取的光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制整个光谱。</span>
+
+<span class="c1"># 1D 提取的光谱。</span>
+
+<span class="n">x1d_nsclean_skipped</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 路径到未清理的光谱数据文件（NRS1）</span>
+    <span class="n">stage2_nsclean_skipped_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_x1dints.fits&quot;</span><span class="p">,</span>
+    <span class="c1"># 路径到未清理的光谱数据文件（NRS2）</span>
+    <span class="n">stage2_nsclean_skipped_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_x1dints.fits&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">x1d_nsclean_default</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 路径到默认清理的光谱数据文件（NRS1）</span>
+    <span class="n">stage2_nsclean_default_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_x1dints.fits&quot;</span><span class="p">,</span>
+    <span class="c1"># 路径到默认清理的光谱数据文件（NRS2）</span>
+    <span class="n">stage2_nsclean_default_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_x1dints.fits&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历未清理和清理的光谱文件，绘制光谱</span>
+<span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x1d_nsclean_skipped</span><span class="p">,</span> <span class="n">x1d_nsclean_default</span><span class="p">):</span>
+    <span class="n">plot_spectra</span><span class="p">([</span><span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">],</span> <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 绘制光谱，扩展编号为100</span>
+
+<span class="c1"># 感兴趣的波长/通量区域</span>
+<span class="n">wavelength_range</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nrs1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.4</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">],</span> <span class="s2">&quot;nrs2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.25</span><span class="p">,</span> <span class="mf">4.275</span><span class="p">]}</span>  <span class="c1"># 定义波长范围</span>
+
+<span class="n">flux_range</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nrs1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1100</span><span class="p">,</span> <span class="mi">1300</span><span class="p">],</span> <span class="s2">&quot;nrs2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">550</span><span class="p">]}</span>  <span class="c1"># 定义通量范围</span>
+
+<span class="c1"># 再次遍历未清理和清理的光谱文件，绘制指定波长和通量范围的光谱</span>
+<span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x1d_nsclean_skipped</span><span class="p">,</span> <span class="n">x1d_nsclean_default</span><span class="p">):</span>
+    <span class="n">plot_spectra</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">],</span>  <span class="c1"># 光谱文件列表</span>
+        <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># 扩展编号</span>
+        <span class="n">scale_percent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># 缩放百分比</span>
+        <span class="n">wavelength_range</span><span class="o">=</span><span class="n">wavelength_range</span><span class="p">,</span>  <span class="c1"># 波长范围</span>
+        <span class="n">flux_range</span><span class="o">=</span><span class="n">flux_range</span><span class="p">,</span>  <span class="c1"># 通量范围</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-info">
+<p><b>注意：</b></p>
+<ul class="simple">
+<li><p>NRS1中的亮谱在清理后几乎没有变化。</p></li>
+<li><p>在NRS2中，管道动态生成的默认掩模遮盖了整个科学区域，这可能会过度遮掩那些能够增强背景拟合的暗区。这导致NRS2的原始数据与清理后的数据之间没有明显差异。在接下来的部分中，我们将探讨使用管道生成替代掩模的过程，以解决此问题。</p></li>
+</ul>
+</div></section>
+</section>
+<section id="id8">
+<h2>6. 使用 NSClean（替代掩膜）清理 1/f 噪声 <a name="nsclean_alternate"></a><a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>对于某些数据集，掩膜整个科学区域可能会过度掩盖探测器的暗区，这些区域可以用来改善背景拟合。过度掩膜可能会在清理过程中引入一些高频噪声，表现为光谱轨迹上的垂直条纹。</p>
+<p>此外，对于某些数据集，探测器上可能存在几个未被 WCS 边界框掩膜的照明区域。在子数组数据中，请注意掩膜并未覆盖光谱轨迹的蓝端。该区域是被照明的，但尚未校准。</p>
+<p>在某些情况下，使用替代算法构建掩膜可能会更有利。在这里，我们不使用边界框，而是迭代地掩膜任何超过背景 0.1 sigma 的数据。对于亮源，这样可以在光谱轨迹附近保留更多的暗数据，从而可能改善背景拟合。</p>
+<p>然而，请注意，过度清理可能会影响光谱的连续谱水平，如果掩膜中包含的照明数据过多或过少。再次强调，生成的掩膜和输出光谱应仔细检查，以权衡清理的好处与对光谱的影响。</p>
+<p>要调整此掩膜中的照明检测，请尝试修改下面的 <code class="docutils literal notranslate"><span class="pre">n_sigma</span></code> 参数。较高的值将识别较少的照明，较低的值将识别更多的照明。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置用于运行NSClean的目录，使用备用参数。</span>
+
+<span class="n">stage2_nsclean_alternate_dir</span> <span class="o">=</span> <span class="s2">&quot;./stage2_nsclean_alternate/&quot;</span>
+
+<span class="c1"># 检查目录是否存在</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stage2_nsclean_alternate_dir</span><span class="p">):</span>
+
+    <span class="c1"># 如果目录不存在，则创建该目录</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">stage2_nsclean_alternate_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1/f 噪声清理数据（备用 NSClean 管道掩膜）。</span>
+
+<span class="c1"># 估计运行时间：66分钟（可能会有所不同）。</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录开始时间</span>
+
+<span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">):</span>  <span class="c1"># 遍历 rateints_names 列表中的每个元素</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>  <span class="c1"># 打印正在处理的文件名</span>
+
+    <span class="k">if</span> <span class="s2">&quot;nrs1&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 检查文件名中是否包含 &quot;nrs1&quot;</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs1_bots.json&quot;</span>  <span class="c1"># 生成 nrs1 的提取文件名</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs2_bots.json&quot;</span>  <span class="c1"># 生成 nrs2 的提取文件名</span>
+
+    <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>  <span class="c1"># 调用 Spec2Pipeline 处理数据</span>
+
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span>  <span class="c1"># 输入文件路径</span>
+
+        <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+
+        <span class="n">steps</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># 定义处理步骤</span>
+
+            <span class="c1"># 为光谱数据分配波长解决方案。</span>
+
+            <span class="s2">&quot;assign_wcs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;save_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 步骤：分配 WCS</span>
+
+            <span class="c1"># 从 NIRSpec 图像中去除相关读噪声（1/f 噪声）。</span>
+
+            <span class="s2">&quot;nsclean&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 步骤：噪声清理</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;save_mask&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存掩膜</span>
+
+                <span class="s2">&quot;n_sigma&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># 噪声阈值</span>
+
+                <span class="s2">&quot;mask_spectral_regions&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不掩盖光谱区域</span>
+
+                <span class="s2">&quot;save_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+
+            <span class="p">},</span>
+
+            <span class="s2">&quot;extract_2d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 获取 2D 切片。</span>
+
+            <span class="s2">&quot;srctype&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 分配源类型：&#39;point&#39; 或 &#39;extended&#39;。</span>
+
+            <span class="c1"># 我们选择跳过此步骤，因为它可能引入虚假像素</span>
+
+            <span class="c1"># 这会影响光曲线的散射。</span>
+
+            <span class="s2">&quot;flat_field&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过平场校正步骤</span>
+
+            <span class="c1"># 我们也跳过此步骤，因为 BOTS 系外行星观测是相对的。</span>
+
+            <span class="s2">&quot;photom&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过光度校正步骤</span>
+
+            <span class="c1"># 估计在 2D 光谱中标记为 DO_NOT_USE 的像素的通量值。</span>
+
+            <span class="s2">&quot;pixel_replace&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 步骤：像素替换</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;n_adjacent_cols&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># 邻近列数</span>
+
+                <span class="s2">&quot;algorithm&quot;</span><span class="p">:</span> <span class="s2">&quot;fit_profile&quot;</span><span class="p">,</span>  <span class="c1"># 使用的算法</span>
+
+            <span class="p">},</span>
+
+            <span class="s2">&quot;extract_1d&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 步骤：提取 1D 数据</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;override_extract1d&quot;</span><span class="p">:</span> <span class="n">extract1dref</span><span class="p">,</span>  <span class="c1"># 覆盖提取文件名</span>
+
+                <span class="s2">&quot;apply_apcorr&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不应用光圈校正</span>
+
+                <span class="s2">&quot;subtract_background&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不减去背景</span>
+
+            <span class="p">},</span>
+
+            <span class="c1"># &#39;dispaxis&#39;: 1, &#39;xstart&#39;: 100, &#39;xstop&#39;: 150, &#39;extract_width&#39;: 10},</span>
+
+        <span class="p">},</span>
+
+        <span class="n">output_dir</span><span class="o">=</span><span class="n">stage2_nsclean_alternate_dir</span><span class="p">,</span>  <span class="c1"># 输出目录</span>
+
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;assign_wcs.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的文件信息</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;mask.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的掩膜文件信息</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;nsclean.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的噪声清理文件信息</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;calints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的校准文件信息</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;x1dints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的 1D 文件信息</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录结束时间</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run time: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span> <span class="s2">&quot; min&quot;</span><span class="p">)</span>  <span class="c1"># 打印运行时间</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id9">
+<h3>6.1 验证掩模（备用掩模） <a name="verify_alternate_mask"></a><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black">
+<p>检查掩模与速率数据，以确保它仅保留探测器的暗区。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制带有屏蔽区域的速率数据。</span>
+
+<span class="c1"># 从管道中构建的即时掩膜列表。</span>
+<span class="n">nsclean_alternate_masks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">stage2_nsclean_alternate_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_mask.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS1掩膜文件路径</span>
+    <span class="n">stage2_nsclean_alternate_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_mask.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS2掩膜文件路径</span>
+<span class="p">]</span>
+
+<span class="c1"># 绘制每个相关的速率数据集和掩膜文件。</span>
+<span class="k">for</span> <span class="n">rateint_file</span><span class="p">,</span> <span class="n">mask_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">,</span> <span class="n">nsclean_alternate_masks</span><span class="p">):</span>  <span class="c1"># 遍历速率数据文件和掩膜文件</span>
+    <span class="n">plot_dark_data</span><span class="p">(</span>  <span class="c1"># 调用绘图函数</span>
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rateint_file</span><span class="p">,</span>  <span class="c1"># 速率数据文件路径</span>
+        <span class="n">mask_file</span><span class="p">,</span>  <span class="c1"># 掩膜文件路径</span>
+        <span class="n">slice_index</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># 切片索引</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># 轴方向</span>
+        <span class="n">scale</span><span class="o">=</span><span class="mi">9</span>  <span class="c1"># 缩放因子</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>6.2 原始数据与清理数据的比较（备用掩膜） <a name="nsclean_alternate_compare"></a><a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制原始数据和清理后的数据，以及残差图。</span>
+
+<span class="c1"># 定义清理后的备用掩膜文件路径列表</span>
+<span class="n">cleaned_alternate_masks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">stage2_nsclean_alternate_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_nsclean.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS1清理后的文件路径</span>
+    <span class="n">stage2_nsclean_alternate_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_nsclean.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS2清理后的文件路径</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历每个关联的rateint数据和清理后的文件</span>
+<span class="k">for</span> <span class="n">rateint_file</span><span class="p">,</span> <span class="n">cleaned_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">,</span> <span class="n">cleaned_alternate_masks</span><span class="p">):</span>
+    <span class="c1"># 绘制清理后的数据</span>
+    <span class="n">plot_cleaned_data</span><span class="p">(</span>
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rateint_file</span><span class="p">,</span>  <span class="c1"># 原始rateint文件路径</span>
+        <span class="n">cleaned_file</span><span class="p">,</span>                       <span class="c1"># 清理后的文件路径</span>
+        <span class="n">slice_index</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                   <span class="c1"># 切片索引</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;rows&quot;</span>                      <span class="c1"># 布局方式</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>比较从清理后的数据中提取的光谱与从原始速率文件中提取的光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1D 提取的光谱</span>
+
+<span class="c1"># 定义未清理的光谱文件路径列表</span>
+<span class="n">x1d_nsclean_skipped</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 第一段光谱文件路径</span>
+    <span class="n">stage2_nsclean_skipped_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_x1dints.fits&quot;</span><span class="p">,</span>
+    <span class="c1"># 第二段光谱文件路径</span>
+    <span class="n">stage2_nsclean_skipped_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_x1dints.fits&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># 定义替代的清理光谱文件路径列表</span>
+<span class="n">x1d_nsclean_alternate</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 第一段替代光谱文件路径</span>
+    <span class="n">stage2_nsclean_alternate_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_x1dints.fits&quot;</span><span class="p">,</span>
+    <span class="c1"># 第二段替代光谱文件路径</span>
+    <span class="n">stage2_nsclean_alternate_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_x1dints.fits&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历未清理和清理的光谱文件路径</span>
+<span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x1d_nsclean_skipped</span><span class="p">,</span> <span class="n">x1d_nsclean_alternate</span><span class="p">):</span>
+    <span class="c1"># 绘制光谱，传入原始和清理后的光谱文件，扩展编号为100，比例设置为0</span>
+    <span class="n">plot_spectra</span><span class="p">([</span><span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">],</span> <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">scale_percent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 感兴趣的波长范围</span>
+<span class="n">wavelength_range</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nrs1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.4</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">],</span> <span class="s2">&quot;nrs2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.25</span><span class="p">,</span> <span class="mf">4.275</span><span class="p">]}</span>  <span class="c1"># 定义不同通道的波长范围</span>
+
+<span class="n">flux_range</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nrs1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1100</span><span class="p">,</span> <span class="mi">1300</span><span class="p">],</span> <span class="s2">&quot;nrs2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">550</span><span class="p">]}</span>  <span class="c1"># 定义不同通道的通量范围</span>
+
+<span class="c1"># 遍历原始数据和清理后的数据</span>
+<span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x1d_nsclean_skipped</span><span class="p">,</span> <span class="n">x1d_nsclean_alternate</span><span class="p">):</span>
+    
+    <span class="c1"># 绘制光谱</span>
+    <span class="n">plot_spectra</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">],</span>  <span class="c1"># 传入原始和清理后的光谱数据</span>
+        <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># 扩展编号</span>
+        <span class="n">scale_percent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># 缩放百分比</span>
+        <span class="n">wavelength_range</span><span class="o">=</span><span class="n">wavelength_range</span><span class="p">,</span>  <span class="c1"># 波长范围</span>
+        <span class="n">flux_range</span><span class="o">=</span><span class="n">flux_range</span><span class="p">,</span>  <span class="c1"># 通量范围</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-info">
+<p><b>注意：</b> NRS1/NRS2中的亮谱经过清理后几乎没有差异。然而，根据比率，NRS1中的谱线表明清理后的数据可能具有稍高的通量，而在NRS2中，清理后的数据与原始数据相比则显示出稍低的通量。</p>
+</div></section>
+</section>
+<section id="id11">
+<h2>7. 使用 NSClean 清理 1/f 噪声（手动修改的掩膜） <a name="nsclean_modified"></a><a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>在某些情况下，可能需要手动生成掩膜。在这里，我们介绍 <strong>一种</strong> 从管道输出的默认掩膜开始手动修改掩膜的方法。值得注意的是，使用此方法修改的掩膜不一定会优于之前的两种选项。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置用于运行 NSClean 的目录，并使用用户提供的掩模。</span>
+
+<span class="n">stage2_nsclean_modified_dir</span> <span class="o">=</span> <span class="s2">&quot;./stage2_nsclean_modified/&quot;</span>  <span class="c1"># 定义修改后的 NSClean 目录路径</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stage2_nsclean_modified_dir</span><span class="p">):</span>  <span class="c1"># 检查目录是否存在</span>
+
+    <span class="c1"># 如果目录不存在，则创建该目录。</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">stage2_nsclean_modified_dir</span><span class="p">)</span>  <span class="c1"># 创建目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 手动修改某些掩膜区域。</span>
+
+<span class="c1"># 定义一个列表来存储修改后的掩膜路径。</span>
+
+<span class="n">nsclean_modified_masks</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># 遍历原始掩膜列表。</span>
+
+<span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">nsclean_default_masks</span><span class="p">:</span>
+
+    <span class="c1"># 新的掩膜文件名。</span>
+
+    <span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">mask</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_modified.fits&quot;</span>
+
+    <span class="c1"># 打开FITS文件。</span>
+
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdul</span><span class="p">:</span>
+
+        <span class="c1"># 从科学扩展中提取掩膜数据。</span>
+
+        <span class="n">mask_data</span> <span class="o">=</span> <span class="n">hdul</span><span class="p">[</span><span class="s2">&quot;SCI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># 复制数据。</span>
+
+        <span class="c1"># 步骤1：将默认掩膜区域设置回True。</span>
+
+        <span class="n">mask_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># 步骤2：手动重新定义掩膜区域。</span>
+
+        <span class="k">if</span> <span class="s2">&quot;nrs1&quot;</span> <span class="ow">in</span> <span class="n">mask</span><span class="p">:</span>  <span class="c1"># 如果掩膜名称中包含&quot;nrs1&quot;</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">11</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span> <span class="mi">400</span><span class="p">:</span><span class="mi">700</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">:</span><span class="mi">27</span><span class="p">,</span> <span class="mi">700</span><span class="p">:</span><span class="mi">800</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">8</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span> <span class="mi">800</span><span class="p">:</span><span class="mi">1000</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">:</span><span class="mi">24</span><span class="p">,</span> <span class="mi">1000</span><span class="p">:</span><span class="mi">1200</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span> <span class="mi">1200</span><span class="p">:</span><span class="mi">1400</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span> <span class="mi">1400</span><span class="p">:</span><span class="mi">1600</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">21</span><span class="p">,</span> <span class="mi">1600</span><span class="p">:</span><span class="mi">2043</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果掩膜名称不包含&quot;nrs1&quot;</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">16</span><span class="p">,</span> <span class="p">:</span><span class="mi">290</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span> <span class="mi">290</span><span class="p">:</span><span class="mi">740</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span> <span class="mi">740</span><span class="p">:</span><span class="mi">1290</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">8</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span> <span class="mi">1290</span><span class="p">:</span><span class="mi">1840</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+            <span class="n">mask_data</span><span class="p">[:,</span> <span class="mi">11</span><span class="p">:,</span> <span class="mi">1840</span><span class="p">:]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置特定区域为False</span>
+
+        <span class="c1"># 更新科学扩展中的数据。</span>
+
+        <span class="n">hdul</span><span class="p">[</span><span class="s2">&quot;SCI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mask_data</span>
+
+        <span class="c1"># 保存修改后的FITS文件。</span>
+
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stage2_nsclean_modified_dir</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+
+        <span class="n">hdul_modified</span> <span class="o">=</span> <span class="n">hdul</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># 复制文件</span>
+
+        <span class="n">hdul_modified</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 写入修改后的文件，覆盖同名文件</span>
+
+        <span class="n">nsclean_modified_masks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>  <span class="c1"># 将修改后的路径添加到列表中</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved modified mask as: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的文件路径</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id12">
+<h3>7.1 验证掩模（手动修改的掩模） <a name="verify_modified_mask"></a><a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black">
+<p>检查掩模与速率数据，以确保它仅保留探测器的暗区。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制带有屏蔽区域的速率数据。</span>
+
+<span class="c1"># 修改后的掩膜列表，用于数据处理管道。</span>
+<span class="n">nsclean_modified_masks</span> <span class="o">=</span> <span class="p">[</span>
+
+    <span class="n">stage2_nsclean_modified_dir</span>  <span class="c1"># 指定修改后的掩膜目录</span>
+
+    <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_mask_modified.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS1的修改掩膜文件</span>
+
+    <span class="n">stage2_nsclean_modified_dir</span>  <span class="c1"># 指定修改后的掩膜目录</span>
+
+    <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_mask_modified.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS2的修改掩膜文件</span>
+
+<span class="p">]</span>
+
+<span class="c1"># 遍历每个关联的速率数据和掩膜文件进行绘图。</span>
+<span class="k">for</span> <span class="n">rateint_file</span><span class="p">,</span> <span class="n">mask_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">,</span> <span class="n">nsclean_modified_masks</span><span class="p">):</span>
+
+    <span class="n">plot_dark_data</span><span class="p">(</span>  <span class="c1"># 调用绘图函数</span>
+
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rateint_file</span><span class="p">,</span>  <span class="c1"># 速率数据文件路径</span>
+
+        <span class="n">mask_file</span><span class="p">,</span>  <span class="c1"># 掩膜文件路径</span>
+
+        <span class="n">slice_index</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># 切片索引</span>
+
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># 绘图轴</span>
+
+        <span class="n">scale</span><span class="o">=</span><span class="mi">9</span>  <span class="c1"># 缩放因子</span>
+
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr style="border:1px solid black"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1/f 噪声清理数据（用户提供的掩码）。</span>
+
+<span class="c1"># 估计运行时间：57分钟（可能会有所不同）。</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录开始时间</span>
+
+<span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">):</span>  <span class="c1"># 遍历每个速率积分名称</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>  <span class="c1"># 打印正在处理的文件名</span>
+
+    <span class="k">if</span> <span class="s2">&quot;nrs1&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 检查文件名中是否包含&quot;nrs1&quot;</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs1_bots.json&quot;</span>  <span class="c1"># 设置nrs1的提取文件名</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">extract1dref</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">extract_1d_ref</span><span class="p">)[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_nrs2_bots.json&quot;</span>  <span class="c1"># 设置nrs2的提取文件名</span>
+
+    <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>  <span class="c1"># 调用Spec2Pipeline进行数据处理</span>
+
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span>  <span class="c1"># 输入文件路径</span>
+
+        <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+
+        <span class="n">steps</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># 定义处理步骤</span>
+
+            <span class="c1"># 为光谱数据分配波长解决方案。</span>
+
+            <span class="s2">&quot;assign_wcs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;save_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 赋值WCS</span>
+
+            <span class="c1"># 从NIRSpec图像中去除相关读噪声（1/f噪声）。</span>
+
+            <span class="s2">&quot;nsclean&quot;</span><span class="p">:</span> <span class="p">{</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;save_mask&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存掩码</span>
+
+                <span class="s2">&quot;save_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+
+                <span class="s2">&quot;user_mask&quot;</span><span class="p">:</span> <span class="n">nsclean_modified_masks</span><span class="p">[</span><span class="n">indx</span><span class="p">],</span>  <span class="c1"># 使用用户提供的掩码</span>
+
+            <span class="p">},</span>
+
+            <span class="s2">&quot;extract_2d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 获取2D切片</span>
+
+            <span class="s2">&quot;srctype&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># 分配源类型：&#39;point&#39;或&#39;extended&#39;</span>
+
+            <span class="c1"># 我们选择跳过此步骤，因为它可能引入虚假像素</span>
+
+            <span class="c1"># 这会影响光曲线的散射。</span>
+
+            <span class="s2">&quot;flat_field&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过平场校正步骤</span>
+
+            <span class="c1"># 我们也跳过此步骤，因为BOTS系外行星观测是相对的。</span>
+
+            <span class="s2">&quot;photom&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># 跳过光度校正步骤</span>
+
+            <span class="c1"># 估计在2D光谱中标记为DO_NOT_USE的像素的通量值。</span>
+
+            <span class="s2">&quot;pixel_replace&quot;</span><span class="p">:</span> <span class="p">{</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;n_adjacent_cols&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># 邻近列数</span>
+
+                <span class="s2">&quot;algorithm&quot;</span><span class="p">:</span> <span class="s2">&quot;fit_profile&quot;</span><span class="p">,</span>  <span class="c1"># 使用拟合轮廓算法</span>
+
+            <span class="p">},</span>
+
+            <span class="s2">&quot;extract_1d&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># 进行一维提取</span>
+
+                <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不跳过此步骤</span>
+
+                <span class="s2">&quot;override_extract1d&quot;</span><span class="p">:</span> <span class="n">extract1dref</span><span class="p">,</span>  <span class="c1"># 覆盖提取文件名</span>
+
+                <span class="s2">&quot;apply_apcorr&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不应用光圈校正</span>
+
+                <span class="s2">&quot;subtract_background&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># 不减去背景</span>
+
+            <span class="p">},</span>
+
+            <span class="c1"># &#39;dispaxis&#39;: 1, &#39;xstart&#39;: 100, &#39;xstop&#39;: 150, &#39;extract_width&#39;: 10},</span>
+
+        <span class="p">},</span>
+
+        <span class="n">output_dir</span><span class="o">=</span><span class="n">stage2_nsclean_modified_dir</span><span class="p">,</span>  <span class="c1"># 输出目录</span>
+
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;assign_wcs.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的assign_wcs文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;mask.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的mask文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;nsclean.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的nsclean文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;calints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的calints文件名</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved </span><span class="si">{</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">13</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;x1dints.fits&quot;</span><span class="p">)</span>  <span class="c1"># 打印保存的x1dints文件名</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># 记录结束时间</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run time: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span> <span class="s2">&quot; min&quot;</span><span class="p">)</span>  <span class="c1"># 打印运行时间</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3>7.2 原始数据与清理数据（手动修改的掩模）比较 <a name="nsclean_modified_compare"></a><a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<hr style="border:1px solid black"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制原始数据和清理后的数据，以及残差图。</span>
+
+<span class="c1"># 定义清理后的修改掩膜文件路径列表</span>
+<span class="n">cleaned_modified_masks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">stage2_nsclean_modified_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_nsclean.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS1清理后的文件</span>
+    <span class="n">stage2_nsclean_modified_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_nsclean.fits&quot;</span><span class="p">,</span>  <span class="c1"># NRS2清理后的文件</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历每一组速率积分数据和清理后的文件</span>
+<span class="k">for</span> <span class="n">rateint_file</span><span class="p">,</span> <span class="n">cleaned_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rateints_names</span><span class="p">,</span> <span class="n">cleaned_modified_masks</span><span class="p">):</span>
+    <span class="c1"># 绘制清理后的数据</span>
+    <span class="n">plot_cleaned_data</span><span class="p">(</span>
+        <span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rateint_file</span><span class="p">,</span>  <span class="c1"># 原始速率积分文件路径</span>
+        <span class="n">cleaned_file</span><span class="p">,</span>                       <span class="c1"># 清理后的文件路径</span>
+        <span class="n">slice_index</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                   <span class="c1"># 切片索引</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;rows&quot;</span>                      <span class="c1"># 布局方式</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>比较从清理后的数据中提取的光谱与从原始速率文件中提取的光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1D 提取的光谱。</span>
+
+<span class="c1"># 定义未清理的光谱文件路径列表</span>
+<span class="n">x1d_nsclean_skipped</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 添加第一段未清理的光谱文件路径</span>
+    <span class="n">stage2_nsclean_skipped_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_x1dints.fits&quot;</span><span class="p">,</span>
+    <span class="c1"># 添加第二段未清理的光谱文件路径</span>
+    <span class="n">stage2_nsclean_skipped_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_x1dints.fits&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># 定义已清理的光谱文件路径列表</span>
+<span class="n">x1d_nsclean_modified</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 添加第一段已清理的光谱文件路径</span>
+    <span class="n">stage2_nsclean_modified_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs1_x1dints.fits&quot;</span><span class="p">,</span>
+    <span class="c1"># 添加第二段已清理的光谱文件路径</span>
+    <span class="n">stage2_nsclean_modified_dir</span> <span class="o">+</span> <span class="s2">&quot;jw01366003001_04101_00001-seg002_nrs2_x1dints.fits&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历未清理和已清理的光谱文件路径</span>
+<span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x1d_nsclean_skipped</span><span class="p">,</span> <span class="n">x1d_nsclean_modified</span><span class="p">):</span>
+    <span class="c1"># 绘制光谱，传入原始和清理后的文件路径，扩展编号为100，比例设置为0</span>
+    <span class="n">plot_spectra</span><span class="p">([</span><span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">],</span> <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">scale_percent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 感兴趣的波长范围</span>
+<span class="n">wavelength_range</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nrs1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.4</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">],</span> <span class="s2">&quot;nrs2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.25</span><span class="p">,</span> <span class="mf">4.275</span><span class="p">]}</span>  <span class="c1"># 定义不同通道的波长范围</span>
+
+<span class="n">flux_range</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nrs1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1100</span><span class="p">,</span> <span class="mi">1300</span><span class="p">],</span> <span class="s2">&quot;nrs2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">550</span><span class="p">]}</span>  <span class="c1"># 定义不同通道的通量范围</span>
+
+<span class="c1"># 遍历原始数据和清理后的数据</span>
+<span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x1d_nsclean_skipped</span><span class="p">,</span> <span class="n">x1d_nsclean_modified</span><span class="p">):</span>
+
+    <span class="n">plot_spectra</span><span class="p">(</span>  <span class="c1"># 调用绘制光谱的函数</span>
+
+        <span class="p">[</span><span class="n">original</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">],</span>  <span class="c1"># 传入原始和清理后的光谱数据</span>
+
+        <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># 设置扩展编号</span>
+
+        <span class="n">scale_percent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># 设置缩放百分比</span>
+
+        <span class="n">wavelength_range</span><span class="o">=</span><span class="n">wavelength_range</span><span class="p">,</span>  <span class="c1"># 传入波长范围</span>
+
+        <span class="n">flux_range</span><span class="o">=</span><span class="n">flux_range</span><span class="p">,</span>  <span class="c1"># 传入通量范围</span>
+
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-info">
+<p><b>注意：</b> 再次强调，NRS1/NRS2中的亮谱在清理后几乎没有差异。然而，根据比率，NRS1中的光谱表明清理后的数据可能具有稍高的通量，而在NRS2中，清理后的数据与原始数据相比则显示出稍低的通量。</p>
+</div></section>
+</section>
+<section id="id14">
+<h2>8. 结论 <a name="conclusion"></a><a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<hr style="border:1px solid black">
+<p>下面的最终图表展示了计数率图像和相应的1D提取光谱并排比较不同的清理方法：原始图像（未应用NSClean）、清理后的计数率图像（使用默认的管道掩模）、清理后的计数率图像（使用替代管道掩模），以及最后，清理后的计数率图像（使用手动修改的掩模）。</p>
+<p>请注意，本笔记本中呈现的结果可能会因不同数据集（例如，不同亮度、空间范围等的目标）而有所不同。鼓励用户使用不同的掩模方法探索NSClean，以确定最佳结果。</p>
+<p>清理算法的输出现在已准备好进行进一步处理。上述<code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code>运行生成的(<em>_calint.fits</em>)文件可以作为<code class="docutils literal notranslate"><span class="pre">TSO3Pipeline</span></code>的输入，用于生成最终的组合光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 未清理数据 vs. 清理数据（默认掩膜） vs. 清理数据（备用掩膜）速率数据</span>
+
+<span class="c1"># 读取原始速率数据</span>
+<span class="n">original_rate_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mast_products_dir</span> <span class="o">+</span> <span class="n">rate_name</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># 从文件中提取第100层数据</span>
+    <span class="k">for</span> <span class="n">rate_name</span> <span class="ow">in</span> <span class="n">rateints_names</span>  <span class="c1"># 遍历速率名称列表</span>
+<span class="p">]</span>
+
+<span class="c1"># 读取使用默认掩膜清理后的速率数据</span>
+<span class="n">cleaned_rate_default_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cleaned_default_mask</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># 从文件中提取第100层数据</span>
+    <span class="k">for</span> <span class="n">cleaned_default_mask</span> <span class="ow">in</span> <span class="n">cleaned_default_masks</span>  <span class="c1"># 遍历默认掩膜列表</span>
+<span class="p">]</span>
+
+<span class="c1"># 读取使用备用掩膜清理后的速率数据</span>
+<span class="n">cleaned_rate_alternate_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cleaned_alternate_mask</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># 从文件中提取第100层数据</span>
+    <span class="k">for</span> <span class="n">cleaned_alternate_mask</span> <span class="ow">in</span> <span class="n">cleaned_alternate_masks</span>  <span class="c1"># 遍历备用掩膜列表</span>
+<span class="p">]</span>
+
+<span class="c1"># 读取使用手动修改掩膜清理后的速率数据</span>
+<span class="n">cleaned_rate_modified_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cleaned_modified_mask</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># 从文件中提取第100层数据</span>
+    <span class="k">for</span> <span class="n">cleaned_modified_mask</span> <span class="ow">in</span> <span class="n">cleaned_modified_masks</span>  <span class="c1"># 遍历手动修改掩膜列表</span>
+<span class="p">]</span>
+
+<span class="c1"># 为可视化绘图处理数据</span>
+<span class="k">for</span> <span class="n">data_list</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="n">original_rate_data</span><span class="p">,</span>  <span class="c1"># 原始速率数据</span>
+    <span class="n">cleaned_rate_default_data</span><span class="p">,</span>  <span class="c1"># 清理后的默认掩膜数据</span>
+    <span class="n">cleaned_rate_alternate_data</span><span class="p">,</span>  <span class="c1"># 清理后的备用掩膜数据</span>
+    <span class="n">cleaned_rate_modified_data</span><span class="p">,</span>  <span class="c1"># 清理后的手动修改掩膜数据</span>
+<span class="p">]:</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">data_list</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 将NaN值替换为0</span>
+
+<span class="c1"># 原始数据与清理数据（使用默认掩膜）比较</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># 创建子图</span>
+
+<span class="c1"># 设置y轴标题并绘制数据</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Original Rate Data&quot;</span><span class="p">,</span>  <span class="c1"># 原始速率数据标题</span>
+    <span class="s2">&quot;Cleaned Rate Data (Default Mask)&quot;</span><span class="p">,</span>  <span class="c1"># 清理后的默认掩膜数据标题</span>
+    <span class="s2">&quot;Cleaned Rate Data (Alternate Mask)&quot;</span><span class="p">,</span>  <span class="c1"># 清理后的备用掩膜数据标题</span>
+    <span class="s2">&quot;Cleaned Rate Data (Hand-Modified Mask)&quot;</span><span class="p">,</span>  <span class="c1"># 清理后的手动修改掩膜数据标题</span>
+<span class="p">]</span>
+
+<span class="c1"># 遍历数据列表和标题</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+    <span class="nb">zip</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">original_rate_data</span><span class="p">,</span>  <span class="c1"># 原始速率数据</span>
+            <span class="n">cleaned_rate_default_data</span><span class="p">,</span>  <span class="c1"># 清理后的默认掩膜数据</span>
+            <span class="n">cleaned_rate_alternate_data</span><span class="p">,</span>  <span class="c1"># 清理后的备用掩膜数据</span>
+            <span class="n">cleaned_rate_modified_data</span><span class="p">,</span>  <span class="c1"># 清理后的手动修改掩膜数据</span>
+        <span class="p">],</span>
+        <span class="n">titles</span><span class="p">,</span>  <span class="c1"># 标题列表</span>
+    <span class="p">)</span>
+<span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_list</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># 获取当前子图</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Integration[100,:,:] | NRS1&quot;</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Integration[100,:,:] | NRS2&quot;</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1e-1</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">))</span>  <span class="c1"># 显示图像</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;DN/s&quot;</span><span class="p">)</span>  <span class="c1"># 添加颜色条</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Pixel Column&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Pixel Row&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图布局</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 最终比较</span>
+
+<span class="c1"># 绘制第一组光谱数据</span>
+<span class="n">plot_spectra</span><span class="p">(</span>
+
+    <span class="p">[</span>
+        <span class="n">x1d_nsclean_skipped</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>    <span class="c1"># 跳过的清理数据的第一组</span>
+        <span class="n">x1d_nsclean_default</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>    <span class="c1"># 默认清理数据的第一组</span>
+        <span class="n">x1d_nsclean_alternate</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>   <span class="c1"># 替代清理数据的第一组</span>
+        <span class="n">x1d_nsclean_modified</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>    <span class="c1"># 修改后的清理数据的第一组</span>
+    <span class="p">],</span>
+
+    <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                  <span class="c1"># 扩展编号设置为100</span>
+    <span class="n">wavelength_range</span><span class="o">=</span><span class="n">wavelength_range</span><span class="p">,</span>  <span class="c1"># 波长范围</span>
+    <span class="n">flux_range</span><span class="o">=</span><span class="n">flux_range</span><span class="p">,</span>        <span class="c1"># 通量范围</span>
+<span class="p">)</span>
+
+<span class="c1"># 绘制第二组光谱数据</span>
+<span class="n">plot_spectra</span><span class="p">(</span>
+
+    <span class="p">[</span>
+        <span class="n">x1d_nsclean_skipped</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>    <span class="c1"># 跳过的清理数据的第二组</span>
+        <span class="n">x1d_nsclean_default</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>    <span class="c1"># 默认清理数据的第二组</span>
+        <span class="n">x1d_nsclean_alternate</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>   <span class="c1"># 替代清理数据的第二组</span>
+        <span class="n">x1d_nsclean_modified</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>    <span class="c1"># 修改后的清理数据的第二组</span>
+    <span class="p">],</span>
+
+    <span class="n">ext_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                  <span class="c1"># 扩展编号设置为100</span>
+    <span class="n">wavelength_range</span><span class="o">=</span><span class="n">wavelength_range</span><span class="p">,</span>  <span class="c1"># 波长范围</span>
+    <span class="n">flux_range</span><span class="o">=</span><span class="n">flux_range</span><span class="p">,</span>        <span class="c1"># 通量范围</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-info">
+<p><b>最终说明：</b> 替代的（基于剪辑的）和手动修改的掩膜产生了相似的结果。然而，手动修改的掩膜似乎引入了更少的高频噪声。</p>
+</div></section>
+<section id="id15">
+<h2>关于笔记本 <a name="about"></a><a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p><strong>作者：</strong> Melanie Clarke, Kayli Glidic; NIRSpec仪器团队</p>
+<p><strong>更新时间：</strong> 2024年2月29日。</p>
+<hr style="border:0.5px solid black">
+<p><a class="reference internal" href="#top"><span class="xref myst">页面顶部</span></a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRSpec/NIRSpec_NSClean"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="MOS_NSClean_example_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">使用 NSClean 清理 NIRSpec MOS 产品中的残余 1/f 噪声</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">笔记本目标</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1. 介绍 <a name="introduction"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2. 导入库 <a name="imports"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. 下载数据 <a name="data"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spec2pipeline-nsclean">4. 运行 <code class="docutils literal notranslate"><span class="pre">Spec2Pipeline</span></code> 而不进行 NSClean（原始数据） <a name="nsclean_skipped"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract1d">4.1 修改 EXTRACT1D 参考文件 <a name="extract1d_mod"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nsclean-1-f">5. 使用 NSClean 清理 1/f 噪声（默认管道掩模） <a name="nsclean_default"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.1 验证掩模（默认管道掩模） <a name="verify_default_mask"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">5.2 比较原始数据与清理后的数据（默认管道掩模） <a name="nsclean_default_compare"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6. 使用 NSClean（替代掩膜）清理 1/f 噪声 <a name="nsclean_alternate"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.1 验证掩模（备用掩模） <a name="verify_alternate_mask"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">6.2 原始数据与清理数据的比较（备用掩膜） <a name="nsclean_alternate_compare"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7. 使用 NSClean 清理 1/f 噪声（手动修改的掩膜） <a name="nsclean_modified"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.1 验证掩模（手动修改的掩模） <a name="verify_modified_mask"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">7.2 原始数据与清理数据（手动修改的掩模）比较 <a name="nsclean_modified_compare"></a></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">8. 结论 <a name="conclusion"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">关于笔记本 <a name="about"></a></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

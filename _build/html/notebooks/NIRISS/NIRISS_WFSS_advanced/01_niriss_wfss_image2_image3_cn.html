@@ -1,0 +1,1676 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>运行图像处理管道并创建源目录 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="运行 spec2 管道" href="02_niriss_wfss_spec2_cn.html" />
+    <link rel="prev" title="下载宽场无缝光谱 (WFSS) 数据" href="00_niriss_mast_query_data_setup_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>运行图像处理管道并创建源目录</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">运行图像处理管道并创建源目录</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">导入与数据设置</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crds">CRDS 文档</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">主要内容</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">默认成像处理管道运行</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">运行默认图像2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#level-2">查看 Level 2 图像关联文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#image2">运行 image2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">运行默认图像3</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#level-3">查看 Level 3 关联文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#image3">运行 image3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">检查默认结果</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#imviz">ImViz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">自定义成像处理流程运行</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">图像3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">检查自定义结果</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">进一步完善源目录</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id">在目录中匹配源ID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">手动编辑源目录</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>运行图像处理管道并创建源目录<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>在本次运行中，我们从已经通过探测器1管道校准的速率文件开始。这将节省时间，因为我们不需要编辑探测器1过程中执行的任何步骤。因此，WFSS（宽场分光光谱）运行的第一步校准是将速率文件的直接图像通过JWST管道的Image2和Image3步骤。这包括创建源目录，通常需要根据管道的默认值进行调整。<strong>没有良好的源目录将导致在分散的WFSS图像中源的提取不够优化。</strong></p>
+<p><strong>用例</strong>：管道的默认参数未能提取预期的源，因此需要设置自定义参数以获得新的合成图像和源目录。<br></p>
+<p><strong>数据</strong>：JWST/NIRISS图像和来自程序2079观察004的光谱。这些数据应存储在一个名为<code class="docutils literal notranslate"><span class="pre">data</span></code>的单一目录中，可以从之前的笔记本00_niriss_mast_query_data_setup.ipynb下载。<br></p>
+<p><strong>工具</strong>：astropy, crds, glob, jdaviz, json, jwst, matplotlib, numpy, os, pandas, urllib, warnings, zipfile<br></p>
+<p><strong>跨仪器</strong>：NIRISS<br></p>
+<p><strong>内容</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#imports"><span class="xref myst">导入与数据设置</span></a></p></li>
+<li><p><a class="reference internal" href="#default"><span class="xref myst">默认成像管道运行</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#default_image2"><span class="xref myst">Image2</span></a></p></li>
+<li><p><a class="reference internal" href="#default_image3"><span class="xref myst">Image3</span></a></p></li>
+<li><p><a class="reference internal" href="#view_default"><span class="xref myst">检查默认结果</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#custom"><span class="xref myst">自定义成像管道运行</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#custom_image3"><span class="xref myst">Image3</span></a></p></li>
+<li><p><a class="reference internal" href="#view_custom"><span class="xref myst">检查自定义结果</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#source_cat"><span class="xref myst">进一步细化源目录</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#match_sources"><span class="xref myst">跨目录匹配源ID</span></a></p></li>
+<li><p><a class="reference internal" href="#manual_cat"><span class="xref myst">手动编辑源目录</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>作者</strong>：Rachel Plesha (rplesha&#64;stsci.edu), Camilla Pacifici (cpacifici&#64;stsci.edu), JWebbinar笔记本。<br></p>
+<p><strong>首次发布</strong>：2024年5月 <br></p>
+<p><strong>最后测试</strong>：此笔记本最后一次测试是在JWST管道版本1.12.5和CRDS上下文jwst_1225.pmap下进行的。</p>
+<p><a id='imports'></a></p>
+<section id="id2">
+<h2>导入与数据设置<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="crds">
+<h1>CRDS 文档<a class="headerlink" href="#crds" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/user_documentation/reference_files_crds.html#crds">CRDS Documentation</a></p>
+<p>此文档提供了关于 <strong>CRDS</strong>（<strong>Calibration Reference Data System</strong>）的详细信息，特别是在 <strong>JWST</strong>（<strong>James Webb Space Telescope</strong>）数据处理中的应用。CRDS 是一个用于管理和分发天文数据处理所需的参考文件的系统。</p>
+<section id="id3">
+<h2>主要内容<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>CRDS 的功能</strong>：CRDS 负责确保在数据处理过程中使用的所有参考文件都是最新的，并且与特定的科学目标和观测条件相匹配。</p></li>
+<li><p><strong>参考文件的类型</strong>：CRDS 管理多种类型的参考文件，包括但不限于：</p>
+<ul>
+<li><p><strong>校准文件</strong>（Calibration Files）</p></li>
+<li><p><strong>掩蔽文件</strong>（Mask Files）</p></li>
+<li><p><strong>增益文件</strong>（Gain Files）</p></li>
+</ul>
+</li>
+<li><p><strong>如何使用 CRDS</strong>：用户可以通过命令行工具或编程接口访问 CRDS，以获取所需的参考文件。</p></li>
+<li><p><strong>更新和维护</strong>：CRDS 定期更新，以确保用户能够访问最新的校准数据和参考文件。</p></li>
+</ul>
+<p>有关更详细的信息和使用指南，请访问 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/user_documentation/reference_files_crds.html#crds">CRDS Documentation</a>。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 更新CRDS路径到你的本地目录</span>
+<span class="o">%</span><span class="k">env</span> CRDS_PATH=crds_cache  # 设置CRDS缓存路径为&#39;crds_cache&#39;
+
+<span class="c1"># 设置CRDS服务器的URL</span>
+<span class="o">%</span><span class="k">env</span> CRDS_SERVER_URL=https://jwst-crds.stsci.edu  # 设置CRDS服务器的URL
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 导入用于文件路径操作的模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>  <span class="c1"># 导入JSON处理模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>  <span class="c1"># 导入警告模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>  <span class="c1"># 导入用于URL处理的模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>  <span class="c1"># 导入用于处理ZIP文件的模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>  <span class="c1"># 导入Pandas库，用于数据处理和分析</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>  <span class="c1"># 导入Astropy单位模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从Astropy导入FITS文件处理模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">SkyCoord</span>  <span class="c1"># 从Astropy导入天文坐标模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>  <span class="c1"># 从Astropy导入表格模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jdaviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Imviz</span>  <span class="c1"># 从jdaviz导入Imviz模块，用于图像可视化</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  <span class="c1"># 从Matplotlib导入绘图模块</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> widget  # 使用交互式绘图
+
+<span class="c1"># %matplotlib inline  # 注释掉的代码，用于在Jupyter Notebook中内嵌绘图</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image2Pipeline</span>  <span class="c1"># 从JWST管道导入Image2Pipeline模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image3Pipeline</span>  <span class="c1"># 从JWST管道导入Image3Pipeline模块</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>检查您正在使用的JWST（詹姆斯·韦伯太空望远镜）管道版本。要查看可用的最新管道版本或安装以前的版本，请访问 <a class="reference external" href="https://github.com/spacetelescope/jwst#software-vs-dms-build-version-map">GitHub</a>。同时，请确认您使用的 <a class="reference external" href="https://jwst-crds.stsci.edu/">CRDS（参考数据服务）版本</a>。 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/user_documentation/reference_files_crds.html">CRDS文档</a> 解释了如何在JWST管道中设置特定的上下文。如果这两个值与上述最后测试的说明不同，则此笔记本可能会存在差异。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">jwst</span>  <span class="c1"># 导入JWST相关库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">crds</span>  <span class="c1"># 导入CRDS（天文数据记录系统）库</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;JWST Pipeliene Version:&#39;</span><span class="p">,</span> <span class="n">jwst</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># 打印JWST管道的版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRDS Context:&#39;</span><span class="p">,</span> <span class="n">crds</span><span class="o">.</span><span class="n">get_context_name</span><span class="p">(</span><span class="s1">&#39;jwst&#39;</span><span class="p">))</span>  <span class="c1"># 打印当前使用的CRDS上下文</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>数据目录 <code class="docutils literal notranslate"><span class="pre">data_dir</span></code> 应该包含所有的关联文件和速率文件，并且放在一个单一的平面目录中。<code class="docutils literal notranslate"><span class="pre">default_run_image3</span></code> 和 <code class="docutils literal notranslate"><span class="pre">custom_run_image3</span></code> 是我们稍后将用于校准数据的目录。它们被分开是为了便于比较这两种输出。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>  <span class="c1"># 数据目录，存放处理后的数据</span>
+
+<span class="n">default_run_image3</span> <span class="o">=</span> <span class="s1">&#39;default_image3_calibrated&#39;</span>  <span class="c1"># 默认图像3运行结果保存路径（在data_dir内部）</span>
+
+<span class="n">custom_run_image3</span> <span class="o">=</span> <span class="s1">&#39;custom_image3_calibrated&#39;</span>  <span class="c1"># 自定义图像3运行结果保存路径（在data_dir内部）</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>关联文件期望满足以下条件：1) 所有数据都在同一目录中；2) 您在该目录中执行管道调用。由于这个原因，我们需要切换到数据目录以运行成像管道。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如果您尚未从笔记本00下载数据，请运行此单元格。否则，可以跳过它。</span>
+
+<span class="c1"># 从Box下载未校准的数据到数据目录：</span>
+
+<span class="n">boxlink</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/niriss_wfss_advanced/niriss_wfss_advanced_01_input.zip&#39;</span>  <span class="c1"># 数据链接</span>
+
+<span class="n">boxfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">boxlink</span><span class="p">)</span>  <span class="c1"># 获取文件名</span>
+
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">boxlink</span><span class="p">,</span> <span class="n">boxfile</span><span class="p">)</span>  <span class="c1"># 下载文件</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">boxfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># 打开zip文件</span>
+
+<span class="n">zf</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">data_dir</span><span class="p">)</span>  <span class="c1"># 解压到指定的数据目录</span>
+
+<span class="c1"># 将从box文件下载的文件移动到顶层数据目录</span>
+
+<span class="n">box_download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">boxfile</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 构建下载目录路径</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">box_download_dir</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)):</span>  <span class="c1"># 遍历下载目录中的所有文件</span>
+
+    <span class="k">if</span> <span class="s1">&#39;.csv&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>  <span class="c1"># 如果文件是CSV格式</span>
+
+        <span class="c1"># 移动到当前目录</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>  <span class="c1"># 重命名并移动到当前目录</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果文件不是CSV格式</span>
+
+        <span class="c1"># 移动到数据目录 </span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)))</span>  <span class="c1"># 重命名并移动到数据目录</span>
+
+<span class="c1"># 现在删除不必要的文件</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">boxfile</span><span class="p">)</span>  <span class="c1"># 删除下载的zip文件</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">box_download_dir</span><span class="p">)</span>  <span class="c1"># 删除下载目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从之前创建的csv文件中，找到我们想要用spec2进行校准的所有光栅观测的列表</span>
+
+<span class="n">listrate_file</span> <span class="o">=</span> <span class="s1">&#39;list_ngdeep_rate.csv&#39;</span>  <span class="c1"># 定义包含光栅观测列表的csv文件名</span>
+
+<span class="n">rate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">listrate_file</span><span class="p">)</span>  <span class="c1"># 读取csv文件并将其存储为DataFrame</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>  <span class="c1"># 获取当前工作目录</span>
+
+<span class="k">if</span> <span class="n">cwd</span> <span class="o">!=</span> <span class="n">data_dir</span><span class="p">:</span>  <span class="c1"># 如果当前目录不是数据目录，则切换到数据目录</span>
+
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>  <span class="c1"># 尝试切换到数据目录</span>
+
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>  <span class="c1"># 如果找不到指定的目录</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not able to change into: </span><span class="si">{</span><span class="n">data_dir</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">Remaining in: </span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印错误信息，显示无法切换目录</span>
+
+        <span class="k">pass</span>  <span class="c1"># 继续执行后面的代码</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">temp_dir</span> <span class="ow">in</span> <span class="p">[</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="n">custom_run_image3</span><span class="p">]:</span>  <span class="c1"># 遍历默认和自定义的运行图像目录</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">):</span>  <span class="c1"># 检查目录是否存在</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>  <span class="c1"># 如果不存在，则创建该目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='default'></a></p>
+</section>
+<section id="id4">
+<h2>默认成像处理管道运行<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>首先，对所有使用WFSS数据观测的直接图像运行默认的image2和image3步骤。</p>
+<p><a id='default_image2'></a></p>
+<section id="id5">
+<h3>运行默认图像2<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>图像2是在直接图像速率文件上运行的。虽然您的程序应该有有效的关联文件可以从MAST下载，但如果出于任何原因您需要自己制作关联文件，请参见<a class="reference internal" href="#customasn"><span class="xref myst">创建自定义ASN文件</span></a>。</p>
+<section id="level-2">
+<h4>查看 Level 2 图像关联文件<a class="headerlink" href="#level-2" title="Link to this heading">#</a></h4>
+<p>首先，查看关联（ASN）文件，以更好地理解其中包含的所有内容。</p>
+<p>对于 image2 关联文件，每个观察序列中的每个抖动位置应该有一个 ASN 文件，这由 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-strategies/niriss-wfss-recommended-strategies">曝光策略</a> 设置。在这种情况下，ASN 文件的数量应该与 <code class="docutils literal notranslate"><span class="pre">rate_df</span></code> 中的直接图像数量相匹配（<code class="docutils literal notranslate"><span class="pre">FILTER=CLEAR</span></code>），因为每个直接图像在观察序列中处于独特的抖动位置（XOFFSET, YOFFSET）。对于该程序和观测，在更换光栅之前有一张只有一个抖动的直接图像，在更换光栅之间有一张带有四个抖动的直接图像，以及在序列末尾有一张带有三个抖动的直接图像。这导致每个观察序列总共有八张图像，而在使用阻挡滤光片 F115W -&gt; F115W -&gt; F150W -&gt; F150W -&gt; F200W 的观测中，有五个观察序列。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 导入glob模块，用于文件路径匹配</span>
+
+<span class="c1"># 查找当前目录下所有包含&#39;image2&#39;和&#39;asn&#39;的json文件</span>
+<span class="n">image2_asns</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*image2*asn*.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># 打印找到的&#39;image2&#39; ASN文件的数量</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image2_asns</span><span class="p">),</span> <span class="s1">&#39;Image2 ASN files&#39;</span><span class="p">)</span>  <span class="c1"># 应该有40个image2的asn文件</span>
+
+<span class="c1"># 打印与&#39;CLEAR&#39;过滤器匹配的速率文件数量</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rate_df</span><span class="p">[</span><span class="n">rate_df</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CLEAR&#39;</span><span class="p">]),</span> <span class="s1">&#39;Direct Image rate files&#39;</span><span class="p">)</span>  <span class="c1"># 速率文件的数量应与关联文件的数量匹配</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 查看其中一个关联文件</span>
+
+<span class="c1"># 加载第一个关联文件的数据</span>
+<span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">image2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># 遍历关联数据中的每个键值对</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">asn_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># 打印键及其对应的数据</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>从这个关联中，我们可以得出关于观测的许多信息：</p>
+<ol class="arabic simple">
+<li><p>从 <code class="docutils literal notranslate"><span class="pre">asn_type</span></code> 和 <code class="docutils literal notranslate"><span class="pre">asn_rule</span></code>，我们可以看到这是一个 image2 关联。</p></li>
+<li><p>从 <code class="docutils literal notranslate"><span class="pre">degraded_status</span></code>，我们可以看到没有需要排除在校准之外的曝光。</p></li>
+<li><p>从 <code class="docutils literal notranslate"><span class="pre">constraints</span></code>，我们可以看到这不是一个时间序列观测（TSO），该观测是程序 2079 的一部分，使用 NIRISS 进行观测，采用了 CLEAR（即 WFSS 的成像）和 F150W 滤光片。</p></li>
+<li><p>从 <code class="docutils literal notranslate"><span class="pre">products</span></code>，我们可以看到只有一个关联的曝光。这在 image2 中是典型的，因为通常每个观测序列的每个微调只有一个曝光。</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 特别是，查看关联文件中的产品文件名：</span>
+
+<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历关联数据中的每个产品</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># 遍历产品中的每个键值对</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;members&#39;</span><span class="p">:</span>  <span class="c1"># 如果键是&#39;members&#39;</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名</span>
+
+            <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># 遍历成员列表</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印每个成员的文件名和类型</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果键不是&#39;members&#39;</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名和对应的值</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="image2">
+<h4>运行 image2<a class="headerlink" href="#image2" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">rate.fits</span></code> 产品将被校准为 <code class="docutils literal notranslate"><span class="pre">cal.fits</span></code> 文件。关于在图像处理（Image2）部分执行的步骤的更多信息，可以在 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/pipeline/calwebb_image2.html">Image2 管道文档</a> 中找到。</p>
+<p>在这种情况下，我们将输出保存到运行管道的同一目录中，以便随后可以使用输出的 <code class="docutils literal notranslate"><span class="pre">cal</span></code> 文件来运行图像处理（Image3）管道。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">img2_asn</span> <span class="ow">in</span> <span class="n">image2_asns</span><span class="p">:</span>  <span class="c1"># 遍历所有的image2关联文件</span>
+
+    <span class="c1"># check if the calibrated file already exists  # 检查校准文件是否已经存在</span>
+    <span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">img2_asn</span><span class="p">))</span>  <span class="c1"># 读取关联文件的内容</span>
+
+    <span class="n">cal_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_cal.fits&quot;</span>  <span class="c1"># 构建校准文件的名称</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cal_file</span><span class="p">):</span>  <span class="c1"># 如果校准文件已存在</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cal_file</span><span class="p">,</span> <span class="s1">&#39;cal file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 输出文件已存在的提示</span>
+        <span class="k">continue</span>  <span class="c1"># 跳过当前循环，继续下一个关联文件</span>
+
+    <span class="c1"># if not, calibrated with image2  # 如果不存在，则进行校准</span>
+    <span class="n">img2</span> <span class="o">=</span> <span class="n">Image2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">img2_asn</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 调用Image2Pipeline进行校准并保存结果</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='default_image3'></a></p>
+</section>
+</section>
+<section id="id6">
+<h3>运行默认图像3<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="level-3">
+<h4>查看 Level 3 关联文件<a class="headerlink" href="#level-3" title="Link to this heading">#</a></h4>
+<p>内容与 image2 非常相似，但请注意，现在有更多的成员被关联在一起，并且它们使用的是来自 image2 的单个指向校准文件。image3 重新采样并组合来自所有抖动和观测序列的相同阻挡滤光片（NIRISS WFSS 的 PUPIL）图像，以形成单个图像，这导致了更少的 image3 关联文件。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 导入glob模块，用于文件路径操作</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入numpy库，用于数组和数值计算</span>
+
+<span class="c1"># 查找当前目录下所有包含&#39;image3&#39;和&#39;asn&#39;的json文件</span>
+<span class="n">image3_asns</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*image3*asn*.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># 打印找到的image3 ASN文件的数量，应该是3个</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image3_asns</span><span class="p">),</span> <span class="s1">&#39;Image3 ASN files&#39;</span><span class="p">)</span>  <span class="c1"># 应该有3个image3关联文件</span>
+
+<span class="c1"># 计算使用的唯一阻挡滤光片的数量，应该与image3关联文件数量匹配</span>
+<span class="n">uniq_filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">rate_df</span><span class="p">[</span><span class="n">rate_df</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CLEAR&#39;</span><span class="p">][</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">])</span>
+
+<span class="c1"># 打印使用的唯一滤光片数量及其名称</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">uniq_filters</span><span class="p">)</span><span class="si">}</span><span class="s2"> unique filters used: </span><span class="si">{</span><span class="n">uniq_filters</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 查看其中一个关联文件</span>
+
+<span class="c1"># 从第一个关联文件中加载数据</span>
+<span class="n">image3_asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">image3_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># 遍历关联文件中的每个键值对</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">image3_asn_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># 打印键和值</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 特别地，查看关联文件中的产品文件名：</span>
+
+<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">image3_asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历产品列表</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># 遍历每个产品的键值对</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;members&#39;</span><span class="p">:</span>  <span class="c1"># 如果键是&#39;members&#39;</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名</span>
+
+            <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># 遍历成员列表</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印每个成员的文件名和类型</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果键不是&#39;members&#39;</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名和对应的值</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="image3">
+<h4>运行 image3<a class="headerlink" href="#image3" title="Link to this heading">#</a></h4>
+<p>在Image3中，<code class="docutils literal notranslate"><span class="pre">cal.fits</span></code>个别指向文件将被校准为一个合并的<code class="docutils literal notranslate"><span class="pre">i2d.fits</span></code>图像。Image3步骤也是最终源目录创建的地方，因此我们可以更改一些输入参数以获得更精细的输出源目录。这将在下面的<a class="reference internal" href="#custom"><span class="xref myst">自定义成像管道运行</span></a>部分中完成。然而，我们将首先使用默认参数对数据进行校准。有关在管道的Image3部分执行的步骤的更多信息，请参阅<a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/pipeline/calwebb_image3.html">Image3管道文档</a>。</p>
+<p><strong>注意：Image3的运行可能需要一些时间</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">img3_asn</span> <span class="ow">in</span> <span class="n">image3_asns</span><span class="p">:</span>  <span class="c1"># 遍历所有的image3关联文件</span>
+
+    <span class="c1"># check if the calibrated file already exists  # 检查校准文件是否已存在</span>
+    <span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">img3_asn</span><span class="p">))</span>  <span class="c1"># 读取关联文件的JSON数据</span>
+
+    <span class="n">cal_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_i2d.fits&quot;</span><span class="p">)</span>  <span class="c1"># 构建校准文件的路径</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cal_file</span><span class="p">):</span>  <span class="c1"># 如果校准文件已经存在</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cal_file</span><span class="p">,</span> <span class="s1">&#39;cal file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 打印文件已存在的信息</span>
+        <span class="k">continue</span>  <span class="c1"># 跳过当前循环，继续下一个</span>
+
+    <span class="c1"># if not, calibrated with image3  # 如果不存在，则进行image3的校准</span>
+    <span class="n">img3</span> <span class="o">=</span> <span class="n">Image3Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">img3_asn</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">default_run_image3</span><span class="p">)</span>  <span class="c1"># 调用Image3Pipeline进行校准并保存结果</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 移除不必要的文件以节省磁盘空间</span>
+
+<span class="k">for</span> <span class="n">crf</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="s1">&#39;*crf.fits&#39;</span><span class="p">)):</span>  <span class="c1"># 遍历匹配路径下所有以&#39;crf.fits&#39;结尾的文件</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">crf</span><span class="p">)</span>  <span class="c1"># 删除找到的文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='view_default'></a></p>
+</section>
+</section>
+<section id="id7">
+<h3>检查默认结果<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 这些都是来自Image3管道的结果</span>
+
+<span class="n">image3_i2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="s1">&#39;*i2d.fits&#39;</span><span class="p">)))</span> <span class="c1"># 获取多个dither/mosaic的组合图像并排序</span>
+
+<span class="n">image3_segm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="s1">&#39;*segm.fits&#39;</span><span class="p">)))</span> <span class="c1"># 获取定义源范围的分割图并排序</span>
+
+<span class="n">image3_cat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="s1">&#39;*cat.ecsv&#39;</span><span class="p">)))</span> <span class="c1"># 获取定义特定像素下源的RA/Dec的源目录并排序</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="matplotlib">
+<h4>Matplotlib<a class="headerlink" href="#matplotlib" title="Link to this heading">#</a></h4>
+<p>Matplotlib 在某些方面存在局限性，而 ImViz 可能更适合您的需求——特别是如果您喜欢以 WCS 坐标查看事物的话。为了笔记本的目的，我们将重点介绍一些使用 matplotlib 包的关键领域。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">i2d</span></code> 组合图像和由 Image3 生成的源目录，我们可以直观地检查管道找到的源位置是否令人满意。在以下图中，管道定义为扩展源的部分以橙红色显示，而管道定义为点源的部分则以灰色显示。这一定义会影响 WFSS 图像中的提取框。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 创建一个10x10英寸的图形</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 设置每行的子图数量为2</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image3_i2d</span><span class="p">)</span> <span class="o">/</span> <span class="n">cols</span><span class="p">))</span>  <span class="c1"># 计算所需的行数，向上取整</span>
+
+<span class="k">for</span> <span class="n">plt_num</span><span class="p">,</span> <span class="n">img</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">image3_i2d</span><span class="p">):</span>  <span class="c1"># 遍历每个图像及其索引</span>
+
+    <span class="c1"># 确定子图的位置</span>
+    <span class="n">xpos</span> <span class="o">=</span> <span class="p">(</span><span class="n">plt_num</span> <span class="o">%</span> <span class="mi">40</span><span class="p">)</span> <span class="o">%</span> <span class="n">cols</span>  <span class="c1"># 计算当前子图在列中的位置</span>
+    <span class="n">ypos</span> <span class="o">=</span> <span class="p">((</span><span class="n">plt_num</span> <span class="o">%</span> <span class="mi">40</span><span class="p">)</span> <span class="o">//</span> <span class="n">cols</span><span class="p">)</span>  <span class="c1"># 计算当前子图在行中的位置，使用整除以获得整数</span>
+
+    <span class="c1"># 创建子图</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">),</span> <span class="p">(</span><span class="n">ypos</span><span class="p">,</span> <span class="n">xpos</span><span class="p">))</span>  <span class="c1"># 在指定的网格位置创建子图</span>
+
+    <span class="c1"># 绘制图像</span>
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdu</span><span class="p">:</span>  <span class="c1"># 打开FITS文件</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hdu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示图像数据，设置颜色范围和原点位置</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;obs</span><span class="si">{</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;OBSERVTN&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 设置子图标题</span>
+
+    <span class="c1"># 同时绘制相关的目录</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i2d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;cat.ecsv&#39;</span><span class="p">))</span>  <span class="c1"># 读取对应的目录文件</span>
+    <span class="n">extended_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 筛选出扩展源，1表示为真</span>
+    <span class="n">point_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 筛选出点源，0表示为假</span>
+
+    <span class="c1"># 绘制扩展源的散点图</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">extended_sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">extended_sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;orangered&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="c1"># 绘制点源的散点图</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">point_sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">point_sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;dimgrey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+<span class="c1"># 帮助调整坐标轴以避免重叠；如果这不起作用，可以手动设置</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 自动调整子图参数以使其适合图形区域</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>分割图（segmentation maps）也是Image3流程的产物，它们用于帮助确定源目录（source catalog）。让我们来看看这些图，以确保我们对它所定义的源感到满意。</p>
+<p>在分割图中，每个蓝色斑块（blob）应该对应一个物理目标（physical target）。有些情况下，源可能会发生混叠（blended），在这种情况下，制作分割图和源目录的参数应该进行调整。下面的观测004 F200W滤光片图像中可以看到一个例子，其中两个星系在坐标大约为(1600, 1300)的位置混叠成一个源。关于这一点将在<a class="reference internal" href="#custom"><span class="xref myst">自定义成像流程运行</span></a>中详细讨论。</p>
+<p><em>请注意，由于<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-instrumentation/niriss-gr150-grisms#NIRISSGR150Grisms-Blockingfilters">滤光片偏移差异</a>，下面切割图所显示的视场（field of views）在每个滤光片下是不同的。</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 我们将多次查看这个，因此将其定义为一个函数</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_image_and_segmentation_map</span><span class="p">(</span><span class="n">i2d_images</span><span class="p">,</span> <span class="n">segm_images</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">1250</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">1750</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">1250</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">1750</span><span class="p">,</span> <span class="n">cat_suffix</span><span class="o">=</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">):</span>
+    
+    <span class="n">cols</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 设置每行的列数为2</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">i2d_images</span><span class="p">)</span>  <span class="c1"># 获取i2d_images的数量作为行数</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">rows</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>  <span class="c1"># 创建一个图形对象，设置大小</span>
+
+    <span class="k">for</span> <span class="n">plt_num</span><span class="p">,</span> <span class="n">img</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">segm_images</span><span class="p">,</span> <span class="n">i2d_images</span><span class="p">]))):</span>
+        <span class="c1"># 确定子图的位置</span>
+        <span class="n">xpos</span> <span class="o">=</span> <span class="p">(</span><span class="n">plt_num</span> <span class="o">%</span> <span class="mi">40</span><span class="p">)</span> <span class="o">%</span> <span class="n">cols</span>  <span class="c1"># 计算当前子图的x坐标</span>
+        <span class="n">ypos</span> <span class="o">=</span> <span class="p">((</span><span class="n">plt_num</span> <span class="o">%</span> <span class="mi">40</span><span class="p">)</span> <span class="o">//</span> <span class="n">cols</span><span class="p">)</span>  <span class="c1"># 计算当前子图的y坐标，使用整除以获得整数</span>
+
+        <span class="c1"># 创建子图</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">),</span> <span class="p">(</span><span class="n">ypos</span><span class="p">,</span> <span class="n">xpos</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="s1">&#39;i2d&#39;</span> <span class="ow">in</span> <span class="n">img</span><span class="p">:</span>  <span class="c1"># 如果图像是i2d类型</span>
+            <span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i2d.fits&#39;</span><span class="p">,</span> <span class="n">cat_suffix</span><span class="p">))</span>  <span class="c1"># 读取对应的目录</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;gist_gray&#39;</span>  <span class="c1"># 设置颜色映射为灰度</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;tab20c_r&#39;</span>  <span class="c1"># 设置颜色映射为分类颜色</span>
+
+        <span class="c1"># 绘制图像</span>
+        <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdu</span><span class="p">:</span>  <span class="c1"># 打开FITS文件</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hdu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>  <span class="c1"># 显示图像数据</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;obs</span><span class="si">{</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;OBSERVTN&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># 获取标题信息</span>
+
+        <span class="c1"># 也绘制相关的目录</span>
+        <span class="n">extended_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 选择扩展源</span>
+        <span class="n">point_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 选择点源</span>
+
+        <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">sources</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">extended_sources</span><span class="p">,</span> <span class="n">point_sources</span><span class="p">]):</span>
+            <span class="c1"># 绘制源</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+            <span class="c1"># 添加源标签</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">source_num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">source_num</span><span class="p">,</span> 
+                            <span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> 
+                            <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>  <span class="c1"># 在源位置添加标签</span>
+
+        <span class="k">if</span> <span class="s1">&#39;i2d&#39;</span> <span class="ow">in</span> <span class="n">img</span><span class="p">:</span>  <span class="c1"># 如果是i2d图像</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> combined image&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题为组合图像</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> segmentation map&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题为分割图</span>
+
+        <span class="c1"># 放大到较小的区域</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>  <span class="c1"># 设置x轴范围</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>  <span class="c1"># 设置y轴范围</span>
+
+    <span class="c1"># 帮助使坐标轴不重叠；如果这不起作用，您也可以手动设置</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整布局以避免重叠</span>
+
+    <span class="k">return</span> <span class="n">fig</span>  <span class="c1"># 返回图形对象</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用函数绘制图像及其分割图</span>
+<span class="n">default_fig</span> <span class="o">=</span> <span class="n">plot_image_and_segmentation_map</span><span class="p">(</span><span class="n">image3_i2d</span><span class="p">,</span> <span class="n">image3_segm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="imviz">
+<h4>ImViz<a class="headerlink" href="#imviz" title="Link to this heading">#</a></h4>
+<p>与DS9类似，ImViz允许您交互式地查看这些图像及其对应的源目录。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imviz</span> <span class="o">=</span> <span class="n">Imviz</span><span class="p">()</span>  <span class="c1"># 创建 Imviz 实例</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">default_viewer</span>  <span class="c1"># 获取默认的查看器</span>
+
+<span class="c1"># 绘制每个 i2d 图像</span>
+<span class="n">catalogs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 用于绘制目录的列表</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 用于绘制目录的标签列表</span>
+
+<span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">image3_i2d</span><span class="p">:</span>  <span class="c1"># 遍历每个 i2d 图像</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Plotting: </span><span class="si">{</span><span class="n">img</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 打印当前绘制的图像名称</span>
+
+    <span class="c1"># 获取观测编号和光学元件信息作为标签</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;obs</span><span class="si">{</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;OBSERVTN&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PUPIL&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>  <span class="c1"># 捕获警告</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># 忽略警告</span>
+        <span class="n">imviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>  <span class="c1"># 加载图像数据</span>
+
+    <span class="c1"># 保存信息以便后续绘制目录</span>
+    <span class="n">catalogs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i2d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;cat.ecsv&#39;</span><span class="p">))</span>  <span class="c1"># 生成目录文件名并添加到列表</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>  <span class="c1"># 添加标签到列表</span>
+
+<span class="c1"># 这将图像对齐以使用 WCS 坐标；</span>
+<span class="c1"># 图像需要先加载，但在添加标记之前</span>
+<span class="n">linking</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Orientation&#39;</span><span class="p">]</span>  <span class="c1"># 获取方向插件</span>
+<span class="n">linking</span><span class="o">.</span><span class="n">link_type</span> <span class="o">=</span> <span class="s1">&#39;WCS&#39;</span>  <span class="c1"># 设置链接类型为 WCS</span>
+
+<span class="c1"># 还要绘制相关的目录</span>
+<span class="c1"># 由于在使用天空坐标时需要在 imviz 中链接，因此需要一个单独的循环</span>
+<span class="k">for</span> <span class="n">catname</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">catalogs</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>  <span class="c1"># 遍历目录名称和标签</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">catname</span><span class="p">)</span>  <span class="c1"># 读取目录文件</span>
+
+    <span class="c1"># 将表格格式化为 imviz 期望的格式</span>
+    <span class="n">sky_coords</span> <span class="o">=</span> <span class="n">Table</span><span class="p">({</span><span class="s1">&#39;coord&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span>  <span class="c1"># 创建天空坐标</span>
+                                           <span class="n">dec</span><span class="o">=</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span>
+                                           <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;deg&quot;</span><span class="p">)]})</span>
+
+    <span class="n">viewer</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;markersize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;fill&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>  <span class="c1"># 设置标记样式</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span><span class="n">sky_coords</span><span class="p">,</span> <span class="n">use_skycoord</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">marker_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> catalog&quot;</span><span class="p">)</span>  <span class="c1"># 添加标记到查看器</span>
+
+<span class="c1"># 这将改变所有图像的拉伸</span>
+<span class="n">plotopt</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Plot Options&#39;</span><span class="p">]</span>  <span class="c1"># 获取绘图选项插件</span>
+<span class="n">plotopt</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">viewers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 选择所有查看器和图层</span>
+<span class="n">plotopt</span><span class="o">.</span><span class="n">stretch_preset</span> <span class="o">=</span> <span class="s1">&#39;99.5%&#39;</span>  <span class="c1"># 设置拉伸预设为 99.5%</span>
+
+<span class="n">imviz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示 Imviz 窗口</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='custom'></a></p>
+</section>
+</section>
+</section>
+<section id="id8">
+<h2>自定义成像处理流程运行<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p><a id='custom_image3'></a></p>
+<section id="id9">
+<h3>图像3<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>尝试编辑几个参数，并将结果与上述默认运行进行比较，最初针对单个文件。</p>
+<p>当我们调用 image3 管道时，可以对管道的特定步骤进行修改。在这种情况下，我们将编辑管道的 <code class="docutils literal notranslate"><span class="pre">source_catalog</span></code> 和 <code class="docutils literal notranslate"><span class="pre">tweakreg</span></code> 步骤。关于可以调整的不同参数的解释，请参见下面的进一步信息，而默认值是该处列出的默认管道值和提供的参数参考文件的组合。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/api/jwst.source_catalog.SourceCatalogStep.html">source_catalog 进一步信息</a></p></li>
+<li><p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/api/jwst.tweakreg.tweakreg_step.TweakRegStep.html">tweakreg 进一步信息</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取所有包含&#39;image3&#39;和&#39;asn&#39;的JSON文件，并按名称排序</span>
+<span class="n">image3_asns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*image3*asn*.json&#39;</span><span class="p">))</span>
+
+<span class="c1"># 选择第二个asn文件进行处理</span>
+<span class="n">test_asn</span> <span class="o">=</span> <span class="n">image3_asns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># 检查校准后的文件是否已经存在</span>
+<span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">test_asn</span><span class="p">))</span>  <span class="c1"># 读取asn文件内容</span>
+
+<span class="c1"># 构建i2d文件的路径</span>
+<span class="n">i2d_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_i2d.fits&quot;</span><span class="p">)</span>
+
+<span class="c1"># 如果i2d文件已经存在，打印提示信息</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">i2d_file</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i2d_file</span><span class="p">,</span> <span class="s1">&#39;i2d file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 输出文件已存在的信息</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 调用image3管道，进行处理，并添加一些新的修改</span>
+    <span class="n">cust_img3</span> <span class="o">=</span> <span class="n">Image3Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">test_asn</span><span class="p">,</span>
+                                    <span class="n">steps</span><span class="o">=</span><span class="p">{</span>
+                                           <span class="s1">&#39;source_catalog&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel_fwhm&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>  <span class="c1"># 设置源目录的FWHM</span>
+                                                              <span class="s1">&#39;snr_threshold&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>  <span class="c1"># 设置信噪比阈值</span>
+                                                              <span class="s1">&#39;npixels&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>  <span class="c1"># 设置像素数量</span>
+                                                              <span class="s1">&#39;deblend&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 启用去混叠</span>
+                                                              <span class="p">},</span>
+                                           <span class="s1">&#39;tweakreg&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;snr_threshold&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># 设置信噪比阈值</span>
+                                                        <span class="s1">&#39;abs_refcat&#39;</span><span class="p">:</span> <span class="s1">&#39;GAIADR3&#39;</span><span class="p">,</span>  <span class="c1"># 设置绝对参考目录</span>
+                                                        <span class="s1">&#39;save_catalogs&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存目录</span>
+                                                        <span class="s1">&#39;searchrad&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>  <span class="c1"># 设置搜索半径</span>
+                                                        <span class="s1">&#39;kernel_fwhm&#39;</span><span class="p">:</span> <span class="mf">2.302</span><span class="p">,</span>  <span class="c1"># 设置核的FWHM</span>
+                                                        <span class="s1">&#39;fitgeometry&#39;</span><span class="p">:</span> <span class="s1">&#39;shift&#39;</span><span class="p">,</span>  <span class="c1"># 设置拟合几何</span>
+                                                        <span class="p">},</span>
+                                           <span class="p">},</span>
+                                    <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+                                    <span class="n">output_dir</span><span class="o">=</span><span class="n">custom_run_image3</span><span class="p">)</span>  <span class="c1"># 指定输出目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入必要的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 用于处理文件和目录</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 用于查找符合特定规则的文件路径名</span>
+
+<span class="c1"># 删除不必要的文件以节省磁盘空间</span>
+<span class="k">for</span> <span class="n">crf</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*crf.fits&#39;</span><span class="p">)):</span>  <span class="c1"># 查找所有以&#39;crf.fits&#39;结尾的文件</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">crf</span><span class="p">)</span>  <span class="c1"># 删除找到的文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='view_custom'></a></p>
+</section>
+<section id="id10">
+<h3>检查自定义结果<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 生成默认的i2d文件路径，将默认运行图像路径与i2d文件名结合</span>
+<span class="n">default_i2d</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">i2d_file</span><span class="p">))</span>
+
+<span class="c1"># 创建一个列表，包含待比较的i2d文件</span>
+<span class="n">compare_i2ds</span> <span class="o">=</span> <span class="p">[</span><span class="n">i2d_file</span><span class="p">,</span> <span class="n">default_i2d</span><span class="p">]</span>
+
+<span class="c1"># 创建一个列表，包含待比较的分割文件，替换文件名中的&#39;i2d.fits&#39;为&#39;segm.fits&#39;</span>
+<span class="n">compare_segm</span> <span class="o">=</span> <span class="p">[</span><span class="n">i2d_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i2d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;segm.fits&#39;</span><span class="p">),</span> <span class="n">default_i2d</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i2d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;segm.fits&#39;</span><span class="p">)]</span>
+
+<span class="c1"># 调用函数绘制图像和分割图，并将比较结果存储在compare_fig中</span>
+<span class="n">compare_fig</span> <span class="o">=</span> <span class="n">plot_image_and_segmentation_map</span><span class="p">(</span><span class="n">compare_i2ds</span><span class="p">,</span> <span class="n">compare_segm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>下面的单元格使用Imviz来可视化类似的信息。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imviz</span> <span class="o">=</span> <span class="n">Imviz</span><span class="p">()</span>  <span class="c1"># 创建Imviz实例</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">default_viewer</span>  <span class="c1"># 获取默认查看器</span>
+
+<span class="c1"># 遍历图像文件和标签</span>
+<span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">i2d_file</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_run_image3</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">i2d_file</span><span class="p">))],</span> <span class="p">[</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">]):</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Plotting: </span><span class="si">{</span><span class="n">img</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 打印当前绘制的图像文件名</span>
+
+    <span class="c1"># 创建标题，包含观测编号和光学元件信息</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> obs</span><span class="si">{</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;OBSERVTN&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PUPIL&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>  <span class="c1"># 捕获警告</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># 忽略警告</span>
+        <span class="n">imviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>  <span class="c1"># 加载数据到Imviz中</span>
+
+    <span class="c1"># 这将图像对齐以使用WCS坐标</span>
+    <span class="n">linking</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Orientation&#39;</span><span class="p">]</span>  <span class="c1"># 获取方向插件</span>
+    <span class="n">linking</span><span class="o">.</span><span class="n">link_type</span> <span class="o">=</span> <span class="s1">&#39;WCS&#39;</span>  <span class="c1"># 设置链接类型为WCS</span>
+
+    <span class="c1"># 还绘制相关的目录</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;i2d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;cat.ecsv&#39;</span><span class="p">))</span>  <span class="c1"># 读取对应的目录文件</span>
+
+    <span class="c1"># 将表格格式化为imviz所需的格式</span>
+    <span class="n">t_xy</span> <span class="o">=</span> <span class="n">Table</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span>  <span class="c1"># 提取x中心坐标</span>
+                  <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">]})</span>  <span class="c1"># 提取y中心坐标</span>
+
+    <span class="n">viewer</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;markersize&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;fill&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>  <span class="c1"># 设置标记样式</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span><span class="n">t_xy</span><span class="p">,</span> <span class="n">marker_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> catalog&quot;</span><span class="p">)</span>  <span class="c1"># 添加标记到查看器中</span>
+
+<span class="c1"># 这将改变所有图像的拉伸</span>
+<span class="n">plotopt</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Plot Options&#39;</span><span class="p">]</span>  <span class="c1"># 获取绘图选项插件</span>
+<span class="n">plotopt</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">viewers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 选择所有查看器和图层</span>
+<span class="n">plotopt</span><span class="o">.</span><span class="n">stretch_preset</span> <span class="o">=</span> <span class="s1">&#39;99.5%&#39;</span>  <span class="c1"># 设置拉伸预设为99.5%</span>
+
+<span class="n">imviz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示Imviz界面</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>如果您对上述结果满意，请对剩余图像进行校准。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取所有包含&#39;image3&#39;和&#39;asn&#39;的JSON文件，并按名称排序</span>
+<span class="n">image3_asns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*image3*asn*.json&#39;</span><span class="p">))</span>
+
+<span class="c1"># 遍历每个找到的&#39;image3&#39;的asn文件</span>
+<span class="k">for</span> <span class="n">img3_asn</span> <span class="ow">in</span> <span class="n">image3_asns</span><span class="p">:</span>
+
+    <span class="c1"># 检查校准后的文件是否已经存在</span>
+    <span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">img3_asn</span><span class="p">))</span>  <span class="c1"># 读取asn文件内容为JSON格式</span>
+
+    <span class="c1"># 构建输出文件的路径</span>
+    <span class="n">i2d_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_i2d.fits&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 如果输出文件已存在，打印提示并跳过该文件</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">i2d_file</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i2d_file</span><span class="p">,</span> <span class="s1">&#39;cal file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 输出已存在的文件信息</span>
+        <span class="k">continue</span>  <span class="c1"># 跳过后续处理，继续下一个文件</span>
+
+    <span class="c1"># 调用image3处理管道，进行图像处理，并添加一些新的修改</span>
+    <span class="n">cust_img3</span> <span class="o">=</span> <span class="n">Image3Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">img3_asn</span><span class="p">,</span>
+                                    <span class="n">steps</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># 定义处理步骤</span>
+                                           <span class="s1">&#39;source_catalog&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel_fwhm&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>  <span class="c1"># 源目录步骤的参数设置</span>
+                                                              <span class="s1">&#39;snr_threshold&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>  <span class="c1"># 信噪比阈值</span>
+                                                              <span class="s1">&#39;npixels&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>  <span class="c1"># 最小像素数</span>
+                                                              <span class="s1">&#39;deblend&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 是否去混叠</span>
+                                                              <span class="p">},</span>
+
+                                           <span class="s1">&#39;tweakreg&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;snr_threshold&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># 调整注册步骤的信噪比阈值</span>
+                                                        <span class="s1">&#39;abs_refcat&#39;</span><span class="p">:</span> <span class="s1">&#39;GAIADR3&#39;</span><span class="p">,</span>  <span class="c1"># 绝对参考目录</span>
+                                                        <span class="s1">&#39;save_catalogs&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># 是否保存目录</span>
+                                                        <span class="s1">&#39;searchrad&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>  <span class="c1"># 搜索半径</span>
+                                                        <span class="s1">&#39;kernel_fwhm&#39;</span><span class="p">:</span> <span class="mf">2.302</span><span class="p">,</span>  <span class="c1"># 核函数的全宽半高</span>
+                                                        <span class="s1">&#39;fitgeometry&#39;</span><span class="p">:</span> <span class="s1">&#39;shift&#39;</span><span class="p">,</span>  <span class="c1"># 拟合几何形状</span>
+                                                        <span class="p">},</span>
+
+                                           <span class="p">},</span>
+                                    <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存结果</span>
+                                    <span class="n">output_dir</span><span class="o">=</span><span class="n">custom_run_image3</span><span class="p">)</span>  <span class="c1"># 指定输出目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入所需的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 用于文件和目录操作</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 用于文件路径匹配</span>
+
+<span class="c1"># 移除不必要的文件以节省磁盘空间</span>
+<span class="k">for</span> <span class="n">crf</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*crf.fits&#39;</span><span class="p">)):</span>  <span class="c1"># 查找匹配的文件</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">crf</span><span class="p">)</span>  <span class="c1"># 删除找到的文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 这些都是来自Image3管道的结果</span>
+
+<span class="n">cust_image3_i2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*i2d.fits&#39;</span><span class="p">)))</span>  <span class="c1"># 获取多个dither/mosaic合成图像的文件路径并排序</span>
+
+<span class="n">cust_image3_segm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*segm.fits&#39;</span><span class="p">)))</span>  <span class="c1"># 获取分割图的文件路径并排序，该图定义了源的范围</span>
+
+<span class="n">custom_fig</span> <span class="o">=</span> <span class="n">plot_image_and_segmentation_map</span><span class="p">(</span><span class="n">cust_image3_i2d</span><span class="p">,</span> <span class="n">cust_image3_segm</span><span class="p">)</span>  <span class="c1"># 绘制图像及其分割图</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='source_cat'></a></p>
+</section>
+</section>
+<section id="id11">
+<h2>进一步完善源目录<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>在上述情况下，我们直接使用管道（pipeline）修改了结果。也许您想使用其他人的自定义源目录（source catalog），或者进一步修改管道输出的源目录。在这些情况下，我们需要修改spec2 ASN文件，以指向新的源目录，这将在spec2笔记本中讨论。此外，匹配不同目录中的所有源ID（source ID）也是很有用的。在这种情况下，管道创建了三个不同的目录，它们识别相同的RA/Dec或X/Y像素位置，但源ID不同，因此我们将编辑这些目录，使它们在源ID值上保持一致。这些额外的步骤并不总是必要的，但在NIRISS WFSS数据的分析中可能会有所帮助。</p>
+<p><a id='match_sources'></a></p>
+<section id="id">
+<h3>在目录中匹配源ID<a class="headerlink" href="#id" title="Link to this heading">#</a></h3>
+<p>在上面的图中，您可以看到同一个源有多个源ID。在这里，我们希望匹配所有观测中的源ID，以确保无论我们查看哪个滤光片或观测，都在讨论同一个源。为此，我们使用 astropy 的 <code class="docutils literal notranslate"><span class="pre">match_to_catalog_3d</span></code> 函数并重新基准化标签。</p>
+<p>第一步是决定一个基础目录，以便与所有其他目录进行匹配。在这里，我们将使用观测004 F115W滤光片。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">custom_cats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*niriss_clear-f????_cat.ecsv&#39;</span><span class="p">)))</span> <span class="c1"># 获取所有符合格式的cat文件路径并排序</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All image3 catalogs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">custom_cats</span><span class="p">)</span> <span class="c1"># 打印所有找到的image3目录</span>
+
+<span class="n">base_cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">custom_cats</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># 读取第一个catalog文件作为基础目录</span>
+
+<span class="c1"># save out the base catalog with a new name to be consistent</span>
+<span class="n">base_cat_name</span> <span class="o">=</span> <span class="n">custom_cats</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="s1">&#39;source-match_cat.ecsv&#39;</span><span class="p">)</span> <span class="c1"># 替换文件名以生成新的基础目录名称</span>
+
+<span class="n">base_cat</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">base_cat_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 将基础目录写入新文件，允许覆盖</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Base catalog:&quot;</span><span class="p">,</span> <span class="n">base_cat_name</span><span class="p">)</span> <span class="c1"># 打印新基础目录的名称</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>遍历剩余的目录，以基于天球坐标匹配 ID，匹配精度为 1 角秒以内。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_sep</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">arcsec</span>  <span class="c1"># 设置最大分离角度为1弧秒，如果需要可以调整</span>
+
+<span class="n">base_sky</span> <span class="o">=</span> <span class="n">base_cat</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span>  <span class="c1"># 获取基础目录中的天空中心坐标</span>
+
+<span class="k">for</span> <span class="n">to_match_cat</span> <span class="ow">in</span> <span class="n">custom_cats</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>  <span class="c1"># 遍历自定义目录中的每个目录，从第二个开始</span>
+
+    <span class="c1"># 读取目录</span>
+    <span class="n">other_cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">to_match_cat</span><span class="p">)</span>  <span class="c1"># 读取当前匹配的目录</span>
+    <span class="n">other_sky</span> <span class="o">=</span> <span class="n">other_cat</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span>  <span class="c1"># 获取当前目录中的天空中心坐标</span>
+
+    <span class="c1"># 根据天空坐标找到两个目录之间的匹配源</span>
+    <span class="n">idx</span><span class="p">,</span> <span class="n">d2d</span><span class="p">,</span> <span class="n">d3d</span> <span class="o">=</span> <span class="n">base_sky</span><span class="o">.</span><span class="n">match_to_catalog_3d</span><span class="p">(</span><span class="n">other_sky</span><span class="p">)</span>  <span class="c1"># 进行3D匹配，返回索引和距离</span>
+    <span class="n">sep_constraint</span> <span class="o">=</span> <span class="n">d2d</span> <span class="o">&lt;</span> <span class="n">max_sep</span>  <span class="c1"># 根据最大分离角度筛选匹配源</span>
+
+    <span class="n">base_matches</span> <span class="o">=</span> <span class="n">base_cat</span><span class="p">[</span><span class="n">sep_constraint</span><span class="p">]</span>  <span class="c1"># 获取基础目录中匹配的源</span>
+    <span class="n">other_matches</span> <span class="o">=</span> <span class="n">other_cat</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">sep_constraint</span><span class="p">]]</span>  <span class="c1"># 获取其他目录中匹配的源</span>
+
+    <span class="c1"># 重新设置ID值，使其相同</span>
+    <span class="n">other_matches</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base_matches</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>  <span class="c1"># 将匹配的标签从基础目录复制到其他目录</span>
+
+    <span class="c1"># 保存新的目录</span>
+    <span class="n">match_cat_name</span> <span class="o">=</span> <span class="n">to_match_cat</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="s1">&#39;source-match_cat.ecsv&#39;</span><span class="p">)</span>  <span class="c1"># 修改文件名以保存匹配目录</span>
+    <span class="n">other_matches</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">match_cat_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 写入匹配目录，覆盖同名文件</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved:&#39;</span><span class="p">,</span> <span class="n">match_cat_name</span><span class="p">)</span>  <span class="c1"># 打印保存的文件名</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>查看新的源标签编号。它们应该匹配！</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用函数绘制图像和分割图，并保存结果</span>
+<span class="n">new_cat_fig</span> <span class="o">=</span> <span class="n">plot_image_and_segmentation_map</span><span class="p">(</span>
+    <span class="n">cust_image3_i2d</span><span class="p">,</span>  <span class="c1"># 输入的图像数据</span>
+    <span class="n">cust_image3_segm</span><span class="p">,</span>  <span class="c1"># 输入的分割数据</span>
+    <span class="n">cat_suffix</span><span class="o">=</span><span class="s1">&#39;source-match_cat.ecsv&#39;</span><span class="p">,</span>  <span class="c1"># 输出文件的后缀名</span>
+    <span class="n">xmin</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>  <span class="c1"># x轴最小值</span>
+    <span class="n">xmax</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>  <span class="c1"># x轴最大值</span>
+    <span class="n">ymin</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>   <span class="c1"># y轴最小值</span>
+    <span class="n">ymax</span><span class="o">=</span><span class="mi">1300</span>   <span class="c1"># y轴最大值</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='manual_cat'></a></p>
+</section>
+<section id="id12">
+<h3>手动编辑源目录<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>展望WFSS（宽场光谱仪）提取，我们可能在某一特定时刻只关心一到两个源。在这种情况下，缩减源目录至仅包含这些源会更有助于查看WFSS数据中提取的1-D光谱。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/source_catalog/main.html#output-products">源目录列信息</a></p></li>
+</ul>
+<p>要开始，请查看当前某个滤光器的自定义源目录，以了解目录中包含的内容。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 首先，查看F200W滤光器的当前自定义源目录</span>
+
+<span class="c1"># 获取自定义运行目录中所有匹配的源目录文件，并按字母顺序排序，选择第三个文件</span>
+<span class="n">cat_name</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*source-match_cat.ecsv&#39;</span><span class="p">)))[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># 读取源目录文件，存储为Table对象</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">cat_name</span><span class="p">)</span>
+
+<span class="c1"># 打印源目录文件的名称</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cat_name</span><span class="p">)</span>
+
+<span class="c1"># 显示源目录的内容</span>
+<span class="n">cat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>寻找源（source）可能有多种方法，以下是三种选项：</p>
+<ol class="arabic simple">
+<li><p>使用已知的赤经/赤纬（RA/Dec）来定位一个对象</p></li>
+<li><p>使用已知的x/y位置来定位一个对象</p></li>
+<li><p>使用对象的源ID（source ID）。请注意，我们在这里使用的是重新基准化的源目录（rebased source catalogs）中的ID。</p></li>
+</ol>
+<p>这个概念可以扩展到通过源目录中包含的任何列进行过滤。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 已知的赤经/赤纬</span>
+
+<span class="n">desired_ra</span> <span class="o">=</span> <span class="mf">53.15437048946369</span>  <span class="c1"># 目标赤经</span>
+
+<span class="n">desired_dec</span> <span class="o">=</span> <span class="o">-</span><span class="mf">27.771689847051736</span>  <span class="c1"># 目标赤纬</span>
+
+<span class="c1"># 创建一个SkyCoord对象，使用目标的赤经和赤纬</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">desired_ra</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">desired_dec</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+
+<span class="c1"># 将目标坐标与目录中的天体坐标进行匹配，返回最近的天体ID和距离</span>
+<span class="n">nearest_id</span><span class="p">,</span> <span class="n">distance_2d</span><span class="p">,</span> <span class="n">distance_3d</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">match_to_catalog_sky</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">])</span> 
+
+<span class="c1"># 从目录中提取与最近天体ID对应的相关信息</span>
+<span class="n">cat</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;xcentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;ycentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;is_extended&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_abmag&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]][</span><span class="n">nearest_id</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 在F200W图像中使用已知的X/Y像素位置（基于你定义的cat）</span>
+
+<span class="n">known_x</span> <span class="o">=</span> <span class="mi">1880</span>  <span class="c1"># 定义已知的X坐标</span>
+
+<span class="n">known_y</span> <span class="o">=</span> <span class="mi">1100</span>  <span class="c1"># 定义已知的Y坐标</span>
+
+<span class="c1"># 计算每个天体到已知位置的距离</span>
+<span class="n">nearest_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">known_x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">known_y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">])]</span>
+
+<span class="c1"># 找到距离最近的天体的索引</span>
+<span class="n">wh_nearest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nearest_pos</span><span class="p">)</span> <span class="o">==</span> <span class="nb">min</span><span class="p">(</span><span class="n">nearest_pos</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># 输出距离最近的天体的相关信息</span>
+<span class="n">cat</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;xcentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;ycentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;is_extended&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_abmag&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]][</span><span class="n">wh_nearest</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># alternatively with a known source number</span>
+<span class="c1"># 另外一种方法是使用已知的源编号</span>
+
+<span class="c1"># note that this number might be different for you depending on pipeline versions and parameters changed.</span>
+<span class="c1"># 请注意，这个编号可能会因管道版本和参数更改而有所不同。</span>
+
+<span class="c1"># source = 109 # if you want to specify the number</span>
+<span class="c1"># source = 109 # 如果你想指定一个编号</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="n">nearest_id</span><span class="p">]</span> <span class="c1"># to match the one chosen in this notebook</span>
+<span class="c1"># source = cat[&#39;label&#39;][nearest_id] # 从分类目录中获取最近的源编号，以匹配本笔记本中选择的编号</span>
+
+<span class="n">wh_source</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">source</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># wh_source = np.where(np.array(cat[&#39;label&#39;] == source))[0][0] # 找到与源编号匹配的索引位置</span>
+
+<span class="n">cat</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;xcentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;ycentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;is_extended&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_abmag&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]][</span><span class="n">wh_source</span><span class="p">]</span>
+<span class="c1"># 从分类目录中提取相关信息，包括标签、中心坐标、天空坐标、是否扩展、等光度绝对星等和等光度维根星等</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>使用上述三种方法中的任意一种，编写新的目录。</p>
+<ul class="simple">
+<li><p>使用 RA/Dec: <code class="docutils literal notranslate"><span class="pre">new_cat</span> <span class="pre">=</span> <span class="pre">Table(cat[nearest_id])</span></code></p></li>
+<li><p>使用 x/y: <code class="docutils literal notranslate"><span class="pre">new_cat</span> <span class="pre">=</span> <span class="pre">Table(cat[wh_nearest])</span></code></p></li>
+<li><p>使用源 ID: <code class="docutils literal notranslate"><span class="pre">new_cat</span> <span class="pre">=</span> <span class="pre">Table(cat[wh_source])</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_cat</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="n">wh_source</span><span class="p">])</span>  <span class="c1"># 将行实例转换回数据框</span>
+
+<span class="c1"># 保存新目录，使用唯一名称</span>
+<span class="n">new_cat_name</span> <span class="o">=</span> <span class="n">cat_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;source</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s1">_cat.ecsv&#39;</span><span class="p">)</span>  <span class="c1"># 替换文件名中的部分以生成新名称</span>
+
+<span class="n">new_cat</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_cat_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 将新目录写入文件，允许覆盖</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved:&#39;</span><span class="p">,</span> <span class="n">new_cat_name</span><span class="p">)</span>  <span class="c1"># 打印保存的文件名</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>一旦我们有了一个满意的更新源目录，我们就可以进入管道的 spec2 步骤。在运行 spec2 后，可能需要返回到这一步。让我们快速查看一下在接下来的笔记本中，我们将使用 spec2 提取的源。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个1行2列的子图，设置图形大小为9x6</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cust_image3_i2d</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 获取最后一幅图像</span>
+
+<span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">new_cat_name</span><span class="p">)</span>  <span class="c1"># 读取新的目录数据</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]:</span>  <span class="c1"># 遍历两个子图</span>
+
+    <span class="c1"># plot the image  # 绘制图像</span>
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdu</span><span class="p">:</span>  <span class="c1"># 打开图像文件</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hdu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示图像数据，设置颜色范围和原点位置</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;obs</span><span class="si">{</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;OBSERVTN&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># 获取观测和光学元件信息</span>
+
+    <span class="c1"># also plot the associated catalog  # 也绘制相关的目录</span>
+    <span class="n">extended_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 选择扩展源，1表示为真</span>
+    <span class="n">point_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 选择点源，0表示为假</span>
+
+    <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">sources</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">extended_sources</span><span class="p">,</span> <span class="n">point_sources</span><span class="p">]):</span>  <span class="c1"># 遍历颜色和源</span>
+        <span class="c1"># plotting the sources  # 绘制源</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>  <span class="c1"># 绘制源的散点图</span>
+
+        <span class="c1"># adding source labels  # 添加源标签</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">source_num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]):</span>  <span class="c1"># 遍历源标签</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">source_num</span><span class="p">,</span>  <span class="c1"># 注释源标签</span>
+                        <span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span>  <span class="c1"># 设置标签位置</span>
+                        <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># 设置字体大小</span>
+                        <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>  <span class="c1"># 设置标签颜色</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Speicifc Source to Extract with Spec2&quot;</span><span class="p">)</span>  <span class="c1"># 设置整个图形的标题</span>
+
+<span class="c1"># zooming in on a smaller region  # 放大到一个较小的区域</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">known_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="n">known_x</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># 设置x轴范围</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">known_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="n">known_y</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># 设置y轴范围</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图间距</span>
+</pre></div>
+</div>
+</div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png"><img alt="空间望远镜标志" src="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png" style="width: 200px;" />
+</a>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRISS/NIRISS_WFSS_advanced"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00_niriss_mast_query_data_setup_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">下载宽场无缝光谱 (WFSS) 数据</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_niriss_wfss_spec2_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">运行 spec2 管道</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">运行图像处理管道并创建源目录</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">导入与数据设置</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crds">CRDS 文档</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">主要内容</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">默认成像处理管道运行</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">运行默认图像2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#level-2">查看 Level 2 图像关联文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#image2">运行 image2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">运行默认图像3</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#level-3">查看 Level 3 关联文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#image3">运行 image3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">检查默认结果</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#imviz">ImViz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">自定义成像处理流程运行</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">图像3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">检查自定义结果</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">进一步完善源目录</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id">在目录中匹配源ID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">手动编辑源目录</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

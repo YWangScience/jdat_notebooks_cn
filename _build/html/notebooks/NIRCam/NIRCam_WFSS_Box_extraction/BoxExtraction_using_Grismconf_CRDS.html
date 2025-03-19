@@ -1,0 +1,1204 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>WFSS Box Extraction Example &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRCam/NIRCam_WFSS_Box_extraction/BoxExtraction_using_Grismconf_CRDS';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRCam/NIRCam_WFSS_Box_extraction/BoxExtraction_using_Grismconf_CRDS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>WFSS Box Extraction Example</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-imports">Package Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-crds-path-and-server">Set CRDS Path and Server</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-functions-and-parameters">Define Functions and Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data">Download Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-pipeline-steps">Run Pipeline Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-computation-of-wfss-information">Basic Computation of WFSS Information</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-where-light-gets-dispersed-to">Compute where light gets dispersed to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-spectral-trace-for-a-given-object">Compute the spectral trace for a given object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-box-extraction">Basic Box Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#examine-a-source-in-the-data">Examine a source in the data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-trace-location">Calculate trace location</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-background">Estimate Background</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assign-wavelengths">Assign Wavelengths</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#box-extraction">Box extraction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wavelength-calibration">Wavelength calibration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-physical-units">Converting to physical units</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="wfss-box-extraction-example">
+<h1>WFSS Box Extraction Example<a class="headerlink" href="#wfss-box-extraction-example" title="Link to this heading">#</a></h1>
+<p>This notebook demonstrates how to use the Generalized World Coordinate System (gWCS) in a Wide Field Slitless Spectrscopy (WFSS) observation to determine source locations and wavelengths. It shows how to calculate the location of a source in a WFSS observation given its location in a corresponding imaging observation, and how to calculate the wavelength at a particular pixel along an object’s trace.</p>
+<p>It then shows how to use the gWCS to perform a box extraction of a spectrum and translate the 1D spectrum into physical units.</p>
+<p>In this example, we use exposures from JWST program 01076. We want to work on files that have full gWCS information in their headers, and that have had the flat field applied. We also need to run the flux calibration step of the pipeline in order to populate the name of the photom reference file in the header of the WFSS file (in the S_PHOTOM header keyword). This reference file will be used as part of the extraction process below. The photom step will not change the values of the science data in the WFSS exposure, because the observing mode (OBS_MODE header keyword) in the file is set to NRC_WFSS.</p>
+<p>In order to accomplish this, the <b>assign_wcs</b>, <b>flat field</b>, and <b>photom</b> steps of the pipeline must be run on the data. Ordinarily this means we could simply download *_cal.fits files from MAST, and that is true for the imaging mode data used in this notebook. However as we show below, we want to apply the imaging mode flat field to the WFSS data. This means that we must download the *_rate.fits file, and manually run these pipeline steps on the data. For consistency, we do the same with the imaging mode data.</p>
+<p>JWST detectors show little to no wavelength dependence in their flat-field, and just as is regularly done with HST WFSS data, in this example we have the pipeline apply the flat field for the direct cross filter to all the imaging as well as WFSS observations. We do not use a WFSS-specific flat field.</p>
+<p>Once the data have been properly calibrated, the notebook uses the <b>grismconf</b> package to translate between source locations in the imaging and WFSS data, and calculate wavelengths associated with a given location in the WFSS data. <b>grismconf</b> also uses the flux calibration curve in the photom reference file for the grisms to translate the data from units of <span class="math notranslate nohighlight">\(DN/sec\)</span> to <span class="math notranslate nohighlight">\(F_{lambda}\)</span> units (<span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>). <b>grismconf</b> will obtain the needed NIRCam WFSS configuration files from the Calibration Reference Data System (CRDS). Note that the photom step must be run on the data in order to obain the name of the approproate CRDS sesitivity file.</p>
+<p>Note: At this stage, the important part of this is not the absolute accuracy of the WCS. Instead, we rely on accurate self-consistency between the imaging and the WFSS observations.</p>
+<p>Author: N. Pirzkal <br>
+Date created: 24 Sept 2024</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Package-Imports"><span class="xref myst">Package Imports</span></a></p></li>
+<li><p><a class="reference internal" href="#Define-Functions-and-Parameters"><span class="xref myst">Define Functions and Parameters</span></a></p></li>
+<li><p><a class="reference internal" href="#Download-Data"><span class="xref myst">Download Data</span></a></p></li>
+<li><p><a class="reference internal" href="#Run-Pipeline-Steps"><span class="xref myst">Run Pipeline Steps</span></a></p></li>
+<li><p><a class="reference internal" href="#Basic-Computation-of-WFSS-Information"><span class="xref myst">Basic Computation of WFSS Information</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#Compute-where-light-gets-dispersed-to"><span class="xref myst">Compute where light gets dispersed to</span></a></p></li>
+<li><p><a class="reference internal" href="#Compute-the-spectral-trace-for-a-given-object"><span class="xref myst">Compute the spectral trace for a given object</span></a></p></li>
+<li><p><a class="reference internal" href="#Basic-Box-Extraction"><span class="xref myst">Basic Box Extraction</span></a></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="package-imports">
+<h2>Package Imports<a class="headerlink" href="#package-imports" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">sigmaclip</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">grismconf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.assign_wcs</span><span class="w"> </span><span class="kn">import</span> <span class="n">AssignWcsStep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.flatfield</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlatFieldStep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.photom</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhotomStep</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-crds-path-and-server">
+<h2>Set CRDS Path and Server<a class="headerlink" href="#set-crds-path-and-server" title="Link to this heading">#</a></h2>
+<p>Before running the pipeline steps, we need to ensure our our CRDS environment is configured. This includes defining a CRDS cache directory in which to keep the reference files that will be used by the calibration pipeline.</p>
+<p>If the root directory for the local CRDS cache has not already been set, it will be created in the home directory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check whether the local CRDS cache directory has been set.</span>
+<span class="c1"># If not, set it to the user home directory</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">),</span> <span class="s1">&#39;crds&#39;</span><span class="p">)</span>
+<span class="c1"># Check whether the CRDS server URL has been set.  If not, set it.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;https://jwst-crds.stsci.edu&#39;</span>
+
+<span class="c1"># Echo CRDS path and context in use</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRDS local filepath:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRDS file server:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">])</span>
+
+<span class="c1"># import crds after setting up the required environment variables</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crds</span><span class="w"> </span><span class="kn">import</span> <span class="n">client</span>
+<span class="k">if</span> <span class="n">client</span><span class="o">.</span><span class="n">get_crds_server</span><span class="p">()</span> <span class="o">!=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">]:</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">set_crds_server</span><span class="p">(</span><span class="s1">&#39;https://jwst-crds.stsci.edu&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-functions-and-parameters">
+<h2>Define Functions and Parameters<a class="headerlink" href="#define-functions-and-parameters" title="Link to this heading">#</a></h2>
+<p>Define a function to download a named file via the MAST API to the current directory. The function includes authentication logic, but the example in this notebook uses public data, so no MAST API token is required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_jwst_file</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mast_api_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a JWST data file from MAST archive.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the file to download from MAST</span>
+<span class="sd">        </span>
+<span class="sd">    mast_api_token : str</span>
+<span class="sd">        MAST API token. Required only for proprietary data</span>
+<span class="sd">        </span>
+<span class="sd">    overwrite : bool</span>
+<span class="sd">        If True and the requested file already exists locally, the file will not be downloaded. IF False,</span>
+<span class="sd">        the file will be downloaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the file already exists locally, don&#39;t redownload it, unless the</span>
+    <span class="c1"># user has set the overwrite keyword</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> already exists locally. Skipping download.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> exists locally. Re-downloading.&#39;</span><span class="p">)</span>
+
+    <span class="n">mast_url</span> <span class="o">=</span> <span class="s2">&quot;https://mast.stsci.edu/api/v0.1/Download/file&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;mast:JWST/product/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mast_api_token</span><span class="p">:</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Authorization</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;token </span><span class="si">{</span><span class="n">mast_api_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mast_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024000</span><span class="p">):</span>
+            <span class="n">fobj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define a function that will run assign_wcs and flat fielding on an input rate file</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_pipeline_steps</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the assign_wcs, flat field, and photom calibration steps on the given file.</span>
+<span class="sd">    If the file contains WFSS data, trick the pipeline to use the imaging mode flat</span>
+<span class="sd">    field reference file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Name of the input file upon which the steps will be run</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Name of the output file saved by the pipeline steps</span>
+<span class="sd">        </span>
+<span class="sd">    photom : jwst.datamodels.ImageModel</span>
+<span class="sd">        Datamodel instance containing the calibrated data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">assign_wcs</span> <span class="o">=</span> <span class="n">AssignWcsStep</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c1"># In order to apply the imaging mode flat field reference file to the data,</span>
+    <span class="c1"># we need to trick CRDS by temporarily changing the pupil value to be CLEAR</span>
+    <span class="n">reset_pupil</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="s1">&#39;GRISM&#39;</span> <span class="ow">in</span> <span class="n">assign_wcs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span><span class="p">:</span>
+        <span class="n">true_pupil</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">assign_wcs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span><span class="p">)</span>
+        <span class="n">assign_wcs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span> <span class="o">=</span> <span class="s1">&#39;CLEAR&#39;</span>
+        <span class="n">reset_pupil</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Run the flat field step</span>
+    <span class="n">flat</span> <span class="o">=</span> <span class="n">FlatFieldStep</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">assign_wcs</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Run the photom step to populate the name of the WFSS sensitivity </span>
+    <span class="n">photom</span> <span class="o">=</span> <span class="n">PhotomStep</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">flat</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Set the pupil back to the original value now that flat fielding is complete</span>
+    <span class="k">if</span> <span class="n">reset_pupil</span><span class="p">:</span>
+        <span class="n">photom</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span> <span class="o">=</span> <span class="n">true_pupil</span>
+        <span class="n">photom</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">photom</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+    
+    <span class="c1"># Return the name of the output file, as well as the datamodel</span>
+    <span class="k">return</span> <span class="n">photom</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">photom</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-data">
+<h2>Download Data<a class="headerlink" href="#download-data" title="Link to this heading">#</a></h2>
+<p>Download an example imaging mode rate file and corresponding WFSS mode rate file from MAST.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, download the imaging and WFSS files from MAST</span>
+<span class="n">imaging_file</span> <span class="o">=</span> <span class="s2">&quot;jw01076103001_02102_00001_nrcalong_rate.fits&quot;</span>
+<span class="n">wfss_file</span> <span class="o">=</span> <span class="s2">&quot;jw01076103001_02101_00001_nrcalong_rate.fits&quot;</span>
+<span class="n">get_jwst_file</span><span class="p">(</span><span class="n">imaging_file</span><span class="p">)</span>
+<span class="n">get_jwst_file</span><span class="p">(</span><span class="n">wfss_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-pipeline-steps">
+<h2>Run Pipeline Steps<a class="headerlink" href="#run-pipeline-steps" title="Link to this heading">#</a></h2>
+<p>Run the assign_wcs, flat field, and photom calibration steps on both the imaging and WFSS files.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run AssignWcsStep, FlatFieldStep, and PhotomStep on the imaging rate file</span>
+<span class="n">imaging_flat_file</span><span class="p">,</span> <span class="n">imaging_data</span> <span class="o">=</span> <span class="n">run_pipeline_steps</span><span class="p">(</span><span class="n">imaging_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run AssignWcsStep, FlatFieldStep, and PhotomStep on the WFSS rate file</span>
+<span class="n">wfss_flat_file</span><span class="p">,</span> <span class="n">wfss_data</span> <span class="o">=</span> <span class="n">run_pipeline_steps</span><span class="p">(</span><span class="n">wfss_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-computation-of-wfss-information">
+<h2>Basic Computation of WFSS Information<a class="headerlink" href="#basic-computation-of-wfss-information" title="Link to this heading">#</a></h2>
+<p>All computations for WFSS are performed in detector coordinate space. All of the characteristics of the dispersed traces, including any change in the relative positions and the global shape (e.g. curvature, offsets…) of the traces is handled using a series of straight forward equations. This is described in <a href="https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2017/WFC3-2017-01.pdf">ISR WFC3 2017-01</a>: “A more generalized coordinate transformation approach for grisms”.
+Here we assume that a source would be at the pixel coordinates of (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>). The coordinate of a single pixel on on the dispersed trace for the same source is denoted as (<span class="math notranslate nohighlight">\(x_g\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>) and the relative position of this dispersed trace element is therefore offset (x<span class="math notranslate nohighlight">\(_g\)</span>-x,
+y<span class="math notranslate nohighlight">\(_g\)</span>-y) pixels with respect to the position of the source. The functional relation between (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>), (<span class="math notranslate nohighlight">\(x_g\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>) and the wavelength of the light <span class="math notranslate nohighlight">\(\lambda\)</span>, as well as their inverses are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\delta x = x_g - x = f_x(x,y;t)\\
+\delta y = y_g - y = f_y(x,y;t)\\
+\lambda = f_\lambda(x,y;t)
+\end{align}
+\end{split}\]</div>
+<p>and
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+t = f^{-1}_x(x,y;\delta x)\\
+t = f^{-1}_y(x,y;\delta y)\\
+t = f^{-1}_\lambda(x,y;\lambda)
+\end{align}
+\)</span>$</p>
+<p>Note that these functions are parametrized with respect to the parameter <span class="math notranslate nohighlight">\(t\)</span>. This allows for some flexibility on the part of the calibration effort as <span class="math notranslate nohighlight">\(t\)</span> can be defined somewhat arbitrarilly. In the case of the NIRCam grisms however, <span class="math notranslate nohighlight">\(t\)</span> was chosen to be the <span class="math notranslate nohighlight">\(\delta x\)</span> or <span class="math notranslate nohighlight">\(\delta y\)</span>, for the GRISMR and GRISMC, respectively since these grisms disperse light along the x-direction and y-direction, respectively. However, for additional convenience, the <span class="math notranslate nohighlight">\(t\)</span> parameter is normalized to unity so that values of <span class="math notranslate nohighlight">\(t = 0\)</span> and <span class="math notranslate nohighlight">\(t = 1\)</span> correspond to the blue and red light edges of a dispersed spectrum.
+Using the 6 equations above, one can relate any combination of (<span class="math notranslate nohighlight">\(x\)</span>,<span class="math notranslate nohighlight">\(y\)</span>), (<span class="math notranslate nohighlight">\(x'\)</span>,<span class="math notranslate nohighlight">\(y'\)</span>), <span class="math notranslate nohighlight">\(t\)</span>, and <span class="math notranslate nohighlight">\(\lambda\)</span> values. The equations listed above are implemented as DISPX(), DISPY(), DISPL(), INVDISPX(), INVDISPY(), and INVDISPL() in the GRISMCONF package.</p>
+<p>Now we will use the Grismconf package to retrieve information about the WFSS file. Note that we are using the output file from the calibration steps above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is the final output file from the pipeline call on the WFSS file above</span>
+<span class="n">wfss_file</span> <span class="o">=</span> <span class="s2">&quot;jw01076103001_02101_00001_nrcalong_photomstep.fits&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load a WFSS configuration file to use in the example below.</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">grismconf</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span><span class="n">wfss_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="compute-where-light-gets-dispersed-to">
+<h3>Compute where light gets dispersed to<a class="headerlink" href="#compute-where-light-gets-dispersed-to" title="Link to this heading">#</a></h3>
+<p>Here we show how to calculate the location of the point on the trace corresponding to a given wavelength for a source at a given detector location (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>). For these calculations, we need only the WFSS file. The corresponding imaging mode file is not necessary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># Pixel x coordinate</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># Pixel y coordinate</span>
+
+<span class="n">wavelength</span> <span class="o">=</span> <span class="mf">3.5</span>  <span class="c1"># wavelength, in microns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We want to compute <span class="math notranslate nohighlight">\(\hat x\)</span>, the amount of dispersion in a pixel for photons with a wavelength of <span class="math notranslate nohighlight">\(\lambda\)</span>. We first use the relation between <span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span> and then the relation between <span class="math notranslate nohighlight">\(\hat x\)</span> and <span class="math notranslate nohighlight">\(t\)</span>. This is done using INVDISPL() for order “+1” for an object at location (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>):</p>
+<p>Check which orders are available</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">orders</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Calculate <span class="math notranslate nohighlight">\(t\)</span> for the given position and wavelength.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">INVDISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t =&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now can compute <span class="math notranslate nohighlight">\(\delta x\)</span> and <span class="math notranslate nohighlight">\(\delta y\)</span> using DISPX():</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">𝛿x</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">𝛿y</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPY</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;𝛿x =&quot;</span><span class="p">,</span> <span class="n">𝛿x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;𝛿y =&quot;</span><span class="p">,</span> <span class="n">𝛿y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The final pixel coordinates are therefore:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xg</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">𝛿x</span>
+<span class="n">yg</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">𝛿y</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trace coordinates:&quot;</span><span class="p">,</span> <span class="n">xg</span><span class="p">,</span> <span class="n">yg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Alternatively, we could compute the approximate wavelength of the light at a given position on the spectral trace. For example, we would like to compute the wavelength of a pixel that is at coordinates (<span class="math notranslate nohighlight">\(x_g\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>) for a 1st order spectrum of a source that is known to be at the coordinates (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>). As this is a Grism R spectrum, we can use the relation between <span class="math notranslate nohighlight">\(\delta x\)</span> and t and <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source is at the coordinates (1000, 1000) and we are looking at a pixel</span>
+<span class="c1"># along the trace at pixel coordinate 1558</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">INVDISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xg</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wavelength = </span><span class="si">{</span><span class="n">wavelength</span><span class="si">}</span><span class="s2"> microns&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we see that we get back the 3.5 micron wavelength that we used as input when calculating <span class="math notranslate nohighlight">\(x_g\)</span> and <span class="math notranslate nohighlight">\(y_g\)</span> above.</p>
+</section>
+<section id="compute-the-spectral-trace-for-a-given-object">
+<h3>Compute the spectral trace for a given object<a class="headerlink" href="#compute-the-spectral-trace-for-a-given-object" title="Link to this heading">#</a></h3>
+<p>We can compute where we would expect the dispersed 1st order trace for a given object in a similar manner. We can use a series of <span class="math notranslate nohighlight">\(t\)</span> values to cover the whole spectra trace (in this case the NIRCam calibration assumes <span class="math notranslate nohighlight">\(0&lt;t&lt;1\)</span>)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can compute all of the corresponding trace coordinates and wavelengths (x<span class="math notranslate nohighlight">\(_g\)</span>, y<span class="math notranslate nohighlight">\(_g\)</span>, <span class="math notranslate nohighlight">\(\lambda\)</span>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xgs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span>
+<span class="n">ygs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPY</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span> 
+<span class="n">waves</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Show an image of the location of the trace across the detector.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xgs</span><span class="p">,</span> <span class="n">ygs</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">waves</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Wavelength (μm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;y$_g$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x$_g$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Trace location across the detector&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-box-extraction">
+<h3>Basic Box Extraction<a class="headerlink" href="#basic-box-extraction" title="Link to this heading">#</a></h3>
+<p>A very basic “extraction” of a spectrum can be performed using the WFSS transformation listed above. Here we show how one could perfrom a basic “Box” extraction of a well-isolated object i.e. not contaminated by overlapping spectra from other sources in the field).</p>
+<p>One of the key concepts is the virtual location of the source in the dispersed WFSS observation. We are not able to determine that location precisely using the WFSS data alone and must rely on additional information. The location of the source is usually measured in a direct image of the field. In cases where the imaging and WFSS data are undithered with respect to one another, the position of the source in the WFSS observation is the position of the same source in the undithered imaging.</p>
+<p>If dithering was performed, one can rely on the WCS to estimate the location of the source in imaging data that would have been observed at the same position and orientation as the WFSS observation. This is done by computing the observed RA and Dec of the source in the available imaging data, and then converting these newly computed celestrial coordinates back to a detector (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>) location using a WCS from the dithered WFSS observation.</p>
+<section id="examine-a-source-in-the-data">
+<h4>Examine a source in the data<a class="headerlink" href="#examine-a-source-in-the-data" title="Link to this heading">#</a></h4>
+<p>Look at a source in the imaging data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span> <span class="o">=</span> <span class="mi">1562</span><span class="p">,</span> <span class="mi">696</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imaging_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">yd</span> <span class="o">-</span> <span class="mi">20</span><span class="p">:</span><span class="n">yd</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">xd</span> <span class="o">-</span> <span class="mi">20</span><span class="p">:</span><span class="n">xd</span> <span class="o">+</span> <span class="mi">20</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Row Number&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-trace-location">
+<h4>Calculate trace location<a class="headerlink" href="#calculate-trace-location" title="Link to this heading">#</a></h4>
+<p>Now get the WCS from the imaging and WFSS files, so that we can perform coordinate transforms and calculate where the trace of this source lands in the WFSS observation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imaging_to_world</span> <span class="o">=</span> <span class="n">imaging_data</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">get_transform</span><span class="p">(</span><span class="s1">&#39;detector&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wfss_to_pix</span> <span class="o">=</span> <span class="n">wfss_data</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">get_transform</span><span class="p">(</span><span class="s1">&#39;world&#39;</span><span class="p">,</span> <span class="s1">&#39;detector&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Translate the source’s (x, y) location in the imaging mode data to RA, Dec, using the imaging mode WCS</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">imaging_to_world</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now translate the RA, Dec to a location on the detector in the WFSS data, using the WCS from the WFSS file. Note that for this translation, the wavelength and order are required inputs, but they do not actually affect the calculation. We’ll use a wavelength of 3.56 microns and an order of 1 in the cell below, but you can see that changing these values does not change the resulting x, y values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">wav</span><span class="p">,</span> <span class="nb">ord</span> <span class="o">=</span> <span class="n">wfss_to_pix</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="mf">3.56</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">wav</span><span class="p">,</span> <span class="nb">ord</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute an approximate bounding box for the spectrum of this source. We use the fact that calibration define the edges of the spectra at values of t=0 and t=1 in the dispersion direction</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First calculate the distance from the nominal x, y location to the left and right</span>
+<span class="c1"># edges of the box (i.e. where t = 0 and t = 1)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">dxs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+<span class="n">dys</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPY</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+<span class="n">dxs</span><span class="p">,</span> <span class="n">dys</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the distances above to calculate the x location of the left and right edges of the box.</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dxs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dxs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Set the height of the box to be 50 pixels (25 pixels above and below the nominal location</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dys</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dys</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">25</span><span class="p">)</span>
+
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Show an image of the box to be extracted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">dxs</span><span class="o">-</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">dys</span><span class="o">-</span><span class="n">y_min</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Row Number&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The simplest extraction can be done under the assumption that the spectral trace is essentially linear and that the wavelength of the light falling on a pixel is only a function of the dispersion direction. As such, we can use the approximation that all pixels in a column correspond to the same wavelength. This is only appropriate for nearly flat dispersions and has often been assumed in the past. This also assumes that the field dependence of the dispersion is small within the area covered by a spectrum.</p>
+</section>
+<section id="estimate-background">
+<h4>Estimate Background<a class="headerlink" href="#estimate-background" title="Link to this heading">#</a></h4>
+<p>Here, for this simplest case, we estimate and subtract a simple background value from the data, taken to be the median value in the region contianing our spectrum. This very simple step illustrates the limits of simple box extraction as any such estimate will be biased by any other sources in the field, or any non-flatness in the structure of the dispersed background.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We want to ignore all NaN pixels, so locate all non-NaN pixels</span>
+<span class="n">ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">])</span>
+
+<span class="c1"># Sigma-clip the pixels in the box</span>
+<span class="n">clipped</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">upp</span> <span class="o">=</span> <span class="n">sigmaclip</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">][</span><span class="n">ok</span><span class="p">],</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Calculate the median of the sigma-clipped pixels</span>
+<span class="n">med_bck</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">clipped</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Background level estimate:&quot;</span><span class="p">,</span> <span class="n">med_bck</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a histogram of the data, along with a line indicating the median level</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">]),</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">med_bck</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Histogram of pixel values in extraction box&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Signal Value (DN/sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occurrences&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="assign-wavelengths">
+<h4>Assign Wavelengths<a class="headerlink" href="#assign-wavelengths" title="Link to this heading">#</a></h4>
+<p>Compute the wavelength everywhere on the array for this object. We use the full array here for simplicity and compute the distance in the x- direction (dispersion direction) between a pixel and the source.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ys</span><span class="p">,</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Translate the x values to be distances from the nominal source location</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dxs</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">-</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We use the grismconf relations to compute the <span class="math notranslate nohighlight">\(t\)</span> values everywhere and then compute the wavelengths, again everywhere.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">INVDISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dxs</span><span class="p">)</span>
+<span class="n">lams</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Displaying the wavelength array on the same area on the detector where the spectrum is, we see what we now have a wavelength estimate for each element of the 2D WFSS data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">tt</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lams</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Wavelength array covering all pixels of extraction box&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Row Number&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="box-extraction">
+<h4>Box extraction<a class="headerlink" href="#box-extraction" title="Link to this heading">#</a></h4>
+<p>Creating a 1D spectrum from the data above is, in its simplest form, a matter of collapsing things along the cross dipsersion direction (y- direction). The 1D spectrum will be affected by bad pixels, any spectra contamination, as well as any error in the amount of background subtracted. These effects become increasingly important as the box size is increased. We also subtract the median background from each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">]</span> <span class="o">-</span> <span class="n">med_bck</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal (DN/sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Extracted 1D spectrum versus detector column&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wavelength-calibration">
+<h4>Wavelength calibration<a class="headerlink" href="#wavelength-calibration" title="Link to this heading">#</a></h4>
+<p>In this case, we can average the wavelength array in the cross dispersion direction (y-direction) to obtain a single wavelength vector that is appropriate for the spectum we just box extracted. Plotting the 1D count vector versus the wavelength vector thus created results in a wavelength calibrated 1D spectrum</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">lams</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal (DN/sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Extracted 1D spectrum versus wavelength&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="converting-to-physical-units">
+<h4>Converting to physical units<a class="headerlink" href="#converting-to-physical-units" title="Link to this heading">#</a></h4>
+<p>Here we use information contained in grismconf to convert our 1D spectrum, which is in units of DN/sec (per bin, or pixel in this case since there is no resampling of the data) into units of <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>. The grism inverse sensitivity curve in grismconf is in units of DN/sec (per pixel) per <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>. As the sensitivity is defined per Angstrom while our 1D spectrum is extracted per pixel, we need to account for this when applying the sensitivity. In most WFSS data the variation of the pixel size in wavelength units is small but this can easily be accounted for by computing the size of each pixel in wavelength units (Angstrom) as we show below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the inverse sensitivity curve</span>
+<span class="n">tws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tws</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">SENS</span><span class="p">[</span><span class="s2">&quot;+1&quot;</span><span class="p">](</span><span class="n">tws</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (micron)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Inverse Sensitivity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Inverse sensitivity curve&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Calculate the size of each element in our 1D spectrum, in Angstrom</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The value of 10000 comes from the NIRCam dispersion value of ~10A per pixel</span>
+<span class="n">dws</span> <span class="o">=</span> <span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ws</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mi">10000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Apply the sensitivity curve by dividing the 1D counts by the sensitivity and by the size of each bin in Angstrom to produce flux values in units of <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">cs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">/</span> <span class="n">C</span><span class="o">.</span><span class="n">SENS</span><span class="p">[</span><span class="s2">&quot;+1&quot;</span><span class="p">](</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="n">dws</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plotting the resulting flux array versus our wavelength scale shows the fully calbirated 1D spectrum. One caveat of the conversion from DN/sec per pixel to <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span> is the well known edge effect caused by dividing counts values that are zero or close to zero by the sensitivity. As this method does not account for the broadening of the spectra by the footprint of the object in the dispersion direction, this effect is worse for extended sources. This effect can only be mitigated by more forward modeling extraction methods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">fs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (micron)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Signal ($erg/s/cm^2/A$)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Extracted 1D spectrum in $F_</span><span class="si">{lambda}</span><span class="s2">$ units&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Concentrating on regions off the spectral edges reveals the spectrum of our source. One of the many drawbacks of this simplistic box extraction method is the impact of bad pixels and any residual cosmic rays. These can cause significnat peaks in the spectra, which can be confused for emission lines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">fs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5e-16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (micron)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Signal ($erg/s/cm^2/A$)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Extracted 1D spectrum in $F_</span><span class="si">{lambda}</span><span class="s2">$ units&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRCam/NIRCam_WFSS_Box_extraction"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-imports">Package Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-crds-path-and-server">Set CRDS Path and Server</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-functions-and-parameters">Define Functions and Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data">Download Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-pipeline-steps">Run Pipeline Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-computation-of-wfss-information">Basic Computation of WFSS Information</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-where-light-gets-dispersed-to">Compute where light gets dispersed to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-spectral-trace-for-a-given-object">Compute the spectral trace for a given object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-box-extraction">Basic Box Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#examine-a-source-in-the-data">Examine a source in the data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-trace-location">Calculate trace location</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-background">Estimate Background</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assign-wavelengths">Assign Wavelengths</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#box-extraction">Box extraction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wavelength-calibration">Wavelength calibration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-physical-units">Converting to physical units</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro_cn';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="JWST 数据分析工具笔记本" href="index_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/intro_cn.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <html>
+    <head>
+        <title> Spacetelescope jdat_notebooks 索引 </title>
+<meta http-equiv="content-type" content="text.html"; charset=utf-8">
+<!-- 自定义样式 -->
+<link rel="stylesheet" href="main.css">
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;900&display=swap" rel="stylesheet">
+<!-- 移动设备配置标签 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 内容摘要 -->
+<meta name="description" content="天文学笔记本空间" />
+<meta name="keywords" content="stsci,spacetelescope,jupyter,notebooks,astronomy" />
+<meta name="author" content="Spacetelescope" />
+<!-- Google SEO -->
+<!-- 详情: https://support.google.com/webmasters/answer/79812?hl=en -->
+<meta name="googlebot" content="index" />
+<!-- Open Graph -->
+<!-- https://ogp.me/ -->
+<meta property="og:title" content="Spacetelescope jdat_notebooks 索引" />
+<meta property="og:url" content="https://spacetelescope.github.io/jdat_notebooks" />
+<meta property="og:description" content="天文学笔记本空间" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh" />
+<meta property="og:author" content="Spacetelescope" />
+    </head>
+    <body>
+    <section class="notebooks">
+ <div id="readme" class="Box-body readme blob js-code-block-container p-5 p-xl-6 gist-border-0">
+    <article class="markdown-body entry-content container-lg" itemprop="text"><a name="user-content-james-webb-space-telescope-data-analysis-tool-notebooks"></a>
+<h2><a id="user-content-james-webb-space-telescope-data-analysis-tool-notebooks" class="anchor" aria-hidden="true" href="#james-webb-space-telescope-data-analysis-tool-notebooks"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>詹姆斯·韦伯空间望远镜数据分析工具笔记本</h2>
+<p><code>jdat_notebooks</code> 代码库包含了展示JWST数据管线后分析工作流程的笔记本。部分笔记本还展示了适用于其他天文台数据的通用分析工作流程。该代码库和笔记本是STScI更大的<a href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis" rel="nofollow">数据分析工具生态系统</a>的组成部分之一。</p> 
+<p>此页面是<code>jdat_notebooks</code>的<a href="https://github.com/YWangScience/jdat_notebooks_cn">简体中文版本</a>。</p>
+<p>下表总结了当前可用的笔记本。大多数链接会带您进入笔记本的渲染版本，只需要网络浏览器即可查看。要下载和执行这些笔记本，请将此<a href="https://github.com/spacetelescope/jdat_notebooks">代码库</a><a href="https://github.com/git-guides/git-clone">克隆</a>到您的本地计算机。大多数笔记本依赖的包可以使用<a href="https://pip.pypa.io/en/stable/" rel="nofollow">pip</a>安装。版本依赖关系列在environment.yaml文件中，以及每个笔记本文件夹中的requirements文件中。</p>
+<table>
+<thead valign="bottom">
+<tr><th colspan="2">JWST科学分析笔记本</th>
+</tr>
+<tr><th>笔记本</th>
+<th>描述</th>
+</tr>
+<tr><th colspan="2">跨仪器</th>
+</tr>
+</thead>
+<tbody valign="top">
+<table>
+<thead valign="bottom">
+<tr><th colspan="2">JWST科学分析笔记本</th>
+</tr>
+<tr><th>笔记本</th>
+<th>描述</th>
+</tr>
+<tr><th colspan="2">跨仪器</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>ASDF</td>
+<td><ul>
+<li>用例：将FITS文件转换为ASDF（高级科学数据格式）文件。</li>
+<li>数据：CANDELS项目的COSMOS场图像。</li>
+<li>工具：asdf、gwcs、astrocut。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>背景估计</td>
+<td><ul>
+<li>用例：在复杂场景中估计天空背景。</li>
+<li>数据：在笔记本中创建的具有特殊背景模式的图像。</li>
+<li>工具：photutils</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>红移互相关</td>
+<td><ul>
+<li>用例：重现IRAF任务XCORFIT的工作流程来测量红移。</li>
+<li>数据：LEGA-C光谱和星系模板光谱；光学静止波段。</li>
+<li>工具：specutils。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>查询MAST</td>
+<td><ul>
+<li>用例：如何使用Python提交NIRSpec MAST查询。</li>
+<li>数据：</li>
+<li>工具：mast、astroquery。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>Specviz图形界面</td>
+<td><ul>
+<li>用例：如何在Specviz图形界面中检查和导出光谱。</li>
+<li>数据：使用MIRAGE代码生成的NIRISS模拟数据。</li>
+<li>工具：specutils、jdaviz。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>IFU立方体拟合</td>
+<td><ul>
+<li>用例：星系IFU光谱的连续谱和发射线建模。</li>
+<li>数据：Messier 58的Spitzer IRS数据。</li>
+<li>工具：specutils、自定义函数。</li>
+<li>跨仪器：MIRI、NIRSpec。</li>
+</ul>
+</td>
+</tr>
+<tr><td colspan="2">NIRCam（近红外相机）</td>
+</tr>
+<tr><td>多波段扩展孔径测光</td>
+<td><ul>
+<li>用例：测量视场中的扩展星系测光。</li>
+<li>数据：来自JADES GTO河外空白场的模拟NIRCam图像。</li>
+<li>工具：photutils。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>密集场孔径测光</td>
+<td><ul>
+<li>用例：使用孔径拟合测光进行密集场成像。</li>
+<li>数据：LMC天体测量定标场的模拟NIRCam图像。</li>
+<li>工具：jwst pipeline、photutils。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>PSF测光</td>
+<td><ul>
+<li>用例：使用PSF拟合测光进行密集场成像。</li>
+<li>数据：LMC天体测量定标场的模拟NIRCam图像。</li>
+<li>工具：webbpsf、photutils。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td>PSF匹配测光</td>
+<td><ul>
+<li>用例：使用PSF拟合测光进行密集场成像。</li>
+<li>数据：LMC天体测量定标场的模拟NIRCam图像。</li>
+<li>工具：webbpsf、photutils。</li>
+<li>跨仪器：适用于所有仪器。</li>
+</ul>
+</td>
+</tr>
+<tr><td colspan="2">NIRISS（近红外成像和无缝光谱仪）</td>
+</tr>
+<tr><td>WFSS光谱
+笔记本0
+笔记本1
+笔记本2
+笔记本3</td>
+<td><ul>
+<li>用例：光栅光谱的最优提取和分析。</li>
+<li>数据：星系团的模拟NIRISS光谱</li>
+<li>工具：specutils。</li>
+<li>跨仪器：NIRSpec。</li>
+</ul>
+</td>
+</tr>
+<tr><td>MOS光谱</td>
+<td><ul>
+<li>用例：一维光谱的发射线测量和模板匹配。</li>
+<li>数据：LEGA-C光谱和星系模板光谱；光学静止波段。</li>
+<li>工具：specutils。</li>
+<li>跨仪器：NIRSpec。</li>
+</ul>
+</td>
+</tr>
+<tr><td>SOSS凌星系外行星</td>
+<td><ul>
+<li>用例：系外行星主凌星。</li>
+<li>数据：使用awesomesoss的模拟凌星。</li>
+<li>工具：jwst pipeline、juliet。</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td>AMI
+双星系统</td>
+<td><ul>
+<li>用例：寻找AB Dor的双星参数。</li>
+<li>数据：双点源的MIRAGE模拟数据。</li>
+<li>工具：jwst pipeline、nrm_analysis。</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td colspan="2">NIRSpec（近红外光谱仪）</td>
+</tr>
+<tr><td>IFU分析</td>
+<td><ul>
+<li>用例：AGN的连续谱和发射线建模；1.47-1.87μm。</li>
+<li>数据：双子座天文台NIFS；NGC 4151。</li>
+<li>工具：specutils、cubeviz。</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td>MOS最优提取</td>
+<td><ul>
+<li>用例：最优光谱提取。</li>
+<li>数据：模拟NIRSpec MOS数据；点源。</li>
+<li>工具：jwst pipeline</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td>MOS预成像</td>
+<td><ul>
+<li>用例：NIRSpec的NIRCam预成像模拟。</li>
+<li>数据：LMC天体测量定标场的模拟NIRCam图像。</li>
+<li>工具：jwst pipeline。</li>
+<li>跨仪器：NIRCam。</li>
+</ul>
+</td>
+</tr>
+<tr><td>BOTS凌星系外行星</td>
+<td><ul>
+<li>用例：系外行星主凌星。</li>
+<li>数据：来自地基观测的模拟NIRSpec数据。</li>
+<li>工具：</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td>IFU最优提取</td>
+<td><ul>
+<li>用例：最优光谱提取。</li>
+<li>数据：暗弱（类星体）点源的模拟数据。</li>
+<li>工具：jwst、scipy、specutils、jdaviz、photutils、astropy.io、astropy.wcs</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td colspan="2">MIRI（中红外仪器）</td>
+</tr>
+<tr><td>LRS最优提取</td>
+<td><ul>
+<li>用例：最优光谱提取。</li>
+<li>数据：MIRISim模拟光谱。</li>
+<li>工具：jwst pipeline、gwcs。</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td>IFU立方体1</td>
+<td><ul>
+<li>用例：从IFU立方体提取空间-光谱特征。</li>
+<li>数据：LMC中点源的KMOS数据立方体。</li>
+<li>工具：specutils、spectral_cube、photutils。</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+<tr><td>IFU立方体2</td>
+<td><ul>
+<li>用例：使用photutils自动检测点源并提取测光</li>
+<li>数据：ALMA 13CO数据立方体。</li>
+<li>工具：specutils、spectral_cube、photutils。</li>
+<li>跨仪器：</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><a name="user-content-help"></a></p>
+<h2><a id="user-content-help" class="anchor" aria-hidden="true" href="#help"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>帮助</h2>
+<p>如果您发现任何问题或错误，可以开启GitHub工单。但为了获得更快的响应，我们建议您提交JWST帮助台工单：jwsthelp.stsci.edu</p>
+<p><a name="user-content-contributing"></a></p>
+<h2><a id="user-content-contributing" class="anchor" aria-hidden="true" href="#contributing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>贡献</h2>
+<p>我们欢迎来自科学家和开发者社区的贡献。如果您希望对现有笔记本进行修复或说明，请直接在此代码库中进行。如果您希望贡献新的笔记本或对现有笔记本进行重大改写，我们建议您访问<a href="https://github.com/spacetelescope/jdat_notebooks">jdat_notebooks</a>。有关如何提供此类贡献的详细信息，请参阅<a href="https://github.com/spacetelescope/jdat_notebooks/blob/main/CONTRIBUTING.rst">贡献说明</a>。</p>
+<p>这些笔记本尝试使用STScI支持的多个软件包，包括<a href="https://www.astropy.org" rel="nofollow">Astropy</a>、<a href="http://docs.glueviz.org/en/stable/index.html" rel="nofollow">glue</a>、<a href="https://ginga.readthedocs.io/en/latest/" rel="nofollow">ginga</a>、<a href="https://photutils.readthedocs.io" rel="nofollow">photutils</a>、<a href="https://specutils.readthedocs.io/en/stable/" rel="nofollow">specutils</a>、<a href="http://astroimtools.readthedocs.io" rel="nofollow">astroimtools</a>、<a href="http://imexam.readthedocs.io" rel="nofollow">imexam</a>、<a href="https://jdaviz.readthedocs.io/en/latest/" rel="nofollow">jdaviz</a>、<a href="http://asdf.readthedocs.io/en/latest/" rel="nofollow">asdf</a>、<a href="https://gwcs.readthedocs.io/en/latest/" rel="nofollow">gwcs</a>和<a href="http://synphot.readthedocs.io/en/latest/index.html" rel="nofollow">synphot</a>。请注意，jdaviz是STScI的JWST数据分析可视化工具，设计用于处理光谱、IFU立方体和多目标光谱(MOS)。</p>
+  </body>
+</html><div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="index_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">JWST 数据分析工具笔记本</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

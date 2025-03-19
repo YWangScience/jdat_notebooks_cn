@@ -1,0 +1,1330 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NIRSpec IFU 最优点源提取 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRSpec/ifu_optimal/ifu_optimal_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="MOS 最优光谱提取" href="../optimal_extraction/Spectral_Extraction-static_cn.html" />
+    <link rel="prev" title="光谱立方体建模" href="../cube_fitting/cube_fitting_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRSpec/ifu_optimal/ifu_optimal_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>NIRSpec IFU 最优点源提取</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. 导入 <a id="imports"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2. 读取 NIRSpec IFU 数据立方体 <a id="read"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cubeviz">3. 使用Cubeviz可视化科学数据 <a id="visualize"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">用户界面说明：</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4. 从Cubeviz导出源和良好数据区域 <a id="source"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5. 从Cubeviz光谱查看器提取子集光谱和背景 <a id="viewer"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6. 通过对光谱像素求和提取光谱 <a id="sum"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7. 在恒定半径圆形光圈中提取光谱（圆柱体） <a id="cylinder"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8. 在线性扩展圆形光圈（锥形）中提取光谱 <a id="cone"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">9. 绘制并比较非最优光谱提取 <a id="plot"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webbpsf-psf">10. WebbPSF 最优提取的模型 PSF <a id="webbpsf"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psf">11. 将模型 PSF 立方体与科学数据对齐 <a id="align"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webbpsf">12. 使用WebbPSF模型的最佳提取 <a id="optimal"></a></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="nirspec-ifu">
+<h1>NIRSpec IFU 最优点源提取<a class="headerlink" href="#nirspec-ifu" title="Link to this heading">#</a></h1>
+<p>本笔记本展示了在JWST NIRSpec IFU数据中提取点源的各种方法，利用了对类星体SDSS J165202.64+172852.3的<a class="reference external" href="https://q3d.github.io/">Q3D</a>（PID 1335）观测。提取技术包括使用Cubeviz的子集提取、对spaxels的简单求和、圆柱形光圈、锥形光圈光度测量，以及使用WebbPSF模型PSF的最佳点源提取。</p>
+<p><strong>用例：</strong> 最优光谱提取；方法参考 <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1986PASP...98..609H/abstract">Horne (1986)</a>。</br></p>
+<p><strong>数据：</strong> JWST NIRSpec IFU 数据；点源。</br></p>
+<p><strong>工具：</strong> jwst, webbpsf, matplotlib, scipy, 自定义函数。</br></p>
+<p><strong>跨仪器：</strong> 任何光谱仪。</br></p>
+<p><strong>文档：</strong> 本笔记本是 STScI 更大 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理数据分析工具生态系统</a> 的一部分。</p>
+<section id="id1">
+<h2>目录<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#imports"><span class="xref myst">导入</span></a></p></li>
+<li><p><a class="reference internal" href="#read"><span class="xref myst">读取NIRSpec IFU立方体</span></a></p></li>
+<li><p><a class="reference internal" href="#visualize"><span class="xref myst">使用Cubeviz可视化科学数据</span></a></p></li>
+<li><p><a class="reference internal" href="#source"><span class="xref myst">从Cubeviz导出源和良好数据区域</span></a></p></li>
+<li><p><a class="reference internal" href="#viewer"><span class="xref myst">从Cubeviz光谱查看器提取子集光谱和背景</span></a></p></li>
+<li><p><a class="reference internal" href="#sum"><span class="xref myst">通过对光谱像素求和提取光谱</span></a></p></li>
+<li><p><a class="reference internal" href="#cylinder"><span class="xref myst">在恒定半径圆形光圈中提取光谱（圆柱体）</span></a></p></li>
+<li><p><a class="reference internal" href="#cone"><span class="xref myst">在线性扩展的圆形光圈中提取光谱（圆锥体）</span></a></p></li>
+<li><p><a class="reference internal" href="#plot"><span class="xref myst">绘制和比较非最佳光谱提取</span></a></p></li>
+<li><p><a class="reference internal" href="#webbpsf"><span class="xref myst">WebbPSF模型用于最佳提取</span></a></p></li>
+<li><p><a class="reference internal" href="#align"><span class="xref myst">将模型PSF立方体与科学数据对齐</span></a></p></li>
+<li><p><a class="reference internal" href="#optimal"><span class="xref myst">使用WebbPSF模型进行最佳提取</span></a></p></li>
+</ol>
+</section>
+<section id="id2">
+<h2>1. 导入 <a id="imports"/><a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><em>numpy</em> 用于数组数学运算</p></li>
+<li><p><em>scipy</em> 用于 ndimage 移动</p></li>
+<li><p><em>specutils</em> 用于 Spectrum1D 数据模型</p></li>
+<li><p><em>jdaviz</em> : 用于数据可视化</p></li>
+<li><p><em>photutils</em> 用于定义圆形光圈</p></li>
+<li><p><em>astropy.io</em> 用于读取和写入 FITS 立方体和图像</p></li>
+<li><p><em>astropy.wcs, units, coordinates</em> 用于定义和读取 WCS</p></li>
+<li><p><em>astropy.stats</em> 用于 sigma_clipping</p></li>
+<li><p><em>astropy.utils</em> 用于从 URL 下载文件</p></li>
+<li><p><em>matplotlib</em> 用于绘制光谱和图像</p></li>
+<li><p><em>os</em> 用于文件管理</p></li>
+<li><p><em>astroquery.mast</em> 用于下载数据</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>  <span class="c1"># 导入SciPy库，用于科学计算</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spectrum1D</span>  <span class="c1"># 从specutils库导入Spectrum1D类，用于处理光谱数据</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">jdaviz</span>  <span class="c1"># 导入jdaviz库，用于数据可视化</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jdaviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cubeviz</span><span class="p">,</span> <span class="n">Specviz</span>  <span class="c1"># 从jdaviz库导入Cubeviz和Specviz类，用于立方体和光谱数据的可视化</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;jdaviz Version=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jdaviz</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>  <span class="c1"># 打印jdaviz库的版本信息</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.aperture</span><span class="w"> </span><span class="kn">import</span> <span class="n">CircularAperture</span><span class="p">,</span> <span class="n">aperture_photometry</span>  <span class="c1"># 从photutils库导入CircularAperture类和aperture_photometry函数，用于天文图像的光度测量</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从astropy库导入fits模块，用于处理FITS文件格式</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">wcs</span>  <span class="c1"># 从astropy库导入wcs模块，用于处理世界坐标系统</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>  <span class="c1"># 从astropy库导入units模块，用于处理物理单位</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于操作系统功能</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astroquery.mast</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observations</span>  <span class="c1"># 从astroquery库导入Observations类，用于查询MAST数据库中的观测数据</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>jdaviz Version=4.1.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入matplotlib库中的pyplot模块，用于绘图</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogNorm</span>  <span class="c1"># 从matplotlib.colors导入LogNorm，用于对数归一化</span>
+
+<span class="c1"># 在Jupyter Notebook中内联显示图形</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>2. 读取 NIRSpec IFU 数据立方体 <a id="read"/><a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>NIRSpec IFU 对类星体 SDSS J1652+1728（红移 z=1.9）的观测是使用 G235H 光栅和 F170LP 滤光片进行的，覆盖波长范围为 1.66-3.17 微米，光谱分辨率为 R~2700。IFU 的 spaxels 边长为 0.1”。</p>
+<p>从 MAST 获取的 level-3 管道处理数据立方体（s3d.fits，结合了所有的抖动曝光）将在下面的下一个笔记本单元中使用。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 下载数据文件</span>
+<span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;mast:jwst/product/jw01335-o008_t007_nirspec_g235h-f170lp_s3d.fits&quot;</span>
+
+<span class="c1"># 使用Observations类下载文件</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">Observations</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span>
+    <span class="n">uri</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://mast.stsci.edu/api/v0.1/Download/file&quot;</span>  <span class="c1"># 指定下载文件的基础URL</span>
+<span class="p">)</span>
+
+<span class="c1"># 检查下载结果是否有错误</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Error retrieving file: &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 抛出运行时错误并显示错误信息</span>
+
+<span class="c1"># 构造本地文件路径</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="n">uri</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 获取当前目录并拼接文件名</span>
+
+<span class="c1"># 可选：用当前目录中的自定义重处理数据替换MAST数据</span>
+<span class="c1"># filename=&quot;./jw01335-o008_t007_nirspec_g235h-f170lp_s3d.fits&quot;  # 指定自定义文件路径（注释掉）</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-03-18 22:07:12,068 - stpipe - INFO - Found cached file jw01335-o008_t007_nirspec_g235h-f170lp_s3d.fits with expected size 102585600.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Found cached file jw01335-o008_t007_nirspec_g235h-f170lp_s3d.fits with expected size 102585600. [astroquery.query]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打开并检查文件和WCS（世界坐标系统）</span>
+
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>  <span class="c1"># 以非内存映射方式打开FITS文件</span>
+
+    <span class="n">sci</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s2">&quot;SCI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取科学数据部分</span>
+
+    <span class="n">err</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s2">&quot;ERR&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取误差数据部分</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">WCS</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>  <span class="c1"># 从第二个头文件创建WCS对象</span>
+
+    <span class="n">hdr</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># 获取头文件信息</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>  <span class="c1"># 打印WCS信息</span>
+
+<span class="c1"># 窗口化波长范围以专注于Hbeta-[OIII]</span>
+
+<span class="n">spec1d</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># 读取一维光谱数据</span>
+
+<span class="n">slice_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 定义波长范围的切片</span>
+
+<span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spec1d</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">value</span><span class="p">)[</span><span class="n">slice_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">slice_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 获取指定范围内的波长值</span>
+
+<span class="c1"># 为孔径光度测量创建立方体切片列表</span>
+
+<span class="n">sci_data</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化科学数据列表</span>
+
+<span class="n">sci_var</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化误差数据列表</span>
+
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">slice_range</span><span class="p">:</span>  <span class="c1"># 遍历切片范围</span>
+
+    <span class="n">sci_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sci</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>  <span class="c1"># 将科学数据的切片添加到列表中</span>
+
+    <span class="n">sci_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">err</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>  <span class="c1"># 将误差数据的切片添加到列表中</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sci_data</span><span class="p">))</span>  <span class="c1"># 将科学数据转换为NumPy数组并处理NaN值</span>
+
+<span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sci_var</span><span class="p">)</span>  <span class="c1"># 将误差数据转换为NumPy数组</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Trimmed data shape:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 打印修剪后的数据形状</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WCS Keywords
+
+Number of WCS axes: 3
+CTYPE : &#39;RA---TAN&#39; &#39;DEC--TAN&#39; &#39;WAVE&#39; 
+CRVAL : -106.98898425200001 17.481222214 1.6601979666156693e-06 
+CRPIX : 22.0 20.0 1.0 
+PC1_1 PC1_2 PC1_3  : -1.0 0.0 0.0 
+PC2_1 PC2_2 PC2_3  : 0.0 1.0 0.0 
+PC3_1 PC3_2 PC3_3  : 0.0 0.0 1.0 
+CDELT : 2.77777781916989e-05 2.77777781916989e-05 3.95999988541007e-10 
+NAXIS : 43  39  3814
+
+Trimmed data shape: (600, 39, 43)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建 Cubeviz 实例</span>
+<span class="n">cubeviz</span> <span class="o">=</span> <span class="n">Cubeviz</span><span class="p">()</span>
+
+<span class="c1"># 加载数据文件</span>
+<span class="n">cubeviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># 显示 Cubeviz 界面</span>
+<span class="n">cubeviz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 设置光谱显示的 x 轴范围</span>
+<span class="n">cubeviz</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">x_limits</span><span class="p">(</span><span class="mf">1.65</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="mf">2.4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>
+
+<span class="c1"># 设置光谱显示的 y 轴范围</span>
+<span class="n">cubeviz</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">y_limits</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0e3</span><span class="p">)</span>
+
+<span class="c1"># 选择要可视化的切片，切片索引为 714</span>
+<span class="n">cubeviz</span><span class="o">.</span><span class="n">select_slice</span><span class="p">(</span><span class="mi">714</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "612e2f757aa84e23836b2a6d5599a572", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="cubeviz">
+<h2>3. 使用Cubeviz可视化科学数据 <a id="visualize"/><a class="headerlink" href="#cubeviz" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../../../_images/sdssj1652_nirspec_ifu_cubeviz.png"><img alt="Cubeviz，一个天文学数据分析查看器，显示两个图像面板，中央有一个明亮的天体，以及一个光谱图面板，展示了在不同波长下的多个峰值" src="../../../_images/sdssj1652_nirspec_ifu_cubeviz.png" style="width: 600px;" />
+</a>
+<section id="id4">
+<h3>用户界面说明：<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>使用光谱查看器切片工具在无线区域内浏览数据立方体。</p></li>
+<li><p>在通量查看器中，选择一个以类星体为中心的圆形子区域，以及一个方形区域以限定光谱和背景提取的良好区域。</p></li>
+<li><p>请注意，这些区域是像素化的，不包括分数像素。</p></li>
+<li><p>光谱查看器中的默认折叠方法是“求和”（Sum）（见绘图选项：线）。 “中位数”（Median）在可视化时也可能有用，但不会提供总通量的准确测量。</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h2>4. 从Cubeviz导出源和良好数据区域 <a id="source"/><a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>将用户在Cubeviz中定义的区域导出为astropy PixelRegions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Source Region&quot;</span><span class="p">)</span>  <span class="c1"># 打印源区域的标题</span>
+
+    <span class="n">region1</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_interactive_regions</span><span class="p">()[</span><span class="s1">&#39;Subset 1&#39;</span><span class="p">]</span>  <span class="c1"># 获取交互区域的子集1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">region1</span><span class="p">)</span>  <span class="c1"># 打印子集1的信息</span>
+
+    <span class="n">center_xy</span> <span class="o">=</span> <span class="p">[</span><span class="n">region1</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">region1</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">y</span><span class="p">]</span>  <span class="c1"># 获取子集1的中心坐标</span>
+
+    <span class="n">r_pix</span> <span class="o">=</span> <span class="n">region1</span><span class="o">.</span><span class="n">radius</span>  <span class="c1"># 获取子集1的半径</span>
+
+    <span class="n">region1_exists</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># 标记子集1存在</span>
+
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no Subset 1 selected in the cube viewer.&quot;</span><span class="p">)</span>  <span class="c1"># 如果没有选择子集1，打印错误信息</span>
+
+    <span class="n">center_xy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">17.1</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">]</span>  <span class="c1"># 使用默认中心坐标</span>
+
+    <span class="n">r_pix</span> <span class="o">=</span> <span class="mf">5.92</span>  <span class="c1"># 使用默认半径</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using default pixel center and radius:&quot;</span><span class="p">)</span>  <span class="c1"># 打印使用默认值的提示</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Center pixel:&quot;</span><span class="p">,</span> <span class="n">center_xy</span><span class="p">)</span>  <span class="c1"># 打印默认中心坐标</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Radius (pixels):&quot;</span><span class="p">,</span> <span class="n">r_pix</span><span class="p">)</span>  <span class="c1"># 打印默认半径</span>
+
+    <span class="n">region1_exists</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 标记子集1不存在</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Good Data Region&quot;</span><span class="p">)</span>  <span class="c1"># 打印良好数据区域的标题</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">region2</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_interactive_regions</span><span class="p">()[</span><span class="s1">&#39;Subset 2&#39;</span><span class="p">]</span>  <span class="c1"># 获取交互区域的子集2</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">region2</span><span class="p">)</span>  <span class="c1"># 打印子集2的信息</span>
+
+    <span class="n">region2_exists</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># 标记子集2存在</span>
+
+    <span class="n">data_xrange</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># 计算良好数据的x范围</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">region2</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">region2</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 计算xmin</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">region2</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">region2</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 计算xmax</span>
+    <span class="p">]</span>
+
+    <span class="n">data_yrange</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># 计算良好数据的y范围</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">region2</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">region2</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 计算ymin</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">region2</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">region2</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 计算ymax</span>
+    <span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Good data (xmin,xmax), (ymin,ymax):&quot;</span><span class="p">,</span> <span class="n">data_xrange</span><span class="p">,</span> <span class="n">data_yrange</span><span class="p">)</span>  <span class="c1"># 打印良好数据的范围</span>
+
+    <span class="n">good_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>  <span class="c1"># 将数据中的NaN值替换为0</span>
+        <span class="n">data</span><span class="p">[:,</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># 提取良好数据</span>
+    <span class="p">)</span>
+
+    <span class="n">good_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># 提取良好变量数据</span>
+
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no Subset 2 selected in the cube viewer.&quot;</span><span class="p">)</span>  <span class="c1"># 如果没有选择子集2，打印错误信息</span>
+
+    <span class="n">region1_exists</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 标记子集2不存在</span>
+
+    <span class="n">data_xrange</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">36</span><span class="p">]</span>  <span class="c1"># 使用默认的x范围</span>
+
+    <span class="n">data_yrange</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">33</span><span class="p">]</span>  <span class="c1"># 使用默认的y范围</span>
+
+    <span class="n">good_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>  <span class="c1"># 将数据中的NaN值替换为0</span>
+        <span class="n">data</span><span class="p">[:,</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># 提取良好数据</span>
+    <span class="p">)</span>
+
+    <span class="n">good_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># 提取良好变量数据</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using default good data (xmin,xmax), (ymin,ymax):&quot;</span><span class="p">,</span> <span class="n">data_xrange</span><span class="p">,</span> <span class="n">data_yrange</span><span class="p">)</span>  <span class="c1"># 打印使用默认范围的提示</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>5. 从Cubeviz光谱查看器提取子集光谱和背景 <a id="viewer"/><a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>从光谱查看器中检索用户定义区域的折叠光谱（Subset1），作为Spectrum1D对象。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取光谱子集</span>
+<span class="n">subsets</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">get_spectra</span><span class="p">()</span>
+
+<span class="c1"># 打印光谱子集的键</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">subsets</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Source&quot;</span><span class="p">)</span>  <span class="c1"># 打印“源”标题</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 获取第一个光谱子集，空间子集为“Subset 1”，函数为“sum”</span>
+    <span class="n">spectrum_subset1</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">cubeviz</span><span class="o">.</span><span class="n">data_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                        <span class="n">spatial_subset</span><span class="o">=</span><span class="s2">&quot;Subset 1&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+    <span class="c1"># 打印第一个光谱子集</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">spectrum_subset1</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># 如果没有选择“Subset 1”，则打印错误信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no Subset 1 selected in the spectrum viewer.&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Background&quot;</span><span class="p">)</span>  <span class="c1"># 打印“背景”标题</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 获取第二个光谱子集，查找包含“Subset 2”的键</span>
+    <span class="n">spectrum_subset2</span> <span class="o">=</span> <span class="n">subsets</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">subsets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">&quot;Subset 2&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="c1"># 打印第二个光谱子集</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">spectrum_subset2</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># 如果没有选择“Subset 2”，则打印错误信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no Subset 2 selected in the spectrum viewer.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>6. 通过对光谱像素求和提取光谱 <a id="sum"/><a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>对立方体中的所有光谱像素（spaxels）进行简单的numpy求和，作为一种初步的提取方法。同时对波长进行求和，以压缩立方体。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sum over wavelength  # 对波长进行求和</span>
+
+<span class="c1"># Clip data for display purposes  # 限制数据以便于显示</span>
+
+<span class="n">clip_level</span> <span class="o">=</span> <span class="mf">4e4</span>  <span class="c1"># 设置剪切水平</span>
+
+<span class="n">data_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">good_data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clip_level</span><span class="p">)</span>  <span class="c1"># 将数据限制在0到clip_level之间</span>
+
+<span class="n">cube_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_clipped</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 在第一个轴上对剪切后的数据进行求和</span>
+
+<span class="c1"># Extraction via sum over spaxels  # 通过对spaxel求和进行提取</span>
+
+<span class="n">fnu_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">good_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 在第二和第三个轴上对good_data进行求和</span>
+
+<span class="n">fnu_sum_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">fnu_sum</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clip_level</span><span class="p">)</span>  <span class="c1"># 将求和结果限制在0到clip_level之间</span>
+
+<span class="n">flux_spaxsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fnu_sum</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">MJy</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">sr</span>  <span class="c1"># 将求和结果转换为流量单位</span>
+
+<span class="n">spec1d_spaxsum</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wavelength</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="n">flux_spaxsum</span><span class="p">)</span>  <span class="c1"># 创建一维光谱对象</span>
+
+<span class="c1"># Plots  # 绘图</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># 创建一个包含两个子图的图形</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">fnu_sum</span><span class="p">)</span>  <span class="c1"># 在第一个子图中绘制波长与flux的关系</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Spaxel sums&quot;</span><span class="p">)</span>  <span class="c1"># 设置第一个子图的标题</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (um)&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Flux (MJy/sr)&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5e3</span><span class="p">)</span>  <span class="c1"># 设置y轴的范围</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cube_sum</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">clip_level</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>  <span class="c1"># 在第二个子图中显示cube_sum的图像，使用对数归一化</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Slice sums&quot;</span><span class="p">)</span>  <span class="c1"># 设置第二个子图的标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h2>7. 在恒定半径圆形光圈中提取光谱（圆柱体） <a id="cylinder" /><a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>该方法适用于扩展源。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CircularAperture使用xy像素</span>
+
+<span class="n">aperture</span> <span class="o">=</span> <span class="n">CircularAperture</span><span class="p">(</span><span class="n">center_xy</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r_pix</span><span class="p">)</span>  <span class="c1"># 创建一个圆形光圈，中心为center_xy，半径为r_pix</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">aperture</span><span class="p">)</span>  <span class="c1"># 打印光圈信息</span>
+
+<span class="n">cylinder_sum</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化一个空列表，用于存储每个切片的光度总和</span>
+
+<span class="k">for</span> <span class="n">slice2d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>  <span class="c1"># 遍历数据中的每个二维切片</span>
+
+    <span class="n">phot_table</span> <span class="o">=</span> <span class="n">aperture_photometry</span><span class="p">(</span><span class="n">slice2d</span><span class="p">,</span> <span class="n">aperture</span><span class="p">)</span>  <span class="c1"># 对当前切片进行光度测量</span>
+
+    <span class="n">cylinder_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">phot_table</span><span class="p">[</span><span class="s2">&quot;aperture_sum&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 将测量到的光度总和添加到列表中</span>
+
+<span class="n">flux_cylinder</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cylinder_sum</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">MJy</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">sr</span>  <span class="c1"># 将光度总和转换为适当的单位</span>
+
+<span class="n">spec1d_cylinder</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wavelength</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="n">flux_cylinder</span><span class="p">)</span>  <span class="c1"># 创建一维光谱对象，包含波长和光度</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h2>8. 在线性扩展圆形光圈（锥形）中提取光谱 <a id = "cone" /><a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>该方法适用于点源点扩散函数（PSF），其宽度与波长成正比。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 参考波长，用于扩展光圈</span>
+<span class="n">lambda0</span> <span class="o">=</span> <span class="n">wavelength</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 获取波长数组中的第一个波长作为参考波长</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reference wavelength:&quot;</span><span class="p">,</span> <span class="n">lambda0</span><span class="p">)</span>  <span class="c1"># 打印参考波长</span>
+
+<span class="n">cone_sum</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化一个空列表，用于存储光圈的总光度</span>
+
+<span class="n">idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># 初始化索引</span>
+
+<span class="c1"># 遍历数据和波长的组合</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">slice2d</span><span class="p">,</span> <span class="n">wave</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">):</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 索引自增</span>
+
+    <span class="n">r_cone</span> <span class="o">=</span> <span class="n">r_pix</span> <span class="o">*</span> <span class="n">wave</span> <span class="o">/</span> <span class="n">lambda0</span>  <span class="c1"># 计算当前波长下的光圈半径</span>
+
+    <span class="n">aperture_cone</span> <span class="o">=</span> <span class="n">CircularAperture</span><span class="p">(</span><span class="n">center_xy</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r_cone</span><span class="p">)</span>  <span class="c1"># 创建一个圆形光圈对象</span>
+
+    <span class="c1"># 使用光圈进行光度测量</span>
+    <span class="n">phot_table</span> <span class="o">=</span> <span class="n">aperture_photometry</span><span class="p">(</span>
+        <span class="n">slice2d</span><span class="p">,</span> <span class="n">aperture_cone</span><span class="p">,</span> <span class="n">wcs</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">celestial</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span>  <span class="c1"># 进行精确的光度测量</span>
+    <span class="p">)</span>
+
+    <span class="n">cone_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">phot_table</span><span class="p">[</span><span class="s2">&quot;aperture_sum&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 将测量结果添加到列表中</span>
+
+<span class="n">flux_cone</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cone_sum</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">MJy</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">sr</span>  <span class="c1"># 将光圈总光度转换为适当的单位</span>
+
+<span class="n">spec1d_cone</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wavelength</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="n">flux_cone</span><span class="p">)</span>  <span class="c1"># 创建一维光谱对象</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h2>9. 绘制并比较非最优光谱提取 <a id = "plot" /><a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>比较在圆柱体、锥体和Cubeviz子集提取的光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># 创建一个15x5英寸的子图</span>
+
+<span class="c1"># ax1.plot(wavelength, flux_spaxsum.value, label=&quot;All spaxels&quot;, c=&#39;k&#39;)  # 绘制所有spaxel的光谱（已注释）</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">flux_cylinder</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cylinder&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>  <span class="c1"># 绘制圆柱体的光谱，颜色为蓝色</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">flux_cone</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cone&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># 绘制锥体的光谱，颜色为深橙色，透明度为0.5</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">spectrum_subset1</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">slice_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">slice_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>  <span class="c1"># 绘制Subset1的光谱</span>
+        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>  <span class="c1"># 颜色为红色</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Subset1&quot;</span><span class="p">,</span>  <span class="c1"># 标签为Subset1</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>  <span class="c1"># 透明度为0.4</span>
+    <span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># 捕获异常</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no Cubeviz Subset1 spectrum to plot.&quot;</span><span class="p">)</span>  <span class="c1"># 输出错误信息</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Non-optimal spectral extractions&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Observed Wavelength (microns)&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Flux Density&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5.0e3</span><span class="p">)</span>  <span class="c1"># 设置y轴范围</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>非最优的圆柱形、锥形和CubeViz子集光谱提取方法非常相似。</p>
+<p>锥形提取在长波长处捕获了更多的通量。</p>
+<p>在类星体光谱中可以看到红移的宽H-β和窄[O III]线。</p>
+</section>
+<section id="webbpsf-psf">
+<h2>10. WebbPSF 最优提取的模型 PSF <a id="webbpsf" /><a class="headerlink" href="#webbpsf-psf" title="Link to this heading">#</a></h2>
+<p>使用 WebbPSF 生成 NIRSpec IFU 的 PSF 模型立方体，或读取预计算的 PSF 模型立方体。</p>
+<p>WebbPSF 的安装说明可以在 <a class="reference external" href="https://webbpsf.readthedocs.io/en/latest/">ReadTheDocs</a> 找到。</p>
+<blockquote>
+<div><p>注意！WebbPSF 模型运行大约需要 10 小时。请取消注释以下单元以进行计算。否则，请读取预计算的 WebbPSF 模型，该模型覆盖当前 NIRSpec G235H 数据集的完整波长范围。对于其他滤光片/光栅组合，请取消注释并运行下面的单元，使用科学数据集中的波长。</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># #WebbPSF 导入库</span>
+
+<span class="c1"># %pylab inline  # 在 Jupyter Notebook 中内联绘图</span>
+
+<span class="c1"># import webbpsf  # 导入 WebbPSF 库</span>
+
+<span class="c1">#</span>
+
+<span class="c1"># # WebbPSF 命令用于创建 PSF 模型立方体</span>
+
+<span class="c1"># ns = webbpsf.NIRSpec()  # 创建 NIRSpec 对象</span>
+
+<span class="c1"># ns.image_mask = &quot;IFU&quot;  # 设置为 3x3 角秒的正方形掩模</span>
+
+<span class="c1"># wavelengths = wavelength * 1.0E-6  # 将波长转换为米（从微米到米）</span>
+
+<span class="c1"># psfcube = ns.calc_datacube(wavelengths, fov_pixels=30, oversample=4, add_distortion=True)  </span>
+<span class="c1"># 计算 PSF 立方体，设置视场像素为 30，过采样为 4，并添加畸变</span>
+
+<span class="c1"># psfcube.writeto(&quot;Webbpsf_ifucube.fits&quot;)  # 将 PSF 立方体写入 FITS 文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义数据源路径</span>
+<span class="n">BoxPath</span> <span class="o">=</span> <span class="s2">&quot;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_optimal_extraction/&quot;</span>
+
+<span class="c1"># 定义PSF文件名</span>
+<span class="n">psf_filename</span> <span class="o">=</span> <span class="n">BoxPath</span> <span class="o">+</span> <span class="s2">&quot;Webbpsf_ifucube.fits&quot;</span>
+
+<span class="c1"># 打开WebbPSF数据立方体</span>
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">psf_filename</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>  <span class="c1"># 使用上下文管理器打开FITS文件</span>
+    <span class="n">psf_model</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s2">&quot;DET_SAMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取PSF模型数据</span>
+    <span class="n">psf_hdr</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s2">&quot;DET_SAMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># 获取PSF模型头信息</span>
+    <span class="n">hdulist</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># 打印FITS文件的信息</span>
+
+<span class="c1"># 用零填充PSF模型立方体以匹配当前数据集</span>
+<span class="c1"># （不同的数据集可能需要不同的填充方式）</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sci</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">psf_model</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 打印科学数据和PSF模型的形状</span>
+<span class="n">psf_model_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">psf_model</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)),</span> <span class="s2">&quot;constant&quot;</span><span class="p">)</span>  <span class="c1"># 对PSF模型进行零填充</span>
+
+<span class="c1"># 在波长上求和</span>
+<span class="n">psf_model_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">psf_model_padded</span><span class="p">[</span><span class="n">slice_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">slice_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 在指定波长范围内求和</span>
+
+<span class="c1"># 在spaxels上求和</span>
+<span class="n">psf_model_fnusum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+    <span class="n">psf_model_padded</span><span class="p">[</span><span class="n">slice_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">slice_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 在spaxels维度上求和</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="psf">
+<h2>11. 将模型 PSF 立方体与科学数据对齐 <a id="align"/><a class="headerlink" href="#psf" title="Link to this heading">#</a></h2>
+<p>翻转、平滑并移动模型 PSF 立方体，以便与模拟数据对齐。裁剪模拟数据。</p>
+<p>重要提示 1：这个 PSF 可能会相对于您的数据集旋转，这取决于望远镜的滚转角度。您可以选择旋转它以匹配您的数据，或者使用 ifualign 关键字重新处理您的数据，以将 WCS 与仪器坐标框架对齐。</p>
+<p>重要提示 2：这个 PSF 可能会相对于您的数据集发生位移。自动找到数据与模拟 PSF 峰值之间的 (x,y) 偏移量将是有益的。目前，位移是通过目测经验确定的。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将模型点扩散函数（PSF）左右翻转以匹配数据。</span>
+
+<span class="n">psf_model_fliplr</span> <span class="o">=</span> <span class="n">psf_model_padded</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 翻转PSF模型的第二维度（左右翻转）</span>
+
+<span class="c1"># 通过经验（目测）确定的偏移量</span>
+
+<span class="n">shiftx</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># x方向的偏移量</span>
+<span class="n">shifty</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># y方向的偏移量</span>
+
+<span class="c1"># 使用线性插值对模型PSF进行偏移</span>
+
+<span class="n">psf_model_aligned</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span>
+    <span class="n">psf_model_fliplr</span><span class="p">,</span>  <span class="c1"># 输入翻转后的PSF模型</span>
+    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">shiftx</span><span class="p">,</span> <span class="n">shifty</span><span class="p">),</span>  <span class="c1"># 偏移量</span>
+    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># 线性插值</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>  <span class="c1"># 边界模式</span>
+    <span class="n">cval</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>  <span class="c1"># 常数值填充</span>
+    <span class="n">prefilter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 预过滤</span>
+<span class="p">)</span>
+
+<span class="c1"># 根据切片范围和数据范围提取对齐后的PSF模型</span>
+
+<span class="n">good_psf_model</span> <span class="o">=</span> <span class="n">psf_model_aligned</span><span class="p">[</span>
+    <span class="n">slice_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">slice_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># 切片范围</span>
+    <span class="n">data_yrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># y轴数据范围</span>
+    <span class="n">data_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data_xrange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># x轴数据范围</span>
+<span class="p">]</span>
+
+<span class="c1"># 在波长轴上求和</span>
+
+<span class="n">psf_model_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">good_psf_model</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 沿着波长轴对PSF模型求和</span>
+
+<span class="c1"># PSF减法的缩放因子</span>
+
+<span class="n">psf_sum_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">psf_model_sum</span><span class="p">)</span>  <span class="c1"># PSF模型求和后的最大值</span>
+<span class="n">scalefactor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">cube_sum</span><span class="p">)</span> <span class="o">/</span> <span class="n">psf_sum_max</span>  <span class="c1"># 计算缩放因子</span>
+
+<span class="c1"># 绘图</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="p">([</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">],</span> <span class="p">[</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">])</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 创建2x2的子图</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;PSF slice sum&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">psf_model_sum</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>  <span class="c1"># 显示PSF模型求和图像</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Science Data slice sum&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cube_sum</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>  <span class="c1"># 显示科学数据求和图像</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Data / PSF Ratio&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cube_sum</span> <span class="o">/</span> <span class="n">psf_model_sum</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e6</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>  <span class="c1"># 显示数据与PSF的比率</span>
+
+<span class="n">im4</span> <span class="o">=</span> <span class="n">ax4</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">cube_sum</span> <span class="o">-</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">scalefactor</span> <span class="o">*</span> <span class="n">psf_model_sum</span><span class="p">)),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span>  <span class="c1"># 显示数据与缩放后的PSF差的对数绝对值</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im4</span><span class="p">)</span>  <span class="c1"># 添加颜色条</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;log abs(Data - PSF)&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示所有图像</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>图上排</em>: 比较了偏移的WebbPSF点扩散函数（PSF）（左侧）与科学数据（右侧）。NIRSpec IFU的PSF与望远镜的WebbPSF模拟有显著差异。这部分是由于IFU光学系统造成的，也可能部分是由于立方体构建算法的影响。此外，来自QSO宿主及周围星系的真实扩展发射也存在。</p>
+<p><em>图下排</em>: 模型PSF与观测PSF之间的差异将导致次优提取，未能完全达到最大信噪比（SNR），但仍优于对所有光谱像素（spaxels）的简单求和。</p>
+</section>
+<section id="webbpsf">
+<h2>12. 使用WebbPSF模型的最佳提取 <a id="optimal" /><a class="headerlink" href="#webbpsf" title="Link to this heading">#</a></h2>
+<p>最佳提取（<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1986PASP...98..609H/abstract">Horne 1986, PASP, 98, 609</a>）通过信噪比（SNR）对光谱的通量贡献进行加权。将模拟数据除以模型点扩散函数（PSF）可以估计每个空间像素（spaxel）中的总光通量密度光谱。对所有空间像素的这些估计值进行加权平均，得到整个立方体的最佳提取光谱。在微弱源极限下，当噪声以背景为主时，在3个标准差半径内的最佳提取可以将有效曝光时间提高1.69倍（Horne et al. 1986）。在亮源极限下，当噪声主要由源的泊松统计主导时，最佳提取在形式上与完美PSF模型的空间像素直接求和相同。</p>
+<p>我们在此使用预计算的WebbPSF PSF模型进行最佳提取。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 窗口PSF模型（并替换NaN值）</span>
+
+<span class="n">good_profile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">good_psf_model</span><span class="p">)</span>  <span class="c1"># 将good_psf_model中的NaN值替换为0</span>
+
+<span class="n">var_clean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">good_var</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mf">1e12</span><span class="p">)</span>  <span class="c1"># 将good_var中的NaN、正无穷和负无穷替换为1e12</span>
+
+<span class="n">zerovar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">var_clean</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 找到var_clean中值为0的索引</span>
+
+<span class="n">var_clean</span><span class="p">[</span><span class="n">zerovar</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e12</span>  <span class="c1"># 将值为0的元素替换为1e12</span>
+
+<span class="n">var_clean_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">var_clean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># 沿着指定轴计算var_clean的总和</span>
+
+<span class="n">snr_clean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">good_data</span> <span class="o">/</span> <span class="n">var_clean</span><span class="p">)</span>  <span class="c1"># 计算信噪比，并替换NaN值为0</span>
+
+<span class="c1"># 用PSF模型除以数据</span>
+
+<span class="n">data_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">good_data</span> <span class="o">/</span> <span class="n">good_profile</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 将good_data除以good_profile，并替换无穷值为0</span>
+
+<span class="n">data_norm_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_norm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 沿着指定轴计算data_norm的总和</span>
+
+<span class="c1"># 屏蔽坏数据</span>
+
+<span class="c1"># data_norm_clipped = sigma_clip(data_norm, sigma=3.0, maxiters=5, axis=(1, 2))  # 使用sigma_clip函数屏蔽坏数据（已注释）</span>
+
+<span class="n">data_norm_clipped</span> <span class="o">=</span> <span class="n">data_norm</span>  <span class="c1"># 直接使用data_norm作为data_norm_clipped</span>
+
+<span class="n">data_norm_clipped_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_norm_clipped</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 沿着指定轴计算data_norm_clipped的总和</span>
+
+<span class="n">snr_thresh</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># 设置信噪比阈值</span>
+
+<span class="n">badvoxel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">data_norm_clipped</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">snr_clean</span> <span class="o">&lt;</span> <span class="n">snr_thresh</span><span class="p">))</span>  <span class="c1"># 找到坏数据的索引</span>
+
+<span class="n">data_clean</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">good_data</span>  <span class="c1"># 复制good_data到data_clean</span>
+
+<span class="n">data_clean</span><span class="p">[</span><span class="n">badvoxel</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># 将坏数据位置的值设为0</span>
+
+<span class="n">data_clean_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_clean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 沿着指定轴计算data_clean的总和</span>
+
+<span class="c1"># 最优提取，使用模型轮廓权重和来自模拟数据的方差立方体</span>
+
+<span class="n">optimal_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>  <span class="c1"># 计算最优权重，并替换NaN和无穷值为0</span>
+    <span class="n">good_profile</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">var_clean</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>  
+<span class="n">optimal_weight_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">optimal_weight</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># 沿着指定轴计算optimal_weight的总和</span>
+
+<span class="n">optimal_weight_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">optimal_weight</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 沿着指定轴计算optimal_weight的归一化总和</span>
+
+<span class="n">spectrum_optimal</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># 计算最优光谱</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">good_profile</span> <span class="o">*</span> <span class="n">data_clean</span> <span class="o">/</span> <span class="n">var_clean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">optimal_weight_norm</span>
+<span class="p">)</span>
+
+<span class="c1"># 绘图</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个子图</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Optimal Extraction Comparison&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Observed Wavelength (microns)&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Flux Density&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>  <span class="c1"># 设置y轴范围</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">cone_sum</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Conical Extraction&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># 绘制锥形提取曲线</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">spectrum_optimal</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Optimal&quot;</span><span class="p">)</span>  <span class="c1"># 绘制最优提取曲线</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specviz</span> <span class="o">=</span> <span class="n">Specviz</span><span class="p">()</span>  <span class="c1"># 创建Specviz实例，用于光谱可视化</span>
+
+<span class="n">flux_opt</span> <span class="o">=</span> <span class="n">spectrum_optimal</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">MJy</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">sr</span>  <span class="c1"># 将最佳光谱转换为MJy/sr单位</span>
+
+<span class="n">spec1d_opt</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wavelength</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="n">flux_opt</span><span class="p">)</span>  <span class="c1"># 创建一维光谱对象，包含波长和光通量</span>
+
+<span class="c1"># specviz.load_data(spec1d_spaxsum, data_label=&quot;collapse spec&quot;)  # 加载汇总光谱数据（已注释）</span>
+
+<span class="n">specviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">spec1d_opt</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s2">&quot;optimal spec&quot;</span><span class="p">)</span>  <span class="c1"># 加载最佳光谱数据</span>
+
+<span class="n">specviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">spec1d_cone</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s2">&quot;cone spec&quot;</span><span class="p">)</span>  <span class="c1"># 加载锥形光谱数据</span>
+
+<span class="n">specviz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示光谱可视化</span>
+
+<span class="c1"># set spectrum display limits  # 设置光谱显示限制</span>
+
+<span class="c1"># specviz.x_limits()  # （已注释）设置x轴限制</span>
+
+<span class="n">specviz</span><span class="o">.</span><span class="n">y_limits</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">clip_level</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>  <span class="c1"># 设置y轴限制，范围从0到clip_level的七分之一</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>查看器的样子如下：</p>
+<a class="reference internal image-reference" href="../../../_images/sdssj1652_nirspec_ifu_specviz.png"><img alt="Specviz，一个天文学数据分析查看器，显示了类星体中的发射线" src="../../../_images/sdssj1652_nirspec_ifu_specviz.png" style="width: 600px;" />
+</a>
+<p>优化提取的光谱比光圈提取的光谱噪声更小，并且包含更少的坏像素和宇宙射线事件。OIII线型的特征不同，因为相对于未分辨的类星体核，扩展发射的权重被降低。</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png"><img alt="太空望远镜标志" src="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png" style="width: 200px;" />
+</a>
+<p>由Patrick Ogle和James Davies创建的笔记本。最后更新：2023年12月。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRSpec/ifu_optimal"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../cube_fitting/cube_fitting_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">光谱立方体建模</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../optimal_extraction/Spectral_Extraction-static_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MOS 最优光谱提取</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. 导入 <a id="imports"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2. 读取 NIRSpec IFU 数据立方体 <a id="read"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cubeviz">3. 使用Cubeviz可视化科学数据 <a id="visualize"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">用户界面说明：</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4. 从Cubeviz导出源和良好数据区域 <a id="source"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5. 从Cubeviz光谱查看器提取子集光谱和背景 <a id="viewer"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6. 通过对光谱像素求和提取光谱 <a id="sum"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7. 在恒定半径圆形光圈中提取光谱（圆柱体） <a id="cylinder"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8. 在线性扩展圆形光圈（锥形）中提取光谱 <a id="cone"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">9. 绘制并比较非最优光谱提取 <a id="plot"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webbpsf-psf">10. WebbPSF 最优提取的模型 PSF <a id="webbpsf"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psf">11. 将模型 PSF 立方体与科学数据对齐 <a id="align"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webbpsf">12. 使用WebbPSF模型的最佳提取 <a id="optimal"></a></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

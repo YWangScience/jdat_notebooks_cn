@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>笔记本开发工作流程 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/notebook_development_workflow_cn';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="提交笔记本" href="submitting_notebooks_cn.html" />
+    <link rel="prev" title="安装说明" href="../install_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install_cn.html">安装</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/notebook_development_workflow_cn.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>笔记本开发工作流程</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draft-stage">草稿阶段</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-stage">基线阶段</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">笔记本驱动开发</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">高级阶段</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">基于社区反馈的修订</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="id1">
+<h1>笔记本开发工作流程<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>本文档描述了JWST数据分析工具（JDAT）对“笔记本驱动开发”的方法。这里的程序概述了将笔记本通过连续开发阶段的过程，以便成为可以在spacetelescope笔记本库中“实时”使用的内容。</p>
+<p>这些笔记本可以有许多不同的科学案例，但遵循相对标准的工作流程：</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#id4">草稿阶段</a></p></li>
+<li><p><a class="reference internal" href="#id5">基线阶段</a></p></li>
+<li><p><a class="reference internal" href="#id10">笔记本驱动开发</a></p></li>
+<li><p><a class="reference internal" href="#id11">高级阶段</a></p></li>
+<li><p><a class="reference internal" href="#id12">基于社区反馈的修订</a></p></li>
+</ol>
+<p>这些阶段及其之间的转换过程将在下面描述。</p>
+<p><strong>通过拉取请求提交笔记本的程序在本文件的</strong>
+<a class="reference internal" href="submitting_notebooks_cn.html#github-submissions"><span class="std std-ref">GitHub部分</span></a>
+<strong>中进行了描述。这一过程在每个阶段都重复。</strong></p>
+<p>请注意，关于编写Jupyter笔记本的信息可以在
+<a class="reference external" href="https://github.com/spacetelescope/style-guides/blob/master/guides/jupyter-notebooks.md">STScI笔记本风格指南</a>
+中找到，关于Python代码的类似指导可以在
+<a class="reference external" href="https://github.com/spacetelescope/style-guides/blob/master/guides/python.md">STScI Python风格指南</a>
+中找到。这些指南旨在简化审查步骤。</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>请注意，所有与JDAT相关的代码应使用`Python 3`编写；<a href="#id2"><span class="problematic" id="id3">`</span></a>Python 2`不受支持。</p>
+</div>
+<section id="draft-stage">
+<span id="id4"></span><h2>草稿阶段<a class="headerlink" href="#draft-stage" title="Link to this heading">#</a></h2>
+<p>此阶段的主要目的是记录科学工作流程，但不包括实际代码。此阶段通常主要由科学家完成。如果笔记本较简单或基础工具已经足够成熟，可以直接实现，则可以合理地跳过此阶段。</p>
+<p>在此阶段开始笔记本时，笔记本作者应从`笔记本风格指南 &lt;<a class="github reference external" href="https://github.com/spacetelescope/style-guides/blob/master/guides/jupyter-notebooks.md">spacetelescope/style-guides</a>&gt;`_
+的笔记本模板或空白Jupyter笔记本开始。然后，他们用文字写出他们的工作流程。在可能的情况下，他们提供*示例*代码，即使它尚未实现。</p>
+<p>例如，作者可能会在这样的笔记本中写道：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span> <span class="p">]:</span> <span class="n">spectral_line</span> <span class="o">=</span> <span class="n">find_line</span><span class="p">(</span><span class="n">jwst_miri_spectrum</span><span class="p">)</span>
+
+<span class="c1"># `spectral_line` 应该是一个按spaxel索引的线中心和线名称的列表，</span>
+<span class="c1"># 使用基于导数的线查找器找到。</span>
+</pre></div>
+</div>
+<p>即使``find_line``函数尚不存在。</p>
+<p>笔记本的顶级标题（即标题）应以“草稿：”开头，以明确这是一个草稿笔记本。然而，文件名不应包含`draft`，因为文件名在后续阶段通常保持不变。</p>
+<p>一旦草稿准备好，作者应创建一个拉取请求，包含草稿笔记本的内容（请参见本文末尾的说明）。</p>
+</section>
+<section id="baseline-stage">
+<span id="id5"></span><h2>基线阶段<a class="headerlink" href="#baseline-stage" title="Link to this heading">#</a></h2>
+<p>此阶段的主要目的是获得一个功能性笔记本，以记录工作流程。此阶段通常也由科学家完成（尽管可以向开发人员询问问题）。这通常是开发的*第一*步。也就是说，如果工作流程已经合理地可以用现有工具实现，则不需要草稿笔记本。</p>
+<p>在此阶段，笔记本应实际从头到尾执行，但可以“粗糙”。例如，笔记本可能有几个单元格，其中包含如下内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span> <span class="p">]:</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">Spectrum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">angstrom</span><span class="p">,</span> <span class="n">some_complex_function</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>科学家可能认为这太复杂，因此为了传达他们对改进工作流程的期望，他们创建一个“开发者注释”。开发者注释应作为笔记本的一部分，并应为一个单独的markdown单元格（而不是代码单元格 - 开发者注释中的代码示例可以作为文字markdown块完成 - 即用` ````包围块或用` `表示内联代码）。该单元格应以文本``*开发者注释:<a href="#id6"><span class="problematic" id="id7">*</span></a><a href="#id8"><span class="problematic" id="id9">``</span></a>开头。例如，可以在笔记本中添加如下的markdown单元格：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*开发者注释:*
+创建上述光谱有点复杂，如果有一个简单的函数可以直接执行 `spec = simulate_jwst_spectrum(a, b)`，将会改善工作流程。
+</pre></div>
+</div>
+<p>从而提供指导，说明特定开发将如何简化工作流程。</p>
+<p>如果以这种形式新创建了笔记本，作者可以按照“通过拉取请求提交笔记本的程序”（见本文末尾）跳过草稿阶段步骤。</p>
+<p>如果笔记本是在草稿阶段步骤中已创建，并且已经遵循了“通过拉取请求提交笔记本的程序”，则作者只需创建一个新分支以修改现有代码，然后在准备好后创建一个新的拉取请求。</p>
+<p>在任何情况下，笔记本的标题（但不是文件名）应以“基线:”开头，以指示笔记本处于基线阶段。</p>
+<p>一旦创建了拉取请求，笔记本将自动在库中构建，以便审阅者可以查看。审阅者可以在GitHub上对笔记本进行评论。在此阶段，审查的标准仍然相对较低 - 主要是确保笔记本从头到尾运行，并且数据文件等没有意外提交到库中。</p>
+<p>最后，有三个重要的技术细节与笔记本在此阶段相关（并在未来阶段继续适用）：</p>
+<ol class="arabic simple">
+<li><p>在进行git提交之前，笔记本的输出单元格应*始终*被清除。笔记本输出有时可能非常大（例如图表等），而git旨在处理源代码，而不是数据。清除输出还确保笔记本可以从头到尾运行，因此可以被他人重现。</p></li>
+<li><p>笔记本所需的任何数据文件需要其他可能审查或测试笔记本的人可以访问。应遵循`STScI关于笔记本数据存储的指南 &lt;<a class="github reference external" href="https://github.com/spacetelescope/style-guides/blob/master/guides/where-to-put-your-data.md">spacetelescope/style-guides</a>&gt;`_。JWST笔记本的具体补充是，笔记本数据应位于``DMD_Managed_Data/JWST/jwst-data_analysis_tools`` Box文件夹（或其子文件夹）中。如果您尚未访问此Box文件夹，请向项目科学家询问，他们应该能够为您添加访问权限。请注意，如果基线笔记本使用的数据尚不应公开，最简单的选择可能是中央存储，但在这种情况下，笔记本状态必须明确指出它必须在STScI网络内运行。</p></li>
+<li><p>笔记本应清楚地说明生成笔记本所使用的各种依赖项的版本。这些版本应放在与笔记本本身位于同一目录中的``requirements``文件中。该文件的示例位于``example_notebook``文件夹中。这将确保审阅者/测试者可以确认，如果他们遇到问题，问题不是由于软件版本不匹配造成的。</p></li>
+</ol>
+<p>笔记本将经历科学和技术审查，这也可能产生额外的开发者注释。解决审查意见后，它将被合并到库中。这标志着基线阶段的结束。</p>
+</section>
+<section id="id10">
+<h2>笔记本驱动开发<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>在草稿和基线阶段及之后，可能需要进行大量开发。基线笔记本可能包含许多希望在数据分析工具中进行更多开发的领域，或者可能只需要一些小的调整（或根本不需要！）。因此，此阶段是最灵活的，依赖于开发资源等。一般来说，开发人员的意图是能够重用笔记本中的代码片段作为开发测试，同时偶尔（如有必要）向笔记本作者寻求指导，以确保实现确实满足笔记本的需求。此步骤没有正式的流程，但JDAT规划过程（目前在Jira上）旨在跟踪在给定笔记本可以进入下一个阶段之前所需的具体步骤。</p>
+</section>
+<section id="id11">
+<h2>高级阶段<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>一旦基线笔记本完成，下一阶段是将基线构建为尽可能一致地使用DAT或相关社区开发的软件的笔记本。这通常通过开发人员审查基线笔记本并与科学家合作开发额外的DAT代码来完成，特别关注解决“开发者注释”。笔记本作者和开发人员共同决定谁实际修改笔记本并发起拉取请求，但很可能两者都会在某种程度上参与。一个示例方法是，开发人员从基线笔记本开始，标记出如下评论（使用上述示例）：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span> <span class="p">]:</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">Spectrum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">angstrom</span><span class="p">,</span> <span class="n">some_complex_function</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>创建上述光谱有点复杂，如果有一个简单的函数可以直接执行 <code class="docutils literal notranslate"><span class="pre">spec</span> <span class="pre">=</span> <span class="pre">simulate_jwst_spectrum(a,</span> <span class="pre">b)</span></code>，将会改善工作流程。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*开发进展:*
+这现在已实现为JWSTSimulator.make_spectrum(a, b, anotherparameterthatturnsouttobeimportant)。你能试试这个并确保它在这里有效吗？
+</pre></div>
+</div>
+<p>然后创建一个包含这些评论的git提交。原作者随后将在后续提交中解决这些评论。随着笔记本驱动开发的继续，可能会有多个此类拉取请求。但一旦所有开发者注释都得到解决，开发人员和作者可以宣布笔记本准备好称为“高级”。</p>
+<p>一旦笔记本作者（原作者和开发人员/审阅者）达成一致认为它已准备好，其中一人按照上述拉取请求工作流程进行操作，但笔记本标题现在仅更改为标题本身（没有“草稿:”或“基线:”）。然后，拉取请求将由项目科学家之一进行审查，并在所有人对笔记本满意时合并。</p>
+</section>
+<section id="id12">
+<h2>基于社区反馈的修订<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>当然，科学并不是静止不变的！随着时间的推移，一些已完成的笔记本可能需要增强或更改。一般来说，这些遵循标准的拉取请求工作流程，并且一旦笔记本公开（在STScI内外），任何人都可以提交。虽然库维护者管理此过程，但笔记本作者可能会不时被召集以提供对任何提议更改的意见或看法。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../install_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">安装说明</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="submitting_notebooks_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">提交笔记本</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draft-stage">草稿阶段</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-stage">基线阶段</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">笔记本驱动开发</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">高级阶段</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">基于社区反馈的修订</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1432 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>扩展孔径光度测量 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="交叉滤波 PSF 匹配" href="../NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html" />
+    <link rel="prev" title="点源光度测量" href="../aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>扩展孔径光度测量</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">扩展孔径光度测量</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">引言</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">待办事项</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webbpsf">下载WEBBPSF数据</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">导入包</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib 绘图设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">创建待加载和分析的图像列表</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#f200w">加载探测图像：F200W</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">报告图像大小和视场</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">创建彩色图像（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils">使用 <code class="docutils literal notranslate"><span class="pre">photutils</span></code> 检测源和去混叠</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">在检测图像中测量光度（及更多）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">显示检测结果与图像（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">查看探测图像中的所有测量量（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">仅保留某些量</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">将测量的通量（数据单位）转换为星等</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">使用在检测图像中定义的等光度孔径进行多波段光度测量</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">查看完整结果（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">将光度数据保存为输出目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">重新格式化输出目录以提高可读性（可选）</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">开始新会话并分析结果</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">加载目录和分割图</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">绘制数量计数与亮度的关系</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#f200w-f090w">绘制 F200W 与 F090W 亮度并寻找缺失值</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">查看一个天体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">在所有图像中显示对象</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sed">绘制 SED（光谱能量分布）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">当通量 &lt;= 0 时，星等转换失败</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>扩展孔径光度测量<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>用例：</strong> 在一个区域内测量星系光度。相关于 <a class="reference external" href="https://jwst-docs.stsci.edu/near-infrared-camera/nircam-example-science-programs/nircam-deep-field-imaging-with-miri-imaging-parallels">JDox 科学用例 #22</a>。<br></p>
+<p><strong>数据：</strong> WST 模拟的 NIRCam 图像来自 <a class="reference external" href="http://fenrir.as.arizona.edu/jwstmock/">JADES JWST GTO 外星系空白场</a>。<br></p>
+<p>（Williams et al. 2018）https://ui.adsabs.harvard.edu/abs/2018ApJS..236…33W。<br></p>
+<p><strong>工具：</strong> photutils, matplotlib, scipy, scikit。<br></p>
+<p><strong>跨仪器：</strong> 可能涉及 MIRI。<br></p>
+<p><strong>文档：</strong> 本笔记本是 STScI 更大 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理数据分析工具生态系统</a> 的一部分。<br></p>
+<section id="id2">
+<h2>引言<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>本笔记本使用 <code class="docutils literal notranslate"><span class="pre">photutils</span></code> 检测 NIRCam 深成像中的物体/星系。首先在 F200W 图像中进行检测，然后在所有 9 个滤光片（F090W, F115W, F150W, F200W, F277W, F335M, F356W, F410M, F444W）中获得等光度光度测量。目录被重新加载，并对完整目录和单个星系进行一些简单分析。</p>
+<p>该笔记本仅分析 JADES 模拟的中央 1000 x 1000 像素（30” x 30”）。这些切片已获得 STScI 的授权，并由作者（Williams et al.）提供。</p>
+<p><strong>注意：</strong> 光度测量是经过孔径匹配的，但未进行 PSF 校正。为了获得更准确的颜色测量，应该实施 PSF 校正，因为波长范围很大（因此 PSF FWHM 跨越 &gt;4 的因子）。</p>
+<p><strong>注意：</strong> 模拟的 JADES 图像的单位（e-/s）与 JWST 管道产品（MJy/sr）不同。</p>
+<p><strong>注意：</strong> 缺少曝光图，但计算通量不确定性是必需的。</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>待办事项<a class="headerlink" href="#id3" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>PSF（点扩散函数）校正</p></li>
+<li><p>检查光度测量的准确性与模拟的JADES（James Webb Space Telescope Advanced Deep Extragalactic Survey）目录的对比</p></li>
+<li><p>需要曝光图以用于误差计算</p></li>
+<li><p>AB（天文带）磁单位无法写入ecsv文件（即将发布astropy更新）</p></li>
+<li><p>带文本标签的图表看起来很糟糕（我希望光标悬停时能显示ID号码）</p></li>
+<li><p>修复图表的次要轴：磁量与通量</p></li>
+<li><p>requirements.txt文件——但我不知道需要哪些版本</p></li>
+<li><p>Robel的其他评论：https://github.com/spacetelescope/dat_pyinthesky/pull/82#pullrequestreview-355206337</p></li>
+</ul>
+<section id="webbpsf">
+<h2>下载WEBBPSF数据<a class="headerlink" href="#webbpsf" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tarfile</span>  <span class="c1"># 导入tarfile模块，用于处理tar文件</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>  <span class="c1"># 导入urllib.request模块，用于处理URL请求</span>
+
+<span class="n">boxlink</span> <span class="o">=</span> <span class="s1">&#39;https://stsci.box.com/shared/static/34o0keicz2iujyilg4uz617va46ks6u9.gz&#39;</span>  <span class="c1"># 设置文件下载链接</span>
+
+<span class="n">boxfile</span> <span class="o">=</span> <span class="s1">&#39;./webbpsf-data/webbpsf-data-1.0.0.tar.gz&#39;</span>  <span class="c1"># 设置下载后保存的文件路径</span>
+
+<span class="n">webbpsf_folder</span> <span class="o">=</span> <span class="s1">&#39;./webbpsf-data&#39;</span>  <span class="c1"># 设置存放解压文件的文件夹路径</span>
+
+<span class="c1"># 检查指定路径是否存在</span>
+
+<span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">webbpsf_folder</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>  <span class="c1"># 如果路径不存在</span>
+
+  <span class="c1"># 创建一个新目录，因为它不存在 </span>
+
+  <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">webbpsf_folder</span><span class="p">)</span>  <span class="c1"># 创建目录</span>
+    
+
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">boxlink</span><span class="p">,</span> <span class="n">boxfile</span><span class="p">)</span>  <span class="c1"># 从指定链接下载文件并保存到指定路径</span>
+
+<span class="n">gzf</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">boxfile</span><span class="p">)</span>  <span class="c1"># 打开下载的tar.gz文件</span>
+
+<span class="n">gzf</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">webbpsf_folder</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>  <span class="c1"># 解压所有文件到指定文件夹，使用filter=&#39;data&#39;跳过绝对路径或相对路径</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>导入包<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统模块，用于文件和目录操作</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.convolution</span><span class="w"> </span><span class="kn">import</span> <span class="n">convolve</span>  <span class="c1"># 从Astropy库导入卷积函数</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从Astropy库导入FITS文件处理模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_fwhm_to_sigma</span>  <span class="c1"># 导入高斯全宽半高转换函数</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTable</span>  <span class="c1"># 从Astropy库导入QTable类，用于表格数据处理</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>  <span class="c1"># 导入Astropy单位模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_lupton_rgb</span><span class="p">,</span> <span class="n">SqrtStretch</span><span class="p">,</span> <span class="n">ImageNormalize</span><span class="p">,</span> <span class="n">simple_norm</span>  <span class="c1"># 导入图像可视化相关函数</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.wcs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wcs</span>  <span class="c1"># 导入Astropy的WCS模块，用于天文坐标转换</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.background</span><span class="w"> </span><span class="kn">import</span> <span class="n">Background2D</span><span class="p">,</span> <span class="n">MedianBackground</span>  <span class="c1"># 导入背景处理模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">detect_sources</span><span class="p">,</span> <span class="n">deblend_sources</span><span class="p">,</span> <span class="n">SourceCatalog</span><span class="p">,</span>  <span class="c1"># 导入源检测和分离模块</span>
+                                    <span class="n">make_2dgaussian_kernel</span><span class="p">,</span> <span class="n">SegmentationImage</span><span class="p">)</span>  <span class="c1"># 导入2D高斯核和分割图像相关函数</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calc_total_error</span>  <span class="c1"># 导入计算总误差的函数</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matplotlib">
+<h2>Matplotlib 绘图设置<a class="headerlink" href="#matplotlib" title="Link to this heading">#</a></h2>
+<p>有两个版本</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">notebook</span></code> – 提供交互式图形，但会使整个笔记本的滚动变得稍微困难</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inline</span></code> – 提供非交互式图形，以便更好地滚动整体内容</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库 matplotlib 的 pyplot 模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>  <span class="c1"># 导入 matplotlib 库</span>
+
+<span class="c1"># Use this version for non-interactive plots (easier scrolling of the notebook)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline  # 设置为非交互式绘图模式，方便在笔记本中滚动查看
+
+<span class="c1"># Use this version if you want interactive plots</span>
+<span class="c1"># %matplotlib notebook  # 如果需要交互式绘图，可以取消注释这一行</span>
+
+<span class="c1"># These gymnastics are needed to make the sizes of the figures</span>
+<span class="c1"># be the same in both the inline and notebook versions</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.print_figure_kwargs = {&#39;bbox_inches&#39;: None}  # 配置图形输出的边界框参数，使得图形在两种模式下大小一致
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>  <span class="c1"># 设置保存图形时的分辨率为 80 dpi</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>  <span class="c1"># 设置图形显示时的分辨率为 80 dpi</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>创建待加载和分析的图像列表<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 基础URL，用于获取JWST数据分析工具的NIRCam光度数据</span>
+<span class="n">baseurl</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/nircam_photometry/&#39;</span>
+
+<span class="c1"># 定义所需的滤光片</span>
+<span class="n">filters</span> <span class="o">=</span> <span class="s1">&#39;F090W F115W F150W F200W F277W F335M F356W F410M F444W&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="c1"># 数据图像 [电子/秒]</span>
+<span class="n">imagefiles</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 创建一个空字典以存储图像文件路径</span>
+
+<span class="c1"># 遍历每个滤光片</span>
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+    <span class="c1"># 根据滤光片名称生成文件名</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;jades_jwst_nircam_goods_s_crop_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">.fits&#39;</span>
+    <span class="c1"># 将完整的文件路径存储到字典中</span>
+    <span class="n">imagefiles</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">baseurl</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># 权重图像（逆方差图；IVM）</span>
+<span class="n">weightfiles</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 创建一个空字典以存储权重文件路径</span>
+
+<span class="c1"># 遍历每个滤光片</span>
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+    <span class="c1"># 根据滤光片名称生成权重文件名</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;jades_jwst_nircam_goods_s_crop_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_wht.fits&#39;</span>
+    <span class="c1"># 将完整的权重文件路径存储到字典中</span>
+    <span class="n">weightfiles</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">baseurl</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="f200w">
+<h2>加载探测图像：F200W<a class="headerlink" href="#f200w" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filt</span> <span class="o">=</span> <span class="s1">&#39;F200W&#39;</span>  <span class="c1"># 定义滤波器类型为&#39;F200W&#39;</span>
+
+<span class="n">infile</span> <span class="o">=</span> <span class="n">imagefiles</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span>  <span class="c1"># 从图像文件字典中获取对应滤波器的输入文件</span>
+
+<span class="n">hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>  <span class="c1"># 打开输入文件，返回一个HDU列表</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取HDU列表中第一个HDU的图像数据</span>
+
+<span class="n">imwcs</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">WCS</span><span class="p">(</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">,</span> <span class="n">hdu</span><span class="p">)</span>  <span class="c1"># 创建WCS对象以处理图像的世界坐标系统</span>
+
+<span class="n">weight</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">weightfiles</span><span class="p">[</span><span class="n">filt</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开权重文件并获取其数据</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>报告图像大小和视场<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># 获取数据的行数和列数</span>
+
+<span class="n">pixscale</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">proj_plane_pixel_scales</span><span class="p">(</span><span class="n">imwcs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 计算投影平面像素尺度</span>
+
+<span class="n">pixscale</span> <span class="o">*=</span> <span class="n">imwcs</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">cunit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;arcsec&#39;</span><span class="p">)</span>  <span class="c1"># 将像素尺度转换为角秒</span>
+
+<span class="n">outline</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> x </span><span class="si">%d</span><span class="s1"> pixels&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">)</span>  <span class="c1"># 创建输出字符串，包含像素的行列数</span>
+
+<span class="n">outline</span> <span class="o">+=</span> <span class="s1">&#39; = </span><span class="si">%g</span><span class="s1">&quot; x </span><span class="si">%g</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ny</span> <span class="o">*</span> <span class="n">pixscale</span><span class="p">,</span> <span class="n">nx</span> <span class="o">*</span> <span class="n">pixscale</span><span class="p">)</span>  <span class="c1"># 添加输出字符串，包含实际尺寸</span>
+
+<span class="n">outline</span> <span class="o">+=</span> <span class="s1">&#39; (</span><span class="si">%.2f</span><span class="s1">&quot; / pixel)&#39;</span> <span class="o">%</span> <span class="n">pixscale</span>  <span class="c1"># 添加输出字符串，包含每个像素的角度</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">outline</span><span class="p">)</span>  <span class="c1"># 打印最终的输出字符串</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>创建彩色图像（可选）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3 NIRCam短波长通道图像</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imagefiles</span><span class="p">[</span><span class="s1">&#39;F200W&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开F200W图像文件并获取数据</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imagefiles</span><span class="p">[</span><span class="s1">&#39;F150W&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开F150W图像文件并获取数据</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imagefiles</span><span class="p">[</span><span class="s1">&#39;F090W&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开F090W图像文件并获取数据</span>
+
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">make_lupton_rgb</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>  <span class="c1"># 创建RGB图像，使用Lupton算法，Q和stretch参数控制图像显示效果</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># 创建一个8x8英寸的图形</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">imwcs</span><span class="p">)</span>  <span class="c1"># 创建一个子图并设置投影为imwcs</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示RGB图像，设置原点在左下角</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Right Ascension&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“右升角”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Declination&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“赤纬”</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整图形布局以避免重叠</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>  <span class="c1"># 调整子图左侧的边距</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="photutils">
+<h2>使用 <code class="docutils literal notranslate"><span class="pre">photutils</span></code> 检测源和去混叠<a class="headerlink" href="#photutils" title="Link to this heading">#</a></h2>
+<p>https://photutils.readthedocs.io/en/latest/segmentation.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For detection, requiring 5 connected pixels 2-sigma above background</span>
+<span class="c1"># 检测要求：5个相连的像素点，信号强度需高于背景的2倍标准差</span>
+
+<span class="c1"># Measure background and set detection threshold</span>
+<span class="c1"># 测量背景并设置检测阈值</span>
+
+<span class="n">bkg_estimator</span> <span class="o">=</span> <span class="n">MedianBackground</span><span class="p">()</span>  <span class="c1"># 创建中位数背景估计器</span>
+
+<span class="n">bkg</span> <span class="o">=</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">bkg_estimator</span><span class="p">)</span>  <span class="c1"># 计算二维背景</span>
+
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background_rms</span><span class="p">)</span>  <span class="c1"># 设置阈值为背景加上2倍的背景标准差</span>
+
+<span class="c1"># Before detection, smooth image with Gaussian FWHM = 3 pixels</span>
+<span class="c1"># 在检测之前，用FWHM为3像素的高斯函数平滑图像</span>
+
+<span class="n">smooth_kernel</span> <span class="o">=</span> <span class="n">make_2dgaussian_kernel</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 创建高斯平滑核</span>
+
+<span class="n">convolved_data</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">smooth_kernel</span><span class="p">)</span>  <span class="c1"># 对数据进行卷积处理</span>
+
+<span class="c1"># Detect and deblend</span>
+<span class="c1"># 检测并进行去混叠</span>
+
+<span class="n">segm_detect</span> <span class="o">=</span> <span class="n">detect_sources</span><span class="p">(</span><span class="n">convolved_data</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">npixels</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 检测源，要求5个相连像素</span>
+
+<span class="n">segm_deblend</span> <span class="o">=</span> <span class="n">deblend_sources</span><span class="p">(</span><span class="n">convolved_data</span><span class="p">,</span> <span class="n">segm_detect</span><span class="p">,</span> <span class="n">npixels</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nlevels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">contrast</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>  <span class="c1"># 去混叠处理</span>
+
+<span class="c1"># Save segmentation map of detected objects</span>
+<span class="c1"># 保存检测到的物体的分割图</span>
+
+<span class="n">segm_hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">segm_deblend</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="n">imwcs</span><span class="o">.</span><span class="n">to_header</span><span class="p">())</span>  <span class="c1"># 创建分割图的HDU</span>
+
+<span class="n">segm_hdu</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;JADES_detections_segm.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 将分割图写入FITS文件，覆盖同名文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h2>在检测图像中测量光度（及更多）<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>https://photutils.readthedocs.io/en/latest/segmentation.html#centroids-photometry-and-morphological-properties</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#error = bkg.background_rms  # 背景噪声的均方根值</span>
+
+<span class="c1"># Input weight should be exposure map. Fudging for now.  # 输入权重应为曝光图。暂时使用简单处理。</span>
+
+<span class="n">error</span> <span class="o">=</span> <span class="n">calc_total_error</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background_rms</span><span class="p">,</span> <span class="n">weight</span><span class="o">/</span><span class="mi">500</span><span class="p">)</span>  <span class="c1"># 计算总误差，使用数据、背景均方根和权重</span>
+
+<span class="c1">#cat = source_properties(data-bkg.background, segm_deblend, wcs=imwcs, background=bkg.background, error=error)  # 原代码：获取源属性</span>
+
+<span class="n">cat</span> <span class="o">=</span> <span class="n">SourceCatalog</span><span class="p">(</span><span class="n">data</span><span class="o">-</span><span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">segm_deblend</span><span class="p">,</span> <span class="n">wcs</span><span class="o">=</span><span class="n">imwcs</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>  <span class="c1"># 创建源目录，包含数据、分割图、WCS、背景和误差</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h2>显示检测结果与图像（可选）<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个2行3列的子图，设置共享x和y轴，并指定图形大小</span>
+
+<span class="c1"># For RA,Dec axes instead of pixels, add: , subplot_kw={&#39;projection&#39;: imwcs})</span>
+<span class="c1"># 如果需要使用RA和Dec坐标轴而不是像素，可以添加: , subplot_kw={&#39;projection&#39;: imwcs})</span>
+
+<span class="c1"># Color image</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示RGB彩色图像，原点在下方</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Color Image&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题为“彩色图像”</span>
+
+<span class="c1"># Data</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">simple_norm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="mf">99.</span><span class="p">)</span>  <span class="c1"># 使用平方根归一化数据，99%分位数</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>  <span class="c1"># 显示数据图像，使用灰度反转色图</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Detection Image F200W&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题为“检测图像 F200W”</span>
+
+<span class="c1"># Segmentation map</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">segm_deblend</span><span class="o">.</span><span class="n">make_cmap</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>  <span class="c1"># 创建分割图的颜色映射，使用随机种子</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">segm_deblend</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>  <span class="c1"># 显示分割图像，使用最近邻插值</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Detections (Segmentation Image)&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题为“检测（分割图像）”</span>
+
+<span class="c1"># Weight</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 显示权重图像，使用灰度反转色图，最小值为0</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Weight Image F200W&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题为“权重图像 F200W”</span>
+
+<span class="c1"># RMS</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bkg</span><span class="o">.</span><span class="n">background_rms</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># 显示背景RMS图像</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Background RMS&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题为“背景RMS”</span>
+
+<span class="c1"># Total error including Poisson noise</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">simple_norm</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="mf">99.</span><span class="p">)</span>  <span class="c1"># 使用平方根归一化误差数据，99%分位数</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>  <span class="c1"># 显示误差图像</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;RMS + Poisson noise&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题为“RMS + 泊松噪声”</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图布局以避免重叠</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h2>查看探测图像中的所有测量量（可选）<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将cat对象转换为表格格式</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_table</span><span class="p">()</span>  <span class="c1"># 将cat对象转换为表格</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h2>仅保留某些量<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义要提取的列名</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;label xcentroid ycentroid sky_centroid area semimajor_sigma semiminor_sigma ellipticity orientation gini&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="c1"># 从cat对象中提取指定列并转换为表格格式</span>
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># 将列名&#39;semimajor_sigma&#39;重命名为&#39;a&#39;</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;semimajor_sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+<span class="c1"># 将列名&#39;semiminor_sigma&#39;重命名为&#39;b&#39;</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;semiminor_sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您提供的内容不完整</span><span class="err">，</span><span class="n">似乎是一个表格的标题或标识符</span><span class="err">。</span><span class="n">如果您有特定的Python代码或JWST数据处理的代码需要我添加中文注释</span><span class="err">，</span><span class="n">请提供完整的代码片段</span><span class="err">。</span><span class="n">我将很乐意帮助您添加注释并保持代码结构不变</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h2>将测量的通量（数据单位）转换为星等<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>https://docs.astropy.org/en/stable/units/</p>
+<p>https://docs.astropy.org/en/stable/units/equivalencies.html#photometric-zero-point-equivalency</p>
+<p>https://docs.astropy.org/en/stable/units/logarithmic_units.html#logarithmic-units</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 未探测：mag = 99；magerr = 1-sigma 上限假设零通量</span>
+
+<span class="c1"># 未观察：mag = -99；magerr = 0</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fluxes2mags</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span> <span class="n">fluxerr</span><span class="p">):</span>
+    <span class="n">nondet</span> <span class="o">=</span> <span class="n">flux</span> <span class="o">&lt;</span> <span class="mi">0</span>  <span class="c1"># 如果通量为负，则为未探测</span>
+    <span class="n">unobs</span> <span class="o">=</span> <span class="p">(</span><span class="n">fluxerr</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">fluxerr</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>  <span class="c1"># 如果通量不确定性为负或无穷大，则为未观察</span>
+
+    <span class="n">mag</span> <span class="o">=</span> <span class="n">flux</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">ABmag</span><span class="p">)</span>  <span class="c1"># 将通量转换为AB星等</span>
+
+    <span class="n">magupperlimit</span> <span class="o">=</span> <span class="n">fluxerr</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">ABmag</span><span class="p">)</span>  <span class="c1"># 如果通量=0，则为1-sigma上限</span>
+
+    <span class="n">mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">nondet</span><span class="p">,</span> <span class="mi">99</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">ABmag</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>  <span class="c1"># 对于未探测的情况，将星等设置为99</span>
+
+    <span class="n">mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">unobs</span><span class="p">,</span> <span class="o">-</span><span class="mi">99</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">ABmag</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>  <span class="c1"># 对于未观察的情况，将星等设置为-99</span>
+
+    <span class="n">magerr</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">fluxerr</span><span class="o">/</span><span class="n">flux</span><span class="p">)</span>  <span class="c1"># 计算星等的不确定性</span>
+    <span class="n">magerr</span> <span class="o">=</span> <span class="n">magerr</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">ABmag</span>  <span class="c1"># 将不确定性转换为AB星等</span>
+
+    <span class="n">magerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">nondet</span><span class="p">,</span> <span class="n">magupperlimit</span><span class="p">,</span> <span class="n">magerr</span><span class="p">)</span>  <span class="c1"># 对于未探测的情况，使用上限值</span>
+    <span class="n">magerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">unobs</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">ABmag</span><span class="p">,</span> <span class="n">magerr</span><span class="p">)</span>  <span class="c1"># 对于未观察的情况，将不确定性设置为0</span>
+
+    <span class="k">return</span> <span class="n">mag</span><span class="p">,</span> <span class="n">magerr</span>  <span class="c1"># 返回星等和不确定性</span>
+
+<span class="c1"># 包含我在astropy中找不到的特性：</span>
+
+<span class="c1"># 对于未探测/未观察的情况，mag = 99 / -99</span>
+
+<span class="c1"># 通量不确定性 -&gt; 星等不确定性</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h2>使用在检测图像中定义的等光度孔径进行多波段光度测量<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>（类似于以双图像模式运行SourceExtractor）</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filters</span> <span class="o">=</span> <span class="s1">&#39;F090W F115W F150W F200W F277W F335M F356W F410M F444W&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>  <span class="c1"># 定义过滤器列表</span>
+
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>  <span class="c1"># 遍历每个过滤器</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="n">imagefiles</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span>  <span class="c1"># 获取对应过滤器的输入文件</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">filt</span><span class="p">)</span>  <span class="c1"># 打印当前过滤器名称</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>  <span class="c1"># 打印当前输入文件路径</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">weightfiles</span><span class="p">[</span><span class="n">filt</span><span class="p">])</span>  <span class="c1"># 打印当前过滤器的权重文件路径</span>
+
+    <span class="n">hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>  <span class="c1"># 打开输入文件</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取数据部分</span>
+
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;ABMAG&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">ABmag</span>  <span class="c1"># 获取零点（AB magnitude）</span>
+
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">weightfiles</span><span class="p">[</span><span class="n">filt</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开权重文件并获取数据</span>
+
+    <span class="c1"># Measure background  # 测量背景</span>
+
+    <span class="n">bkg</span> <span class="o">=</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">bkg_estimator</span><span class="p">)</span>  <span class="c1"># 计算二维背景</span>
+
+    <span class="c1">#error = bkg.background_rms  # 计算背景的均方根误差（注释掉）</span>
+
+    <span class="n">error</span> <span class="o">=</span> <span class="n">calc_total_error</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background_rms</span><span class="p">,</span> <span class="n">weight</span><span class="o">/</span><span class="mi">500</span><span class="p">)</span>  <span class="c1"># 计算总误差</span>
+
+    <span class="c1"># Measure properties in each image of previously detected objects  # 测量先前检测到的物体在每幅图像中的属性</span>
+
+    <span class="n">filtcat</span> <span class="o">=</span> <span class="n">SourceCatalog</span><span class="p">(</span><span class="n">data</span><span class="o">-</span><span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">segm_deblend</span><span class="p">,</span> <span class="n">wcs</span><span class="o">=</span><span class="n">imwcs</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>  <span class="c1"># 创建源目录</span>
+
+    <span class="c1"># Convert measured fluxes to fluxes in nJy and to AB magnitudes  # 将测量的通量转换为nJy和AB星等</span>
+
+    <span class="n">filttbl</span> <span class="o">=</span> <span class="n">filtcat</span><span class="o">.</span><span class="n">to_table</span><span class="p">()</span>  <span class="c1"># 将源目录转换为表格</span>
+
+    <span class="n">tbl</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_flux&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">flux</span>    <span class="o">=</span> <span class="n">filttbl</span><span class="p">[</span><span class="s1">&#39;segment_flux&#39;</span><span class="p">]</span>     <span class="o">*</span> <span class="n">zp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">nJy</span><span class="p">)</span>  <span class="c1"># 计算并存储通量</span>
+
+    <span class="n">tbl</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_fluxerr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fluxerr</span> <span class="o">=</span> <span class="n">filttbl</span><span class="p">[</span><span class="s1">&#39;segment_fluxerr&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">zp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">nJy</span><span class="p">)</span>  <span class="c1"># 计算并存储通量误差</span>
+
+    <span class="n">mag</span><span class="p">,</span> <span class="n">magerr</span> <span class="o">=</span> <span class="n">fluxes2mags</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span> <span class="n">fluxerr</span><span class="p">)</span>  <span class="c1"># 将通量和通量误差转换为星等和星等误差</span>
+
+    <span class="c1">#mag = mag * u.ABmag  # incompatible with file writing  # 注释掉的行，表示与文件写入不兼容</span>
+
+    <span class="n">tbl</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_mag&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">mag</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 存储星等</span>
+
+    <span class="n">tbl</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_magerr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">magerr</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 存储星等误差</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h2>查看完整结果（可选）<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您提供的信息不完整</span><span class="err">，</span><span class="n">您提到的</span><span class="err">“</span><span class="n">tbl</span><span class="err">”</span><span class="n">似乎是一个表格或数据结构的名称</span><span class="err">，</span><span class="n">但没有具体的代码或上下文</span><span class="err">。</span><span class="n">如果您能提供更多的代码或具体的内容</span><span class="err">，</span><span class="n">我将能够更好地帮助您添加中文注释并保持代码的结构和功能</span><span class="err">。</span><span class="n">请提供相关的Python代码或数据处理的示例</span><span class="err">。</span><span class="n">谢谢</span><span class="err">！</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h2>将光度数据保存为输出目录<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tbl</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;JADESphotometry.ecsv&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 将表格数据写入名为&#39;JADESphotometry.ecsv&#39;的文件中，设置overwrite=True以允许覆盖现有文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head<span class="w"> </span>-175<span class="w"> </span>JADESphotometry.ecsv<span class="w">  </span>#<span class="w"> </span>显示前175行
+ 
+
+<span class="n">这段代码使用了shell命令</span><span class="err">`</span><span class="n">head</span><span class="err">`</span><span class="n">来显示文件</span><span class="err">`</span><span class="n">JADESphotometry</span><span class="o">.</span><span class="n">ecsv</span><span class="err">`</span><span class="n">的前175行</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id16">
+<h2>重新格式化输出目录以提高可读性（可选）<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 移除面积的单位（像素）</span>
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># 将&#39;area&#39;列的值转换为整数类型</span>
+
+<span class="c1"># 用ra和dec替换sky_centroid</span>
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">degree</span>  <span class="c1"># 提取sky_centroid的RA值并转换为度</span>
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">degree</span>  <span class="c1"># 提取sky_centroid的Dec值并转换为度</span>
+
+<span class="c1"># 获取当前表格的列名</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tbl</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>  <span class="c1"># 将表格的列名转换为列表</span>
+
+<span class="c1"># 重新排列列名，将ra和dec插入到适当的位置</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">columns</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># 保留前3列，插入ra和dec，然后保留剩余列</span>
+
+<span class="c1"># 根据新的列顺序重新构建表格</span>
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>  <span class="c1"># 重新排列表格的列</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>  <span class="c1"># 遍历所有列</span>
+    <span class="n">tbl</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;.4f&#39;</span>  <span class="c1"># 设置每列的格式为浮点数，保留四位小数</span>
+
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;11.7f&#39;</span>  <span class="c1"># 设置&#39;ra&#39;列的格式为浮点数，总宽度11，保留7位小数</span>
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;11.7f&#39;</span>  <span class="c1"># 设置&#39;dec&#39;列的格式为浮点数，总宽度11，保留7位小数</span>
+
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;d&#39;</span>  <span class="c1"># 设置&#39;label&#39;列的格式为整数</span>
+<span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;d&#39;</span>  <span class="c1"># 设置&#39;area&#39;列的格式为整数</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tbl</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;JADESphotometry.cat&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii.fixed_width_two_line&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 将表格数据写入文件，格式为固定宽度两行，使用空格作为分隔符，允许覆盖已有文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head<span class="w"> </span>-10<span class="w"> </span>JADESphotometry.cat<span class="w">  </span>#<span class="w"> </span>显示文件<span class="w"> </span>JADESphotometry.cat<span class="w"> </span>的前10行
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id17">
+<h1>开始新会话并分析结果<a class="headerlink" href="#id17" title="Link to this heading">#</a></h1>
+<section id="id18">
+<h2>加载目录和分割图<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Catalog: ecsv格式保留单位以便在Python笔记本中加载</span>
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">QTable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;JADESphotometry.ecsv&#39;</span><span class="p">)</span>  <span class="c1"># 读取JADESphotometry.ecsv文件并存储为表格</span>
+
+<span class="c1"># 重新构建滤光片列表</span>
+<span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化滤光片列表</span>
+
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">tbl</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>  <span class="c1"># 遍历表格中的每一列</span>
+    <span class="k">if</span> <span class="n">param</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;_mag&#39;</span><span class="p">:</span>  <span class="c1"># 检查列名是否以&#39;_mag&#39;结尾</span>
+        <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span>  <span class="c1"># 将列名去掉&#39;_mag&#39;后添加到滤光片列表中</span>
+
+<span class="c1"># 分割图像文件</span>
+<span class="n">segmfile</span> <span class="o">=</span> <span class="s1">&#39;JADES_detections_segm.fits&#39;</span>  <span class="c1"># 定义分割图像文件名</span>
+<span class="n">segm</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">segmfile</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开FITS文件并获取数据部分</span>
+<span class="n">segm</span> <span class="o">=</span> <span class="n">SegmentationImage</span><span class="p">(</span><span class="n">segm</span><span class="p">)</span>  <span class="c1"># 将数据转换为分割图像对象</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id19">
+<h2>绘制数量计数与亮度的关系<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># 创建一个8x4英寸的图形</span>
+
+<span class="n">filt</span> <span class="o">=</span> <span class="s1">&#39;F200W&#39;</span>  <span class="c1"># 设置滤光片为F200W</span>
+
+<span class="n">mag1</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="n">filt</span> <span class="o">+</span> <span class="s1">&#39;_mag&#39;</span><span class="p">]</span>  <span class="c1"># 从表格中提取对应滤光片的星等数据</span>
+
+<span class="n">mag1</span> <span class="o">=</span> <span class="n">mag1</span><span class="p">[(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">mag1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mag1</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)]</span>  <span class="c1"># 仅保留有效的观测数据（星等在0到90之间）</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">mag1</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">filt</span><span class="p">)</span>  <span class="c1"># 绘制星等的直方图，使用线条样式并添加标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;AB magnitude&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为AB星等</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number counts&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为数量计数</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="f200w-f090w">
+<h2>绘制 F200W 与 F090W 亮度并寻找缺失值<a class="headerlink" href="#f200w-f090w" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import mplcursors  # 导入mplcursors库（注释掉，可能是为了后续使用）</span>
+
+<span class="c1"># Would love a better solution here!  # 这里希望有更好的解决方案！</span>
+
+<span class="n">mag1</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;F090W_mag&#39;</span><span class="p">]</span>  <span class="c1"># 获取F090W波段的星等数据</span>
+
+<span class="n">mag2</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;F200W_mag&#39;</span><span class="p">]</span>  <span class="c1"># 获取F200W波段的星等数据</span>
+
+<span class="c1"># Only plot detections in F200W  # 仅绘制F200W波段的检测数据</span>
+
+<span class="n">det2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">mag2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mag2</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 筛选出F200W波段星等在0到90之间的检测</span>
+
+<span class="n">mag1</span> <span class="o">=</span> <span class="n">mag1</span><span class="p">[</span><span class="n">det2</span><span class="p">]</span>  <span class="c1"># 根据det2筛选F090W波段的星等</span>
+<span class="n">mag2</span> <span class="o">=</span> <span class="n">mag2</span><span class="p">[</span><span class="n">det2</span><span class="p">]</span>  <span class="c1"># 根据det2筛选F200W波段的星等</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="n">det2</span><span class="p">]</span>  <span class="c1"># 获取对应的标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># 创建一个8x4英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mag1</span><span class="p">,</span> <span class="n">mag2</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># 绘制F090W与F200W星等的散点图</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">)):</span>  <span class="c1"># 遍历每个点</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">mag1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mag2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 在每个点旁边添加对应的标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;F090W AB magnitude&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;F200W AB magnitude&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id20">
+<h2>查看一个天体<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 可以通过位置选择对象</span>
+
+<span class="c1"># x, y = 905, 276  # 定义x和y坐标</span>
+
+<span class="c1"># id = segm.data[y,x]  # 根据坐标获取对象的ID</span>
+
+<span class="c1"># 通过ID号选择对象</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="mi">261</span>  <span class="c1"># F090W dropout，定义要选择的对象ID</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">tbl</span><span class="p">[</span><span class="nb">id</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 从表格中获取对应ID的对象</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您提供的信息不完整</span><span class="err">。</span><span class="n">请提供您希望我添加中文注释的Python代码</span><span class="err">，</span><span class="n">以便我可以帮助您</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取对象的椭圆率属性</span>
+<span class="n">ellipticity</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;ellipticity&#39;</span><span class="p">]</span>  <span class="c1"># 从对象中提取椭圆率</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从segm对象中获取指定id的段对象</span>
+<span class="n">segmobj</span> <span class="o">=</span> <span class="n">segm</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">segm</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="nb">id</span><span class="p">)]</span>
+
+<span class="c1"># 输出获取的段对象</span>
+<span class="n">segmobj</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id21">
+<h2>在所有图像中显示对象<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 创建一个2行(len(filters)+1)列的子图，设置图形大小和共享坐标轴</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">[</span><span class="n">segmobj</span><span class="o">.</span><span class="n">slices</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">segmobj</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">extent</span><span class="p">)</span>  <span class="c1"># 在第一个子图中显示RGB图像</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>  <span class="c1"># 设置第一个子图的标题为&#39;Color&#39;</span>
+
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">segm</span><span class="o">.</span><span class="n">make_cmap</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>  <span class="c1"># 创建一个颜色映射，使用固定的随机种子</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">segm</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">segmobj</span><span class="o">.</span><span class="n">slices</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">segmobj</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>  <span class="c1"># 在第二个子图中显示分段数据</span>
+               <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>  <span class="c1"># 使用最近邻插值</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Segment&#39;</span><span class="p">)</span>  <span class="c1"># 设置第二个子图的标题为&#39;Segment&#39;</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># 遍历所有过滤器</span>
+
+    <span class="n">filt</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 获取当前过滤器</span>
+
+    <span class="c1"># Show data on top row</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imagefiles</span><span class="p">[</span><span class="n">filt</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开当前过滤器对应的图像文件并读取数据</span>
+    <span class="n">stamp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">segmobj</span><span class="o">.</span><span class="n">slices</span><span class="p">]</span>  <span class="c1"># 根据分段对象的切片获取数据</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">ImageNormalize</span><span class="p">(</span><span class="n">stretch</span><span class="o">=</span><span class="n">SqrtStretch</span><span class="p">())</span>  <span class="c1"># 创建一个归一化对象，使用平方根拉伸</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stamp</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">segmobj</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 在上方子图中显示数据</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">filt</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>  <span class="c1"># 设置当前子图的标题为过滤器名称（大写）</span>
+
+    <span class="c1"># Show weights on bottom row</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">weightfiles</span><span class="p">[</span><span class="n">filt</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 打开当前过滤器对应的权重文件并读取数据</span>
+    <span class="n">stamp</span> <span class="o">=</span> <span class="n">weight</span><span class="p">[</span><span class="n">segmobj</span><span class="o">.</span><span class="n">slices</span><span class="p">]</span>  <span class="c1"># 根据分段对象的切片获取权重数据</span>
+    <span class="c1"># set black to zero weight (no exposure time / bad pixel)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stamp</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">segmobj</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 在下方子图中显示权重数据</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>  <span class="c1"># 设置第一行第一个子图的y轴标签为&#39;Data&#39;</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Weight&#39;</span><span class="p">)</span>  <span class="c1"># 设置第二行第一个子图的y轴标签为&#39;Weight&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sed">
+<h2>绘制 SED（光谱能量分布）<a class="headerlink" href="#sed" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个8x6英寸的图形和坐标轴</span>
+
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>  <span class="c1"># 遍历所有过滤器</span>
+
+    <span class="n">lam</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">filt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span>  <span class="c1"># 提取波长并转换为微米</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">lam</span><span class="p">,</span> <span class="n">obj</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_flux&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_fluxerr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># 绘制带误差条的光谱数据点</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>  <span class="c1"># 绘制y=0的水平线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 设置x轴范围为0到5微米</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength ($\mu$m)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为波长（微米）</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Flux (nJy)&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为通量（nJy）</span>
+
+<span class="n">mlim</span> <span class="o">=</span> <span class="mf">31.4</span>  <span class="c1"># 设置AB星等的限制值</span>
+<span class="n">flim</span> <span class="o">=</span> <span class="n">mlim</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">ABmag</span>  <span class="c1"># 将限制值转换为AB星等</span>
+<span class="n">flim</span> <span class="o">=</span> <span class="n">flim</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">nJy</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 将限制值转换为nJy单位</span>
+
+<span class="c1"># 添加AB星等作为右侧的次坐标轴</span>
+<span class="c1"># https://matplotlib.org/gallery/subplots_axes_and_figures/secondary_axis.html#sphx-glr-gallery-subplots-axes-and-figures-secondary-axis-py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">AB2nJy</span><span class="p">(</span><span class="n">mAB</span><span class="p">):</span>  <span class="c1"># 定义AB星等到nJy的转换函数</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">mAB</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">ABmag</span>  <span class="c1"># 将输入的AB星等转换为ABmag单位</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">nJy</span><span class="p">)</span>  <span class="c1"># 转换为nJy单位</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 获取数值部分</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">f</span> <span class="o">&gt;</span> <span class="n">flim</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">flim</span><span class="p">)</span>  <span class="c1"># 如果小于flim，则使用flim</span>
+    <span class="k">return</span> <span class="n">f</span>  <span class="c1"># 返回nJy值</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nJy2AB</span><span class="p">(</span><span class="n">F_nJy</span><span class="p">):</span>  <span class="c1"># 定义nJy到AB星等的转换函数</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">F_nJy</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">nJy</span>  <span class="c1"># 将输入的nJy值转换为nJy单位</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">ABmag</span><span class="p">)</span>  <span class="c1"># 转换为AB星等</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 获取数值部分</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">m</span> <span class="o">&lt;</span> <span class="n">mlim</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">mlim</span><span class="p">)</span>  <span class="c1"># 如果大于mlim，则使用mlim</span>
+    <span class="k">return</span> <span class="n">m</span>  <span class="c1"># 返回AB星等值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">flim</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 设置y轴下限为flim，上限保持不变</span>
+
+<span class="n">secax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">secondary_yaxis</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">functions</span><span class="o">=</span><span class="p">(</span><span class="n">nJy2AB</span><span class="p">,</span> <span class="n">AB2nJy</span><span class="p">))</span>  <span class="c1"># 创建右侧次坐标轴并设置转换函数</span>
+<span class="n">secax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;magnitude (AB)&#39;</span><span class="p">)</span>  <span class="c1"># 设置右侧坐标轴标签为AB星等</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id22">
+<h2>当通量 &lt;= 0 时，星等转换失败<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个8x6英寸的图形和坐标轴</span>
+
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>  <span class="c1"># 遍历每个过滤器</span>
+
+    <span class="n">lam</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">filt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span>  <span class="c1"># 提取波长并转换为微米</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">lam</span><span class="p">,</span> <span class="n">obj</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_flux&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">obj</span><span class="p">[</span><span class="n">filt</span><span class="o">+</span><span class="s1">&#39;_fluxerr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># 绘制带误差条的光谱数据</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>  <span class="c1"># 绘制y=0的水平线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 设置x轴范围为0到5微米</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength ($\mu$m)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为波长（微米）</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Flux (nJy)&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为通量（nJy）</span>
+
+<span class="n">f0</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">0.4</span> <span class="o">*</span> <span class="mf">31.4</span><span class="p">)</span>  <span class="c1"># 零星等时的通量（nJy）</span>
+
+<span class="n">b0</span> <span class="o">=</span> <span class="mf">1.e-12</span>  <span class="c1"># 这个值应该依赖于过滤器</span>
+
+<span class="c1"># 添加AB星等作为右侧的次坐标轴</span>
+<span class="c1"># https://matplotlib.org/gallery/subplots_axes_and_figures/secondary_axis.html#sphx-glr-gallery-subplots-axes-and-figures-secondary-axis-py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">AB2nJy</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># 定义从AB星等到nJy的转换函数</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="o">-</span><span class="mf">0.4</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b0</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">b0</span> <span class="o">*</span> <span class="n">f0</span>  <span class="c1"># 计算nJy</span>
+    <span class="k">return</span> <span class="n">f</span>  <span class="c1"># 返回计算结果</span>
+
+<span class="c1"># Luptitudes</span>
+<span class="c1"># https://www.sdss.org/dr12/algorithms/magnitudes/</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">nJy2AB</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>  <span class="c1"># 定义从nJy到AB星等的转换函数</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">((</span><span class="n">f</span> <span class="o">/</span> <span class="n">f0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b0</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b0</span><span class="p">))</span>  <span class="c1"># 计算AB星等</span>
+    <span class="k">return</span> <span class="n">m</span>  <span class="c1"># 返回计算结果</span>
+
+<span class="c1">#plt.ylim(flim, plt.ylim()[1])  # 可选：设置y轴范围</span>
+
+<span class="n">secax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">secondary_yaxis</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">functions</span><span class="o">=</span><span class="p">(</span><span class="n">nJy2AB</span><span class="p">,</span> <span class="n">AB2nJy</span><span class="p">))</span>  <span class="c1"># 创建右侧的次坐标轴并设置转换函数</span>
+<span class="n">secax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;asinh magnitude (AB)&#39;</span><span class="p">)</span>  <span class="c1"># 设置次坐标轴的标签为asinh星等（AB）</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRCam/NIRCam_photometry"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">点源光度测量</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">交叉滤波 PSF 匹配</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">扩展孔径光度测量</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">引言</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">待办事项</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webbpsf">下载WEBBPSF数据</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">导入包</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib 绘图设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">创建待加载和分析的图像列表</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#f200w">加载探测图像：F200W</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">报告图像大小和视场</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">创建彩色图像（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils">使用 <code class="docutils literal notranslate"><span class="pre">photutils</span></code> 检测源和去混叠</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">在检测图像中测量光度（及更多）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">显示检测结果与图像（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">查看探测图像中的所有测量量（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">仅保留某些量</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">将测量的通量（数据单位）转换为星等</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">使用在检测图像中定义的等光度孔径进行多波段光度测量</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">查看完整结果（可选）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">将光度数据保存为输出目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">重新格式化输出目录以提高可读性（可选）</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">开始新会话并分析结果</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">加载目录和分割图</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">绘制数量计数与亮度的关系</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#f200w-f090w">绘制 F200W 与 F090W 亮度并寻找缺失值</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">查看一个天体</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">在所有图像中显示对象</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sed">绘制 SED（光谱能量分布）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">当通量 &lt;= 0 时，星等转换失败</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
