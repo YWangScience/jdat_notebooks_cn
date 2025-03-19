@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Docs翻译 &#8212; STScI JDAT Notebooks 中文版</title>
+    <title>翻译Jupyter Notebook为中文 &#8212; STScI JDAT Notebooks 中文版</title>
   
   
   
@@ -58,7 +58,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Docs翻译';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Notebook翻译';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -321,7 +321,7 @@
       
       
       
-      <li><a href="_sources/Docs翻译.ipynb" target="_blank"
+      <li><a href="_sources/Notebook翻译.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +403,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Docs翻译</h1>
+    <h1>翻译Jupyter Notebook为中文</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,8 +417,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="docs">
-<h1>Docs翻译<a class="headerlink" href="#docs" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="jupyter-notebook">
+<h1>翻译Jupyter Notebook为中文<a class="headerlink" href="#jupyter-notebook" title="Link to this heading">#</a></h1>
+<p>Prompt 针对JWST望远镜数据处理</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -454,7 +455,7 @@ document.write(`
 <span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">16384</span>
 
 <span class="c1"># 设置要遍历的根目录</span>
-<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="s2">&quot;/root/Dropbox/jupyter-ny/jwst/&quot;</span> 
+<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="s2">&quot;/root/Dropbox/jupyter-ny/jwst/notebooks/&quot;</span> 
 
 <span class="n">MAX_WORKERS</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># 线程池的最大并行数，可调整</span>
 <span class="n">SEPARATOR</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   </span><span class="se">\n</span><span class="s2">&quot;</span> 
@@ -468,19 +469,23 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_rst</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;AI翻译RST文档&quot;&quot;&quot;</span>
-    <span class="n">system_prompt</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;作为天文学文档翻译专家，精通JWST望远镜数据处理，请：</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="s2">&quot;1. 精准翻译RST文档内容</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="s2">&quot;2. 严格保留所有RST格式标记，包括但不限于：</span><span class="se">\n</span><span class="s2">&quot;</span>
-           <span class="s2">&quot;- 章节标记 (##, **, etc)</span><span class="se">\n</span><span class="s2">&quot;</span>
-           <span class="s2">&quot;- 指令块 (.. directive::)</span><span class="se">\n</span><span class="s2">&quot;</span>
-           <span class="s2">&quot;- 引用标记 (:ref:, `link`_)</span><span class="se">\n</span><span class="s2">&quot;</span>
-           <span class="s2">&quot;- 图片引用和缩进</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="s2">&quot;3. 维持中英术语对照</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="s2">&quot;4. 使用流畅的中文母语</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_cell</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">cell_type</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;AI翻译&quot;&quot;&quot;</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;markdown&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="s2">&quot;作为天文学文档翻译专家，精通JWST望远镜数据处理，请：</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;1. 精准翻译Markdown内容</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;2. 保留所有格式标记</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;3. 维持中英术语对照</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;4. 使用流畅的中文母语</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="s2">&quot;作为天文学Python代码专家，精通JWST望远镜数据处理，请：</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;1. 添加行级中文注释</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;2. 保持代码结构不变</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;3. 保留原始功能&quot;</span>
+        <span class="p">)</span>
+    <span class="p">}[</span><span class="n">cell_type</span><span class="p">]</span>
     
     <span class="k">try</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
@@ -493,66 +498,82 @@ document.write(`
             <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span>
         <span class="p">)</span>
         <span class="n">processed</span> <span class="o">=</span> <span class="n">clean_output</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">processed</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">SEPARATOR</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">processed</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">SEPARATOR</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;处理异常: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">content</span>
+        <span class="k">return</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">process_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;处理RST文件&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">clean_output</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;优化输出清理逻辑&quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;```[\w]*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\n{3,}&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process_notebook</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;直接原路径保存翻译后的文件&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># 读取RST文件</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            
-        <span class="c1"># 翻译内容</span>
-        <span class="n">translated_content</span> <span class="o">=</span> <span class="n">process_rst</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            
-        <span class="c1"># 保存翻译后的文件</span>
+            <span class="n">nb_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+            <span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">nb_data</span><span class="p">[</span><span class="s2">&quot;cells&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">cell</span><span class="p">[</span><span class="s2">&quot;cell_type&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;markdown&quot;</span><span class="p">,</span> <span class="s2">&quot;code&quot;</span><span class="p">]:</span>
+                    <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span>
+                        <span class="n">process_cell</span><span class="p">,</span>
+                        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span>
+                        <span class="n">cell</span><span class="p">[</span><span class="s2">&quot;cell_type&quot;</span><span class="p">]</span>
+                    <span class="p">)</span>
+                    <span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cell</span><span class="p">,</span> <span class="n">future</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cell</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">cell</span><span class="p">,</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">future</span><span class="p">:</span>
+                    <span class="n">cell</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">TIMEOUT</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># 直接原目录保存</span>
         <span class="n">original_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
-        <span class="n">new_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_cn.rst&quot;</span>
+        <span class="n">new_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_cn.ipynb&quot;</span>
         <span class="n">new_file_path</span> <span class="o">=</span> <span class="n">original_dir</span> <span class="o">/</span> <span class="n">new_file_name</span>
-        
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">new_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">translated_content</span><span class="p">)</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">nb_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;文件处理失败: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
-    
-<span class="k">def</span><span class="w"> </span><span class="nf">clean_output</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;清理输出文本&quot;&quot;&quot;</span>
-    <span class="c1"># 移除可能的多余分隔符</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="c1"># 可以添加其他清理规则</span>
-    <span class="k">return</span> <span class="n">text</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;主函数&quot;&quot;&quot;</span>
-    <span class="c1"># 查找所有rst文件</span>
-    <span class="n">rst_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s2">/**/*.rst&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s2">&quot;_cn&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="s2">&quot;_translated&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>
+    <span class="n">notebooks</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s2">/**/*.ipynb&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;_cn&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="s2">&quot;_translated&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>  <span class="c1"># 排除已翻译的文件</span>
     
-    <span class="c1"># 筛选未翻译的文件</span>
-    <span class="n">files_to_process</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">rst</span> <span class="ow">in</span> <span class="n">rst_files</span><span class="p">:</span>
-        <span class="n">file_path_obj</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
-        <span class="n">translated_file</span> <span class="o">=</span> <span class="n">file_path_obj</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_path_obj</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_cn.rst&quot;</span>
+    <span class="c1"># 进一步筛选：检查是否已经有对应的翻译文件存在</span>
+    <span class="n">notebooks_to_process</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">nb</span> <span class="ow">in</span> <span class="n">notebooks</span><span class="p">:</span>
+        <span class="n">file_path_obj</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+        <span class="n">translated_file</span> <span class="o">=</span> <span class="n">file_path_obj</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_path_obj</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_cn.ipynb&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">translated_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">files_to_process</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+            <span class="n">notebooks_to_process</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;跳过已存在的翻译: </span><span class="si">{</span><span class="n">translated_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;发现 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rst_files</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个文件，需要处理 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files_to_process</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;发现 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">notebooks</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个文件，需要处理 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">notebooks_to_process</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个&quot;</span><span class="p">)</span>
     <span class="n">success_count</span> <span class="o">=</span> <span class="mi">0</span>
     
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">files_to_process</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">notebooks_to_process</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;没有需要翻译的新文件&quot;</span><span class="p">)</span>
         <span class="k">return</span>
     
     <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">MAX_WORKERS</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
-        <span class="n">futures</span> <span class="o">=</span> <span class="p">{</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">process_file</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files_to_process</span><span class="p">}</span>
+        <span class="n">futures</span> <span class="o">=</span> <span class="p">{</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">process_notebook</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span> <span class="n">nb</span> <span class="k">for</span> <span class="n">nb</span> <span class="ow">in</span> <span class="n">notebooks_to_process</span><span class="p">}</span>
         
         <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">futures</span><span class="p">):</span>
             <span class="n">file_name</span> <span class="o">=</span> <span class="n">futures</span><span class="p">[</span><span class="n">future</span><span class="p">]</span>
@@ -565,7 +586,7 @@ document.write(`
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;系统错误: </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;处理完成 | 成功: </span><span class="si">{</span><span class="n">success_count</span><span class="si">}</span><span class="s2"> | 失败: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files_to_process</span><span class="p">)</span><span class="o">-</span><span class="n">success_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;处理完成 | 成功: </span><span class="si">{</span><span class="n">success_count</span><span class="si">}</span><span class="s2"> | 失败: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">notebooks_to_process</span><span class="p">)</span><span class="o">-</span><span class="n">success_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -578,20 +599,53 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/github_setup_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/github_workflow_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/data_files_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/notebooks_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/github_pr_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/submitting_notebooks_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/stsci_notebook_leads_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/notebook_development_workflow_cn.rst
-跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/docs/requirements_cn.rst
-发现 12 个文件，需要处理 3 个
-成功处理: /root/Dropbox/jupyter-ny/jwst/install.rst
-成功处理: /root/Dropbox/jupyter-ny/jwst/index.rst
-成功处理: /root/Dropbox/jupyter-ny/jwst/CONTRIBUTING.rst
-处理完成 | 成功: 3 | 失败: 0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/NIRCam_WFSS_simulating_spectra/Simulating_WFSS_spectra_CRDS_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/NIRCam_WFSS_Box_extraction/BoxExtraction_using_Grismconf_CRDS_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRCam/psf_photometry_with_space_phot/nircam_spacephot_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/stpsf_examples/stpsf_examples_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/asdf_example/asdf_example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/rgb_imviz/imviz_rgb_carina_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/composite_model_fitting/specfit_demo_3_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_advanced/extra_niriss_individual_steps_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/psf_photometry/miri_spacephot_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/psf_photometry/miri_1028_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/psf_photometry/miri_photutils_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/psf_photometry/miri_1028_photutils_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/ifu_optimal/ifu_optimal_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/galaxy_redshift/redshift_fitting_cn.ipynb
+跳过已存在的翻译: /root/Dropbox/jupyter-ny/jwst/notebooks/example_notebook/example_notebook_cn.ipynb
+发现 43 个文件，需要处理 1 个
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>成功处理: /root/Dropbox/jupyter-ny/jwst/notebooks/NIRSpec/cube_fitting/cube_fitting.ipynb
+处理完成 | 成功: 1 | 失败: 0
 </pre></div>
 </div>
 </div>
