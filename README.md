@@ -1,17 +1,14 @@
-[![ci_validation](https://img.shields.io/github/workflow/status/spacetelescope/jdat_notebooks/ci_validation?label=笔记本验证)](https://github.com/spacetelescope/jdat_notebooks/actions?query=workflow%3Aci_validation)
-[![ci_deployment](https://img.shields.io/github/workflow/status/spacetelescope/jdat_notebooks/Build%20and%20deploy%20notebooks?label=HTML%20部署&style=flat)](https://github.com/spacetelescope/jdat_notebooks/actions?query=workflow%3ABuild%20and%20deploy%20notebooks)
-
 # James Webb Space Telescope Data Analysis Tool Notebooks 中文版
 
 `jdat_notebooks` 代码库包含用于 JWST（詹姆斯·韦布空间望远镜）数据后管道（post-pipeline）分析的 Jupyter 笔记本。一些笔记本还展示了适用于其他天文台数据的通用分析流程。此代码库及其笔记本是 STScI（太空望远镜科学研究所）[数据分析工具生态系统](https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis) 的一部分。
 
 ## 概要与描述
 
-请访问[此页面](https://spacetelescope.github.io/jdat_notebooks/)以查看当前可用的内容。
+请访问[此页面](https://notebook.jwst.ywang.science)以查看说明文档。
 
 ## 安装
 
-如需下载并运行这些笔记本，请阅读[详细安装说明](https://spacetelescope.github.io/jdat_notebooks/install.html)。
+如需下载并运行这些笔记本，请阅读[详细安装说明](https://notebook.jwst.ywang.science/install_cn.html)。
 
 ## 帮助
 
