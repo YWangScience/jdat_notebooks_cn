@@ -1,0 +1,1605 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>WFSS光谱 第0部分：最佳提取 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="WFSS光谱 第1部分：合并和归一化1D光谱" href="01_Combine_and_normalize_1D_spectra_cn.html" />
+    <link rel="prev" title="NIRCam Wisp 移除" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>WFSS光谱 第0部分：最佳提取</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">引言</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">版本应为</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">0. 下载和加载数据：</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">制作宽带通量目录。</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">目前，我们使用一个输入目录。</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d">1. 加载 2D 光谱;</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wfssx">WFSS光栅在下图中沿x轴方向分散。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#x">2. 在不同的 x 位置获取光谱轮廓 — 这将用于最佳提取。</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3. 一维提取;</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">显示管道 1D 提取作为示例；</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">最优提取;</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4. 将一维光谱写入文件;</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">5. 沿x轴的光谱轮廓 = 分散光谱的分辨率；</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">*除非您对空间分辨光谱感兴趣，否则您可以叠加数据并获得光谱轮廓作为一个良好的近似。</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moffat">使用Moffat函数拟合；</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">对其他滤光片和其他天体重复上述操作。</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">以下大列执行相同的过程，适用于其他滤光片和抖动位置。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">另一个天体;</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="wfss-0">
+<h1>WFSS光谱 第0部分：最佳提取<a class="headerlink" href="#wfss-0" title="Link to this heading">#</a></h1>
+<p><strong>用例：</strong> 最优提取光谱；红移测量；发射线图。简化版的 <a class="reference external" href="https://jwst-docs.stsci.edu/near-infrared-imager-and-slitless-spectrograph/niriss-example-science-programs/niriss-wfss-with-nircam-parallel-imaging-of-galaxies-in-lensing-clusters">JDox 科学用例 # 33</a>。<br></p>
+<p><strong>数据：</strong> JWST 模拟的 NIRISS 图像来自 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-other-tools/mirage-data-simulator">MIRAGE</a>，经过 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/">JWST 校准管道</a> 处理；星系团。<br></p>
+<p><strong>工具：</strong> specutils, astropy, pandas, emcee, lmfit, corner, h5py。<br></p>
+<p><strong>跨仪器：</strong> NIRSpec <br></p>
+<p><strong>文档：</strong> 本笔记本是 STScI 更大 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理管道数据分析工具生态系统</a> 的一部分。<br></p>
+<section id="id1">
+<h2>引言<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>本笔记本是关于 NIRISS WFSS 数据的一组 4 个笔记本中的第 1 个：</p>
+<ol class="arabic simple">
+<li><p>1D 最优提取，因为 JWST 管道仅提供盒式提取。最优提取提高了微弱源的光谱信噪比（S/N）。</p></li>
+<li><p>合并并归一化 1D 光谱。</p></li>
+<li><p>将星系与模板进行交叉相关以获取红移。</p></li>
+<li><p>空间分辨的发射线图。</p></li>
+</ol>
+<p>本笔记本将从 NIRISS WFSS 的 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-data-reduction-pipeline">后处理管道</a> 产品开始，使用来自 spec level3 的 2D 矫正光谱。</p>
+<p>最优提取需要在交叉色散方向上的源形态，这将通过与 WFSS 观测同时拍摄的直接图像获取。色散方向上的形态对于推断光谱分辨率也至关重要，这将通过模板拟合来获取红移和星族信息，在本组的第 3 个笔记本中进行。</p>
+<p><strong>注意：</strong> 我们假设 2D 矫正光谱的处理已经达到合理水平，即目标 2D 光谱上没有来自其他源的污染光通量，并且背景已经被减去。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline  # 在Jupyter Notebook中内联显示Matplotlib绘图
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，通常用于数组和数值计算</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">rotate</span>  <span class="c1"># 从SciPy库导入旋转函数，用于图像处理</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>  <span class="c1"># 从SciPy库导入曲线拟合函数</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从Astropy库导入FITS文件处理模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>  <span class="c1"># 导入Astropy单位模块，用于物理量的单位处理</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.wcs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wcs</span>  <span class="c1"># 导入Astropy的WCS模块，用于天文坐标转换</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">ascii</span>  <span class="c1"># 从Astropy库导入ASCII文件处理模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spectrum1D</span>  <span class="c1"># 从specutils库导入一维光谱类</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.nddata</span><span class="w"> </span><span class="kn">import</span> <span class="n">StdDevUncertainty</span>  <span class="c1"># 从Astropy库导入标准偏差不确定性类</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">specutils</span>  <span class="c1"># 导入specutils库</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;specutils&#39;</span><span class="p">,</span> <span class="n">specutils</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># 打印specutils库的版本</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy</span>  <span class="c1"># 导入Astropy库</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;astropy&#39;</span><span class="p">,</span> <span class="n">astropy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># 打印Astropy库的版本</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3>版本应为<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>specutils 1.11.0</p></li>
+<li><p>astropy 5.3.4</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库 matplotlib 的 pyplot 模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>  <span class="c1"># 导入 matplotlib 库</span>
+
+<span class="c1"># 设置保存图像时的分辨率为 80 dpi</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c1"># 设置图像显示时的分辨率为 80 dpi</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>0. 下载和加载数据：<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>这些包括NIRISS的管道处理数据，以及来自图像步骤3的光度目录。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;./pipeline_products&#39;</span><span class="p">):</span>  <span class="c1"># 检查&#39;./pipeline_products&#39;目录是否存在</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>  <span class="c1"># 导入zipfile模块，用于处理zip文件</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>  <span class="c1"># 导入urllib.request模块，用于下载文件</span>
+
+    <span class="c1"># 定义要下载的zip文件的链接</span>
+    <span class="n">boxlink</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/NIRISS_lensing_cluster/pipeline_products.zip&#39;</span>
+
+    <span class="n">boxfile</span> <span class="o">=</span> <span class="s1">&#39;./pipeline_products.zip&#39;</span>  <span class="c1"># 定义下载后保存的zip文件路径</span>
+
+    <span class="c1"># 下载zip文件</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">boxlink</span><span class="p">,</span> <span class="n">boxfile</span><span class="p">)</span>
+
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">boxfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># 打开下载的zip文件</span>
+
+    <span class="n">list_names</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>  <span class="c1"># 获取zip文件内所有文件的名称列表</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_names</span><span class="p">:</span>  <span class="c1"># 遍历zip文件内的每个文件</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>  <span class="c1"># 使用extract提取文件，避免使用extractall以防止路径问题（绝对路径或相对路径）</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统模块</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 导入Astropy库中的fits模块，用于处理FITS文件</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">wcs</span>  <span class="c1"># 导入Astropy库中的wcs模块，用于处理天文坐标系统</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="n">DIR_DATA</span> <span class="o">=</span> <span class="s1">&#39;./pipeline_products/&#39;</span>  <span class="c1"># 数据目录路径</span>
+
+<span class="c1"># 输出目录;</span>
+<span class="n">DIR_OUT</span> <span class="o">=</span> <span class="s1">&#39;./output/&#39;</span>  <span class="c1"># 输出目录路径</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">DIR_OUT</span><span class="p">):</span>  <span class="c1"># 检查输出目录是否存在</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">DIR_OUT</span><span class="p">)</span>  <span class="c1"># 如果不存在，则创建输出目录</span>
+
+<span class="c1"># 检测和科学图像的滤波器;</span>
+<span class="n">filt_det</span> <span class="o">=</span> <span class="s1">&#39;f200w&#39;</span>  <span class="c1"># 设置用于检测的滤波器</span>
+
+<span class="c1"># 从直接图像中获取图像数组。用于最佳提取和掩膜。</span>
+<span class="c1"># 此图像应已进行天空减法；否则，您将遇到最佳提取的错误结果。</span>
+<span class="n">infile</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt_det</span><span class="si">}</span><span class="s1">_i2d_skysub.fits&#39;</span>  <span class="c1"># 输入文件路径，包含天空减法后的数据</span>
+<span class="n">hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>  <span class="c1"># 打开FITS文件</span>
+
+<span class="c1"># 这只是用于误差数组;</span>
+<span class="n">infile</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt_det</span><span class="si">}</span><span class="s1">_i2d.fits&#39;</span>  <span class="c1"># 输入文件路径，包含原始数据</span>
+<span class="n">hdu_err</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>  <span class="c1"># 打开误差FITS文件</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取图像数据</span>
+<span class="n">imwcs</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">WCS</span><span class="p">(</span><span class="n">hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">,</span> <span class="n">hdu</span><span class="p">)</span>  <span class="c1"># 创建WCS对象，用于处理图像的天文坐标</span>
+
+<span class="n">err</span> <span class="o">=</span> <span class="n">hdu_err</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取误差数据</span>
+<span class="n">weight</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>  <span class="c1"># 计算权重，权重为误差的平方的倒数</span>
+
+<span class="c1"># 分割图</span>
+<span class="c1"># 如果管道没有生成分割图，可以通过运行Photutils来准备。</span>
+<span class="n">segfile</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt_det</span><span class="si">}</span><span class="s1">_i2d_seg.fits&#39;</span>  <span class="c1"># 输入分割图文件路径</span>
+<span class="n">seghdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">segfile</span><span class="p">)</span>  <span class="c1"># 打开分割图FITS文件</span>
+<span class="n">segdata</span> <span class="o">=</span> <span class="n">seghdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取分割图数据</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从图像的第三级加载目录;</span>
+
+<span class="c1"># 以获取源在像素坐标中的位置。</span>
+
+<span class="n">catfile</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt_det</span><span class="si">}</span><span class="s1">_cat.ecsv&#39;</span>  <span class="c1"># 构建目录文件的路径</span>
+
+<span class="n">fd</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">catfile</span><span class="p">)</span>  <span class="c1"># 读取目录文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您输入的内容不完整</span><span class="err">。</span><span class="n">如果您有特定的Python代码需要我添加中文注释</span><span class="err">，</span><span class="n">请提供代码段</span><span class="err">，</span><span class="n">我将很乐意帮助您</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id4">
+<h3>制作宽带通量目录。<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>出于方便的考虑，我们将目录汇编成一个通量目录，该目录将在后续笔记本（01b）中使用。</p></li>
+<li><p>要运行此单元，您需要一个源的光度目录，该目录列出了每个滤光片的源位置和通量。目前，我使用的是在另一个笔记本中准备的目录。（”sources_extend_01.cat”）</p></li>
+<li><p>此目录也可以用于通用的光度红移/光谱能量分布拟合软件，如EAZY和gsf（见笔记本No.04）。</p></li>
+</ul>
+<section id="id5">
+<h4>目前，我们使用一个输入目录。<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;f115w&#39;</span><span class="p">,</span> <span class="s1">&#39;f150w&#39;</span><span class="p">,</span> <span class="s1">&#39;f200w&#39;</span><span class="p">,</span> <span class="s1">&#39;f090w&#39;</span><span class="p">,</span> <span class="s1">&#39;f435w&#39;</span><span class="p">,</span> <span class="s1">&#39;f606w&#39;</span><span class="p">,</span> <span class="s1">&#39;f814w&#39;</span><span class="p">,</span> <span class="s1">&#39;f105w&#39;</span><span class="p">,</span> <span class="s1">&#39;f125w&#39;</span><span class="p">,</span> <span class="s1">&#39;f140w&#39;</span><span class="p">,</span> <span class="s1">&#39;f160w&#39;</span><span class="p">]</span>  <span class="c1"># 定义滤光片名称列表</span>
+
+<span class="n">eazy_filts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">309</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">311</span><span class="p">,</span> <span class="mi">308</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">202</span><span class="p">,</span> <span class="mi">203</span><span class="p">,</span> <span class="mi">204</span><span class="p">,</span> <span class="mi">205</span><span class="p">]</span>  <span class="c1"># 定义EAZY滤光片对应的索引</span>
+
+<span class="n">magzp</span> <span class="o">=</span> <span class="mf">25.0</span>  <span class="c1"># 目录中的星等零点</span>
+
+<span class="c1"># 读取目录;</span>
+
+<span class="n">fd_input</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">sources_extend_01.cat&#39;</span><span class="p">)</span>  <span class="c1"># 从指定路径读取源数据文件</span>
+
+<span class="n">ra_input</span> <span class="o">=</span> <span class="n">fd_input</span><span class="p">[</span><span class="s1">&#39;x_or_RA&#39;</span><span class="p">]</span>  <span class="c1"># 获取输入数据中的RA（右升交角）</span>
+
+<span class="n">dec_input</span> <span class="o">=</span> <span class="n">fd_input</span><span class="p">[</span><span class="s1">&#39;y_or_Dec&#39;</span><span class="p">]</span>  <span class="c1"># 获取输入数据中的Dec（天赤纬）</span>
+
+<span class="c1"># 写入文件头;</span>
+
+<span class="n">fw</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_flux.cat&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>  <span class="c1"># 打开输出文件以写入</span>
+
+<span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# id&#39;</span><span class="p">)</span>  <span class="c1"># 写入文件头的ID</span>
+
+<span class="k">for</span> <span class="n">ff</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filts</span><span class="p">)):</span>  <span class="c1"># 遍历所有滤光片</span>
+    <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; F</span><span class="si">{</span><span class="n">eazy_filts</span><span class="p">[</span><span class="n">ff</span><span class="p">]</span><span class="si">}</span><span class="s1"> E</span><span class="si">{</span><span class="n">eazy_filts</span><span class="p">[</span><span class="n">ff</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入每个滤光片的EAZY索引</span>
+
+<span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 换行</span>
+
+<span class="c1"># 写入内容;</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])):</span>  <span class="c1"># 遍历每个源的ID</span>
+
+    <span class="c1"># 计算当前源与所有输入源之间的距离</span>
+    <span class="n">rtmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">fd</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">-</span> <span class="n">ra_input</span><span class="p">[:])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="s1">&#39;sky_centroid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">-</span> <span class="n">dec_input</span><span class="p">[:])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">iix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">rtmp</span><span class="p">)</span>  <span class="c1"># 找到距离最近的输入源索引</span>
+
+    <span class="k">for</span> <span class="n">ff</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filts</span><span class="p">)):</span>  <span class="c1"># 遍历所有滤光片</span>
+
+        <span class="k">if</span> <span class="n">ff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果是第一个滤光片</span>
+            <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fd</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">][</span><span class="n">ii</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 写入源的ID</span>
+
+        <span class="n">mag</span> <span class="o">=</span> <span class="n">fd_input</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;niriss_</span><span class="si">{</span><span class="n">filts</span><span class="p">[</span><span class="n">ff</span><span class="p">]</span><span class="si">}</span><span class="s1">_magnitude&#39;</span><span class="p">][</span><span class="n">iix</span><span class="p">]</span>  <span class="c1"># 获取最近源的星等</span>
+
+        <span class="n">flux_nu</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">((</span><span class="n">mag</span> <span class="o">-</span> <span class="n">magzp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">))</span>  <span class="c1"># 计算对应的光通量</span>
+
+        <span class="c1"># 当前目录未提供适当的误差;</span>
+        <span class="c1"># 假设光通量的误差为5%.</span>
+
+        <span class="n">flux_err_nu</span> <span class="o">=</span> <span class="n">flux_nu</span> <span class="o">*</span> <span class="mf">0.05</span>  <span class="c1"># 计算光通量误差</span>
+
+        <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">flux_nu</span><span class="si">:</span><span class="s1">.5e</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">flux_err_nu</span><span class="si">:</span><span class="s1">.5e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入光通量及其误差</span>
+
+    <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 换行</span>
+
+<span class="n">fw</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭输出文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="d">
+<h2>1. 加载 2D 光谱;<a class="headerlink" href="#d" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 选择滤光片、光栅和目标对象</span>
+
+<span class="n">filt</span> <span class="o">=</span> <span class="s1">&#39;f200w&#39;</span>  <span class="c1"># 设置滤光片为 &#39;f200w&#39;</span>
+
+<span class="c1"># grism = &#39;G150R&#39;  # 原本的光栅设置为 &#39;G150R&#39;</span>
+
+<span class="n">grism</span> <span class="o">=</span> <span class="s1">&#39;G150C&#39;</span>  <span class="c1"># 设置光栅为 &#39;G150C&#39;</span>
+
+<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;00004&#39;</span>  <span class="c1"># 设置目标对象的ID</span>
+
+<span class="c1"># 零索引的抖动编号 --- 测试数据有两个抖动位置，因此可以是0或1。</span>
+
+<span class="n">ndither</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 设置抖动位置为0</span>
+
+<span class="c1"># 构建文件路径，包含数据目录、滤光片、光栅和目标ID</span>
+<span class="n">file_2d</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_cal.fits&#39;</span>  
+
+<span class="c1"># 打开FITS文件</span>
+<span class="n">hdu_2d</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_2d</span><span class="p">)</span>  
+
+<span class="c1"># 对齐光栅方向</span>
+<span class="c1">#   - x方向 = 色散（波长）方向。</span>
+<span class="c1">#   - y方向 = 交叉色散。</span>
+
+<span class="c1"># 在这个笔记本中。</span>
+    
+<span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;G150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果光栅是 &#39;G150C&#39;</span>
+    <span class="c1"># 如果光谱是水平的；</span>
+    <span class="n">data_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取二维数据</span>
+    <span class="n">dq_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>    <span class="c1"># 获取数据质量数组</span>
+    <span class="n">err_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>    <span class="c1"># 获取误差数组</span>
+    <span class="n">wave_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>   <span class="c1"># 获取波长数组</span>
+<span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果光栅不是 &#39;G150C&#39;</span>
+    <span class="n">data_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 将数据旋转90度</span>
+    <span class="n">dq_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>    <span class="c1"># 将数据质量数组旋转90度</span>
+    <span class="n">err_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>   <span class="c1"># 将误差数组旋转90度</span>
+    <span class="n">wave_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 将波长数组旋转90度</span>
+
+<span class="c1"># 获取观测的方位角；</span>
+<span class="n">hd_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># 获取FITS文件的头信息</span>
+<span class="n">PA_V3</span> <span class="o">=</span> <span class="n">hd_2d</span><span class="p">[</span><span class="s1">&#39;PA_V3&#39;</span><span class="p">]</span>  <span class="c1"># 从头信息中提取方位角PA_V3</span>
+<span class="n">PA_V3</span>  <span class="c1"># 输出方位角</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_2d</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># 显示二维数据，设置最小值为0，最大值为1000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取源的光谱轮廓；</span>
+
+<span class="c1"># 再次，y是交叉色散方向，x是色散方向。</span>
+<span class="n">y2d</span><span class="p">,</span> <span class="n">x2d</span> <span class="o">=</span> <span class="n">data_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">[:]</span>  <span class="c1"># 获取2D数据的形状，y和x的维度</span>
+
+<span class="c1"># 切割出分割图；</span>
+<span class="n">iix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 找到与给定id匹配的索引</span>
+
+<span class="c1"># 从图像3目录中获取目标位置；</span>
+<span class="n">ycen</span> <span class="o">=</span> <span class="n">fd</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">][</span><span class="n">iix</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 获取目标的y中心坐标</span>
+<span class="n">xcen</span> <span class="o">=</span> <span class="n">fd</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">][</span><span class="n">iix</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># 获取目标的x中心坐标</span>
+
+<span class="c1"># 切割大小 = 2D光谱的y方向；</span>
+<span class="n">rsq</span> <span class="o">=</span> <span class="n">y2d</span>  <span class="c1"># 设置切割大小为y方向的维度</span>
+
+<span class="c1"># 从数据中切割出科学图像和分割图；</span>
+<span class="n">sci_cut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>  <span class="c1"># 切割科学图像</span>
+<span class="n">seg_cut</span> <span class="o">=</span> <span class="n">segdata</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>  <span class="c1"># 切割分割图</span>
+
+<span class="c1"># 根据Grism观测的PA旋转图像；</span>
+<span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;G150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果使用G150C光栅</span>
+    <span class="n">sci_rot</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">sci_cut</span><span class="p">,</span> <span class="n">PA_V3</span><span class="p">)</span>  <span class="c1"># 旋转科学图像</span>
+<span class="k">else</span><span class="p">:</span>  <span class="c1"># 否则</span>
+    <span class="n">sci_rot</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">sci_cut</span><span class="p">,</span> <span class="n">PA_V3</span><span class="o">+</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转科学图像，增加90度</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="wfssx">
+<h3>WFSS光栅在下图中沿x轴方向分散。<a class="headerlink" href="#wfssx" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># 显示旋转后的科学图像，设置最小值为0，最大值为1.0</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Direct image&#39;</span><span class="p">)</span>  <span class="c1"># 设置图像标题为“直接图像”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength direction &gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长方向 &gt;&gt;&gt;”，字体颜色为红色，字体大小为18</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cross-dispersion direction &gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“交叉色散方向 &gt;&gt;&gt;”，字体颜色为红色，字体大小为18</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="x">
+<h2>2. 在不同的 x 位置获取光谱轮廓 — 这将用于最佳提取。<a class="headerlink" href="#x" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>  <span class="c1"># 遍历sci_rot的每一列</span>
+
+    <span class="n">flux_tmp</span> <span class="o">=</span> <span class="n">sci_rot</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span>  <span class="c1"># 获取当前列的光谱数据</span>
+
+    <span class="n">xx_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建一个与光谱数据长度相同的数组，用于x轴</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx_tmp</span><span class="p">,</span> <span class="n">flux_tmp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span>  <span class="c1"># 绘制当前列的光谱数据，并设置标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># 显示图例，位置为0，字体大小为8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 沿着 x 方向（分散方向）求和</span>
+
+<span class="n">flux_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 创建一个与 sci_rot 行数相同的零数组，用于存储 y 方向的 flux</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历 sci_rot 的每一行</span>
+
+    <span class="n">flux_y</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># 对每一行的所有列求和，并存储到 flux_y 中</span>
+
+<span class="c1"># 如果需要，进行天空背景减法。</span>
+
+<span class="c1"># sky = np.mean([flux_y[0], flux_y[-1]])  # 计算 flux_y 的首尾平均值，作为天空背景（注释掉）</span>
+
+<span class="c1"># 归一化处理；</span>
+
+<span class="n">flux_y</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">flux_y</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 将 flux_y 中的每个元素除以其总和，实现归一化</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx_tmp</span><span class="p">,</span> <span class="n">flux_y</span><span class="p">)</span>  <span class="c1"># 绘制 y 位置与源通量的关系图</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;y-position&#39;</span><span class="p">)</span>  <span class="c1"># 设置 x 轴标签为 &#39;y-position&#39;</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Source Flux&#39;</span><span class="p">)</span>  <span class="c1"># 设置 y 轴标签为 &#39;Source Flux&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>3. 一维提取;<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>显示管道 1D 提取作为示例；<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正常提取;</span>
+
+<span class="n">flux_disp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱通量数组</span>
+
+<span class="n">err_disp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>    <span class="c1"># 初始化误差数组</span>
+
+<span class="n">wave_disp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>   <span class="c1"># 初始化波长数组</span>
+
+    
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x2d</span><span class="p">):</span> <span class="c1"># 在波长方向上循环</span>
+
+    <span class="n">mask_tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">dq_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建掩膜，选择有效数据</span>
+
+    <span class="c1"># 在一个盒子内求和;</span>
+
+    <span class="n">flux_disp1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">][</span><span class="n">mask_tmp</span><span class="p">])</span>  <span class="c1"># 计算有效光谱通量的总和</span>
+
+    <span class="n">err_disp1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">][</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># 计算有效误差的平方和的平方根</span>
+
+    <span class="n">wave_disp1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_2d</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span>  <span class="c1"># 获取对应的波长值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wave_disp1</span><span class="p">,</span> <span class="n">flux_disp1</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">err_disp1</span><span class="p">)</span>  <span class="c1"># 绘制带误差条的光谱图</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">)</span>  <span class="c1"># 设置x轴范围</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>最优提取;<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 根据 Horne(1986, PASP, 98, 609) 的方法进行处理</span>
+
+<span class="n">flux_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱通量数组</span>
+<span class="n">err_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>    <span class="c1"># 初始化误差数组</span>
+<span class="n">wave_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>   <span class="c1"># 初始化波长数组</span>
+
+<span class="c1"># Sigma clipping（标准差剪切）</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># 设置标准差阈值</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x2d</span><span class="p">):</span>  <span class="c1"># ii : 波长元素索引</span>
+    <span class="c1"># 创建掩膜； </span>
+    <span class="c1"># 1. DQ 数组（数据质量）</span>
+    <span class="c1"># 2. 误差值</span>
+    <span class="c1"># 3. CR 检测（宇宙射线）</span>
+    <span class="n">mask_tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">dq_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">data_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">-</span> <span class="n">flux_y</span><span class="p">[:]</span> <span class="o">*</span> <span class="n">flux_disp1</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">sig</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">ivar</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 计算逆方差</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="n">flux_y</span><span class="p">[:]</span> <span class="o">*</span> <span class="n">data_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">ivar</span>  <span class="c1"># 计算分子</span>
+    <span class="n">den</span> <span class="o">=</span> <span class="n">flux_y</span><span class="p">[:]</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ivar</span>  <span class="c1"># 计算分母</span>
+
+    <span class="c1"># 计算光谱通量和误差</span>
+    <span class="n">flux_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">den</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 计算有效光谱通量</span>
+    <span class="n">err_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">den</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># 计算有效误差</span>
+    <span class="n">wave_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_2d</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span>  <span class="c1"># 获取对应的波长</span>
+
+<span class="c1"># 绘制误差条形图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wave_disp</span><span class="p">,</span> <span class="n">flux_disp</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">err_disp</span><span class="p">)</span>  <span class="c1"># 绘制光谱通量与误差</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">)</span>  <span class="c1"># 设置x轴范围</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 比较不同光谱数据的绘图</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wave_disp</span><span class="p">,</span> <span class="n">flux_disp</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">err_disp</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Optimal&#39;</span><span class="p">)</span>  <span class="c1"># 绘制最佳光谱数据，红色线，带误差条</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wave_disp1</span><span class="p">,</span> <span class="n">flux_disp1</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">err_disp1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Box&#39;</span><span class="p">)</span>  <span class="c1"># 绘制盒子光谱数据，蓝色线，带误差条，透明度为0.5</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>  <span class="c1"># 设置y轴的范围</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 显示图例，位置自动选择</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长”</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h2>4. 将一维光谱写入文件;<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_1d</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_1d_opt.fits&#39;</span>  <span class="c1"># 定义输出文件名，包含目录和文件格式信息</span>
+
+<span class="c1"># Now make it into a Spectrum1D instance.  # 创建一个Spectrum1D实例</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave_disp</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span>  <span class="c1"># 设置光谱轴，单位为微米</span>
+                 
+                 <span class="n">flux</span><span class="o">=</span><span class="n">flux_disp</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">MJy</span><span class="p">,</span>  <span class="c1"># 设置光谱的通量，单位为MJy</span>
+                 
+                 <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">err_disp</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MJy&#39;</span><span class="p">)</span>  <span class="c1"># 设置不确定性，使用标准偏差不确定性</span>
+
+<span class="n">obs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_1d</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;tabular-fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 将Spectrum1D实例写入文件，格式为tabular-fits，允许覆盖</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h2>5. 沿x轴的光谱轮廓 = 分散光谱的分辨率；<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>由于WFSS没有光阑，任何分散光谱都受到源形态的影响。我们将在接下来的笔记本中需要对有效光谱分辨率的估计。在这里，我们尝试提前进行估算；</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历sci_rot数组的每一行</span>
+
+    <span class="n">flux_tmp</span> <span class="o">=</span> <span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 获取当前行的光谱数据</span>
+
+    <span class="n">xx_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]),</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建一个与当前行长度相同的数组，用于x轴</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx_tmp</span><span class="p">,</span> <span class="n">flux_tmp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;y=</span><span class="si">{</span><span class="n">ii</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 绘制当前行的光谱数据，并添加标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># 显示图例，位置在右上角，字体大小为8</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength direction&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长方向”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Source light profile along dispersed direction&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>  <span class="c1"># 设置图表标题，字体大小为14</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id11">
+<h3>*除非您对空间分辨光谱感兴趣，否则您可以叠加数据并获得光谱轮廓作为一个良好的近似。<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 沿着交叉色散方向求和</span>
+
+<span class="n">flux_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]),</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 创建一个与sci_rot的列数相同的零数组，用于存储每列的总和</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历sci_rot的每一行</span>
+
+    <span class="n">flux_x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">])</span>  <span class="c1"># 计算每一列的总和并存储到flux_x中</span>
+
+<span class="c1"># 归一化;</span>
+
+<span class="n">flux_x</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">flux_x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 将flux_x中的每个元素除以总和，以进行归一化</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx_tmp</span><span class="p">,</span> <span class="n">flux_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Convolution kernel&#39;</span><span class="p">)</span>  <span class="c1"># 绘制归一化后的flux_x与xx_tmp的关系图，并添加标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 显示图例，位置设置为2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="moffat">
+<h3>使用Moffat函数拟合；<a class="headerlink" href="#moffat" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fitting function with Moffat</span>
+
+<span class="c1"># Moffat 函数定义</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">moffat</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alp</span><span class="p">):</span>
+    <span class="c1"># 计算 Moffat 函数值</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="p">(</span><span class="n">xx</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">gamma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">alp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">yy</span>  <span class="c1"># 返回计算结果</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fit_mof</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">lsf</span><span class="p">):</span>
+    <span class="c1"># 拟合 Moffat 函数</span>
+    <span class="c1"># xx = lsf * 0  # 初始化 xx 为零（注释掉的代码）</span>
+
+    <span class="c1"># for ii in range(len(lsf)):  # 注释掉的代码，原本用于计算 xx</span>
+    <span class="c1">#    xx[ii] = ii - len(lsf) / 2.</span>
+
+    <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">moffat</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">lsf</span><span class="p">)</span>  <span class="c1"># 使用 curve_fit 拟合 Moffat 函数</span>
+    <span class="k">return</span> <span class="n">popt</span>  <span class="c1"># 返回拟合参数</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">LSF_mof</span><span class="p">(</span><span class="n">xsf</span><span class="p">,</span> <span class="n">lsf</span><span class="p">,</span> <span class="n">f_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    输入参数:</span>
+<span class="sd">    =======</span>
+<span class="sd">    xsf : 轮廓的 x 轴数据.</span>
+<span class="sd">    lsf : 光强轮廓.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># for ii in range(len(sci[0, :])):  # 注释掉的代码，原本用于计算 lsf</span>
+    <span class="c1">#    lsf[ii] = np.mean(sci_rot[int(height/2.-5):int(height/2.+5), ii])</span>
+    <span class="c1">#    xsf[ii] = ii - len(lsf) / 2.</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">fit_mof</span><span class="p">(</span><span class="n">xsf</span><span class="p">,</span> <span class="n">lsf</span><span class="p">)</span>  <span class="c1"># 尝试拟合 Moffat 函数</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>  <span class="c1"># 捕获拟合失败的异常</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fitting failed.&#39;</span><span class="p">)</span>  <span class="c1"># 输出拟合失败信息</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># 设置参数为 -1 表示失败</span>
+        <span class="k">pass</span>  <span class="c1"># 继续执行</span>
+
+    <span class="k">if</span> <span class="n">A</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果拟合参数 A 大于 0</span>
+        <span class="n">lsf_mod</span> <span class="o">=</span> <span class="n">moffat</span><span class="p">(</span><span class="n">xsf</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>  <span class="c1"># 计算模型光强轮廓</span>
+
+    <span class="k">if</span> <span class="n">f_plot</span><span class="p">:</span>  <span class="c1"># 如果需要绘图</span>
+        <span class="n">yy</span> <span class="o">=</span> <span class="n">moffat</span><span class="p">(</span><span class="n">xsf</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>  <span class="c1"># 计算拟合的 Moffat 函数值</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xsf</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;r.&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>  <span class="c1"># 绘制数据点</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xsf</span><span class="p">,</span> <span class="n">lsf_mod</span><span class="p">,</span> <span class="s1">&#39;b+&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Model: gamma=</span><span class="si">{</span><span class="n">gamma</span><span class="si">:</span><span class="s1">2f</span><span class="si">}</span><span class="se">\n</span><span class="s1">alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s1">2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 绘制拟合模型</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 添加图例</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span>  <span class="c1"># 返回拟合参数</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LSF, 线扩散函数</span>
+
+<span class="n">iix_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">flux_x</span><span class="p">)</span>  <span class="c1"># 找到flux_x中最大值的索引</span>
+
+<span class="n">xx_tmp_shift</span> <span class="o">=</span> <span class="n">xx_tmp</span> <span class="o">-</span> <span class="n">xx_tmp</span><span class="p">[</span><span class="n">iix_peak</span><span class="p">]</span>  <span class="c1"># 将xx_tmp中的值减去峰值位置的值，以便中心化</span>
+
+<span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">LSF_mof</span><span class="p">(</span><span class="n">xx_tmp_shift</span><span class="p">,</span> <span class="n">flux_x</span><span class="p">)</span>  <span class="c1"># 调用LSF_mof函数计算参数A, xm, gamma和alpha</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 写入数据到文件</span>
+
+<span class="c1"># 参数单位为像素</span>
+
+<span class="n">fm</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_moffat.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>  <span class="c1"># 打开文件以写入模式</span>
+
+<span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# A x0 gamma alp</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入文件头信息</span>
+
+<span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Moffat function</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入函数类型信息</span>
+
+<span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">A</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">xm</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">gamma</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入Moffat函数的参数值，格式化为小数点后三位</span>
+
+<span class="n">fm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id12">
+<h2>对其他滤光片和其他天体重复上述操作。<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>以下大列执行相同的过程，适用于其他滤光片和抖动位置。<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grism</span> <span class="o">=</span> <span class="s1">&#39;G150C&#39;</span>  <span class="c1"># 设置光栅类型为G150C</span>
+
+<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;00004&#39;</span>  <span class="c1"># 设置ID</span>
+
+<span class="n">DIR_OUT</span> <span class="o">=</span> <span class="s1">&#39;./output/&#39;</span>  <span class="c1"># 设置输出目录</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">DIR_OUT</span><span class="p">):</span>  <span class="c1"># 如果输出目录不存在</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">DIR_OUT</span><span class="p">)</span>  <span class="c1"># 创建输出目录</span>
+
+<span class="n">filts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;f115w&#39;</span><span class="p">,</span> <span class="s1">&#39;f150w&#39;</span><span class="p">,</span> <span class="s1">&#39;f200w&#39;</span><span class="p">]</span>  <span class="c1"># 定义滤光片列表</span>
+
+<span class="n">ndithers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 定义偏移量范围</span>
+
+<span class="n">sig</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># 设置信号阈值</span>
+
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filts</span><span class="p">:</span>  <span class="c1"># 遍历每个滤光片</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filt</span><span class="p">)</span>  <span class="c1"># 打印当前滤光片名称</span>
+
+    <span class="c1"># 读取2D光谱数据</span>
+    <span class="n">file_2d</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_cal.fits&#39;</span>  <span class="c1"># 构建2D光谱文件名</span>
+    <span class="n">hdu_2d</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_2d</span><span class="p">)</span>  <span class="c1"># 打开2D光谱文件</span>
+
+    <span class="k">for</span> <span class="n">ndither</span> <span class="ow">in</span> <span class="n">ndithers</span><span class="p">:</span>  <span class="c1"># 遍历每个偏移量</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ndither</span><span class="p">)</span>  <span class="c1"># 打印当前偏移量</span>
+
+        <span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;G150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果光栅类型为G150C</span>
+            <span class="c1"># 如果光谱是水平的</span>
+            <span class="n">data_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取2D数据</span>
+            <span class="n">dq_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取数据质量数组</span>
+            <span class="n">err_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取误差数组</span>
+            <span class="n">wave_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取波长数组</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果光栅类型不是G150C</span>
+            <span class="n">data_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转数据</span>
+            <span class="n">dq_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转数据质量数组</span>
+            <span class="n">err_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转误差数组</span>
+            <span class="n">wave_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转波长数组</span>
+
+        <span class="n">y2d</span><span class="p">,</span> <span class="n">x2d</span> <span class="o">=</span> <span class="n">data_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">[:]</span>  <span class="c1"># 获取数据的形状</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭当前图形</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_2d</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>  <span class="c1"># 显示2D数据图像</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示图像</span>
+
+        <span class="c1"># 重新提取2D图像</span>
+        <span class="c1"># if ndither == 0:  # 如果是第一个偏移量</span>
+        <span class="n">rsq</span> <span class="o">=</span> <span class="n">y2d</span>  <span class="c1"># 设置方形区域的边长</span>
+        <span class="c1"># 提取科学数据和分段数据</span>
+        <span class="n">sci_cut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>
+        <span class="n">seg_cut</span> <span class="o">=</span> <span class="n">segdata</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>
+
+        <span class="c1"># 不确定提取框的偏移是否是bug</span>
+        <span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;G150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果光栅类型为G150C</span>
+            <span class="n">sci_rot</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">sci_cut</span><span class="p">,</span> <span class="n">PA_V3</span><span class="o">+</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 旋转科学数据</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果光栅类型不是G150C</span>
+            <span class="n">sci_rot</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">sci_cut</span><span class="p">,</span> <span class="n">PA_V3</span><span class="o">+</span><span class="mi">0</span><span class="o">+</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转科学数据</span>
+
+        <span class="c1"># 这是为了光谱分辨率</span>
+        <span class="c1"># 沿x轴获取光谱轮廓</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历每一行</span>
+            <span class="n">flux_tmp</span> <span class="o">=</span> <span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 获取当前行的光谱数据</span>
+            <span class="n">xx_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]),</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建x轴数组</span>
+
+        <span class="c1"># 沿交叉色散方向求和</span>
+        <span class="n">flux_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]),</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱数据数组</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历每一行</span>
+            <span class="n">flux_x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># 计算每一行的总光谱</span>
+
+        <span class="c1"># 归一化</span>
+        <span class="n">flux_x</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">flux_x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 归一化光谱数据</span>
+
+        <span class="c1"># LSF</span>
+        <span class="n">iix_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">flux_x</span><span class="p">)</span>  <span class="c1"># 找到光谱峰值的索引</span>
+        <span class="n">xx_tmp_shift</span> <span class="o">=</span> <span class="n">xx_tmp</span> <span class="o">-</span> <span class="n">xx_tmp</span><span class="p">[</span><span class="n">iix_peak</span><span class="p">]</span>  <span class="c1"># 计算x轴的偏移量</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">LSF_mof</span><span class="p">(</span><span class="n">xx_tmp_shift</span><span class="p">,</span> <span class="n">flux_x</span><span class="p">)</span>  <span class="c1"># 拟合Moffat函数</span>
+
+        <span class="k">if</span> <span class="n">ndither</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果是第一个偏移量</span>
+            <span class="c1"># 写入文件</span>
+            <span class="n">fm</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_moffat.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>  <span class="c1"># 打开输出文件</span>
+            <span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# A x0 gamma alp</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入标题</span>
+            <span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">A</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">xm</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">gamma</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入拟合参数</span>
+            <span class="n">fm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭文件</span>
+
+        <span class="c1"># 这是为了最佳提取</span>
+        <span class="c1"># 沿x（色散）方向求和</span>
+        <span class="n">flux_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱数据数组</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历每一行</span>
+            <span class="n">flux_y</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># 计算每一行的总光谱</span>
+
+        <span class="c1"># 归一化</span>
+        <span class="n">flux_y</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">flux_y</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 归一化光谱数据</span>
+
+        <span class="c1"># 根据Horne的方法</span>
+        <span class="n">flux_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱数据数组</span>
+        <span class="n">err_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化误差数组</span>
+        <span class="n">wave_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化波长数组</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x2d</span><span class="p">):</span>  <span class="c1"># 遍历每一列</span>
+            <span class="c1"># 掩膜</span>
+            <span class="c1"># 1. 数据质量数组</span>
+            <span class="c1"># 2. 误差值</span>
+            <span class="c1"># 3. CR检测</span>
+            <span class="n">mask_tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">dq_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建掩膜</span>
+            <span class="n">ivar</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 计算逆方差</span>
+
+            <span class="n">num</span> <span class="o">=</span> <span class="n">flux_y</span><span class="p">[:]</span> <span class="o">*</span> <span class="n">data_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">ivar</span>  <span class="c1"># 计算分子</span>
+            <span class="n">den</span> <span class="o">=</span> <span class="n">flux_y</span><span class="p">[:]</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ivar</span>  <span class="c1"># 计算分母</span>
+            <span class="n">flux_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">den</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 计算光谱数据</span>
+            <span class="n">err_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">den</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># 计算误差</span>
+            <span class="n">wave_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_2d</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span>  <span class="c1"># 获取波长</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭当前图形</span>
+        <span class="n">con_plot</span> <span class="o">=</span> <span class="p">(</span><span class="n">wave_disp</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建有效波长的掩膜</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wave_disp</span><span class="p">[</span><span class="n">con_plot</span><span class="p">],</span> <span class="n">flux_disp</span><span class="p">[</span><span class="n">con_plot</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">err_disp</span><span class="p">[</span><span class="n">con_plot</span><span class="p">])</span>  <span class="c1"># 绘制误差条</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>  <span class="c1"># 设置y轴范围</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示图像</span>
+
+        <span class="c1"># 写入文件</span>
+        <span class="c1"># 现在将其转换为Spectrum1D实例</span>
+        <span class="n">file_1d</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_ndither</span><span class="si">{</span><span class="n">ndither</span><span class="si">}</span><span class="s1">_1d_opt.fits&#39;</span>  <span class="c1"># 构建1D光谱文件名</span>
+
+        <span class="k">if</span> <span class="n">wave_disp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">wave_disp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果波长数组是递减的</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave_disp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span>  <span class="c1"># 创建光谱对象</span>
+                             <span class="n">flux</span><span class="o">=</span><span class="n">flux_disp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">MJy</span><span class="p">,</span>
+                             <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">err_disp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MJy&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果波长数组是递增的</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave_disp</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span>  <span class="c1"># 创建光谱对象</span>
+                             <span class="n">flux</span><span class="o">=</span><span class="n">flux_disp</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">MJy</span><span class="p">,</span>
+                             <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">err_disp</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MJy&#39;</span><span class="p">)</span>
+
+        <span class="n">obs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_1d</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;tabular-fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 写入1D光谱文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id14">
+<h2>另一个天体;<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>吸收线星系</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grism</span> <span class="o">=</span> <span class="s1">&#39;G150C&#39;</span>  <span class="c1"># 设置光栅类型为G150C</span>
+
+<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;00003&#39;</span>  <span class="c1"># 设置ID</span>
+
+<span class="n">DIR_OUT</span> <span class="o">=</span> <span class="s1">&#39;./output/&#39;</span>  <span class="c1"># 设置输出目录</span>
+
+<span class="n">filts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;f115w&#39;</span><span class="p">,</span> <span class="s1">&#39;f150w&#39;</span><span class="p">,</span> <span class="s1">&#39;f200w&#39;</span><span class="p">]</span>  <span class="c1"># 定义滤波器列表</span>
+
+<span class="n">ndithers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 定义dither的范围，这里有两个dither</span>
+
+<span class="n">sig</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># 设置信号阈值</span>
+
+<span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filts</span><span class="p">:</span>  <span class="c1"># 遍历每个滤波器</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">filt</span><span class="p">)</span>  <span class="c1"># 打印当前滤波器</span>
+
+    <span class="c1"># 读取2D光谱数据</span>
+
+    <span class="n">file_2d</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_DATA</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_cal.fits&#39;</span>  <span class="c1"># 构建2D数据文件名</span>
+
+    <span class="n">hdu_2d</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_2d</span><span class="p">)</span>  <span class="c1"># 打开2D数据文件</span>
+
+    <span class="k">for</span> <span class="n">ndither</span> <span class="ow">in</span> <span class="n">ndithers</span><span class="p">:</span>  <span class="c1"># 遍历每个dither</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">ndither</span><span class="p">)</span>  <span class="c1"># 打印当前dither</span>
+
+        <span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;G150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果光栅是G150C</span>
+
+            <span class="c1"># 如果光谱是水平的</span>
+
+            <span class="n">data_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取2D数据</span>
+
+            <span class="n">dq_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取数据质量数组</span>
+
+            <span class="n">err_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取误差数组</span>
+
+            <span class="n">wave_2d</span> <span class="o">=</span> <span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取波长数组</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果光栅不是G150C</span>
+
+            <span class="n">data_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转2D数据</span>
+
+            <span class="n">dq_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转数据质量数组</span>
+
+            <span class="n">err_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转误差数组</span>
+
+            <span class="n">wave_2d</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">hdu_2d</span><span class="p">[</span><span class="n">ndither</span><span class="o">*</span><span class="mi">7</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转波长数组</span>
+
+        <span class="n">y2d</span><span class="p">,</span> <span class="n">x2d</span> <span class="o">=</span> <span class="n">data_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">[:]</span>  <span class="c1"># 获取2D数据的形状</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭当前图像</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_2d</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># 显示2D数据图像</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示图像</span>
+
+        <span class="c1"># 重新提取2D图像</span>
+
+        <span class="c1"># if ndither == 0:</span>
+
+        <span class="n">rsq</span> <span class="o">=</span> <span class="n">y2d</span>  <span class="c1"># 设置提取区域的大小</span>
+
+        <span class="n">sci_cut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>  <span class="c1"># 提取科学数据</span>
+
+        <span class="n">seg_cut</span> <span class="o">=</span> <span class="n">segdata</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">ycen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">-</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">xcen</span><span class="o">+</span><span class="n">rsq</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>  <span class="c1"># 提取分段数据</span>
+
+        <span class="c1"># 不确定提取框的偏移是否是bug</span>
+
+        <span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;G150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果光栅是G150C</span>
+
+            <span class="n">sci_rot</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">sci_cut</span><span class="p">,</span> <span class="n">PA_V3</span><span class="o">+</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 旋转科学数据</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果光栅不是G150C</span>
+
+            <span class="n">sci_rot</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">sci_cut</span><span class="p">,</span> <span class="n">PA_V3</span><span class="o">+</span><span class="mi">0</span><span class="o">+</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># 旋转科学数据</span>
+
+        <span class="c1"># 这是为了光谱分辨率</span>
+
+        <span class="c1"># 沿x轴获取光谱轮廓</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历每一行</span>
+
+            <span class="n">flux_tmp</span> <span class="o">=</span> <span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 获取当前行的光谱数据</span>
+
+            <span class="n">xx_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]),</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建x轴坐标</span>
+
+        <span class="c1"># 沿交叉色散方向求和</span>
+
+        <span class="n">flux_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]),</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱数据数组</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历每一行</span>
+
+            <span class="n">flux_x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># 计算每一行的总光谱</span>
+
+        <span class="c1"># 归一化</span>
+
+        <span class="n">flux_x</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">flux_x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 归一化光谱数据</span>
+
+        <span class="c1"># LSF</span>
+
+        <span class="n">iix_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">flux_x</span><span class="p">)</span>  <span class="c1"># 找到光谱数据的峰值索引</span>
+
+        <span class="n">xx_tmp_shift</span> <span class="o">=</span> <span class="n">xx_tmp</span> <span class="o">-</span> <span class="n">xx_tmp</span><span class="p">[</span><span class="n">iix_peak</span><span class="p">]</span>  <span class="c1"># 计算x轴的偏移量</span>
+
+        <span class="n">A</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">LSF_mof</span><span class="p">(</span><span class="n">xx_tmp_shift</span><span class="p">,</span> <span class="n">flux_x</span><span class="p">)</span>  <span class="c1"># 计算Moffat函数参数</span>
+
+        <span class="k">if</span> <span class="n">ndither</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果是第一个dither</span>
+
+            <span class="c1"># 写入文件</span>
+
+            <span class="n">fm</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_moffat.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>  <span class="c1"># 打开输出文件</span>
+
+            <span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# A x0 gamma alp</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入参数说明</span>
+
+            <span class="n">fm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">A</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">xm</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">gamma</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 写入Moffat函数参数</span>
+
+            <span class="n">fm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭文件</span>
+
+        <span class="c1"># 这是为了最优提取</span>
+
+        <span class="c1"># 沿x（色散）方向求和</span>
+
+        <span class="n">flux_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱数据数组</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sci_rot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># 遍历每一行</span>
+
+            <span class="n">flux_y</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sci_rot</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># 计算每一行的总光谱</span>
+
+    
+
+        <span class="c1"># 归一化</span>
+
+        <span class="n">flux_y</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">flux_y</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 归一化光谱数据</span>
+
+        <span class="c1"># 按照Horne的方法</span>
+
+        <span class="n">flux_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化光谱数据数组</span>
+
+        <span class="n">err_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化误差数组</span>
+
+        <span class="n">wave_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x2d</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>  <span class="c1"># 初始化波长数组</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x2d</span><span class="p">):</span>  <span class="c1"># 遍历每个像素</span>
+
+            <span class="c1"># 掩膜;</span>
+
+            <span class="c1"># 1. 数据质量数组</span>
+
+            <span class="c1"># 2. 误差值</span>
+
+            <span class="c1"># 3. CR检测</span>
+
+            <span class="n">mask_tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">dq_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建掩膜</span>
+
+            <span class="n">ivar</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">err_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># 计算逆方差</span>
+
+            <span class="n">num</span> <span class="o">=</span> <span class="n">flux_y</span><span class="p">[:]</span> <span class="o">*</span> <span class="n">data_2d</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">ivar</span>  <span class="c1"># 计算分子</span>
+
+            <span class="n">den</span> <span class="o">=</span> <span class="n">flux_y</span><span class="p">[:]</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ivar</span>  <span class="c1"># 计算分母</span>
+
+            <span class="n">flux_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">den</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 计算光谱数据</span>
+
+            <span class="n">err_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">den</span><span class="p">[</span><span class="n">mask_tmp</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># 计算误差</span>
+
+            <span class="n">wave_disp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_2d</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span>  <span class="c1"># 获取波长</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭当前图像</span>
+
+        <span class="n">con_plot</span> <span class="o">=</span> <span class="p">(</span><span class="n">wave_disp</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建有效波长的掩膜</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wave_disp</span><span class="p">[</span><span class="n">con_plot</span><span class="p">],</span> <span class="n">flux_disp</span><span class="p">[</span><span class="n">con_plot</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">err_disp</span><span class="p">[</span><span class="n">con_plot</span><span class="p">])</span>  <span class="c1"># 绘制误差条图</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 设置y轴范围</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示图像</span>
+
+        <span class="c1"># 写入:</span>
+
+        <span class="c1"># 现在，将其转换为Spectrum1D实例。</span>
+
+        <span class="n">file_1d</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DIR_OUT</span><span class="si">}</span><span class="s1">l3_nis_</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">grism</span><span class="si">}</span><span class="s1">_s</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_ndither</span><span class="si">{</span><span class="n">ndither</span><span class="si">}</span><span class="s1">_1d_opt.fits&#39;</span>  <span class="c1"># 构建1D数据文件名</span>
+
+        <span class="k">if</span> <span class="n">wave_disp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">wave_disp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果波长是递减的</span>
+
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave_disp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span>  <span class="c1"># 创建光谱对象，波长反向</span>
+
+                             <span class="n">flux</span><span class="o">=</span><span class="n">flux_disp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">MJy</span><span class="p">,</span>  <span class="c1"># 创建光谱对象，光谱反向</span>
+
+                             <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">err_disp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MJy&#39;</span><span class="p">)</span>  <span class="c1"># 创建光谱对象，误差反向</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果波长是递增的</span>
+
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave_disp</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span>  <span class="c1"># 创建光谱对象，波长正常</span>
+
+                             <span class="n">flux</span><span class="o">=</span><span class="n">flux_disp</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">MJy</span><span class="p">,</span>  <span class="c1"># 创建光谱对象，光谱正常</span>
+
+                             <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">err_disp</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MJy&#39;</span><span class="p">)</span>  <span class="c1"># 创建光谱对象，误差正常</span>
+
+        <span class="n">obs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_1d</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;tabular-fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 写入1D光谱数据文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRISS/NIRISS_WFSS_postpipeline"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NIRCam Wisp 移除</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01_Combine_and_normalize_1D_spectra_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">WFSS光谱 第1部分：合并和归一化1D光谱</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">引言</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">版本应为</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">0. 下载和加载数据：</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">制作宽带通量目录。</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">目前，我们使用一个输入目录。</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d">1. 加载 2D 光谱;</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wfssx">WFSS光栅在下图中沿x轴方向分散。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#x">2. 在不同的 x 位置获取光谱轮廓 — 这将用于最佳提取。</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3. 一维提取;</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">显示管道 1D 提取作为示例；</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">最优提取;</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4. 将一维光谱写入文件;</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">5. 沿x轴的光谱轮廓 = 分散光谱的分辨率；</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">*除非您对空间分辨光谱感兴趣，否则您可以叠加数据并获得光谱轮廓作为一个良好的近似。</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moffat">使用Moffat函数拟合；</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">对其他滤光片和其他天体重复上述操作。</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">以下大列执行相同的过程，适用于其他滤光片和抖动位置。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">另一个天体;</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

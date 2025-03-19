@@ -1,0 +1,1990 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>复杂的二维背景 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="复合模型光谱拟合" href="../composite_model_fitting/specfit_demo_3_cn.html" />
+    <link rel="prev" title="ASDF 示例" href="../asdf_example/asdf_example_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>复杂的二维背景</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">复杂的二维背景</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">天空背景估计</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">介绍</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">导入模块</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib 绘图设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">创建具有某种病态背景模式的图像</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">设置网格和随机数种子以进行模拟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">创建恶劣的天空背景</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">加入噪声后观察，并稍作平滑</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">添加一些随机源</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">并排比较两幅图像的绘图例程</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils-background2d">尝试使用 Photutils 的 Background2D 网格作为第一次尝试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">环形中值滤波图像</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">设置一些便于迭代掩膜的例程</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">在掩蔽源后更精细地估计背景</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">尝试不同的插值算法。</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">制作更深的源掩膜</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">使用这个新掩模重新进行背景估计。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">检查由于星系引起的偏差</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">列出被遮蔽和未被遮蔽的源</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-sources">被遮蔽的源 (Masked Sources)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unmasked-sources">未被遮蔽的源 (Unmasked Sources)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">说明：</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">在真实数据上测试偏差</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rms">便于观察残余背景的RMS与尺度的关系的常规</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>复杂的二维背景<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>天空背景估计<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p><strong>使用案例：</strong> 在复杂场景中估计天空背景并评估天空估计的质量。<br></p>
+<p><strong>数据：</strong> 在笔记本中创建的具有病态背景模式的图像。<br></p>
+<p><strong>工具：</strong> photutils。<br></p>
+<p><strong>跨仪器：</strong> 所有仪器。<br></p>
+<p><strong>文档：</strong> 本笔记本是STScI更大<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理数据分析工具生态系统</a>的一部分。<br></p>
+</section>
+<section id="id3">
+<h2>介绍<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>天空估计是图像处理中最棘手的方面之一。这部分是因为“天空”是天文场景的一部分。某些被视为背景的内容可能位于前景（探测器中的热背景、散射光或黄道光）。有时感兴趣的物体会重叠（例如，前面有星系的其他星系）。本笔记本不解决重叠星系的“去混叠”问题，但概述了一些处理天空中大规模模式的技术。</p>
+<p>Photutils手册对<a class="reference external" href="https://photutils.readthedocs.io/en/stable/background.html">背景估计</a>进行了广泛讨论，这也是本笔记本中许多内容的基础。</p>
+</section>
+<section id="id4">
+<h2>导入模块<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Numpy 用于一般数组计算</p></li>
+<li><p>Scipy 用于一些统计操作和插值</p></li>
+<li><p>Photutils 用于光度计算</p></li>
+<li><p>Astropy 表格用于查看天空背景瑕疵的参数</p></li>
+<li><p>Astropy 卷积用于平滑图像</p></li>
+<li><p>Photutils 中的例程用于背景减除和掩膜处理</p></li>
+<li><p>Astropy 表格用于操作注入到图像中的源（星系）列表</p></li>
+<li><p>Astropy 卷积用于扩展天空图像和源掩膜</p></li>
+<li><p>Astropy 建模用于拟合背景减除残差的直线</p></li>
+<li><p>Astropy block_reduce 用于查看残差的均方根（RMS）作为尺度（分块因子）的函数</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.convolution</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">Box2DKernel</span><span class="p">,</span> <span class="n">Gaussian2DKernel</span><span class="p">,</span> <span class="n">Ring2DKernel</span><span class="p">,</span>
+                                 <span class="n">Tophat2DKernel</span><span class="p">,</span> <span class="n">convolve</span><span class="p">)</span>  <span class="c1"># 导入Astropy的卷积模块，用于图像卷积</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling</span><span class="w"> </span><span class="kn">import</span> <span class="n">fitting</span><span class="p">,</span> <span class="n">models</span>  <span class="c1"># 导入Astropy的建模模块，用于模型拟合</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.nddata.blocks</span><span class="w"> </span><span class="kn">import</span> <span class="n">block_reduce</span>  <span class="c1"># 导入块减少函数，用于降采样</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">SigmaClip</span>  <span class="c1"># 导入SigmaClip，用于统计分析中的剪切</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>  <span class="c1"># 导入表格模块，用于数据表的创建和操作</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>  <span class="c1"># 导入Image模块，用于在IPython中显示图像</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jdaviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Imviz</span>  <span class="c1"># 导入Jdaviz的Imviz模块，用于图像可视化</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.background</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">Background2D</span><span class="p">,</span>
+                                  <span class="n">BkgIDWInterpolator</span><span class="p">,</span> <span class="n">BkgZoomInterpolator</span><span class="p">,</span>
+                                  <span class="n">MedianBackground</span><span class="p">)</span>  <span class="c1"># 导入Photutils的背景处理模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_model_image</span>  <span class="c1"># 导入数据集模块，用于生成模型图像</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">detect_sources</span><span class="p">,</span> <span class="n">make_2dgaussian_kernel</span>  <span class="c1"># 导入分割模块，用于源检测和生成高斯核</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">median_filter</span>  <span class="c1"># 导入SciPy的中值滤波函数</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matplotlib">
+<h2>Matplotlib 绘图设置<a class="headerlink" href="#matplotlib" title="Link to this heading">#</a></h2>
+<p>有两个版本：</p>
+<ul class="simple">
+<li><p>notebook – 提供交互式图形，但会使整个笔记本的滚动变得稍微困难</p></li>
+<li><p>inline – 提供非交互式图形，以便更好地滚动整体内容</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库，用于绘制图形</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>  <span class="c1"># 导入matplotlib库的其他功能</span>
+
+<span class="c1"># 使用此版本进行非交互式绘图（便于在笔记本中滚动）</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline  # 设置为内联模式，图形将在笔记本中直接显示
+
+<span class="c1"># 如果你想要交互式图形，可以使用此版本</span>
+
+<span class="c1"># %matplotlib notebook  # 设置为交互模式，允许与图形进行交互</span>
+
+<span class="c1"># 这些设置是为了确保在内联和笔记本版本中图形的大小相同</span>
+
+<span class="o">%</span><span class="k">config</span> InlineBackend.print_figure_kwargs = {&#39;bbox_inches&#39;: None}  # 配置图形输出时的边界框设置
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>  <span class="c1"># 设置保存图形时的分辨率为80 dpi</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>  <span class="c1"># 设置图形显示时的分辨率为80 dpi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 设置随机种子为4，以确保结果的可重复性</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>创建具有某种病态背景模式的图像<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>该图像的像素间均方根（RMS）为0.1，我们添加的背景非均匀性与像素间噪声的水平相当。因此，无法在不进行相当程度的平滑处理的情况下去除这些非均匀性。我们将添加：</p>
+<ul class="simple">
+<li><p>一个背景渐变</p></li>
+<li><p>几个散布在图像中的sinc函数瑕疵。使sinc函数的周期足够大，以至于这些瑕疵看起来不太像源（假设它们的大小仅为几个像素到几十个像素）。</p></li>
+</ul>
+<p>这个特定的测试案例被巧妙地选择为一种情况，仅仅通过添加更高阶的（例如）切比雪夫多项式表面拟合可能效果不佳。同样，增加双三次样条的阶数也不太可能令人满意。</p>
+<section id="id6">
+<h3>设置网格和随机数种子以进行模拟<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>该测试最好通过一个2000x2000的图像来说明，但可以使用<code class="docutils literal notranslate"><span class="pre">shrink_factor</span></code>来加快笔记本的运行速度以便于测试。随机数种子被设置为允许结果的可重复性。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_size</span> <span class="o">=</span> <span class="mi">2000</span>  <span class="c1"># 默认图像大小设为2000</span>
+
+<span class="n">shrink_factor</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 缩小因子，用于加快执行速度</span>
+
+<span class="n">nrow</span> <span class="o">=</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">default_size</span> <span class="o">//</span> <span class="n">shrink_factor</span>  <span class="c1"># 计算缩小后的图像行列数</span>
+
+<span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nrow</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">ncol</span><span class="p">]</span>  <span class="c1"># 创建一个网格，用于生成行和列的坐标</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>创建恶劣的天空背景<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>瑕疵作为带有随机中心、宽度和幅度的 sinc 函数插入。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nblemish</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">//</span> <span class="n">shrink_factor</span>  <span class="c1"># 计算要添加的sinc函数瑕疵数量</span>
+
+<span class="n">row_centers</span> <span class="o">=</span> <span class="n">ncol</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">nblemish</span><span class="p">)</span>  <span class="c1"># 随机生成瑕疵的行中心位置</span>
+
+<span class="n">col_centers</span> <span class="o">=</span> <span class="n">nrow</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">nblemish</span><span class="p">)</span>  <span class="c1"># 随机生成瑕疵的列中心位置</span>
+
+<span class="c1"># 使sinc波纹的宽度相对较大</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">+</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">nblemish</span><span class="p">)</span>  <span class="c1"># 随机生成瑕疵的宽度</span>
+
+<span class="n">amplitude</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">nblemish</span><span class="p">)</span>  <span class="c1"># 随机生成瑕疵的幅度</span>
+
+<span class="n">noiseless_sky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>  <span class="c1"># 创建一个全零的图像数组，用于存储无噪声的天空图像</span>
+
+<span class="k">for</span> <span class="n">rr</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row_centers</span><span class="p">,</span> <span class="n">col_centers</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">):</span>  <span class="c1"># 遍历每个瑕疵的参数</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">row</span> <span class="o">-</span> <span class="n">rr</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">col</span> <span class="o">-</span> <span class="n">cc</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算每个像素到瑕疵中心的距离</span>
+
+    <span class="n">noiseless_sky</span> <span class="o">=</span> <span class="n">noiseless_sky</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>  <span class="c1"># 将sinc函数的值添加到无噪声天空图像中</span>
+
+<span class="n">blemishes</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="n">col_centers</span><span class="p">,</span> <span class="n">row_centers</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">],</span>  <span class="c1"># 创建一个表格，存储瑕疵的参数</span>
+                  <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">])</span>  <span class="c1"># 指定表格的列名</span>
+
+<span class="n">blemishes</span>  <span class="c1"># 输出瑕疵参数表</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在瑕疵上添加渐变</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 计算梯度，row和col分别表示行和列的索引</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">*</span><span class="n">row</span><span class="p">)</span><span class="o">/</span><span class="n">nrow</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.25</span><span class="o">*</span><span class="n">col</span><span class="p">)</span><span class="o">/</span><span class="n">ncol</span>
+
+<span class="c1"># 将梯度添加到无噪声的天空背景中</span>
+<span class="n">noiseless_sky</span> <span class="o">+=</span> <span class="n">gradient</span>
+
+<span class="c1"># 生成与无噪声天空背景相同形状的随机噪声，标准差为0.1</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">noiseless_sky</span><span class="p">))</span>
+
+<span class="c1"># 将噪声添加到无噪声天空背景中，得到有噪声的天空背景</span>
+<span class="n">sky_bkgd</span> <span class="o">=</span> <span class="n">noiseless_sky</span> <span class="o">+</span> <span class="n">noise</span>
+
+<span class="c1"># 计算有噪声天空背景的平均值</span>
+<span class="n">mean_bkgd</span> <span class="o">=</span> <span class="n">sky_bkgd</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入matplotlib库中的pyplot模块</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个6x6英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示无噪声的天空图像，原点位于图像的下方</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The noiseless sky background&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形的标题为“无噪声的天空背景”</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>或者，尝试在 Imviz 中打开图像，这是一个新的交互式图像查看工具。有关 Imviz 的更多信息，请访问此链接：<a class="reference external" href="https://jdaviz.readthedocs.io/en/latest/imviz/index.html">Imviz 文档</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imviz</span> <span class="o">=</span> <span class="n">Imviz</span><span class="p">()</span>  <span class="c1"># 创建Imviz对象，用于数据可视化</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">imviz</span><span class="o">.</span><span class="n">default_viewer</span>  <span class="c1"># 获取Imviz的默认查看器</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s1">&#39;noiseless_sky_background&#39;</span><span class="p">)</span>  <span class="c1"># 加载无噪声的天空数据，并为其指定标签</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示JWST望远镜数据的可视化界面</span>
+<span class="n">imviz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>考虑一些可以从笔记本运行的示例 API 命令，尽管许多操作可以在 Imviz 中完成。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取当前查看器的拉伸选项</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">stretch_options</span>
+
+<span class="c1"># 设置查看器的拉伸方式为平方根拉伸</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">stretch</span> <span class="o">=</span> <span class="s1">&#39;sqrt&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取当前查看器的颜色映射选项</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">colormap_options</span>
+
+<span class="c1"># 设置查看器的颜色映射为&#39;Viridis&#39;</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">set_colormap</span><span class="p">(</span><span class="s1">&#39;Viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>加入噪声后观察，并稍作平滑<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>使用10x10的箱形核进行平滑</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对背景天空数据进行卷积处理，使用Box2DKernel进行平滑</span>
+<span class="n">sky_smoothed</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">sky_bkgd</span><span class="o">-</span><span class="n">mean_bkgd</span><span class="p">,</span> <span class="n">Box2DKernel</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 计算平滑后的天空数据的最小和最大值，用于后续显示的色阶</span>
+<span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sky_smoothed</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">99.9</span><span class="p">))</span>
+
+<span class="c1"># 创建一个图形，设置图形大小</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># 创建第一个子图，显示原始天空数据</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+
+<span class="c1"># 显示原始天空数据，设置颜色范围</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sky_bkgd</span><span class="o">-</span><span class="n">mean_bkgd</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置第一个子图的标题</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;The sky with noise&#39;</span><span class="p">)</span>
+
+<span class="c1"># 创建第二个子图，分享x和y轴与第一个子图</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="c1"># 设置第二个子图的标题</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;The sky smoothed&#39;</span><span class="p">)</span>
+
+<span class="c1"># 显示平滑后的天空数据，设置颜色范围</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sky_smoothed</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在Imviz中执行相同操作，并并排比较图像，按像素锁定。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imviz2</span> <span class="o">=</span> <span class="n">Imviz</span><span class="p">()</span>  <span class="c1"># 创建Imviz对象，用于处理JWST数据</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">imviz2</span><span class="o">.</span><span class="n">default_viewer</span>  <span class="c1"># 获取Imviz的默认查看器</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用imviz2对象的show方法以显示图像</span>
+<span class="n">imviz2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加载数据，计算天空背景减去平均背景，并为数据设置标签</span>
+<span class="n">imviz2</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">sky_bkgd</span> <span class="o">-</span> <span class="n">mean_bkgd</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s1">&#39;sky_with_noise&#39;</span><span class="p">)</span>
+
+<span class="c1"># 获取当前的拉伸选项</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">stretch_options</span>
+
+<span class="c1"># 设置视图的拉伸方式为平方根拉伸</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">stretch</span> <span class="o">=</span> <span class="s1">&#39;sqrt&#39;</span>
+
+<span class="c1"># 获取当前的颜色映射选项</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">colormap_options</span>
+
+<span class="c1"># 设置视图的颜色映射为&#39;Viridis&#39;</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">set_colormap</span><span class="p">(</span><span class="s1">&#39;Viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加载平滑后的天空数据，并指定数据标签</span>
+<span class="n">imviz2</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">sky_smoothed</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s1">&#39;sky_smoothed&#39;</span><span class="p">)</span>
+
+<span class="c1"># 定义第二个查看器的名称</span>
+<span class="n">viewer2_name</span> <span class="o">=</span> <span class="s1">&#39;viewer2&#39;</span>
+
+<span class="c1"># 创建一个新的图像查看器，并将其命名为 viewer2</span>
+<span class="n">viewer2</span> <span class="o">=</span> <span class="n">imviz2</span><span class="o">.</span><span class="n">create_image_viewer</span><span class="p">(</span><span class="n">viewer_name</span><span class="o">=</span><span class="n">viewer2_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将数据添加到指定的查看器中</span>
+<span class="n">imviz2</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">add_data_to_viewer</span><span class="p">(</span><span class="n">viewer2_name</span><span class="p">,</span> <span class="s1">&#39;sky_smoothed&#39;</span><span class="p">)</span>
+
+<span class="c1"># 获取查看器的拉伸选项</span>
+<span class="n">viewer2</span><span class="o">.</span><span class="n">stretch_options</span>
+
+<span class="c1"># 设置查看器的拉伸方式为平方根</span>
+<span class="n">viewer2</span><span class="o">.</span><span class="n">stretch</span> <span class="o">=</span> <span class="s1">&#39;sqrt&#39;</span>
+
+<span class="c1"># 获取查看器的颜色映射选项</span>
+<span class="n">viewer2</span><span class="o">.</span><span class="n">colormap_options</span>
+
+<span class="c1"># 设置查看器的颜色映射为&#39;Viridis&#39;</span>
+<span class="n">viewer2</span><span class="o">.</span><span class="n">set_colormap</span><span class="p">(</span><span class="s1">&#39;Viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>这两幅图像默认是通过像素链接的。点击缩放/平移工具可以更仔细地查看图像。这两幅图像将同步缩放和平移。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入Image类，用于显示图像</span>
+<span class="n">Image</span><span class="p">(</span><span class="s1">&#39;./imviz_2images.png&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="o">=</span><span class="s1">&#39;Imviz with two viewers. Highlighted tool for linked zoom and pan.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>添加一些随机源<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>我们将创建一个源目录，这些源具有椭圆高斯（elliptical Gaussian）轮廓，具有多种通量（flux）、大小（size）和位置角（position angle）。这些源的大小相对于背景结构保持相对较小。为了方便起见，将这些源存储在Astropy表中。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sources</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span>  <span class="c1"># 创建一个空的表格用于存储源数据</span>
+
+<span class="n">nsources</span> <span class="o">=</span> <span class="mi">5000</span><span class="o">//</span><span class="p">(</span><span class="n">shrink_factor</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算源的数量，考虑缩放因子</span>
+
+<span class="n">rand_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span>  <span class="c1"># 保存随机数生成函数以减少输入</span>
+
+<span class="n">random_sample</span> <span class="o">=</span> <span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span>  <span class="c1"># 生成 nsources 个随机数</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;x_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">+</span><span class="p">(</span><span class="n">ncol</span><span class="o">-</span><span class="mf">4.</span><span class="p">)</span><span class="o">*</span><span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span>  <span class="c1"># 计算 x 坐标的均值，避免边缘</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;y_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">+</span><span class="p">(</span><span class="n">nrow</span><span class="o">-</span><span class="mf">4.</span><span class="p">)</span><span class="o">*</span><span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span>  <span class="c1"># 计算 y 坐标的均值，避免边缘</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span>  <span class="c1"># 计算源的流量，范围在 0 到 50 之间</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;x_stddev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5.</span><span class="o">*</span><span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span>  <span class="c1"># 计算 x 坐标的标准差</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;y_stddev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5.</span><span class="o">*</span><span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span>  <span class="c1"># 计算 y 坐标的标准差</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;re&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;x_stddev&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;y_stddev&#39;</span><span class="p">])</span>  <span class="c1"># 计算有效半径</span>
+
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">180.</span><span class="o">*</span><span class="n">rand_sample</span><span class="p">(</span><span class="n">nsources</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.</span>  <span class="c1"># 计算角度，转换为弧度</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>将这些来源添加到图像中以创建一个场景。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Gaussian2D</span><span class="p">()</span>  <span class="c1"># 创建一个二维高斯模型</span>
+
+<span class="n">source_img</span> <span class="o">=</span> <span class="n">make_model_image</span><span class="p">(</span><span class="n">sky_bkgd</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span>  <span class="c1"># 生成源图像，使用背景图像的形状和源数据</span>
+                              <span class="n">x_name</span><span class="o">=</span><span class="s1">&#39;x_mean&#39;</span><span class="p">,</span> <span class="n">y_name</span><span class="o">=</span><span class="s1">&#39;y_mean&#39;</span><span class="p">)</span>  <span class="c1"># 指定高斯模型的x和y均值参数名称</span>
+
+<span class="n">scene</span> <span class="o">=</span> <span class="n">source_img</span> <span class="o">+</span> <span class="n">sky_bkgd</span>  <span class="c1"># 将源图像与背景图像相加，形成最终场景</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个6x6英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">mean_bkgd</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示场景图像，减去背景，设置颜色范围和原点位置</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The scene, with the sources and nasty sky background&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>并排比较两幅图像的绘图例程<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_two</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">titles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">],</span>
+             <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">):</span>
+    <span class="c1"># 创建一个新的图形，设置图形大小</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+    <span class="c1"># 在图形中添加第一个子图，位置为121</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+
+    <span class="c1"># 显示第一个图像，设置颜色范围和颜色映射</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 设置第一个子图的标题</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># 在图形中添加第二个子图，位置为122，并共享x轴和y轴</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+    <span class="c1"># 显示第二个图像，设置颜色范围和颜色映射</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img2</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 设置第二个子图的标题</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="photutils-background2d">
+<h2>尝试使用 Photutils 的 Background2D 网格作为第一次尝试<a class="headerlink" href="#photutils-background2d" title="Link to this heading">#</a></h2>
+<p>现在我们需要对背景进行初步估计。Photutils 提供了一个灵活的接口，用于在一个网格单元中估计背景。我们在这里使用 <code class="docutils literal notranslate"><span class="pre">Background2D</span></code> 例程，并设置了一组相当典型的参数。有关更多信息，请参见 <a class="reference external" href="https://photutils.readthedocs.io/en/stable/api/photutils.background.Background2D.html#photutils.background.Background2D">文档</a>。</p>
+<p>此任务创建一个覆盖图像的矩形单元网格。每个单元内未被遮罩的像素使用可配置的稳健统计量进行“平均”。然后，这些平均值可以在更大范围内使用可配置的稳健统计量进行“平均”。这个经过滤波的平均值集随后用于输入插值例程，以生成平滑的背景。默认的插值方法是双三次样条插值，但我们将在后面的笔记本中展示反距离加权插值。</p>
+<p>尝试调整 <code class="docutils literal notranslate"><span class="pre">Background2D</span></code> 的参数以查看效果。</p>
+<ul class="simple">
+<li><p>第二个参数（下面的 50）是网格大小。如果需要，这也可以是一个矩形，例如 (50,40)。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sigma_clip</span></code> 是在网格单元内进行稳健平均时使用的方法。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_size</span></code> 是在进行插值之前要“平均”的单元数量。如果需要，这也可以是一个矩形，例如 (3,4)。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bkg_estimator</span></code> 是用于平均单元中值的方法。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exclude_percentile</span></code> 如果一个网格的像素遮罩超过此百分比，则它将被排除在低分辨率图中。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">interpolator</span></code> 是用于插值背景的方法（在这种情况下为双三次样条插值）。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个背景估计对象，使用2D背景估计</span>
+<span class="n">bkg</span> <span class="o">=</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">box_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>  <span class="c1"># 设置背景估计的场景和盒子大小为50</span>
+                   <span class="n">sigma_clip</span><span class="o">=</span><span class="n">SigmaClip</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">3.</span><span class="p">),</span>  <span class="c1"># 使用SigmaClip进行噪声剪切，设置sigma为3</span>
+                   <span class="n">filter_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># 设置滤波器大小为3</span>
+                   <span class="n">exclude_percentile</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>  <span class="c1"># 排除前50%的像素值</span>
+                   <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">MedianBackground</span><span class="p">(),</span>  <span class="c1"># 使用中位数背景估计</span>
+                   <span class="n">interpolator</span><span class="o">=</span><span class="n">BkgZoomInterpolator</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># 使用三阶插值器进行背景插值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个6x6英寸的图形</span>
+
+<span class="n">bkgimg</span> <span class="o">=</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span>  <span class="c1"># 获取估计的背景图像</span>
+
+<span class="c1"># 显示背景图像与无噪声天空图像的差异，设置颜色范围</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bkgimg</span> <span class="o">-</span> <span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示图像，设置最小值和最大值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>制作几个掩膜。<code class="docutils literal notranslate"><span class="pre">make_source_mask</span></code> 例程有几个选项。尝试更改它们以查看效果。这里的目标是找到并掩膜源，而不在背景较高的区域看到明显的源增强。可以调整几个参数：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nsigma</span></code> – 我们将尝试使用 2 和 3 sigma 截断</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">npixels</span></code> – 在掩膜之前，要求超过阈值的连接像素数量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dilate_size</span></code> – 用于扩展掩膜的方形箱形滤波器的大小</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_fwhm</span></code> – 在阈值处理之前，图像与此 FWHM 的高斯函数进行卷积。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_source_mask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nsigma</span><span class="p">,</span> <span class="n">npixels</span><span class="p">,</span> <span class="n">filter_fwhm</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">dilate_size</span><span class="o">=</span><span class="mi">11</span><span class="p">):</span>
+    <span class="c1"># 创建一个二维高斯核，使用给定的滤波器全宽半最大值（FWHM）和大小</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">make_2dgaussian_kernel</span><span class="p">(</span><span class="n">filter_fwhm</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># 使用高斯核对数据进行卷积</span>
+    <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
+
+    <span class="c1"># 创建一个SigmaClip对象，用于进行sigma剪切，设置sigma和最大迭代次数</span>
+    <span class="n">sigma_clip</span> <span class="o">=</span> <span class="n">SigmaClip</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">maxiters</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># 对数据进行sigma剪切，返回剪切后的数据</span>
+    <span class="n">clipped_data</span> <span class="o">=</span> <span class="n">sigma_clip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># 计算剪切后数据的均值</span>
+    <span class="n">mean_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">clipped_data</span><span class="p">)</span>
+
+    <span class="c1"># 计算剪切后数据的标准差</span>
+    <span class="n">std_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">clipped_data</span><span class="p">)</span>
+
+    <span class="c1"># 计算阈值，使用均值和指定的nsigma倍数的标准差</span>
+    <span class="n">threshold_2sigma</span> <span class="o">=</span> <span class="n">mean_</span> <span class="o">+</span> <span class="n">nsigma</span> <span class="o">*</span> <span class="n">std_</span>
+
+    <span class="c1"># 检测源，返回分割图像</span>
+    <span class="n">segm</span> <span class="o">=</span> <span class="n">detect_sources</span><span class="p">(</span><span class="n">convolved_data</span><span class="p">,</span> <span class="n">threshold_2sigma</span><span class="p">,</span> <span class="n">npixels</span><span class="p">)</span>
+
+    <span class="c1"># 返回源掩膜，使用指定的膨胀大小</span>
+    <span class="k">return</span> <span class="n">segm</span><span class="o">.</span><span class="n">make_source_mask</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">dilate_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个2σ的源掩膜</span>
+<span class="n">mask_2sigma</span> <span class="o">=</span> <span class="n">make_source_mask</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">bkgimg</span><span class="p">,</span> <span class="n">nsigma</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">npixels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                               <span class="n">dilate_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">filter_fwhm</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 创建一个3σ的源掩膜</span>
+<span class="n">mask_3sigma</span> <span class="o">=</span> <span class="n">make_source_mask</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">bkgimg</span><span class="p">,</span> <span class="n">nsigma</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">npixels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                               <span class="n">dilate_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">filter_fwhm</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 绘制2σ和3σ掩膜的比较图</span>
+<span class="n">plot_two</span><span class="p">(</span><span class="n">mask_2sigma</span><span class="p">,</span> <span class="n">mask_3sigma</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>尝试在 <code class="docutils literal notranslate"><span class="pre">Background2D</span></code> 任务中减小背景估计的网格大小。较小的网格大小确实有帮助，但在右侧的残差图像中有一个迹象表明，源对象正在影响背景估计。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma_clip</span> <span class="o">=</span> <span class="n">SigmaClip</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>  <span class="c1"># 创建一个SigmaClip对象，设置sigma为3，用于背景噪声的剪切</span>
+
+<span class="n">bkg_estimator</span> <span class="o">=</span> <span class="n">MedianBackground</span><span class="p">()</span>  <span class="c1"># 创建一个MedianBackground对象，用于估计背景</span>
+
+<span class="c1"># 创建第一个背景估计对象bkg1，使用30x30的区域和3x3的滤波器</span>
+<span class="n">bkg1</span> <span class="o">=</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask_3sigma</span><span class="p">,</span>
+                    <span class="n">sigma_clip</span><span class="o">=</span><span class="n">sigma_clip</span><span class="p">,</span> <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">bkg_estimator</span><span class="p">)</span>
+
+<span class="c1"># 创建第二个背景估计对象bkg2，使用15x15的区域和3x3的滤波器</span>
+<span class="n">bkg2</span> <span class="o">=</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask_3sigma</span><span class="p">,</span>
+                    <span class="n">sigma_clip</span><span class="o">=</span><span class="n">sigma_clip</span><span class="p">,</span> <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">bkg_estimator</span><span class="p">)</span>
+
+<span class="n">bkg1img</span> <span class="o">=</span> <span class="n">bkg1</span><span class="o">.</span><span class="n">background</span>  <span class="c1"># 获取第一个背景估计的图像</span>
+
+<span class="n">bkg2img</span> <span class="o">=</span> <span class="n">bkg2</span><span class="o">.</span><span class="n">background</span>  <span class="c1"># 获取第二个背景估计的图像</span>
+
+<span class="c1"># 绘制两个背景图像与无噪声天空图像的差异，设置z轴范围和标题</span>
+<span class="n">plot_two</span><span class="p">(</span><span class="n">bkg1img</span><span class="o">-</span><span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">bkg2img</span><span class="o">-</span><span class="n">noiseless_sky</span><span class="p">,</span>
+         <span class="mf">0.1</span><span class="o">*</span><span class="n">zmin</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">zmax</span><span class="p">,</span> <span class="n">titles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bkg1&#39;</span><span class="p">,</span> <span class="s1">&#39;bkg2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h2>环形中值滤波图像<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>显然，我们需要进行更多的迭代来去除源。在此之前，让我们尝试另一种去除源的方法：环形中值滤波。为此，创建一个比感兴趣的源更大的滤波核。使用 <code class="docutils literal notranslate"><span class="pre">scipy</span></code> 的中值滤波例程，将其滑动到图像上，计算环内所有像素的中值。这基本上为每个像素提供了局部背景估计。</p>
+<p>（虽然我们在这里没有说明，但可以使用 <a class="reference external" href="https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.ndimage.filters.generic_filter.html"><code class="docutils literal notranslate"><span class="pre">scipy.ndimage.generic_filter</span></code></a> 并传递一个函数来计算其他内容，而不仅仅是中值。）</p>
+<p>下面的单元格设置了滤波核。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ring</span> <span class="o">=</span> <span class="n">Ring2DKernel</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 创建一个半径为15，宽度为5的环形2D核</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>  <span class="c1"># 显示环形核的数组图像</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>比较场景（去除均值背景）与过滤后的场景。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对场景数据应用中值滤波，使用环形的足迹</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">median_filter</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="n">ring</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+
+<span class="c1"># 绘制两个图像：一个是去除背景后的源图像，另一个是去除背景后的中值滤波图像</span>
+<span class="n">plot_two</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">mean_bkgd</span><span class="p">,</span> <span class="n">filtered</span><span class="o">-</span><span class="n">mean_bkgd</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span>
+
+         <span class="n">titles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Sources&#39;</span><span class="p">,</span> <span class="s1">&#39;ring-median filtered&#39;</span><span class="p">])</span>  <span class="c1"># 设置图像标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>从场景中减去环形中值滤波图像，作为背景减除的第一步。用一个卷积核对其进行卷积，以平滑处理以便进行源检测，然后对其进行阈值处理，以识别出属于源的像素。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将场景过滤后的数据赋值给变量difference</span>
+<span class="n">difference</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-</span><span class="n">filtered</span>
+
+<span class="c1"># 使用高斯2D卷积核对difference进行平滑处理，卷积核大小为3</span>
+<span class="n">smoothed</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">difference</span><span class="p">,</span> <span class="n">Gaussian2DKernel</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># 创建一个掩膜，掩膜的条件是平滑后的数据大于其标准差的1倍</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">smoothed</span> <span class="o">&gt;</span> <span class="mf">1.</span><span class="o">*</span><span class="n">smoothed</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1"># 绘制两个图像：原始差异图和掩膜图</span>
+<span class="n">plot_two</span><span class="p">(</span><span class="n">difference</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span>
+
+         <span class="n">titles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scene minus ring-median filtered scene&#39;</span><span class="p">,</span> <span class="s1">&#39;mask&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>通常，扩展掩模是很有用的。这可以通过与滤波器进行卷积来实现。在这里，我们采用圆形顶帽滤波器。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dilate_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">tophat_size</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; 取一个掩膜并使被掩膜区域变大。&#39;&#39;&#39;</span>
+
+    <span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">tophat_size</span><span class="o">**</span><span class="mf">2.</span>  <span class="c1"># 计算圆形区域的面积</span>
+
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">Tophat2DKernel</span><span class="p">(</span><span class="n">tophat_size</span><span class="p">)</span>  <span class="c1"># 创建一个二维的顶帽核</span>
+
+    <span class="n">dilated_mask</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">area</span>  <span class="c1"># 使用卷积扩展掩膜区域</span>
+
+    <span class="k">return</span> <span class="n">dilated_mask</span>  <span class="c1"># 返回扩展后的掩膜</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用dilate_mask函数对mask进行膨胀处理，膨胀程度为2</span>
+<span class="n">dilated_mask</span> <span class="o">=</span> <span class="n">dilate_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 调用plot_two函数绘制原始mask和膨胀后的mask，设置子图的索引和标题</span>
+<span class="n">plot_two</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">dilated_mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">titles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span> <span class="s1">&#39;dilated mask&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>对图像进行遮罩处理，查看仍然剩余多少源。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制两个场景图像</span>
+<span class="n">plot_two</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">noiseless_sky</span><span class="p">,</span>  <span class="c1"># 第一个图像：无噪声的天空场景</span>
+         <span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">noiseless_sky</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">mask</span><span class="p">),</span>  <span class="c1"># 第二个图像：应用掩膜后的无噪声天空场景</span>
+         <span class="n">zmin</span><span class="p">,</span>  <span class="c1"># 图像的最小值</span>
+         <span class="n">zmax</span><span class="p">,</span>  <span class="c1"># 图像的最大值</span>
+         <span class="n">titles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scene without background&#39;</span><span class="p">,</span>  <span class="c1"># 图像标题：无背景场景</span>
+                 <span class="s1">&#39;masked scene without background&#39;</span><span class="p">])</span>  <span class="c1"># 图像标题：无背景的掩膜场景</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>让我们制作一个更精美的图表，展示背景残差、包含源的残差以及叠加源掩模的图像，以及背景减去后的场景。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_bkgd</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">bkgd</span><span class="p">,</span> <span class="n">noiseless_bkgd</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span>
+              <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># 控制颜色映射的拉伸</span>
+              <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;制作一个三面板的图像：</span>
+
+<span class="sd">         * 残余天空背景</span>
+
+<span class="sd">         * 残余天空背景乘以掩膜，掩膜源以&#39;+&#39;符号叠加，</span>
+
+<span class="sd">           未掩膜源以圆圈叠加，以及</span>
+
+<span class="sd">         * 背景减去的场景。</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">bkgd</span> <span class="o">-</span> <span class="n">noiseless_bkgd</span>  <span class="c1"># 计算残余背景</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>  <span class="c1"># 创建一个指定大小的图形</span>
+
+    <span class="c1"># 绘制背景残余</span>
+
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>  <span class="c1"># 创建第一个子图</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">residual</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">factor</span><span class="o">*</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">factor</span><span class="o">*</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示残余图像</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;residual sky background&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1"># 创建第二个子图，分享x和y轴</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">residual</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="n">factor</span><span class="o">*</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">factor</span><span class="o">*</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示掩膜后的残余图像</span>
+
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;x_mean&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>  <span class="c1"># 获取源的x坐标并四舍五入为整数</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;y_mean&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>  <span class="c1"># 获取源的y坐标并四舍五入为整数</span>
+
+    <span class="n">masked</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">ys</span><span class="p">,</span> <span class="n">xs</span><span class="p">]</span>  <span class="c1"># 获取被掩膜的源</span>
+    <span class="n">unmasked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">masked</span><span class="p">)</span>  <span class="c1"># 获取未被掩膜的源</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span> <span class="n">ys</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">][</span><span class="n">masked</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span>  <span class="c1"># 绘制被掩膜源</span>
+                <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># 设置颜色和透明度</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span> <span class="n">ys</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">][</span><span class="n">unmasked</span><span class="p">],</span>  <span class="c1"># 绘制未被掩膜源</span>
+                <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># 设置颜色和透明度</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scene</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 设置x轴范围</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scene</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 设置y轴范围</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;with masked + unmasked O sources&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+    <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1"># 创建第三个子图，分享x和y轴</span>
+
+    <span class="n">ax3</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">scene</span> <span class="o">-</span> <span class="n">bkgd</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示背景减去的场景图像</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Scene minus estimated background&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual RMS, peak = </span><span class="si">{</span><span class="n">residual</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">residual</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印残余的标准差和最大值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>试试这个更复杂的图。前两个图的默认缩放在颜色映射上有更大的拉伸，因此我们现在可以看到所有明亮源周围都有环状残差。这在第三个图中并不明显，因为它使用的是我们之前图形的缩放方式。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_bkgd</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">filtered</span><span class="p">,</span> <span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    绘制背景图像和源图像的函数</span>
+<span class="sd">    :param scene: 场景图像数据</span>
+<span class="sd">    :param mask: 掩膜数据</span>
+<span class="sd">    :param filtered: 过滤后的图像数据</span>
+<span class="sd">    :param noiseless_sky: 无噪声天空图像数据</span>
+<span class="sd">    :param sources: 源图像数据</span>
+<span class="sd">    :param zmin: z轴最小值</span>
+<span class="sd">    :param zmax: z轴最大值</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入数值计算库</span>
+
+    <span class="c1"># 创建一个新的图形</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 设置图形大小</span>
+
+    <span class="c1"># 绘制无噪声天空图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建2x2的子图，选择第1个子图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>  <span class="c1"># 显示无噪声天空图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Noiseless Sky&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># 添加颜色条</span>
+
+    <span class="c1"># 绘制场景图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 选择第2个子图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>  <span class="c1"># 显示场景图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scene&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># 添加颜色条</span>
+
+    <span class="c1"># 绘制过滤后的图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 选择第3个子图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">filtered</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>  <span class="c1"># 显示过滤后的图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Filtered&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># 添加颜色条</span>
+
+    <span class="c1"># 绘制源图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># 选择第4个子图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>  <span class="c1"># 显示源图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sources&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># 添加颜色条</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图间距</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h2>设置一些便于迭代掩膜的例程<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>接下来，我们将尝试在拟合背景时进行迭代，并逐步去除信噪比（S/N）较低的源。我们希望在每一步都进行检查。以下是一些减少输入的函数：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SourceMask</span></code> – 这是一个类，用于设置掩膜的一些参数，并提供几个方法：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">single</span></code> – 应用现有掩膜，然后使用 photutils 的 make_source_mask 创建一个新掩膜；用圆形顶帽（circular tophat）卷积掩膜，并进行阈值处理以扩展它。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiple</span></code> – 重复应用 <code class="docutils literal notranslate"><span class="pre">single</span></code> 方法以生成新掩膜。或者将其与之前的掩膜进行逻辑或（OR）操作。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_worst_residual_near_center</span></code> – 在绘制放大图像以进行检查时，我们希望选择远离边缘的区域，该区域具有最差的残差。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_mask</span></code> – 绘制整个图像的掩膜，并将其作为轮廓叠加在小子区域上进行绘制。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_background</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">box_size</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">interp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filter_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">exclude_percentile</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; 运行 photutils 背景处理，使用 SigmaClip 和 MedianBackground &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">interp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">interp</span> <span class="o">=</span> <span class="n">BkgZoomInterpolator</span><span class="p">()</span>  <span class="c1"># 如果没有提供插值器，则使用默认的 BkgZoomInterpolator</span>
+
+    <span class="k">return</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">box_size</span><span class="p">,</span>  <span class="c1"># 创建一个 2D 背景对象</span>
+                        <span class="n">sigma_clip</span><span class="o">=</span><span class="n">SigmaClip</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">3.</span><span class="p">),</span>  <span class="c1"># 使用 SigmaClip 进行背景估计，设置 sigma 为 3</span>
+                        <span class="n">filter_size</span><span class="o">=</span><span class="n">filter_size</span><span class="p">,</span>  <span class="c1"># 设置滤波器的大小</span>
+                        <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">MedianBackground</span><span class="p">(),</span>  <span class="c1"># 使用中值背景估计</span>
+                        <span class="n">exclude_percentile</span><span class="o">=</span><span class="n">exclude_percentile</span><span class="p">,</span>  <span class="c1"># 设置排除的百分位数</span>
+                        <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>  <span class="c1"># 应用掩膜</span>
+                        <span class="n">interpolator</span><span class="o">=</span><span class="n">interp</span><span class="p">)</span>  <span class="c1"># 使用指定的插值器</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SourceMask</span><span class="p">:</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">nsigma</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span> <span class="n">npixels</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        初始化源掩膜的帮助类。</span>
+<span class="sd">        参数：</span>
+<span class="sd">        img: 输入图像</span>
+<span class="sd">        nsigma: 用于掩膜的标准差阈值</span>
+<span class="sd">        npixels: 用于掩膜的像素数量</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="n">img</span>  <span class="c1"># 保存输入图像</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nsigma</span> <span class="o">=</span> <span class="n">nsigma</span>  <span class="c1"># 保存标准差阈值</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">npixels</span> <span class="o">=</span> <span class="n">npixels</span>  <span class="c1"># 保存像素数量</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_fwhm</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span> <span class="n">tophat_size</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        在单一尺度上创建掩膜</span>
+<span class="sd">        参数：</span>
+<span class="sd">        filter_fwhm: 高斯滤波器的全宽半最大值</span>
+<span class="sd">        tophat_size: 顶帽滤波器的大小</span>
+<span class="sd">        mask: 可选的掩膜</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span>  <span class="c1"># 如果没有提供掩膜，则使用原始图像</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">)</span>  <span class="c1"># 使用掩膜来调整图像</span>
+
+        <span class="c1"># 创建源掩膜</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">make_source_mask</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">nsigma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nsigma</span><span class="p">,</span>
+                                <span class="n">npixels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">npixels</span><span class="p">,</span>
+                                <span class="n">dilate_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">filter_fwhm</span><span class="o">=</span><span class="n">filter_fwhm</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dilate_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">tophat_size</span><span class="p">)</span>  <span class="c1"># 返回扩展后的掩膜</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_fwhm</span><span class="o">=</span><span class="p">[</span><span class="mf">3.</span><span class="p">],</span> <span class="n">tophat_size</span><span class="o">=</span><span class="p">[</span><span class="mf">3.</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        在不同尺度上重复创建掩膜</span>
+<span class="sd">        参数：</span>
+<span class="sd">        filter_fwhm: 高斯滤波器的全宽半最大值列表</span>
+<span class="sd">        tophat_size: 顶帽滤波器的大小列表</span>
+<span class="sd">        mask: 可选的掩膜</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># 初始化掩膜为全False</span>
+
+        <span class="k">for</span> <span class="n">fwhm</span><span class="p">,</span> <span class="n">tophat</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">filter_fwhm</span><span class="p">,</span> <span class="n">tophat_size</span><span class="p">):</span>
+            <span class="n">smask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">single</span><span class="p">(</span><span class="n">filter_fwhm</span><span class="o">=</span><span class="n">fwhm</span><span class="p">,</span> <span class="n">tophat_size</span><span class="o">=</span><span class="n">tophat</span><span class="p">)</span>  <span class="c1"># 创建单尺度掩膜</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">|</span> <span class="n">smask</span>  <span class="c1"># 将当前掩膜与新掩膜进行逻辑或操作</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span>  <span class="c1"># 返回最终的综合掩膜</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">find_worst_residual_near_center</span><span class="p">(</span><span class="n">resid</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;查找最差残差的像素位置，避免边缘区域&#39;&#39;&#39;</span>
+
+    <span class="n">yc</span><span class="p">,</span> <span class="n">xc</span> <span class="o">=</span> <span class="n">resid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">resid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span>  <span class="c1"># 计算图像中心的y和x坐标</span>
+
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">resid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span>  <span class="c1"># 定义一个半径，取图像高度的三分之一</span>
+
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">resid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">:</span><span class="n">resid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># 创建一个网格，包含所有像素的y和x坐标</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">yc</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">xc</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">radius</span>  <span class="c1"># 创建一个掩膜，选择距离中心在半径内的像素</span>
+
+    <span class="n">rmasked</span> <span class="o">=</span> <span class="n">resid</span><span class="o">*</span><span class="n">mask</span>  <span class="c1"># 将残差图像与掩膜相乘，保留中心区域的残差值，其余区域为0</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">rmasked</span><span class="p">),</span> <span class="n">resid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 返回最差残差的像素位置</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_mask</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">bkgd</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">worst</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;制作一个三面板图：</span>
+<span class="sd">         * 整个图像的掩膜,</span>
+<span class="sd">         * 场景乘以掩膜,</span>
+<span class="sd">         * 放大区域，掩膜以轮廓显示</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">worst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># 如果没有提供最差的残差位置</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">find_worst_residual_near_center</span><span class="p">(</span><span class="n">bkgd</span><span class="o">-</span><span class="n">noiseless_sky</span><span class="p">)</span>  <span class="c1"># 查找中心附近的最差残差位置</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果提供了最差的残差位置</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">worst</span>  <span class="c1"># 使用提供的位置</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 创建一个20x10英寸的图形</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>  <span class="c1"># 创建第一个子图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示掩膜图像</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>  <span class="c1"># 创建第二个子图</span>
+    <span class="k">if</span> <span class="n">smooth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果不需要平滑</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="n">scene</span><span class="o">-</span><span class="n">bkgd</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">mask</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示场景与背景的差异</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果需要平滑</span>
+        <span class="n">smoothed</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">((</span><span class="n">scene</span><span class="o">-</span><span class="n">bkgd</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">mask</span><span class="p">),</span> <span class="n">Gaussian2DKernel</span><span class="p">(</span><span class="n">smooth</span><span class="p">))</span>  <span class="c1"># 对差异进行高斯平滑</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">smoothed</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">mask</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="o">/</span><span class="n">smooth</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="o">/</span><span class="n">smooth</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示平滑后的图像</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>  <span class="c1"># 创建第三个子图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">bkgd</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">)</span>  <span class="c1"># 显示场景与背景的差异</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># 在图像上绘制掩膜的轮廓</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 设置y轴的范围</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 设置x轴的范围</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>  <span class="c1"># 返回最差残差的位置</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h2>在掩蔽源后更精细地估计背景<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 计算背景，使用指定的场景、盒子大小、滤波器大小和掩膜</span>
+<span class="n">bkg3</span> <span class="o">=</span> <span class="n">my_background</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">box_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">filter_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+
+<span class="c1"># 获取计算出的背景图像</span>
+<span class="n">bkg3img</span> <span class="o">=</span> <span class="n">bkg3</span><span class="o">.</span><span class="n">background</span>
+
+<span class="c1"># 绘制背景图像，传入场景、掩膜、背景图像、无噪声天空、源、最小值和最大值</span>
+<span class="n">plot_bkgd</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">bkg3img</span><span class="p">,</span> <span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id14">
+<h3>尝试不同的插值算法。<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Shephard反距离加权法（Shephard inverse-distance weighting）搜索离感兴趣像素最近的N个网格点，并将它们的权重设置为 <span class="math notranslate nohighlight">\(1/(D^p + \lambda)\)</span>，其中 <span class="math notranslate nohighlight">\(D\)</span> 是到邻居的距离，<span class="math notranslate nohighlight">\(p\)</span> 是一个幂次，<span class="math notranslate nohighlight">\(\lambda\)</span> 是一个参数，用于使邻居的权重在靠近感兴趣像素时更加平滑。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个反距离加权插值器，设置邻居数量为20，权重为1，正则化参数为30</span>
+<span class="n">interpolator</span> <span class="o">=</span> <span class="n">BkgIDWInterpolator</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># 计算背景，使用指定的场景、盒子大小、滤波器大小和掩膜</span>
+<span class="n">bkg4</span> <span class="o">=</span> <span class="n">my_background</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">box_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">filter_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+                     <span class="n">interp</span><span class="o">=</span><span class="n">interpolator</span><span class="p">,</span> <span class="n">exclude_percentile</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="c1"># 提取计算得到的背景图像</span>
+<span class="n">bkg4img</span> <span class="o">=</span> <span class="n">bkg4</span><span class="o">.</span><span class="n">background</span>
+
+<span class="c1"># 绘制背景图像，包含场景、掩膜、背景图像、无噪声天空、源、最小和最大z值</span>
+<span class="n">plot_bkgd</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">bkg4img</span><span class="p">,</span> <span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h3>制作更深的源掩膜<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>此过程运行三次迭代，使用不同的核宽度和不同的顶帽尺寸来扩展掩膜。尝试调整 <code class="docutils literal notranslate"><span class="pre">sigma</span></code>、<code class="docutils literal notranslate"><span class="pre">filter_fwhm</span></code> 和 <code class="docutils literal notranslate"><span class="pre">tophat_size</span></code>，观察它们如何影响源的检测。目标是掩盖那些明显可见的源，同时保留足够的像素以便追踪背景。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建源掩模，使用场景图像和背景图像，设置标准差为1.5</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="n">SourceMask</span><span class="p">(</span><span class="n">scene</span><span class="o">-</span><span class="n">bkg4img</span><span class="p">,</span> <span class="n">nsigma</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># 生成多个掩模，使用不同的滤波器全宽半高（FWHM）和方形滤波器大小</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">multiple</span><span class="p">(</span><span class="n">filter_fwhm</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                   <span class="n">tophat_size</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># 绘制掩模，显示场景图像、背景图像和生成的掩模，设置最小值和最大值</span>
+<span class="n">plot_mask</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">bkg4img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">)</span>
+
+<span class="c1"># 计算掩模中所有元素的总和</span>
+<span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id16">
+<h3>使用这个新掩模重新进行背景估计。<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>调整 <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>、<code class="docutils literal notranslate"><span class="pre">box_size</span></code>、<code class="docutils literal notranslate"><span class="pre">filter_size</span></code> 和 <code class="docutils literal notranslate"><span class="pre">exclude_percentile</span></code>，观察它们如何影响残差。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个反距离加权插值器，设置邻居数量为20，权重为0，正则化参数为30</span>
+<span class="n">interpolator</span> <span class="o">=</span> <span class="n">BkgIDWInterpolator</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># 计算背景，使用指定的场景、盒子大小、滤波器大小和掩膜</span>
+<span class="n">bkg5</span> <span class="o">=</span> <span class="n">my_background</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">box_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">filter_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+                     <span class="n">interp</span><span class="o">=</span><span class="n">interpolator</span><span class="p">,</span> <span class="n">exclude_percentile</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="c1"># 获取计算得到的背景图像</span>
+<span class="n">bkg5img</span> <span class="o">=</span> <span class="n">bkg5</span><span class="o">.</span><span class="n">background</span>
+
+<span class="c1"># 绘制背景图像，包含场景、掩膜、背景图像、无噪声天空、源、最小值和最大值</span>
+<span class="n">plot_bkgd</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">bkg5img</span><span class="p">,</span> <span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id17">
+<h2>检查由于星系引起的偏差<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>由于我们处理的是一个已知真实情况的模拟，我们可以直接评估偏差。（在真实图像的情况下，我们无法这样做；我们将在后面建议另一种测试。）</p>
+<p>将每个星系下方中央3x3像素的残余背景与星系的通量进行制表，分别针对被遮罩和未被遮罩的情况。首先，我们需要获取这些值。对每个源中心的3x3像素取平均值。记录在拟合背景时被遮罩的像素和未被遮罩的像素，以便我们可以分别检查任何偏差。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bkgd</span> <span class="o">=</span> <span class="n">bkg5img</span>  <span class="c1"># 将背景图像赋值给变量bkgd</span>
+
+<span class="n">residual_image</span> <span class="o">=</span> <span class="n">bkgd</span> <span class="o">-</span> <span class="n">noiseless_sky</span>  <span class="c1"># 计算残差图像，等于背景减去无噪声天空</span>
+
+<span class="c1"># 创建表格中的列，用于存储背景估计、残差和是否被遮罩的标志</span>
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;bkgd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span>  <span class="c1"># 初始化背景列为0</span>
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;resid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span>  <span class="c1"># 初始化残差列为0</span>
+<span class="n">sources</span><span class="p">[</span><span class="s1">&#39;masked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># 初始化遮罩列为False</span>
+
+<span class="c1"># 计算每个源中心的3x3像素值</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)):</span>  <span class="c1"># 遍历每个源</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># 获取当前源</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;x_mean&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>  <span class="c1"># 获取源的x坐标并四舍五入为整数</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;y_mean&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>  <span class="c1"># 获取源的y坐标并四舍五入为整数</span>
+
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">ncol</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 计算x坐标的最小和最大值</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 计算y坐标的最小和最大值</span>
+
+    <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;resid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual_image</span><span class="p">[</span><span class="n">ymin</span><span class="p">:</span><span class="n">ymax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">:</span><span class="n">xmax</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 计算当前源的残差平均值</span>
+    <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;bkgd&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bkgd</span><span class="p">[</span><span class="n">ymin</span><span class="p">:</span><span class="n">ymax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">:</span><span class="n">xmax</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 计算当前源的背景平均值</span>
+    <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;masked&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>  <span class="c1"># 如果中心像素被遮罩，则标记为True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>制作一份随机位置的列表，并进行相同的测量，作为对照。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置随机位置的数组</span>
+
+<span class="n">N_random</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>  <span class="c1"># 随机位置的数量为源数量的5倍</span>
+
+<span class="n">resid_under_random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_random</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  <span class="c1"># 初始化残差数组</span>
+
+<span class="n">bkgd_under_random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_random</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  <span class="c1"># 初始化背景数组</span>
+
+<span class="n">masked_random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_random</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># 初始化掩膜数组</span>
+
+<span class="c1"># 从目录中随机获取一个通量和半径，以便我们可以绘图</span>
+
+<span class="c1"># 随机源的结果与真实源在同一坐标轴上</span>
+
+<span class="n">random_flux</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">N_random</span><span class="p">)]</span>  <span class="c1"># 随机通量</span>
+
+<span class="n">random_re</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;re&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">N_random</span><span class="p">)]</span>  <span class="c1"># 随机半径</span>
+
+<span class="n">rnd_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N_random</span><span class="p">)</span>  <span class="c1"># 随机生成x坐标</span>
+
+<span class="n">rnd_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N_random</span><span class="p">)</span>  <span class="c1"># 随机生成y坐标</span>
+
+<span class="c1"># 计算以每个源为中心的3x3像素的值</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rnd_x</span><span class="p">)),</span> <span class="n">rnd_x</span><span class="p">,</span> <span class="n">rnd_y</span><span class="p">):</span>  <span class="c1"># 遍历随机坐标</span>
+
+    <span class="n">resid_under_random</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual_image</span><span class="p">[</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 计算残差的平均值</span>
+
+    <span class="n">bkgd_under_random</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bkgd</span><span class="p">[</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 计算背景的平均值</span>
+
+    <span class="n">masked_random</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># 检查掩膜的最小值</span>
+
+<span class="c1"># 仅保留未被掩膜的位置的结果</span>
+
+<span class="n">resid_under_random</span> <span class="o">=</span> <span class="n">resid_under_random</span><span class="p">[</span><span class="o">~</span><span class="n">masked_random</span><span class="p">]</span>  <span class="c1"># 过滤未掩膜的残差</span>
+
+<span class="n">random_flux</span> <span class="o">=</span> <span class="n">random_flux</span><span class="p">[</span><span class="o">~</span><span class="n">masked_random</span><span class="p">]</span>  <span class="c1"># 过滤未掩膜的随机通量</span>
+
+<span class="n">random_re</span> <span class="o">=</span> <span class="n">random_re</span><span class="p">[</span><span class="o">~</span><span class="n">masked_random</span><span class="p">]</span>  <span class="c1"># 过滤未掩膜的随机半径</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nsources, Nrandom: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">resid_under_random</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印源数量和随机数量</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id18">
+<h1>列出被遮蔽和未被遮蔽的源<a class="headerlink" href="#id18" title="Link to this heading">#</a></h1>
+<section id="masked-sources">
+<h2>被遮蔽的源 (Masked Sources)<a class="headerlink" href="#masked-sources" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>源1</p></li>
+<li><p>源2</p></li>
+<li><p>源3</p></li>
+</ul>
+</section>
+<section id="unmasked-sources">
+<h2>未被遮蔽的源 (Unmasked Sources)<a class="headerlink" href="#unmasked-sources" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>源A</p></li>
+<li><p>源B</p></li>
+<li><p>源C</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flux</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span>  <span class="c1"># 获取源的光通量数据</span>
+
+<span class="n">resid</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;resid&#39;</span><span class="p">]</span>  <span class="c1"># 获取源的残差数据</span>
+
+<span class="n">re</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;re&#39;</span><span class="p">]</span>  <span class="c1"># 获取源的有效半径数据</span>
+
+<span class="n">masked</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;masked&#39;</span><span class="p">]</span>  <span class="c1"># 获取源的掩蔽状态数据</span>
+
+<span class="n">unmasked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;masked&#39;</span><span class="p">])</span>  <span class="c1"># 反转掩蔽状态，获取未掩蔽的源</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>import numpy as np
+import matplotlib.pyplot as plt</p>
+<p>def fit_line(x, y):
+“””
+拟合一条直线到数据点
+:param x: 自变量数据点 (numpy array)
+:param y: 因变量数据点 (numpy array)
+:return: 斜率和截距 (slope, intercept)
+“””
+# 计算斜率和截距
+A = np.vstack([x, np.ones(len(x))]).T
+slope, intercept = np.linalg.lstsq(A, y, rcond=None)[0]
+return slope, intercept</p>
+<p>def fit_and_plot(x, y):
+“””
+拟合数据点并绘制数据点和最佳拟合直线
+:param x: 自变量数据点 (numpy array)
+:param y: 因变量数据点 (numpy array)
+“””
+# 拟合直线
+slope, intercept = fit_line(x, y)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 生成拟合直线的y值
+y_fit = slope * x + intercept
+
+# 绘制数据点
+plt.scatter(x, y, color=&#39;blue&#39;, label=&#39;数据点 (Data Points)&#39;)
+
+# 绘制拟合直线
+plt.plot(x, y_fit, color=&#39;red&#39;, label=&#39;最佳拟合直线 (Best Fit Line)&#39;)
+
+# 添加标签和图例
+plt.xlabel(&#39;自变量 (X)&#39;)
+plt.ylabel(&#39;因变量 (Y)&#39;)
+plt.title(&#39;数据点与最佳拟合直线 (Data Points and Best Fit Line)&#39;)
+plt.legend()
+
+# 显示图形
+plt.show()
+</pre></div>
+</div>
+<section id="id19">
+<h3>说明：<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fit_line</span></code> 函数使用最小二乘法来计算给定数据点的最佳拟合直线的斜率和截距。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fit_and_plot</span></code> 函数首先调用 <code class="docutils literal notranslate"><span class="pre">fit_line</span></code> 来获取拟合参数，然后绘制数据点和拟合直线，并添加适当的标签和图例。</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="c1"># 创建一个线性模型，初始斜率和截距均为1</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Linear1D</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+    <span class="c1"># 创建一个线性最小二乘拟合器</span>
+    <span class="n">fit</span> <span class="o">=</span> <span class="n">fitting</span><span class="o">.</span><span class="n">LinearLSQFitter</span><span class="p">()</span>
+
+    <span class="c1"># 使用拟合器对给定的x和y数据进行拟合，返回最佳拟合结果</span>
+    <span class="n">best_fit</span> <span class="o">=</span> <span class="n">fit</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">best_fit</span>  <span class="c1"># 返回最佳拟合模型</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_and_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                 <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="c1"># 生成用于拟合的x值，从0到x的最大值，分成10个点</span>
+    <span class="n">xfit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># 调用fit_line函数拟合x和y数据，返回拟合的线性函数</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">fit_line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># 绘制散点图，显示原始数据点</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+    <span class="c1"># 绘制拟合线，使用拟合的线性函数和生成的xfit值</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">line</span><span class="p">(</span><span class="n">xfit</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>绘制残差与源通量的关系图，分别针对被遮罩（masked）、未遮罩（unmasked）和随机化（randomized）源位置。将标记的大小与源的通量成正比。理想情况下，这三个情况的残差应以0.0为中心，并且与源通量没有相关性。当然，避免在未遮罩的源位置出现偏差几乎是不可能的，因为它们会影响背景估计。在这种特定情况下，当源未被遮罩时，残差存在小的偏移，并且有证据表明与源通量存在趋势。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># 创建一个大小为10x5的图形</span>
+
+<span class="c1"># 绘制未掩蔽数据的拟合和散点图，使用黑色方形标记</span>
+<span class="n">fit_and_plot</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span> <span class="n">resid</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.</span><span class="o">*</span><span class="n">re</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unmasked&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+
+<span class="c1"># 绘制已掩蔽数据的拟合和散点图，使用红色圆形标记</span>
+<span class="n">fit_and_plot</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span> <span class="n">resid</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.</span><span class="o">*</span><span class="n">re</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;masked&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+
+<span class="c1"># 绘制随机数据的拟合和散点图，使用蓝色加号标记</span>
+<span class="n">fit_and_plot</span><span class="p">(</span><span class="n">random_flux</span><span class="p">,</span> <span class="n">resid_under_random</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+             <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>  <span class="c1"># 设置y轴的范围</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;residuals vs. flux&#39;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>绘制残差与源半径的关系图，分别针对被遮罩、未被遮罩和随机化的源位置。标记的大小与源的通量成正比。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个10x6英寸的图形</span>
+
+<span class="c1"># 绘制未掩蔽数据的拟合和残差，设置点的大小为2倍的flux值</span>
+<span class="n">fit_and_plot</span><span class="p">(</span><span class="n">re</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span> <span class="n">resid</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">flux</span><span class="p">[</span><span class="n">unmasked</span><span class="p">],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unmasked&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>  <span class="c1"># 未掩蔽数据，黑色方形标记</span>
+
+<span class="c1"># 绘制掩蔽数据的拟合和残差，设置点的大小为flux值</span>
+<span class="n">fit_and_plot</span><span class="p">(</span><span class="n">re</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span> <span class="n">resid</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">flux</span><span class="p">[</span><span class="n">masked</span><span class="p">],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;masked&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>  <span class="c1"># 掩蔽数据，红色圆形标记</span>
+
+<span class="c1"># 绘制随机数据的拟合和残差，设置透明度和标记样式</span>
+<span class="n">fit_and_plot</span><span class="p">(</span><span class="n">random_re</span><span class="p">,</span> <span class="n">resid_under_random</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+             <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>  <span class="c1"># 随机数据，蓝色加号标记</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>  <span class="c1"># 设置y轴的范围</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;residuals vs. radius&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id20">
+<h3>在真实数据上测试偏差<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>对于真实数据，我们无法相对于无噪声天空来计算残差。然而，我们可以检查被遮罩区域下的背景是否在统计上高于随机区域的背景。考虑到天文源具有翼状结构，而这些结构在没有建模的情况下无法被减去，因此在这里实现完美是非常困难的。这个测试将告诉你潜在偏差的大小（以每像素的通量为单位）以及它是否看起来显著。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_masked</span> <span class="o">=</span> <span class="n">bkgd</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 计算被掩膜像素的均值</span>
+
+<span class="n">std_masked</span> <span class="o">=</span> <span class="n">bkgd</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>    <span class="c1"># 计算被掩膜像素的标准差</span>
+
+<span class="n">stderr_masked</span> <span class="o">=</span> <span class="n">mean_masked</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bkgd</span><span class="p">[</span><span class="n">mask</span><span class="p">]))</span><span class="o">*</span><span class="n">std_masked</span><span class="p">)</span>  <span class="c1"># 计算被掩膜像素的标准误差</span>
+
+<span class="n">mean_unmasked</span> <span class="o">=</span> <span class="n">bkgd</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 计算未被掩膜像素的均值</span>
+
+<span class="n">std_unmasked</span> <span class="o">=</span> <span class="n">bkgd</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>    <span class="c1"># 计算未被掩膜像素的标准差</span>
+
+<span class="n">stderr_unmasked</span> <span class="o">=</span> <span class="n">mean_unmasked</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bkgd</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]))</span><span class="o">*</span><span class="n">std_unmasked</span><span class="p">)</span>  <span class="c1"># 计算未被掩膜像素的标准误差</span>
+
+<span class="n">diff</span> <span class="o">=</span> <span class="n">mean_masked</span> <span class="o">-</span> <span class="n">mean_unmasked</span>  <span class="c1"># 计算被掩膜和未被掩膜像素均值的差异</span>
+
+<span class="n">significance</span> <span class="o">=</span> <span class="n">diff</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">stderr_masked</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">stderr_unmasked</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算显著性</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean under masked pixels   = </span><span class="si">{</span><span class="n">mean_masked</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +- </span><span class="si">{</span><span class="n">stderr_masked</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印被掩膜像素的均值和标准误差</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean under unmasked pixels = &quot;</span>
+
+      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mean_unmasked</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +- </span><span class="si">{</span><span class="n">stderr_unmasked</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印未被掩膜像素的均值和标准误差</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Difference = </span><span class="si">{</span><span class="n">diff</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">significance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sigma significance&quot;</span><span class="p">)</span>  <span class="c1"># 打印均值差异及其显著性</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="rms">
+<h2>便于观察残余背景的RMS与尺度的关系的常规<a class="headerlink" href="#rms" title="Link to this heading">#</a></h2>
+<p>评估天空减除是否合理的一种方法是查看RMS是否随着尺度的变化而合理下降。它应该随着采样图像的区域大小线性下降。</p>
+<p>为了进行此测试，我们希望查看未被遮罩的区域，但这些区域的信噪比（S/N）应相同。因此，我们需要一种方法来设置一个网格，以确保每个网格区域内没有被遮罩的像素。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">smoothsample_masked</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;对没有被掩膜的像素进行平方区域的均值计算&#39;&#39;&#39;</span>
+
+    <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># 获取图像的行数和列数</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># 计算宽度的一半</span>
+
+    <span class="c1"># 掩膜掉边界区域</span>
+    <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nrow</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">ncol</span><span class="p">]</span>  <span class="c1"># 创建行列网格</span>
+
+    <span class="c1"># 更新掩膜，标记出边界区域</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">|</span> <span class="p">(</span><span class="n">row</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">row</span> <span class="o">&gt;</span> <span class="n">nrow</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">col</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">col</span> <span class="o">&gt;</span> <span class="n">ncol</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span>
+
+    <span class="c1"># 创建一个不包含被掩膜像素的平方区域列表</span>
+    <span class="n">mm</span> <span class="o">=</span> <span class="n">block_reduce</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>  <span class="c1"># 对掩膜进行块减少</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">block_reduce</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>  <span class="c1"># 对图像进行块减少并计算均值</span>
+
+    <span class="n">good</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mm</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 找到没有被掩膜的区域</span>
+
+    <span class="k">return</span> <span class="n">means</span><span class="p">[</span><span class="n">good</span><span class="p">]</span>  <span class="c1"># 返回均值数组中未被掩膜区域的均值</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_stats</span><span class="p">(</span><span class="n">residual</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">):</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化统计数据列表</span>
+
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">widths</span><span class="p">:</span>  <span class="c1"># 遍历每个宽度</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">smoothsample_masked</span><span class="p">(</span><span class="n">residual</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>  <span class="c1"># 计算平滑样本</span>
+        <span class="n">stats</span> <span class="o">+=</span> <span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>  <span class="c1"># 计算标准差并添加到统计数据列表</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>  <span class="c1"># 返回标准差的数组</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>计算不同背景估计的统计数据。这些是经过掩膜的“场景”的残差——即包含源的场景，但经过掩膜处理，就像在实际场景中所做的那样。这些残差将与“完美”情况进行比较，即有噪声的天空背景减去无噪声的天空背景，在相同的未掩膜单元中计算统计数据。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rms</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span>  <span class="c1"># 创建一个新的表格对象</span>
+
+<span class="n">widths</span> <span class="o">=</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 生成一个从3到29的数组，并将其赋值给&#39;rms&#39;表中的&#39;widths&#39;列</span>
+
+<span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_stats</span><span class="p">(</span><span class="n">scene</span> <span class="o">-</span> <span class="n">bkg1img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">)</span>  <span class="c1"># 计算背景1的统计数据，并存储在&#39;rms&#39;表中的&#39;bkg1&#39;列</span>
+
+<span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_stats</span><span class="p">(</span><span class="n">scene</span> <span class="o">-</span> <span class="n">bkg2img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">)</span>  <span class="c1"># 计算背景2的统计数据，并存储在&#39;rms&#39;表中的&#39;bkg2&#39;列</span>
+
+<span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_stats</span><span class="p">(</span><span class="n">scene</span> <span class="o">-</span> <span class="n">bkg3img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">)</span>  <span class="c1"># 计算背景3的统计数据，并存储在&#39;rms&#39;表中的&#39;bkg3&#39;列</span>
+
+<span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_stats</span><span class="p">(</span><span class="n">scene</span> <span class="o">-</span> <span class="n">bkg4img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">)</span>  <span class="c1"># 计算背景4的统计数据，并存储在&#39;rms&#39;表中的&#39;bkg4&#39;列</span>
+
+<span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_stats</span><span class="p">(</span><span class="n">scene</span> <span class="o">-</span> <span class="n">bkg5img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">)</span>  <span class="c1"># 计算背景5的统计数据，并存储在&#39;rms&#39;表中的&#39;bkg5&#39;列</span>
+
+<span class="n">rms</span><span class="p">[</span><span class="s1">&#39;perfect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_stats</span><span class="p">(</span><span class="n">sky_bkgd</span> <span class="o">-</span> <span class="n">noiseless_sky</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">widths</span><span class="p">)</span>  <span class="c1"># 计算完美背景的统计数据，并存储在&#39;rms&#39;表中的&#39;perfect&#39;列</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>绘制相对于完美案例的结果（我们已将初始的 <code class="docutils literal notranslate"><span class="pre">bkg1</span></code> 估计注释掉，以便更清晰地显示更好估计的比例）。值得注意的是，<code class="docutils literal notranslate"><span class="pre">bkg1</span></code> 是从 SExtractor 获得的典型结果，SExtractor 仅提供一次背景估计。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个10x6英寸的图形</span>
+
+<span class="n">perfect</span> <span class="o">=</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;perfect&#39;</span><span class="p">]</span>  <span class="c1"># 获取完美背景数据</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">],</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg1&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">perfect</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;bkg1&#39;</span><span class="p">)</span>  <span class="c1"># 绘制bkg1与完美背景的比值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">],</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg2&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">perfect</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;bkg2&#39;</span><span class="p">)</span>  <span class="c1"># 绘制bkg2与完美背景的比值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">],</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg3&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">perfect</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;bkg3&#39;</span><span class="p">)</span>  <span class="c1"># 绘制bkg3与完美背景的比值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">],</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg4&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">perfect</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;bkg4&#39;</span><span class="p">)</span>  <span class="c1"># 绘制bkg4与完美背景的比值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">],</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;bkg5&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">perfect</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;bkg5&#39;</span><span class="p">)</span>  <span class="c1"># 绘制bkg5与完美背景的比值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rms</span><span class="p">[</span><span class="s1">&#39;widths&#39;</span><span class="p">],</span> <span class="n">rms</span><span class="p">[</span><span class="s1">&#39;perfect&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">perfect</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;perfect&#39;</span><span class="p">)</span>  <span class="c1"># 绘制完美背景的比值，使用黑色实线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+</pre></div>
+</div>
+</div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png"><img alt="太空望远镜标志" src="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png" style="width: 200px;" />
+</a>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/cross_instrument/background_estimation_imaging"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../asdf_example/asdf_example_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ASDF 示例</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../composite_model_fitting/specfit_demo_3_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">复合模型光谱拟合</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">复杂的二维背景</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">天空背景估计</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">介绍</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">导入模块</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib 绘图设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">创建具有某种病态背景模式的图像</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">设置网格和随机数种子以进行模拟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">创建恶劣的天空背景</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">加入噪声后观察，并稍作平滑</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">添加一些随机源</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">并排比较两幅图像的绘图例程</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils-background2d">尝试使用 Photutils 的 Background2D 网格作为第一次尝试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">环形中值滤波图像</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">设置一些便于迭代掩膜的例程</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">在掩蔽源后更精细地估计背景</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">尝试不同的插值算法。</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">制作更深的源掩膜</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">使用这个新掩模重新进行背景估计。</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">检查由于星系引起的偏差</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">列出被遮蔽和未被遮蔽的源</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-sources">被遮蔽的源 (Masked Sources)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unmasked-sources">未被遮蔽的源 (Unmasked Sources)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">说明：</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">在真实数据上测试偏差</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rms">便于观察残余背景的RMS与尺度的关系的常规</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

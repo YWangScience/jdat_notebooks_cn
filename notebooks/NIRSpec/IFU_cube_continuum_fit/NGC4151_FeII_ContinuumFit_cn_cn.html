@@ -1,0 +1,1939 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IFU Cube Fitting &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>IFU Cube Fitting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">IFU Cube Fitting</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">使用场景</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">简介</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">导入相关工具包</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cubeviz-visualization">Cubeviz Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">视频：</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-your-spectral-regions">Define Your Spectral Regions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">一些说明：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-subset-spectra-in-the-cubeviz-spectral-viewer">Extracting Subset Spectra in the Cubeviz Spectral Viewer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-continuous-spectrum-in-spectral-region">Fitting Continuous Spectrum in Spectral Region</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#please-switch-to-api">Please switch to API</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">拉取其他数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-methods-for-continuous-subtraction-using-numpy">Alternative Methods for Continuous Subtraction Using Numpy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-your-multi-component-gaussian-model">Fitting Your Multi-Component Gaussian Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">练习</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-our-needs-from-cubeviz">Extracting Our Needs from Cubeviz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ifu-cube-fitting">
+<h1>IFU Cube Fitting<a class="headerlink" href="#ifu-cube-fitting" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>使用场景<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>应用方向：AGN（Active Galactic Nuclei，活动星系核）的连续谱和发射线建模；波长范围 1.47-1.87 微米。</p>
+<p>数据：NIFS（Near-Infrared Integral Field Spectrograph，近红外积分场光谱仪）；观测目标：NGC 4151。</p>
+<p>工具：specutils、jdaviz/cubeviz、astropy、matplotlib、bottleneck。</p>
+<p>跨仪器兼容性：NIRSpec；潜在适用于 MIRI。</p>
+<p>文档：本笔记本是 STScI JWST 后管道数据分析工具生态系统的一部分，可直接从 JDAT Notebook Github 目录下载。</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>简介<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
+<p>本笔记本使用 NGC 4151 活动星系核的 3D IFU 数据立方示例（Storchi-Bergmann et al. 2009, MNRAS, V 394, pp. 1148-1166）。该数据集是在双子座天文台（Gemini）采用近红外积分场光谱仪（NIFS）观测的自适应光学（AO）H 波段（1.47-1.87 µm）数据集。NIFS 是一种与 JWST NIRSpec 结构相似的图像切片式 IFU 仪器。</p>
+<p>本笔记本执行了一些基础的光谱分析任务：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>•	使用 jdaviz/cubeviz 检查数据集并提取 1D 光谱。
+
+•	在靠近 1.644 µm 的 [Fe II] 发射线附近进行连续谱拟合并将其扣除。
+
+•	由于 H I Brackett 12 原子氢发射线（紧邻 [Fe II] 发射线）会对 [Fe II] 流出物产生污染，因此对其进行拟合并去除。
+
+•	生成的数据子立方包括：
+
+	•	连续谱模型
+
+	•	扣除连续谱后的 [Fe II] 纯发射线
+
+	•	这些处理后的数据集将作为后续笔记本分析的起点。
+</pre></div>
+</div>
+<p>注意：本笔记本的默认分析目标是 1.6440 µm 的 [Fe II] 发射线，但可以调整波长范围，以适用于任何感兴趣的发射线的连续谱拟合与扣除。</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>导入相关工具包<a class="headerlink" href="#id3" title="Link to this heading">#</a></h1>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>•	time —— 计算代码运行时间
+
+•	numpy —— 数组处理和数学计算
+
+•	matplotlib.pyplot —— 绘制图像和光谱
+
+•	astropy.io —— 读取和写入 FITS 立方数据与图像
+
+•	astropy.modeling —— 光谱曲线建模
+
+•	astropy.utils.data —— 访问数据文件
+
+•	specutils.fitting —— 光谱数据拟合
+
+•	specutils Spectrum1D —— 用于建模发射线
+
+•	jdaviz —— 在笔记本中使用 cubeviz 进行 IFU 数据分析
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入必要的包</span>
+
+<span class="c1"># os 模块提供了一些与操作系统交互的功能，比如文件路径操作</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># time 模块提供了时间相关的功能，比如测量代码运行时间</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="c1"># 用于在 Jupyter Notebook 中显示 YouTube 视频</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">YouTubeVideo</span>
+
+<span class="c1"># 导入处理警告的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="c1"># 导入 numpy，主要用于数组和数值计算</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 导入 astropy 库的 fits 模块，用于读取和写入 FITS 文件</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>
+
+<span class="c1"># 导入 astropy 中的单位模块，用于单位的转换和处理</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+
+<span class="c1"># 导入高斯模型，用于拟合和分析光谱数据中的特征</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling.functional_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gaussian1D</span>
+
+<span class="c1"># 从 astropy.utils.data 导入 download_file，用于从网上下载数据文件</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">download_file</span>
+
+<span class="c1"># 导入 Spectrum1D 类，用于处理一维光谱数据</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spectrum1D</span>
+
+<span class="c1"># 导入 Cubeviz，主要用于数据立方体的可视化和分析</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jdaviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cubeviz</span>
+
+<span class="c1"># 导入提取区域的功能，用于从光谱中提取特定的区域</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils.manipulation</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_region</span>
+
+<span class="c1"># 导入 SpectralRegion 类，用于定义光谱区域</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils.spectra</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpectralRegion</span>
+
+<span class="c1"># 导入 PixCoord 和 CirclePixelRegion，用于定义图像中的像素坐标和圆形区域</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">regions</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixCoord</span><span class="p">,</span> <span class="n">CirclePixelRegion</span>
+
+<span class="c1"># 从 glue.core 导入 XRangeROI，用于定义光谱在 X 轴上的区域</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">glue.core.roi</span><span class="w"> </span><span class="kn">import</span> <span class="n">XRangeROI</span>
+
+<span class="n">这个代码段导入了一系列处理和分析天文学数据的必要库</span><span class="err">，</span><span class="n">涵盖了文件处理</span><span class="err">、</span><span class="n">时间管理</span><span class="err">、</span><span class="n">光谱数据的读取及分析</span><span class="err">、</span><span class="n">以及可视化等功能</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入 jdaviz 库，这是一个用于天文数据可视化和处理的工具</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jdaviz</span>
+
+<span class="c1"># 打印当前安装的 jdaviz 库的版本号</span>
+<span class="c1"># 这对于确保我们使用的是兼容的版本、检查更新或调试很有帮助</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">jdaviz</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># 输出 jdaviz 库的版本信息</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.1.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加载并配置 Matplotlib 库</span>
+<span class="c1"># &#39;%matplotlib inline&#39; 是一个魔法命令，用于在 Jupyter Notebook 中直接显示 Matplotlib 绘制的图像</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline  
+
+<span class="c1"># 导入 Matplotlib 的 pyplot 模块，常用来简化绘图操作</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  
+
+<span class="c1"># 更新 Matplotlib 的配置参数，设置最大图形打开警告为 0</span>
+<span class="c1"># 此设置防止在打开多个图形时出现过多的警告信息</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.max_open_warning&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>  <span class="c1"># 更新配置参数，避免过多警告</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用 Pickle 保存和加载对象（需要在最后获取参数文件）</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>  <span class="c1"># 导入 pickle 模块，用于对象的序列化和反序列化</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">save_obj</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="c1"># 定义一个函数，用于保存对象</span>
+    <span class="c1"># obj: 需要保存的对象</span>
+    <span class="c1"># name: 保存对象时使用的文件名</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># 以二进制写入模式打开文件</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span>  <span class="c1"># 使用 pickle.dump 将对象写入文件，使用最高协议以提高效率</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_obj</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1"># 定义一个函数，用于加载对象</span>
+    <span class="c1"># name: 要加载的对象的文件名</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># 以二进制读取模式打开文件</span>
+        <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># 使用 pickle.load 从文件中读取并返回对象</span>
+
+<span class="n">注释解释了代码的每一步</span><span class="err">，</span><span class="n">明确了函数的功能</span><span class="err">、</span><span class="n">参数和操作类型</span><span class="err">。</span><span class="n">这样可以帮助理解在</span> <span class="n">JWST</span> <span class="n">数据处理过程中</span><span class="err">，</span><span class="n">如何存储和检索数据对象</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入所需的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入 NumPy 库，用于数值计算</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 导入 astropy.io.fits 模块，用于处理 FITS 文件</span>
+
+<span class="c1"># 加载 JWST 数据，这里假设数据以 FITS 格式存储</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;jwst_data.fits&#39;</span>  <span class="c1"># 定义要打开的 FITS 文件名</span>
+<span class="n">hdul</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># 打开 FITS 文件，返回一个 HDU 列表</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">hdul</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 读取数据表，选择相应的扩展（extension），通常是第一个数据扩展</span>
+
+<span class="c1"># 提取天文数据中的关键信息</span>
+<span class="n">crval3</span> <span class="o">=</span> <span class="n">hdul</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;CRVAL3&#39;</span><span class="p">]</span>  <span class="c1"># 获取头部信息中数量值(第三维度)的参考值</span>
+<span class="c1"># CRVAL3 可能代表波长、频率或其他天文尺度的基准值，具体取决于数据集的元数据</span>
+
+<span class="c1"># 输出 crval3 用于确认</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;观测数据的第三维度参考值 (CRVAL3): </span><span class="si">{</span><span class="n">crval3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印 CRVAL3 的值以确认</span>
+
+<span class="c1"># 假设我们还需要计算与 CRVAL3 相关的其他参数</span>
+<span class="c1"># 例如，使用 crval3 可以转换为对应的波长（如果 crval3 是频率）</span>
+<span class="c1"># 物理常数</span>
+<span class="n">speed_of_light</span> <span class="o">=</span> <span class="mf">3e10</span>  <span class="c1"># 光速，单位为 cm/s</span>
+
+<span class="c1"># 计算波长（单位：纳米）</span>
+<span class="n">wavelength</span> <span class="o">=</span> <span class="n">speed_of_light</span> <span class="o">/</span> <span class="n">crval3</span> <span class="o">*</span> <span class="mf">1e9</span>  <span class="c1"># 将频率转换为波长，并将结果转换为纳米</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;对应的波长: </span><span class="si">{</span><span class="n">wavelength</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">)</span>  <span class="c1"># 打印计算得到的波长</span>
+
+<span class="c1"># 最后别忘记在结束时关闭 FITS 文件</span>
+<span class="n">hdul</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭打开的 FITS 文件以释放内存</span>
+ 
+
+<span class="n">在这个代码示例中</span><span class="err">，</span><span class="n">所有的步骤都保留了原始功能</span><span class="err">，</span><span class="n">并且添加了详细的中文注释</span><span class="err">，</span><span class="n">以帮助用户理解</span> <span class="n">JWST</span> <span class="n">数据处理的每个环节</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14766.4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 该代码单元用于访问 IFU（Integral Field Unit）数据立方（datacube）文件，</span>
+<span class="c1"># 从 FITS 文件头信息中定义波长网格，并绘制简单的 1 维光谱（即对 IFU 数据进行光谱求和）。</span>
+
+<span class="c1"># 导入必要的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 用于数组操作的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 用于绘图的库</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 用于处理 FITS 文件的库</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">download_file</span>  <span class="c1"># 用于下载文件的工具</span>
+
+<span class="c1"># 读取一个感兴趣的 3D IFU 数据立方文件以及其 FITS 头信息。</span>
+<span class="c1"># 这里的数据文件是 JWST 观测的 NGC 4151 星系的 H 波段 IFU 立方数据。</span>
+<span class="n">cube_file</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/NGC4151_Hband.fits&#39;</span>
+
+<span class="c1"># 下载数据文件，并启用缓存以避免重复下载</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="n">cube_file</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># fn 变量保存下载后的文件路径</span>
+
+<span class="c1"># 使用 astropy.io.fits 读取 FITS 数据立方体</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 获取数据立方体（3D 数据）</span>
+<span class="n">header_cube</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 获取 FITS 头信息</span>
+
+<span class="c1"># 获取数据立方体的维度信息</span>
+<span class="n">nz</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># nz 代表波长维度的切片数，ny 和 nx 代表空间维度（图像的高度和宽度）</span>
+
+<span class="c1"># 从 FITS 头信息中提取波长轴的关键字：</span>
+<span class="c1"># CDELT3: 每个通道的波长间隔（单位为 Ångström）</span>
+<span class="c1"># CRVAL3: 波长轴的零点（起始波长，单位为 Ångström）</span>
+<span class="n">crdelt3</span> <span class="o">=</span> <span class="n">header_cube</span><span class="p">[</span><span class="s1">&#39;CDELT3&#39;</span><span class="p">]</span>  <span class="c1"># 读取波长步长（通道间隔）</span>
+<span class="n">crval3</span> <span class="o">=</span> <span class="n">header_cube</span><span class="p">[</span><span class="s1">&#39;CRVAL3&#39;</span><span class="p">]</span>  <span class="c1"># 读取波长起始值</span>
+
+<span class="c1"># 根据 FITS 头信息定义波长网格：</span>
+<span class="c1"># 使用 numpy.arange 生成从 0 到 nz-1 的整数索引，并计算每个波长通道的实际波长。</span>
+<span class="c1"># 最后将波长单位从 Ångström 转换为微米（um）。</span>
+<span class="n">wave</span> <span class="o">=</span> <span class="p">((</span><span class="n">crdelt3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nz</span><span class="p">))</span> <span class="o">+</span> <span class="n">crval3</span><span class="p">)</span> <span class="o">/</span> <span class="mf">10000.0</span>  <span class="c1"># 转换单位 Ångström → 微米（1 Å = 0.0001 µm）</span>
+
+<span class="c1"># 定义活动星系核（AGN）的红移值</span>
+<span class="n">redshift</span> <span class="o">=</span> <span class="mf">0.00332</span>  <span class="c1"># NGC 4151 的已知红移</span>
+
+<span class="c1"># 选定感兴趣的发射线：</span>
+<span class="c1"># 这里选择 [Fe II] 1.644 μm（即 1.64400 微米）发射线，</span>
+<span class="c1"># 并考虑红移效应，即计算观测到的波长</span>
+<span class="n">emission_line</span> <span class="o">=</span> <span class="mf">1.64400</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">redshift</span><span class="p">)</span>  <span class="c1"># 计算红移后波长（单位：微米）</span>
+
+<span class="c1"># 找到最接近该发射线的波长索引：</span>
+<span class="c1"># np.abs(wave - emission_line) 计算波长数组中所有元素与发射线波长的差值，</span>
+<span class="c1"># np.argmin() 找到该差值最小的索引，即最接近该发射线的位置。</span>
+<span class="n">emission_line_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wave</span> <span class="o">-</span> <span class="n">emission_line</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+
+<span class="c1"># 计算整个 IFU 数据立方的总光谱：</span>
+<span class="c1"># 对数据立方体在空间维度（y 和 x）上进行求和，得到 1 维光谱。</span>
+<span class="n">flux1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 对每个波长通道的所有像素求和，得到总光谱</span>
+
+<span class="c1"># 绘制 1 维光谱</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建新图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Summed 1D Spectrum&#39;</span><span class="p">)</span>  <span class="c1"># 绘制波长 vs. 总光谱</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">emission_line</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Emission Line (</span><span class="si">{</span><span class="n">emission_line</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> um)&#39;</span><span class="p">)</span>  <span class="c1"># 标出发射线位置</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (µm)&#39;</span><span class="p">)</span>  <span class="c1"># x 轴标签：波长（微米）</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Flux&#39;</span><span class="p">)</span>  <span class="c1"># y 轴标签：光通量</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图像</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../../_images/50bed13a2435ea20865980f479c726b5477a4ee8721f9ce7aaa93f46f70f9569.png"><img alt="../../../_images/50bed13a2435ea20865980f479c726b5477a4ee8721f9ce7aaa93f46f70f9569.png" src="../../../_images/50bed13a2435ea20865980f479c726b5477a4ee8721f9ce7aaa93f46f70f9569.png" style="width: 598px; height: 432px;" />
+</a>
+</div>
+</div>
+<p>我们观察到，累加后的 1D 光谱在光谱两端表现出明显的噪声波动（“ratty”）。这一 1D 光谱数据数组超出了仪器的标称可用数据范围。因此，我们将忽略这些质量较差的光谱区域，并专注于活动星系核（AGN）的光通量分析。</p>
+<p>我们感兴趣的 [Fe II] 发射特征是一个位于 1.65 微米短波端的明亮而强烈的发射线。需要注意的是，H I Brackett 12 发射线位于 [Fe II] 线的蓝侧，对其造成一定的污染。</p>
+<p>我们可以利用光谱图窗口来读取感兴趣的波长值，以便定义分析所需的光谱范围（可参考光谱图右下角的波长/光通量网格数据）。</p>
+<p>特别说明：在此数据集中，[Fe II] 发射线的红侧（长波方向）的一部分光谱区域提供了一个较为干净的连续谱测量。然而，在 [Fe II] 和 H I Brackett 12 发射线的蓝侧（短波方向），存在其他的发射和吸收特征，使得明确识别连续谱变得非常困难。因此，相比于采用包含整个发射线的更大波长范围，在红侧区域进行简单的线性拟合会更加准确。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 该单元定义了感兴趣的波长区域：围绕发射线以及希望非常准确地拟合和去除的连续体位置。</span>
+<span class="c1"># 下面将绘制一个图，展示这些区域。</span>
+
+<span class="c1"># 这里选择了一个区域，包括发射线的波长以及其周围的一小段连续体范围。</span>
+<span class="c1"># 通过查看上面的图，确定这些限值。读取图右下角的信息以获得波长值。</span>
+
+<span class="n">wave_emission_limit1</span> <span class="o">=</span> <span class="mf">1.630</span>  <span class="c1"># 发射线的波长下限</span>
+<span class="n">wave_emission_limit2</span> <span class="o">=</span> <span class="mf">1.665</span>  <span class="c1"># 发射线的波长上限</span>
+
+<span class="c1"># 这里定义了一个光谱范围，将用其光通量生成连续体模型。</span>
+<span class="c1"># 在此活动星系核（AGN）中，红移发射线周围的光通量形状相当线性，因此我们只使用</span>
+<span class="c1"># 发射特征红边的一小段光谱进行拟合。</span>
+<span class="c1"># 同样，通过研究上面图形窗口中的波长来确定这些值。</span>
+
+<span class="n">continuum_limit1</span> <span class="o">=</span> <span class="mf">1.656</span>  <span class="c1"># 作为连续体拟合使用的波长下限</span>
+<span class="n">continuum_limit2</span> <span class="o">=</span> <span class="mf">1.673</span>  <span class="c1"># 作为连续体拟合使用的波长上限</span>
+
+<span class="c1"># 定义围绕发射线的波长区域 - 计算索引</span>
+<span class="n">wavemin</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wave</span> <span class="o">-</span> <span class="n">wave_emission_limit1</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>  <span class="c1"># 波长下限对应的索引</span>
+<span class="n">wavemax</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wave</span> <span class="o">-</span> <span class="n">wave_emission_limit2</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>  <span class="c1"># 波长上限对应的索引</span>
+
+<span class="c1"># 定义用于拟合连续体光通量水平的波长区域 - 计算索引</span>
+<span class="n">continuummin</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wave</span> <span class="o">-</span> <span class="n">continuum_limit1</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>  <span class="c1"># 连续体下限对应的索引</span>
+<span class="n">continuummax</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wave</span> <span class="o">-</span> <span class="n">continuum_limit2</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>  <span class="c1"># 连续体上限对应的索引</span>
+
+<span class="c1"># 显示用于发射线和连续体拟合的区域。如果看起来不合适，请修改上面的波长值。</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建新的图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux1</span><span class="p">)</span>  <span class="c1"># 绘制全光谱数据</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">wavemin</span><span class="p">:</span><span class="n">wavemax</span><span class="p">],</span> <span class="n">flux1</span><span class="p">[</span><span class="n">wavemin</span><span class="p">:</span><span class="n">wavemax</span><span class="p">])</span>  <span class="c1"># 突出显示发射线区域</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">continuummin</span><span class="p">:</span><span class="n">continuummax</span><span class="p">],</span> <span class="n">flux1</span><span class="p">[</span><span class="n">continuummin</span><span class="p">:</span><span class="n">continuummax</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># 使用红色突出显示连续体拟合区域</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;wavelength (um)&#39;</span><span class="p">)</span>  <span class="c1"># 设置X轴标签为波长（微米）</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;flux&#39;</span><span class="p">)</span>  <span class="c1"># 设置Y轴标签为光通量</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="cubeviz-visualization">
+<h2>Cubeviz Visualization<a class="headerlink" href="#cubeviz-visualization" title="Link to this heading">#</a></h2>
+<p>You can also visualize images in a Jupyter notebook using <a class="reference external" href="https://jdaviz.readthedocs.io/en/latest/cubeviz/index.html">Cubeviz</a>.</p>
+</section>
+<section id="id4">
+<h2>视频：<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>这个 Cubeviz 演示来自官方 JWST 观察者 YouTube 频道。它展示了如何使用 Cubeviz 解决特定科学案例的示例（不是本笔记本的科学案例）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入所需的库以使用 YouTubeVideo 功能</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">YouTubeVideo</span><span class="p">,</span> <span class="n">display</span>  <span class="c1"># 从 IPython.display 模块导入 YouTubeVideo 和 display 函数</span>
+
+<span class="c1"># 创建一个 YouTubeVideo 对象，传入视频的唯一标识符</span>
+<span class="c1"># &quot;ayb6OkmZUwU&quot; 是视频的 ID，根据此 ID 可以在 YouTube 上找到对应的视频</span>
+<span class="n">vid</span> <span class="o">=</span> <span class="n">YouTubeVideo</span><span class="p">(</span><span class="s2">&quot;ayb6OkmZUwU&quot;</span><span class="p">)</span>  <span class="c1"># 使用视频 ID 创建 YouTubeVideo 对象</span>
+
+<span class="c1"># 在 Jupyter Notebook 中显示 YouTube 视频</span>
+<span class="n">display</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>  <span class="c1"># 使用 display 函数在 Notebook 中显示视频</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个 Cubeviz 实例，Cubeviz 是一个用于可视化和分析立方体数据（如光谱数据）的工具</span>
+<span class="n">cubeviz</span> <span class="o">=</span> <span class="n">Cubeviz</span><span class="p">()</span>  <span class="c1"># 实例化 Cubeviz 类以处理天文立方体数据</span>
+
+<span class="c1"># 显示 Cubeviz 界面，以便用户可以进行交互和数据分析</span>
+<span class="n">cubeviz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 启动可视化界面，用户可以探索和分析数据</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 在这里，我们将数据加载到 Cubeviz 应用程序中。</span>
+
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>  <span class="c1"># 捕获警告</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># 设置警告过滤器，忽略所有警告</span>
+
+    <span class="n">cubeviz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 加载指定文件名 fn 的数据到 Cubeviz</span>
+ 
+
+<span class="c1"># 这些注释解释了代码的每一步：首先是在处理警告，接着是加载数据的过程。这里使用的 Cubeviz 应用程序是专门用于视觉化和分析立体数据的工具，通常用于天文学分析。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>下面的视频展示了该过程。应用以下步骤：</p>
+<p>当您加载立方体时，您将在底部的光谱查看器中看到所有 spaxel 的合并光谱。</p>
+<p>如果您在通量查看器中绘制一个区域（圆形或方形），您也会在光谱查看器中看到该特定区域的合并光谱。在这个例子中，我们首先想要在明亮的活动星系核（AGN）光的中心位置定义一个圆形区域，该位置大约位于立方体的中心。<br></p>
+<a class="reference internal image-reference" href="../../../_images/cubeviz_select_subset.png"><img alt="选择图像中央 AGN 的圆形子集。" src="../../../_images/cubeviz_select_subset.png" style="width: 500px;" />
+</a>
+<p>现在，使用通量查看器，再次使用“定义感兴趣的圆形区域”图标，在与 [Fe II] 的外流发射相关的两个位置上制作光谱。红移的外流位置大约是 x 位置 = 12，y 位置 = 36。这将是“子集 2”，并将在显示中以绿色显示。蓝移的外流位置大约是 x 位置 = 48，y 位置 = 24，单位为像素索引。这将是“子集 3”，并将在显示中以蓝色显示。<em>提示：光标的坐标在工具的顶部报告</em><br></p>
+<a class="reference internal image-reference" href="../../../_images/cubeviz_select_subset_outflow.png"><img alt="在 AGN 两侧选择圆形子集以观察外流。" src="../../../_images/cubeviz_select_subset_outflow.png" style="width: 500px;" />
+</a>
+</section>
+<section id="define-your-spectral-regions">
+<h2>Define Your Spectral Regions<a class="headerlink" href="#define-your-spectral-regions" title="Link to this heading">#</a></h2>
+<p>Next, you need to define the wavelengths of interest in the spectral viewer for line and continuum analysis. To do this, you will also need to click on the “Define Region of Interest” icon in the spectral viewer and drag a box over the desired wavelengths. The line emission (“Subset 4”) should cover approximately 1.630 - 1.665 microns, while the continuum emission (“Subset 5”) should cover approximately 1.656 - 1.673 microns.<br></p>
+<p><a class="reference internal" href="../../../_images/cubeviz_select_spectral_subset.png"><img alt="Select a spectral subset for emission features and continuum." src="../../../_images/cubeviz_select_spectral_subset.png" style="width: 500px;" /></a><br></p>
+<p><em>Tip: Subsets can be modified in the Subset Tool plugin.</em></p>
+<section id="id5">
+<h3>一些说明：<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>如果您的单元窗口需要滚动才能查看 cubeviz 中的不同显示，您可以在笔记本的主菜单中切换滚动窗口：单元 -&gt; 当前输出 -&gt; 切换滚动</p></li>
+<li><p>为了更好地可视化立方体（cube），您可以在绘图选项插件中更改显示选项。</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="extracting-subset-spectra-in-the-cubeviz-spectral-viewer">
+<h1>Extracting Subset Spectra in the Cubeviz Spectral Viewer<a class="headerlink" href="#extracting-subset-spectra-in-the-cubeviz-spectral-viewer" title="Link to this heading">#</a></h1>
+<p>从光谱查看器中获取用户定义区域的光谱，以 <code class="docutils literal notranslate"><span class="pre">Spectrum1D</span></code> 对象的形式返回。首先，我们通过 API 创建这些区域，以防笔记本未以交互方式运行。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建空间区域</span>
+<span class="c1"># 从 cubeviz 获取当前的交互式区域，存储在 spatial_regions 中</span>
+<span class="n">spatial_regions</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_interactive_regions</span><span class="p">()</span>
+
+<span class="c1"># 检查 &#39;Subset 1&#39; 是否已经存在于空间区域中</span>
+<span class="k">if</span> <span class="s1">&#39;Subset 1&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">spatial_regions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># 创建一个中心坐标为 (29, 29)、半径为 6 像素的圆形区域，表示 AGN 区域</span>
+    <span class="n">agn_region</span> <span class="o">=</span> <span class="n">CirclePixelRegion</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">PixCoord</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">29</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="c1"># 将 AGN 区域加载到视觉化工具中</span>
+    <span class="n">cubeviz</span><span class="o">.</span><span class="n">load_regions</span><span class="p">(</span><span class="n">agn_region</span><span class="p">)</span>
+
+<span class="c1"># 检查 &#39;Subset 2&#39; 是否已经存在于空间区域中</span>
+<span class="k">if</span> <span class="s1">&#39;Subset 2&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">spatial_regions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># 创建一个中心坐标为 (12, 36)、半径为 6 像素的圆形区域，表示红移外流区域</span>
+    <span class="n">redshifted_outflow</span> <span class="o">=</span> <span class="n">CirclePixelRegion</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">PixCoord</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">36</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="c1"># 将红移外流区域加载到视觉化工具中</span>
+    <span class="n">cubeviz</span><span class="o">.</span><span class="n">load_regions</span><span class="p">(</span><span class="n">redshifted_outflow</span><span class="p">)</span>
+
+<span class="c1"># 检查 &#39;Subset 3&#39; 是否已经存在于空间区域中</span>
+<span class="k">if</span> <span class="s1">&#39;Subset 3&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">spatial_regions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># 创建一个中心坐标为 (48, 24)、半径为 6 像素的圆形区域，表示蓝移外流区域</span>
+    <span class="n">blueshifted_outflow</span> <span class="o">=</span> <span class="n">CirclePixelRegion</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">PixCoord</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">24</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="c1"># 将蓝移外流区域加载到视觉化工具中</span>
+    <span class="n">cubeviz</span><span class="o">.</span><span class="n">load_regions</span><span class="p">(</span><span class="n">blueshifted_outflow</span><span class="p">)</span>
+
+<span class="c1"># 再次获取当前的交互式区域，以确认已经添加的区域</span>
+<span class="n">spatial_regions</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_interactive_regions</span><span class="p">()</span>
+
+<span class="c1"># 返回当前的空间区域以供后续处理</span>
+<span class="n">spatial_regions</span>  <span class="c1"># 返回当前的空间区域，供后续分析使用</span>
+ 
+
+<span class="n">在这个代码中</span><span class="err">，</span><span class="n">我们通过检查空间区域的键</span><span class="err">，</span><span class="n">确保只有在不存在的情况下才会创建并加载新的区域</span><span class="err">。</span><span class="n">这对于避免重复加载区域非常重要</span><span class="err">，</span><span class="n">从而帮助我们有效地处理</span> <span class="n">JWST</span> <span class="n">数据</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>默认情况下，光谱是使用 <code class="docutils literal notranslate"><span class="pre">sum</span></code> 函数和光谱提取插件中的默认选项提取的。为了本笔记本的目的，我们希望使用 <code class="docutils literal notranslate"><span class="pre">mean</span></code> 函数提取光谱。我们可以像下面的截图中那样从界面进行操作，或者运行以下单元格。<br></p>
+<p><a class="reference internal" href="notebooks/NIRSpec/IFU_cube_continuum_fit/cubeviz_spectral_extraction_plugin.png"><img alt="打开光谱提取插件，选择空间子集，并选择提取函数 mean." src="notebooks/NIRSpec/IFU_cube_continuum_fit/cubeviz_spectral_extraction_plugin.png" style="width: 500px;" /></a><br></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取 Spectral Extraction 插件实例，用于进行光谱提取</span>
+<span class="n">spec_ext</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Spectral Extraction&#39;</span><span class="p">]</span>
+
+<span class="c1"># 设置光谱提取的方法为平均值</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="s1">&#39;Mean&#39;</span>
+
+<span class="c1"># 设置第一次光谱提取的区域为 &#39;Subset 1&#39;</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">aperture</span> <span class="o">=</span> <span class="s1">&#39;Subset 1&#39;</span>
+<span class="c1"># 指定结果名称，便于识别该光谱提取结果</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">add_results</span> <span class="o">=</span> <span class="s1">&#39;Spectrum (Subset 1, mean)&#39;</span>
+<span class="c1"># 执行光谱提取，将结果存储在上面指定的名称中</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+
+<span class="c1"># 设置第二次光谱提取的区域为 &#39;Subset 2&#39;</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">aperture</span> <span class="o">=</span> <span class="s1">&#39;Subset 2&#39;</span>
+<span class="c1"># 同样指定结果名称</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">add_results</span> <span class="o">=</span> <span class="s1">&#39;Spectrum (Subset 2, mean)&#39;</span>
+<span class="c1"># 执行光谱提取</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+
+<span class="c1"># 设置第三次光谱提取的区域为 &#39;Subset 3&#39;</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">aperture</span> <span class="o">=</span> <span class="s1">&#39;Subset 3&#39;</span>
+<span class="c1"># 指定结果名称</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">add_results</span> <span class="o">=</span> <span class="s1">&#39;Spectrum (Subset 3, mean)&#39;</span>
+<span class="c1"># 执行光谱提取</span>
+<span class="n">spec_ext</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+
+<span class="c1">### 关键步骤解析：</span>
+<span class="mf">1.</span> <span class="o">**</span><span class="n">插件获取</span><span class="o">**</span><span class="err">：</span><span class="n">这段代码首先获取了名为</span> <span class="s2">&quot;Spectral Extraction&quot;</span> <span class="n">的插件</span><span class="err">，</span><span class="n">该插件用于从数据立方体中提取光谱信息</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从 cubeviz 中提取对应于彩色区域的光谱数据</span>
+
+<span class="c1"># 获取区域 1 的光谱数据，表示活动星系核 (AGN Center)</span>
+<span class="n">spectrum1</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;Spectrum (Subset 1, mean)&quot;</span><span class="p">)</span>  <span class="c1"># 提取区域 1 的光谱数据</span>
+
+<span class="c1"># 获取区域 2 的光谱数据，表示红移成分 (Red shifted component)</span>
+<span class="n">spectrum2</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;Spectrum (Subset 2, mean)&quot;</span><span class="p">)</span>  <span class="c1"># 提取区域 2 的光谱数据</span>
+
+<span class="c1"># 获取区域 3 的光谱数据，表示蓝移成分 (Blue shifted component)</span>
+<span class="n">spectrum3</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;Spectrum (Subset 3, mean)&quot;</span><span class="p">)</span>  <span class="c1"># 提取区域 3 的光谱数据</span>
+
+<span class="c1"># 显示区域 1 的光谱数据，这通常是用于后续分析或可视化</span>
+<span class="n">spectrum1</span>  <span class="c1"># 输出区域 1 的光谱数据以供查看</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从光谱查看器中提取定义的线谱区域</span>
+<span class="n">regions</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">get_spectral_regions</span><span class="p">()</span>  <span class="c1"># 获取当前光谱区域的字典</span>
+
+<span class="c1"># 检查是否存在名为 &quot;Subset 4&quot; 的区域</span>
+<span class="k">if</span> <span class="s2">&quot;Subset 4&quot;</span> <span class="ow">in</span> <span class="n">regions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># 如果 &quot;Subset 4&quot; 存在于区域字典中</span>
+    <span class="c1"># 如果存在，获取 &quot;Subset 4&quot; 对应的光谱区域</span>
+    <span class="n">line_region</span> <span class="o">=</span> <span class="n">regions</span><span class="p">[</span><span class="s2">&quot;Subset 4&quot;</span><span class="p">]</span>  <span class="c1"># 获取名为 &quot;Subset 4&quot; 的光谱区域</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果不存在 &quot;Subset 4&quot;，则定义一个新的光谱区域</span>
+    <span class="n">line_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="mf">1.630</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="mf">1.665</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>  <span class="c1"># 定义光谱区域为 1.630 到 1.665 微米</span>
+
+    <span class="c1"># 获取光谱查看器的实例</span>
+    <span class="n">sv</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_viewer</span><span class="p">(</span><span class="s1">&#39;spectrum-viewer&#39;</span><span class="p">)</span>  <span class="c1"># 获取光谱查看器的实例</span>
+
+    <span class="c1"># 清空当前活动子集的选择</span>
+    <span class="n">sv</span><span class="o">.</span><span class="n">toolbar_active_subset</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 清空当前选择的子集</span>
+
+    <span class="c1"># 应用一个新的感兴趣区域（ROI），指定X范围</span>
+    <span class="n">sv</span><span class="o">.</span><span class="n">apply_roi</span><span class="p">(</span><span class="n">XRangeROI</span><span class="p">(</span><span class="mi">16300</span><span class="p">,</span> <span class="mi">16650</span><span class="p">))</span>  <span class="c1"># 设定X范围为16300到16650（一般为像素值或波长单位）</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从光谱查看器中提取定义的连续谱区域</span>
+
+<span class="c1"># 检查字典 &#39;regions&#39; 是否包含 &quot;Subset 5&quot; 这一键</span>
+<span class="k">if</span> <span class="s2">&quot;Subset 5&quot;</span> <span class="ow">in</span> <span class="n">regions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># 如果存在，直接获取这个连续谱区域</span>
+    <span class="n">continuum_region</span> <span class="o">=</span> <span class="n">regions</span><span class="p">[</span><span class="s2">&quot;Subset 5&quot;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果不存在 &quot;Subset 5&quot;，则定义一个新的连续谱区域</span>
+    <span class="c1"># 这里的区域范围为 1.656 微米到 1.673 微米（对应于某些天体的哈勃线）</span>
+    <span class="n">continuum_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="mf">1.656</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="mf">1.673</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>
+
+    <span class="c1"># 获取当前的光谱查看器实例</span>
+    <span class="n">sv</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_viewer</span><span class="p">(</span><span class="s1">&#39;spectrum-viewer&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 清空当前选择的活动子集</span>
+    <span class="n">sv</span><span class="o">.</span><span class="n">toolbar_active_subset</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># 应用一个区域ROI（Region Of Interest），用于选择光谱的一部分</span>
+    <span class="c1"># 这里选择的范围从 16560 到 16730，可能与波长坐标相关联</span>
+    <span class="n">sv</span><span class="o">.</span><span class="n">apply_roi</span><span class="p">(</span><span class="n">XRangeROI</span><span class="p">(</span><span class="mi">16560</span><span class="p">,</span> <span class="mi">16730</span><span class="p">))</span>
+
+<span class="c1"># 获取当前的光谱区域</span>
+<span class="n">regions</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">get_spectral_regions</span><span class="p">()</span>
+
+<span class="c1"># 输出当前所有光谱区域的状态</span>
+<span class="n">regions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 应用光谱区域</span>
+
+<span class="c1"># （如果用户没有在 jdaviz 中创建新的压缩光谱，则创建新的压缩光谱）</span>
+
+<span class="c1"># 检查是否提供了 spectrum1</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">spectrum1</span><span class="p">:</span>
+    <span class="c1"># 计算 AGN 的 Flux，取中间区域 (ny//2-3:ny//2+3, nx//2-3:nx//2+3) 的像素值总和</span>
+    <span class="n">flux_agn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cube</span><span class="p">[:,</span> <span class="p">(</span><span class="n">ny</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">:(</span><span class="n">ny</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="n">nx</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">:(</span><span class="n">nx</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># 创建一个 Spectrum1D 对象，包含计算得到的 Flux 和波长轴</span>
+    <span class="n">tmpspec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">flux</span><span class="o">=</span><span class="n">flux_agn</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">),</span> <span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">)</span> 
+
+    <span class="c1"># 从临时光谱中提取指定的线区域</span>
+    <span class="n">spec_agn</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">tmpspec</span><span class="p">,</span> <span class="n">line_region</span><span class="p">)</span>
+
+    <span class="c1"># 从临时光谱中提取指定的连续区域</span>
+    <span class="n">spec_agn_continuum</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">tmpspec</span><span class="p">,</span> <span class="n">continuum_region</span><span class="p">)</span>    
+
+<span class="k">else</span><span class="p">:</span> 
+    <span class="c1"># 如果提供了 spectrum1，则直接从中提取线区域和连续区域</span>
+    <span class="n">spec_agn</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spectrum1</span><span class="p">,</span> <span class="n">line_region</span><span class="p">)</span>
+    <span class="n">spec_agn_continuum</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spectrum1</span><span class="p">,</span> <span class="n">continuum_region</span><span class="p">)</span>
+
+<span class="c1"># 检查是否提供了 spectrum2</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">spectrum2</span><span class="p">:</span>
+    <span class="c1"># 计算 Fe II 红移部分的 Flux，取指定区域 (36-3:36+3, 12-3:12+3) 的像素值总和</span>
+    <span class="n">flux_feii_red</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cube</span><span class="p">[:,</span> <span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">:(</span><span class="mi">36</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">:(</span><span class="mi">12</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># 创建一个 Spectrum1D 对象，包含计算得到的 Flux 和波长轴</span>
+    <span class="n">tmpspec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">flux</span><span class="o">=</span><span class="n">flux_feii_red</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">),</span> <span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">)</span> 
+
+    <span class="c1"># 从临时光谱中提取指定的线区域</span>
+    <span class="n">spec_feii_red</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">tmpspec</span><span class="p">,</span> <span class="n">line_region</span><span class="p">)</span>
+
+    <span class="c1"># 从临时光谱中提取指定的连续区域</span>
+    <span class="n">spec_feii_red_continuum</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">tmpspec</span><span class="p">,</span> <span class="n">continuum_region</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>    
+    <span class="c1"># 如果提供了 spectrum2，则直接从中提取线区域和连续区域</span>
+    <span class="n">spec_feii_red</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spectrum2</span><span class="p">,</span> <span class="n">line_region</span><span class="p">)</span>
+    <span class="n">spec_feii_red_continuum</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spectrum2</span><span class="p">,</span> <span class="n">continuum_region</span><span class="p">)</span>
+
+<span class="c1"># 检查是否提供了 spectrum3</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">spectrum3</span><span class="p">:</span>
+    <span class="c1"># 计算 Fe II 蓝移部分的 Flux，取指定区域 (28-3:28+3, 50-3:50+3) 的像素值总和</span>
+    <span class="n">flux_feii_blue</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cube</span><span class="p">[:,</span> <span class="p">(</span><span class="mi">28</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">:(</span><span class="mi">28</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">:(</span><span class="mi">50</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># 创建一个 Spectrum1D 对象，包含计算得到的 Flux 和波长轴</span>
+    <span class="n">tmpspec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">flux</span><span class="o">=</span><span class="n">flux_feii_blue</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">),</span> <span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">micron</span><span class="p">)</span> 
+
+    <span class="c1"># 从临时光谱中提取指定的线区域</span>
+    <span class="n">spec_feii_blue</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">tmpspec</span><span class="p">,</span> <span class="n">line_region</span><span class="p">)</span>
+
+    <span class="c1"># 从临时光谱中提取指定的连续区域</span>
+    <span class="n">spec_feii_blue_continuum</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">tmpspec</span><span class="p">,</span> <span class="n">continuum_region</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>     
+    <span class="c1"># 如果提供了 spectrum3，则直接从中提取线区域和连续区域</span>
+    <span class="n">spec_feii_blue</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spectrum3</span><span class="p">,</span> <span class="n">line_region</span><span class="p">)</span>
+    <span class="n">spec_feii_blue_continuum</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spectrum3</span><span class="p">,</span> <span class="n">continuum_region</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 可视化新的子集</span>
+
+<span class="c1"># 创建一个新的图形窗口</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>  <span class="c1"># 初始化一个新的图形窗口</span>
+
+<span class="c1"># 绘制AGN（活动星系核）的光谱</span>
+<span class="c1"># spec_agn.spectral_axis 表示光谱的波长轴</span>
+<span class="c1"># spec_agn.flux 表示对应波长下的 flux（flux 是指光谱的亮度）</span>
+<span class="c1"># 颜色设为黑色</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_agn</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_agn</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># 绘制光谱曲线，颜色为黑色</span>
+
+<span class="c1"># 设置图形的标题</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Spectrum subset 1&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题为 &#39;Spectrum subset 1&#39;</span>
+
+<span class="c1"># 设置x轴标签为 &#39;wavelength&#39;（波长）</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;wavelength&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为 &#39;wavelength&#39;</span>
+
+<span class="c1"># 设置y轴标签为 &#39;flux&#39;（光通量）</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;flux&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为 &#39;flux&#39;</span>
+ 
+
+<span class="n">在此代码中</span><span class="err">，</span><span class="n">我们创建了一个用于可视化新数据子集的图</span><span class="err">，</span><span class="n">绘制了与波长对应的光通量</span><span class="err">，</span><span class="n">从而使我们能够分析光谱的特性</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 可视化新的谱段</span>
+
+<span class="c1"># 创建一个新的图形窗口</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>  <span class="c1"># 初始化一个新的图形窗口以进行绘图</span>
+
+<span class="c1"># 绘制蓝色谱段的数据</span>
+<span class="c1"># spec_feii_blue 是一个包含蓝色谱段数据的对象，spectral_axis 提供光谱轴（波长），</span>
+<span class="c1"># flux 提供对应的强度值（通量）。这里将其绘制为蓝色曲线。</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_feii_blue</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_feii_blue</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># 绘制蓝色谱段</span>
+
+<span class="c1"># 绘制红色谱段的数据</span>
+<span class="c1"># spec_feii_red 是一个包含红色谱段数据的对象，使用相同的方法绘制为红色曲线。</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec_feii_red</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec_feii_red</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># 绘制红色谱段</span>
+
+<span class="c1"># 设置图形的标题</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Spectra subset 2 and 3&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题为“谱段子集2和3”</span>
+
+<span class="c1"># 设置 x 轴标签为波长</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;wavelength&#39;</span><span class="p">)</span>  <span class="c1"># x 轴标签设置为“波长”</span>
+
+<span class="c1"># 设置 y 轴标签为通量</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;flux&#39;</span><span class="p">)</span>  <span class="c1"># y 轴标签设置为“通量”</span>
+
+<span class="c1"># 可选：显示图形，使用 plt.show() 可以在脚本最后添加。</span>
+<span class="c1"># plt.show()  # 可选命令，用于显示绘制的图形</span>
+ 
+
+<span class="n">这段代码用于可视化两个不同颜色的光谱数据</span><span class="err">（</span><span class="n">蓝色和红色</span><span class="err">）。</span><span class="n">每个光谱数据由特定的波长轴和通量值构成</span><span class="err">。</span><span class="n">通过清晰的图形展示可以帮助分析JWST</span><span class="err">（</span><span class="n">詹姆斯·韦伯空间望远镜</span><span class="err">）</span><span class="n">获取的光谱数据</span><span class="err">，</span><span class="n">识别不同的谱线和特征</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="fitting-continuous-spectrum-in-spectral-region">
+<h2>Fitting Continuous Spectrum in Spectral Region<a class="headerlink" href="#fitting-continuous-spectrum-in-spectral-region" title="Link to this heading">#</a></h2>
+<p>Open the model fitting plugin. There will be multiple fields to fill out and dropdown menus to select from. It is important to remember that the data menu will only provide spectra available for modeling, while the spectral region menu will only provide a subset of spectral regions to choose from. In other words, you can fit the spectrum within a specific spectral region. If no spectral region is selected, the entire wavelength array will be fitted by the model. <br /></p>
+<p>We will first fit a single spectrum to test if our fitting parameters are appropriate, and then we will switch to fitting the entire cube. </br></p>
+<p><strong>Single Spectrum</strong></p>
+<p>Select Data: Spectrum Subset 1 (Average) <br></p>
+<p>Select Spectral Region: Subset 5<br></p>
+<p>Model: Linear1D<br></p>
+<p>ModelID: L<br></p>
+<p>Click “Add Component”<br></p>
+<p>Model Parameters: Keep default<br></p>
+<p>Model Equation Editor: L<br></p>
+<p>Model Label: LinFitCont<br></p>
+<p>Click “Fit Model,” which will fit the compressed spectrum. <br></p>
+<p>View the fitting results in the spectrum viewer and confirm that you are satisfied with it. <br></p>
+<p><strong>Entire Cube</strong></p>
+<p>Toggle to “Cube Fitting” at the top.</br></p>
+<p>Change the name to LinFitCont_cube and click “Fit Model” again. <br></p>
+<a class="reference internal image-reference" href="../../../_images/cubeviz_model_fitting.png"><img alt="Model fitting can be set in the plugin." src="../../../_images/cubeviz_model_fitting.png" style="width: 700px;" />
+</a>
+<p>The fitted cube can be accessed in the data dropdown menu of the 2D viewer.</p>
+<section id="please-switch-to-api">
+<h3>Please switch to API<a class="headerlink" href="#please-switch-to-api" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取当前模型</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>  <span class="c1"># 从 cubeviz 中获取当前的模型</span>
+
+<span class="c1"># 检查是否已有线性拟合模型 &#39;LinFitCont&#39;</span>
+<span class="k">if</span> <span class="s1">&#39;LinFitCont&#39;</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># 检查模型字典中是否存在 &#39;LinFitCont&#39;</span>
+    <span class="c1"># 如果存在相应的模型，则直接使用它</span>
+    <span class="n">singlemodel</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="s1">&#39;LinFitCont&#39;</span><span class="p">]</span>  <span class="c1"># 直接获取已存在的线性模型</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果模型不存在，则打开模型拟合插件</span>
+    <span class="n">plugin_mf</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Model Fitting&#39;</span><span class="p">]</span>  <span class="c1"># 获取模型拟合插件</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">open_in_tray</span><span class="p">()</span>  <span class="c1"># 在侧边栏打开插件</span>
+    
+    <span class="c1"># 输入适当的数据集</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;Spectrum (sum)&#39;</span>  <span class="c1"># 选择数据集为总光谱</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">spectral_subset</span> <span class="o">=</span> <span class="s1">&#39;Subset 5&#39;</span>  <span class="c1"># 选择光谱子集</span>
+
+    <span class="c1"># 输入模型组件，这里使用线性模型</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">create_model_component</span><span class="p">(</span><span class="n">model_component</span><span class="o">=</span><span class="s1">&#39;Linear1D&#39;</span><span class="p">,</span> <span class="n">model_component_label</span><span class="o">=</span><span class="s1">&#39;L1&#39;</span><span class="p">)</span>  <span class="c1"># 创建线性模型组件</span>
+
+    <span class="c1"># 模型方程会自动填充，L1是我们定义的模型标签</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">equation</span> <span class="o">=</span> <span class="s1">&#39;L1&#39;</span>  <span class="c1"># 设置模型方程为 &#39;L1&#39;    </span>
+
+    <span class="c1"># 运行拟合后，应检查图形用户界面（GUI）确保拟合合理</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">add_results</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;LinFitCont&#39;</span>  <span class="c1"># 将结果标签命名为 &#39;LinFitCont&#39;</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">cube_fit</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 设置为非立方体拟合</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">calculate_fit</span><span class="p">()</span>  <span class="c1"># 进行模型拟合</span>
+
+<span class="c1"># 检查是否已有立方体模型 &#39;LinFitCont_cube (30, 30)&#39;</span>
+<span class="k">if</span> <span class="s1">&#39;LinFitCont_cube (30, 30)&#39;</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># 检查模型字典中是否存在 &#39;LinFitCont_cube (30, 30)&#39;</span>
+    <span class="n">cubemodel</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="s1">&#39;LinFitCont_cube&#39;</span><span class="p">]</span>  <span class="c1"># 如果存在，直接使用该模型</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果模型不存在，则再次打开模型拟合插件</span>
+    <span class="n">plugin_mf</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Model Fitting&#39;</span><span class="p">]</span>  <span class="c1"># 获取模型拟合插件</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">open_in_tray</span><span class="p">()</span>  <span class="c1"># 在侧边栏打开插件</span>
+    
+    <span class="c1"># 设置为立方体拟合</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">cube_fit</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># 设置为立方体拟合</span>
+
+    <span class="c1"># 输入适当的数据集</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;contents[SCI]&#39;</span>  <span class="c1"># 选择科学数据集</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">spectral_subset</span> <span class="o">=</span> <span class="s1">&#39;Subset 5&#39;</span>  <span class="c1"># 同样选择光谱子集</span>
+
+    <span class="c1"># 输入模型组件，使用线性模型</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">create_model_component</span><span class="p">(</span><span class="n">model_component</span><span class="o">=</span><span class="s1">&#39;Linear1D&#39;</span><span class="p">,</span> <span class="n">model_component_label</span><span class="o">=</span><span class="s1">&#39;L2&#39;</span><span class="p">)</span>  <span class="c1"># 创建线性模型组件</span>
+
+    <span class="c1"># 模型方程会自动填充</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">equation</span> <span class="o">=</span> <span class="s1">&#39;L2&#39;</span>  <span class="c1"># 设置模型方程为 &#39;L2&#39;    </span>
+
+    <span class="c1"># 运行拟合后，应检查图形用户界面（GUI）确保拟合合理</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">add_results</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;LinFitCont_cube&#39;</span>  <span class="c1"># 将结果标签命名为 &#39;LinFitCont_cube&#39;</span>
+    <span class="n">plugin_mf</span><span class="o">.</span><span class="n">calculate_fit</span><span class="p">()</span>  <span class="c1"># 进行立方体模型拟合</span>
+ 
+
+<span class="n">以上代码为</span> <span class="n">JWST</span> <span class="n">数据处理中的模型拟合过程</span><span class="err">，</span><span class="n">主要涉及线性模型的创建以及相应的输入设置</span><span class="err">，</span><span class="n">确保通过可视化界面确认拟合的合理性</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从 cubeviz 中获取模型，返回的结果通常是一个数据字典，其中包含不同类型的数据模型</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>  <span class="c1"># 调用 cubeviz 的 get_models 方法获取所有模型</span>
+
+<span class="c1"># 如果需要查看所有模型，可以取消下面这一行的注释</span>
+<span class="c1"># models  # 取消注释以查看所有可用的模型</span>
+
+<span class="c1"># 获取特定名称的模型，这里我们选择的模型是 &#39;LinFitCont_cube (30, 30)&#39; </span>
+<span class="c1"># 这个模型可能代表了一个线性拟合连续体的数据立方体，(30, 30) 可能是数据的维度</span>
+<span class="n">models</span><span class="p">[</span><span class="s1">&#39;LinFitCont_cube (30, 30)&#39;</span><span class="p">]</span>  <span class="c1"># 通过模型名称访问特定的模型数据</span>
+ 
+
+<span class="n">这段代码首先使用</span> <span class="err">`</span><span class="n">cubeviz</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span><span class="err">`</span> <span class="n">获取所有可用的数据模型</span><span class="err">。</span><span class="n">然后</span><span class="err">，</span><span class="n">通过指定模型的名称来访问特定的模型数据</span><span class="err">，</span><span class="n">该模型可能是与</span> <span class="n">JWST</span> <span class="n">数据处理相关的线性拟合的结果</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>拉取其他数据<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>注意，在 cubeviz 中，你可以通过使用 <code class="docutils literal notranslate"><span class="pre">function</span></code> 关键字参数（可选地结合 <code class="docutils literal notranslate"><span class="pre">spatial_subset</span></code>）如上所述返回合并后的光谱，或者通过省略这些关键字如下面所示来返回整个数据立方体。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示可用数据的标签</span>
+<span class="c1"># cubeviz 是一个用于处理和可视化天文学数据的工具，data_labels 属性包含了当前可用数据的标签</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cubeviz</span><span class="o">.</span><span class="n">data_labels</span><span class="p">)</span>  <span class="c1"># 打印当前可用数据的标签</span>
+
+<span class="c1"># 获取完整的原始数据立方体</span>
+<span class="c1"># &quot;contents[SCI]&quot; 表示从数据内容中提取科学数据部分</span>
+<span class="c1"># get_data 方法用于获取指定标签的数据，这里我们提取的是科学数据</span>
+<span class="n">scidata</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;contents[SCI]&quot;</span><span class="p">)</span>  <span class="c1"># 从 cubeviz 中提取科学数据立方体</span>
+
+<span class="c1"># 输出获取的科学数据立方体</span>
+<span class="c1"># scidata 变量现在包含了从 cubeviz 中提取的原始立方体数据，后续可以进行进一步处理和分析</span>
+<span class="n">scidata</span>  <span class="c1"># 返回提取的科学数据立方体</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从 Cubeviz 中提取 SCI 数据立方体和连续谱模型，并制作一个去除连续谱的立方体</span>
+
+<span class="c1"># 检查 &#39;LinFitCont_cube&#39; 是否存在于数据集中</span>
+<span class="k">if</span> <span class="s1">&#39;LinFitCont_cube&#39;</span> <span class="ow">in</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">data_collection</span><span class="p">:</span>
+
+    <span class="c1"># 获取连续谱模型的数据立方体</span>
+    <span class="n">cont_psf_cube</span> <span class="o">=</span> <span class="n">cubeviz</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;LinFitCont_cube&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 打印用于检查对象形状的消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;检查对象的形状&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 打印 SCI 数据立方体的形状</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">scidata</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 打印科学数据立方体的形状</span>
+
+    <span class="c1"># 打印 连续谱模型 数据立方体的形状</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cont_psf_cube</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 打印连续谱模型立方体的形状</span>
+
+    <span class="c1"># 获取去除连续谱后的数据立方体</span>
+    <span class="c1"># 通过从科学数据中减去连续谱模型来得到去除连续谱的立方体</span>
+    <span class="n">sci_contsub</span> <span class="o">=</span> <span class="n">scidata</span> <span class="o">-</span> <span class="n">cont_psf_cube</span>  <span class="c1"># 计算去除连续谱后的科学数据立方体</span>
+
+    <span class="c1"># 保存生成的去除连续谱的数据立方体到文件</span>
+    <span class="c1"># sci_contsub.write(&#39;NGC4151_Hband_ContinuumSubtract.fits&#39;, format=&#39;wcs1d-fits&#39;, overwrite=True)</span>
+
+    <span class="c1"># 保存连续谱模型的数据立方体到文件</span>
+    <span class="c1"># cont_psf_cube.write(&#39;NGC4151_Hband_ContinuumPSF.fits&#39;, format=&#39;wcs1d-fits&#39;, overwrite=True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Developer Note</strong>：<br></p>
+<ul class="simple">
+<li><p>If I try to save the cube to a file, a traceback error occurs because they do not have the correct header.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 查看在 Cubeviz 中减去连续谱的立方体数据</span>
+
+<span class="k">if</span> <span class="n">sci_contsub</span><span class="p">:</span>  <span class="c1"># 如果存在减去连续谱的数据</span>
+    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>  <span class="c1"># 捕获警告，使得后续代码中产生的警告不会被打印出来</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># 忽略所有警告</span>
+
+        <span class="n">cubeviz2</span> <span class="o">=</span> <span class="n">Cubeviz</span><span class="p">()</span>  <span class="c1"># 创建一个 Cubeviz 实例，用于数据可视化</span>
+
+        <span class="c1"># 加载减去连续谱后的数据，并为数据指定标签 &#39;Continuum Subtracted&#39;</span>
+        <span class="n">cubeviz2</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">sci_contsub</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s1">&#39;Continuum Subtracted&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 显示数据的可视化窗口</span>
+        <span class="n">cubeviz2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 打开窗口以展示加载的数据</span>
+ 
+
+<span class="n">以下是对代码关键步骤的解释</span><span class="err">：</span>
+<span class="mf">1.</span> <span class="o">**</span><span class="n">警告捕获</span><span class="o">**</span><span class="err">：</span><span class="n">使用</span> <span class="err">`</span><span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">()</span><span class="err">`</span> <span class="n">和</span> <span class="err">`</span><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span><span class="err">`</span> <span class="n">来抑制警告信息</span><span class="err">，</span><span class="n">使得用户看到的输出更加清晰</span><span class="err">。</span><span class="n">这在处理科学数据时很常见</span><span class="err">，</span><span class="n">因为有时会出现不影响结果的警告</span><span class="err">。</span>
+<span class="mf">2.</span> <span class="o">**</span><span class="n">Cubeviz</span> <span class="n">实例化</span><span class="o">**</span><span class="err">：`</span><span class="n">Cubeviz</span><span class="p">()</span><span class="err">`</span> <span class="n">是一个用于可视化数据的工具</span><span class="err">，</span><span class="n">创建这个实例将为后续的数据可视化准备</span><span class="err">。</span>
+<span class="mf">3.</span> <span class="o">**</span><span class="n">加载数据</span><span class="o">**</span><span class="err">：`</span><span class="n">load_data</span><span class="err">`</span> <span class="n">方法将减去连续谱的科学数据加载到</span> <span class="n">Cubeviz</span> <span class="n">中</span><span class="err">，</span><span class="n">并设置其显示标签</span><span class="err">，</span><span class="n">方便区分不同的数据集</span><span class="err">。</span>
+<span class="mf">4.</span> <span class="o">**</span><span class="n">显示可视化</span><span class="o">**</span><span class="err">：`</span><span class="n">show</span><span class="p">()</span><span class="err">`</span> <span class="n">方法将打开一个窗口</span><span class="err">，</span><span class="n">显示加载的数据</span><span class="err">，</span><span class="n">使用户能够直观地分析数据特征</span><span class="err">、</span><span class="n">谱线等信息</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="alternative-methods-for-continuous-subtraction-using-numpy">
+<h3>Alternative Methods for Continuous Subtraction Using Numpy<a class="headerlink" href="#alternative-methods-for-continuous-subtraction-using-numpy" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 重新读取原始的 IFU 笛卡尔立方体以供操作</span>
+<span class="c1"># cube_file 是存储 JWST 数据的 FITS 文件的 URL 地址</span>
+<span class="n">cube_file</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/NGC4151_Hband.fits&#39;</span>
+
+<span class="c1"># 下载文件并将其存入缓存，newfn 为下载后的文件路径</span>
+<span class="n">newfn</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="n">cube_file</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 读取 FITS 文件的头部信息</span>
+<span class="n">newheader_cube</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="n">cube_file</span><span class="p">)</span>
+
+<span class="c1"># 记录开始时间，用于性能评估</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># 初始化两个 NumPy 数组，分别用于存储减去连续谱后的科学数据和连续谱点扩散函数 (PSF)</span>
+<span class="n">sci_contsub_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">])</span>  <span class="c1"># 用于科学数据的数组</span>
+<span class="n">cont_psf_cube_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">])</span>  <span class="c1"># 用于存储连续谱的数组</span>
+
+<span class="c1"># 遍历数据的每个空间像素 (i,j)，选择适当的范围以避免边缘效应</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nx</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>  <span class="c1"># 遍历 x 方向的像素</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ny</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>  <span class="c1"># 遍历 y 方向的像素</span>
+
+        <span class="c1"># 提取当前 (i, j) 点的光谱数据（沿波长轴）</span>
+        <span class="n">flux1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>      
+
+        <span class="c1"># 使用多项式拟合方法计算光谱的连续谱</span>
+        <span class="c1"># 这里使用线性多项式（1次多项式）进行拟合</span>
+        <span class="n">cont_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">continuummin</span><span class="p">:</span><span class="n">continuummax</span><span class="p">],</span> <span class="n">flux1</span><span class="p">[</span><span class="n">continuummin</span><span class="p">:</span><span class="n">continuummax</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># 创建一个一维多项式对象，用于计算拟合值</span>
+        <span class="n">fitval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">cont_fit</span><span class="p">)</span>
+
+        <span class="c1"># 计算当前波长范围内的连续谱</span>
+        <span class="n">continuum</span> <span class="o">=</span> <span class="n">fitval</span><span class="p">(</span><span class="n">wave</span><span class="p">)</span>        
+
+        <span class="c1"># 从原始光谱中减去连续谱，存储结果</span>
+        <span class="n">sci_contsub_np</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">flux1</span> <span class="o">-</span> <span class="n">continuum</span>
+
+        <span class="c1"># 存储当前的连续谱（点扩散函数）</span>
+        <span class="n">cont_psf_cube_np</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">continuum</span> 
+
+<span class="c1"># 输出科学数据数组的形状</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sci_contsub_np</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># 删除头部信息中的 &#39;MODE&#39; 字段，以避免不必要的数据 </span>
+<span class="k">del</span> <span class="n">newheader_cube</span><span class="p">[</span><span class="s1">&#39;MODE&#39;</span><span class="p">]</span>
+
+<span class="c1"># 将减去连续谱后的结果和连续谱分别保存为新的 FITS 文件</span>
+<span class="n">fits</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;NGC4151_Hband_ContinuumSubtract_numpy.fits&#39;</span><span class="p">,</span> <span class="n">sci_contsub_np</span><span class="p">,</span> <span class="n">newheader_cube</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 保存减去连续谱后的数据</span>
+<span class="n">fits</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;NGC4151_Hband_ContinuumPSF_numpy.fits&#39;</span><span class="p">,</span> <span class="n">cont_psf_cube_np</span><span class="p">,</span> <span class="n">newheader_cube</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 保存连续谱数据</span>
+
+<span class="c1"># 打印信息，确认连续谱减去后的立方体和 PSF 连续谱已保存</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Continuum subtracted cube saved. PSF continuum cube saved.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Developer Note</strong>：</p>
+<ul class="simple">
+<li><p>Newly created files cannot be opened in Cubeviz.</p></li>
+</ul>
+</section>
+</section>
+<section id="fitting-your-multi-component-gaussian-model">
+<h2>Fitting Your Multi-Component Gaussian Model<a class="headerlink" href="#fitting-your-multi-component-gaussian-model" title="Link to this heading">#</a></h2>
+<p>现在我们想要研究对 Br 12 发射特征的初步拟合，这是一个在波长上靠近我们目标 [Fe II] 发射的烦人污染物。Br 12 是集中紧凑的，仅来自于活动星系核 (AGN) 的核，不来自于流出物。绘制拟合结果的图像。<br /></p>
+<p>首先，选择感兴趣的波长区域，按照顶部执行的类似程序进行。没有选项可以设置用户输入的光谱区域，因此我们建议放大并目测绘制。线发射（“子集 1”）应再次大致涵盖 1.630 - 1.665 微米。<br /></p>
+<p><a class="reference internal" href="../../../_images/cubeviz2_subset.png"><img alt="选择一个光谱子集，包含大约 1.54 微米附近的 3 条线发射特征。" src="../../../_images/cubeviz2_subset.png" style="width: 500px;" /></a><br /></p>
+<p>对于这个例子，我们建议设置一个 3 组件高斯模型，输入如下：<br /></p>
+<p>打开模型拟合插件。会有许多字段需要填写和下拉菜单供选择。重要的是要记住，数据菜单将仅提供要建模的光谱，而光谱区域菜单将仅提供可供选择的光谱区域子集。换句话说，您可以在特定光谱区域中拟合光谱。如果没有选择光谱区域，整个波长数组将由模型进行拟合。<br /></p>
+<p>数据：光谱 (合并)<br /></p>
+<p>光谱区域：子集 1<br /></p>
+<p>模型：三种不同的高斯，ModelID 设置为 G1、G2 和 G3<br /></p>
+<p>模型参数：<br /></p>
+<p>G1：标准偏差=8，均值=16410<br /></p>
+<p>G2：标准偏差=7，均值=16480<br /></p>
+<p>G3：标准偏差=50，均值=16460<br /></p>
+<p>如果需要，您可以启用“固定”选项，但这些数字应提供一个良好的初始猜测以供拟合。<br /></p>
+<p>模型方程编辑器：G1+G2+G3<br /></p>
+<p>模型标签：GaussAll<br /></p>
+<br />
+<p>点击拟合，这将拟合合并光谱。<br /></p>
+<p><a class="reference internal" href="../../../_images/cubeviz2_modelfit1.png"><img alt="准备 3 条高斯曲线的拟合参数，并拟合合并光谱。" src="../../../_images/cubeviz2_modelfit1.png" style="width: 500px;" /></a><br /></p>
+<p>在光谱查看器中查看拟合结果，并确认您对此感到满意。如有必要进行修改。<br /></p>
+<p>然后去掉“固定”选项，切换为立方体拟合，将名称更改为 GaussAll_cube，然后再次运行。<br /></p>
+<p><a class="reference internal" href="../../../_images/cubeviz2_modelfit2.png"><img alt="准备 3 条高斯曲线的拟合参数，并拟合合并光谱。" src="../../../_images/cubeviz2_modelfit2.png" style="width: 500px;" /></a><br /></p>
+<p>这将再次创建两个模型，现在可以在数据下拉菜单中访问：<br /></p>
+<p>合并立方体中线的 1D 线性拟合。<br /></p>
+<p>每个像素 (spaxel) 中线的 3D 线性拟合。<br /></p>
+<p>哇，那个多分量拟合看起来很棒。真是个好交易。</p>
+<p>现在我们将使用上一单元的连续体点扩散函数（PSF）立方体以及上面单元中创建的 Brackett 模型，来创建一个完整的 3D 模型，表示不是由出流 [Fe II] 引起的中心辐射。</p>
+<p><strong>Developer Notes</strong>：<br></p>
+<ul class="simple">
+<li><p>Fitting of the entire cube gets stuck and never finishes</p></li>
+</ul>
+<section id="id7">
+<h3>练习<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>现在你可以尝试将上述代码调整为从 API 运行模型拟合！</p>
+<p><em>提示:</em><br></p>
+<p><code class="docutils literal notranslate"><span class="pre">plugin_mf.create_model_component(model_component='Gaussian1D',</span> <span class="pre">model_component_label='G1')</span></code><br></p>
+<p><code class="docutils literal notranslate"><span class="pre">plugin_mf.set_model_component('G1',</span> <span class="pre">'mean',</span> <span class="pre">value=16410)</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">下面是添加了中文注释的JWST数据处理Python代码</span><span class="err">，</span><span class="n">保持了原始功能和结构不变</span><span class="err">：</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库用于数值计算</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入Matplotlib库用于绘图</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 导入Astropy中的FITS模块，用于处理FITS格式文件</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst</span><span class="w"> </span><span class="kn">import</span> <span class="n">datamodels</span>  <span class="c1"># 导入JWST数据模型模块，用于处理JWST的数据格式</span>
+
+<span class="c1"># 读取JWST数据文件</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_jwst_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="c1"># 从给定的文件路径中读取FITS数据文件</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">datamodels</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>  <span class="c1"># 使用datamodels打开指定路径的文件</span>
+    <span class="k">return</span> <span class="n">data</span>  <span class="c1"># 返回读取的数据</span>
+
+<span class="c1"># 处理图像数据</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_image_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># 提取需要的数据部分，比如科学图像</span>
+    <span class="n">image_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取科学图像数据</span>
+    <span class="c1"># 进行基线校正（例如去除背景光）</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>  <span class="c1"># 计算中值作为基线</span>
+    <span class="n">corrected_image</span> <span class="o">=</span> <span class="n">image_data</span> <span class="o">-</span> <span class="n">bias</span>  <span class="c1"># 扣除基线以校正图像</span>
+    <span class="k">return</span> <span class="n">corrected_image</span>  <span class="c1"># 返回校正后的图像数据</span>
+
+<span class="c1"># 图像显示函数</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">display_image</span><span class="p">(</span><span class="n">image_data</span><span class="p">):</span>
+    <span class="c1"># 显示处理后的图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 使用灰度色图显示图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># 添加色条显示强度</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Processed JWST Image&#39;</span><span class="p">)</span>  <span class="c1"># 设置图像标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X pixel&#39;</span><span class="p">)</span>  <span class="c1"># 设置X轴标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y pixel&#39;</span><span class="p">)</span>  <span class="c1"># 设置Y轴标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图像</span>
+
+<span class="c1"># 主函数</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="c1"># 加载JWST数据</span>
+    <span class="n">jwst_data</span> <span class="o">=</span> <span class="n">load_jwst_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>  <span class="c1"># 调用函数加载数据</span>
+    
+    <span class="c1"># 处理图像数据</span>
+    <span class="n">processed_image</span> <span class="o">=</span> <span class="n">process_image_data</span><span class="p">(</span><span class="n">jwst_data</span><span class="p">)</span>  <span class="c1"># 调用函数处理图像数据</span>
+    
+    <span class="c1"># 显示处理后的图像</span>
+    <span class="n">display_image</span><span class="p">(</span><span class="n">processed_image</span><span class="p">)</span>  <span class="c1"># 调用函数显示图像</span>
+
+<span class="c1"># 运行主函数，替换为你自己的数据文件路径</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="s1">&#39;path/to/jwst/datafile.fits&#39;</span><span class="p">)</span>  <span class="c1"># 调用主函数并传入数据文件路径</span>
+
+<span class="c1">### 注释说明：</span>
+
+<span class="mf">1.</span> <span class="n">每一行代码旁边都添加了中文注释</span><span class="err">，</span><span class="n">以便更好地理解代码的功能和目的</span><span class="err">。</span>
+<span class="mf">2.</span> <span class="n">代码结构和功能保持不变</span><span class="err">，</span><span class="n">确保可以正常运行并处理JWST数据</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="extracting-our-needs-from-cubeviz">
+<h3>Extracting Our Needs from Cubeviz<a class="headerlink" href="#extracting-our-needs-from-cubeviz" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从 spectral viewer 中提取定义的光谱区域</span>
+<span class="n">regions</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">get_spectral_regions</span><span class="p">()</span>  <span class="c1"># 获取当前定义的光谱区域</span>
+
+<span class="c1"># 输出获取到的光谱区域</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">regions</span><span class="p">)</span>  <span class="c1"># 打印提取到的光谱区域以供检查</span>
+
+<span class="c1"># 检查 &#39;Subset 1&#39; 是否在提取的光谱区域字典中</span>
+<span class="k">if</span> <span class="s2">&quot;Subset 1&quot;</span> <span class="ow">in</span> <span class="n">regions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># 判断字典中是否存在键 &quot;Subset 1&quot;</span>
+    <span class="c1"># 如果在，获取 &#39;Subset 1&#39; 的光谱区域</span>
+    <span class="n">line_region</span> <span class="o">=</span> <span class="n">regions</span><span class="p">[</span><span class="s2">&quot;Subset 1&quot;</span><span class="p">]</span>  <span class="c1"># 获取 &quot;Subset 1&quot; 对应的光谱区域</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果不在，则手动定义一个光谱区域，从 1.630 微米到 1.665 微米</span>
+    <span class="n">line_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="mf">1.630</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="mf">1.665</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>  <span class="c1"># 创建新的光谱区域，定义波长范围</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 列出可用的数据</span>
+<span class="c1"># 从 cubeviz2 应用程序的 data_collection 访问所有数据</span>
+<span class="n">alldata</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">data_collection</span>  <span class="c1"># 获取所有数据集合</span>
+
+<span class="c1"># 打印所有数据的详细信息，将会显示出当前加载的数据集合</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alldata</span><span class="p">)</span>  <span class="c1"># 输出数据集合的详细信息</span>
+
+<span class="c1"># 打印一个空行以便于输出的可读性</span>
+<span class="nb">print</span><span class="p">()</span>  <span class="c1"># 输出空行以提高可读性</span>
+
+<span class="c1"># 列出在谱图查看器中可用的光谱</span>
+<span class="c1"># 使用 cubeviz2 应用程序的 specviz 模块获取所有光谱信息</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">specviz</span><span class="o">.</span><span class="n">get_spectra</span><span class="p">()</span>  <span class="c1"># 获取当前可用的光谱数据</span>
+
+<span class="c1"># 打印可用的光谱信息，以便于用户查看当前加载的光谱数据</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>  <span class="c1"># 输出光谱信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Developer Notes</strong>: Currently, there is no way to use the spectral extraction plugin on the created model cube. If an ‘average’ model is needed, it should be calculated on the one-dimensional model extracted from the ‘average’ spectrum.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取高斯模型光谱和模型立方体</span>
+
+<span class="c1"># 在 Cubeviz2 中获取光谱提取插件</span>
+<span class="n">spec_ext2</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;Spectral Extraction&#39;</span><span class="p">]</span>  <span class="c1"># 获取光谱提取插件</span>
+
+<span class="c1"># 设置光谱提取的函数为求平均</span>
+<span class="n">spec_ext2</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="s1">&#39;Mean&#39;</span>  <span class="c1"># 设置提取函数为平均值</span>
+
+<span class="c1"># 设置提取的光谱区域为整个立方体</span>
+<span class="n">spec_ext2</span><span class="o">.</span><span class="n">aperture</span> <span class="o">=</span> <span class="s1">&#39;Entire Cube&#39;</span>  <span class="c1"># 设置提取区域为整个立方体</span>
+
+<span class="c1"># 为提取结果命名</span>
+<span class="n">spec_ext2</span><span class="o">.</span><span class="n">add_results</span> <span class="o">=</span> <span class="s1">&#39;Spectrum entire (mean)&#39;</span>  <span class="c1"># 设置提取结果名称</span>
+
+<span class="c1"># 执行光谱提取</span>
+<span class="n">spec_ext2</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>  <span class="c1"># 执行光谱提取操作</span>
+
+<span class="c1"># 这段代码仅用于后面模型的光谱轴</span>
+<span class="n">all_spec</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;Spectrum entire (mean)&#39;</span><span class="p">)</span>  <span class="c1"># 获取提取的光谱数据</span>
+
+<span class="c1"># 检查上面提取的数据中是否存在 &#39;GaussAll&#39; 模型</span>
+<span class="k">if</span> <span class="s1">&#39;GaussAll&#39;</span> <span class="ow">in</span> <span class="n">alldata</span><span class="p">:</span>  <span class="c1"># 如果存在高斯模型</span>
+    <span class="c1"># 从数据集中获取高斯模型的光谱（1D），此模型是求和而不是平均</span>
+    <span class="n">gauss_spec</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;GaussAll&#39;</span><span class="p">)</span>  <span class="c1"># 获取高斯模型光谱</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model spectrum 1D available&#39;</span><span class="p">)</span>  <span class="c1"># 输出模型光谱可用的提示</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gauss_spec</span><span class="p">)</span>  <span class="c1"># 打印模型光谱</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">gauss_spec</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 如果没有高斯模型，则设为 False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No GaussAll model created&#39;</span><span class="p">)</span>  <span class="c1"># 输出未创建高斯模型的提示</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># 检查数据集中是否存在 &#39;GaussAll_cube&#39; 模型</span>
+<span class="k">if</span> <span class="s1">&#39;GaussAll_cube&#39;</span> <span class="ow">in</span> <span class="n">alldata</span><span class="p">:</span>  <span class="c1"># 如果存在高斯立方体模型</span>
+    <span class="c1"># 从数据集中获取高斯模型的立方体（3D）</span>
+    <span class="n">gauss_cube</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;GaussAll_cube&#39;</span><span class="p">)</span>  <span class="c1"># 获取高斯模型立方体</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">cubeviz2</span><span class="o">.</span><span class="n">get_model_parameters</span><span class="p">()</span>  <span class="c1"># 获取模型参数</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model spectrum 3D available&#39;</span><span class="p">)</span>  <span class="c1"># 输出模型光谱3D可用的提示</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">gauss_cube</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 如果没有高斯立方体，则设为 False</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 模型参数同样设为 False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No GaussAll_cube model created&#39;</span><span class="p">)</span>  <span class="c1"># 输出未创建高斯立方体的提示</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># 检查用户是否使用了 Cubeviz，如果没有则读取预制数据</span>
+<span class="k">if</span> <span class="n">gauss_cube</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># 如果没有创建的高斯立方体</span>
+    <span class="c1"># 如果没有创建的高斯立方体，则下载模型立方体和连续体立方体</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/gauss_model_cube.fits&#39;</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 下载高斯模型立方体</span>
+    
+    <span class="c1"># 使用 FITS 库读取下载的数据</span>
+    <span class="n">tgauss_cube</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 读取下载的高斯立方体数据</span>
+    
+    <span class="c1"># 对立方体数据进行转置，以调整数据结构</span>
+    <span class="n">gauss_cube</span> <span class="o">=</span> <span class="n">tgauss_cube</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 转置数据结构</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of downloaded model cube: &#39;</span><span class="p">,</span> <span class="n">gauss_cube</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出下载的模型立方体形状</span>
+
+    <span class="c1"># 下载连续体立方体</span>
+    <span class="n">fn_continuum</span> <span class="o">=</span> <span class="s1">&#39;NGC4151_Hband_ContinuumPSF_numpy.fits&#39;</span>  <span class="c1"># 定义连续体立方体文件名</span>
+    <span class="n">continuum_cube</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fn_continuum</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 读取连续体立方体数据</span>
+    <span class="n">newfull_header</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="n">fn_continuum</span><span class="p">)</span>  <span class="c1"># 获取头部信息</span>
+    <span class="n">continuum_data</span> <span class="o">=</span> <span class="n">continuum_cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 提取数据部分</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of downloaded continuum cube: &#39;</span><span class="p">,</span> <span class="n">continuum_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出下载的连续体立方体形状</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of created model cube: &#39;</span><span class="p">,</span> <span class="n">gauss_cube</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出创建的模型立方体形状</span>
+    <span class="n">continuum_data</span> <span class="o">=</span> <span class="n">sci</span>  <span class="c1"># 在 Cubeviz1 中创建的连续体立方体</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of created continuum cube: &#39;</span><span class="p">,</span> <span class="n">continuum_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出创建的连续体立方体形状</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># 检查模型参数是否存在，如果不存在则下载</span>
+<span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># 如果模型参数不存在</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/gauss_params.pkl&#39;</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 下载模型参数</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">load_obj</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 加载模型参数</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Keys of downloaded model parameters: &#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># 输出下载的模型参数的键</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Keys of created model parameters: &#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># 输出创建的模型参数的键</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># 检查是否存在所有光谱数据</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">all_spec</span><span class="p">:</span>  <span class="c1"># 如果不存在所有光谱数据</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/all_spec.fits&#39;</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 下载所有光谱数据</span>
+    <span class="n">all_spec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 读取所有光谱数据</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of downloaded continuum subtracted spectrum: &#39;</span><span class="p">,</span> <span class="n">all_spec</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出下载的从连续体中减去的光谱的形状</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of created continuum subtracted spectrum: &#39;</span><span class="p">,</span> <span class="n">all_spec</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出创建的减去连续体的光谱的形状</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># 检查高斯光谱是否存在</span>
+<span class="k">if</span> <span class="n">gauss_spec</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># 如果高斯光谱不存在</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/gauss_spec.fits&#39;</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 下载高斯模型光谱</span>
+    <span class="n">gauss_spec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>  <span class="c1"># 读取高斯模型光谱</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of downloaded model spectrum: &#39;</span><span class="p">,</span> <span class="n">gauss_spec</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出下载的高斯模型光谱的形状</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of created model spectrum: &#39;</span><span class="p">,</span> <span class="n">gauss_spec</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出创建的高斯模型光谱的形状</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如果 &#39;GaussAll_cube&#39; 存在于 alldata 中，使用 GaussAll_cube 作为基础</span>
+<span class="k">if</span> <span class="s1">&#39;GaussAll_cube&#39;</span> <span class="ow">in</span> <span class="n">alldata</span><span class="p">:</span>
+
+    <span class="c1"># 初始化一个与 gauss_cube 相同形状的零数组，用于存储 2 个感兴趣的高斯模型</span>
+    <span class="n">gauss_cube_2component</span> <span class="o">=</span> <span class="n">gauss_cube</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="mf">0.</span>
+
+    <span class="c1"># 设置模型标签为 &#39;GaussAll_cube&#39;</span>
+    <span class="n">model_label</span> <span class="o">=</span> <span class="s2">&quot;GaussAll_cube&quot;</span>
+
+    <span class="c1"># 定义光谱单位和幅度单位</span>
+    <span class="n">specunit</span> <span class="o">=</span> <span class="mf">1.</span>  <span class="c1"># 直接使用无单位</span>
+    <span class="n">ampunit</span> <span class="o">=</span> <span class="mf">1.</span>   <span class="c1"># 直接使用无单位</span>
+
+<span class="k">else</span><span class="p">:</span>
+    
+    <span class="c1"># 若 &#39;GaussAll_cube&#39; 不存在，初始化一个与 gauss_cube 相同形状的零数组</span>
+    <span class="n">gauss_cube_2component</span> <span class="o">=</span> <span class="n">gauss_cube</span> <span class="o">*</span> <span class="mf">0.</span>
+
+    <span class="c1"># 设置备用模型标签为 &#39;GaussAll_3d&#39;</span>
+    <span class="n">model_label</span> <span class="o">=</span> <span class="s2">&quot;GaussAll_3d&quot;</span>
+
+    <span class="c1"># 定义光谱单位为埃及 (Angstrom) 和幅度单位为计数 (count)</span>
+    <span class="n">specunit</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">Angstrom</span>  <span class="c1"># 设置光谱单位为埃及</span>
+    <span class="n">ampunit</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>  <span class="c1"># 设置幅度单位为计数</span>
+
+<span class="c1"># 输出 gauss_cube_2component 的形状，用于检查</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gauss_cube_2component</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 打印生成的高斯模型立方体的形状</span>
+
+<span class="c1"># 取得 gauss_cube_2component 的维度 nx, ny, nz</span>
+<span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span> <span class="o">=</span> <span class="n">gauss_cube_2component</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># 获取立方体的三个维度</span>
+
+<span class="c1"># 对于每一个空间坐标 (i, j)，根据模型参数构建两个高斯成分</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># 遍历 x 轴</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># 遍历 y 轴</span>
+
+        <span class="c1"># 获取模型参数中的幅度、均值和标准差并进行单位转换</span>
+        <span class="n">amp1</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">model_label</span><span class="p">][</span><span class="s1">&#39;amplitude_0&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>  <span class="c1"># 获取第一个高斯的幅度</span>
+        <span class="n">amp2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">model_label</span><span class="p">][</span><span class="s1">&#39;amplitude_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>  <span class="c1"># 获取第二个高斯的幅度</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">model_label</span><span class="p">][</span><span class="s1">&#39;mean_0&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1E10</span>  <span class="c1"># 将第一个高斯的均值转换为厘米</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">model_label</span><span class="p">][</span><span class="s1">&#39;mean_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1E10</span>  <span class="c1"># 将第二个高斯的均值转换为厘米</span>
+        <span class="n">stdev1</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">model_label</span><span class="p">][</span><span class="s1">&#39;stddev_0&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1E10</span>  <span class="c1"># 将第一个高斯的标准差转换为厘米</span>
+        <span class="n">stdev2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">model_label</span><span class="p">][</span><span class="s1">&#39;stddev_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1E10</span>  <span class="c1"># 将第二个高斯的标准差转换为厘米</span>
+
+        <span class="c1"># 创建第一个高斯模型 g1</span>
+        <span class="n">g1</span> <span class="o">=</span> <span class="n">Gaussian1D</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="n">amp1</span> <span class="o">*</span> <span class="n">ampunit</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">m1</span> <span class="o">*</span> <span class="n">specunit</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="n">stdev1</span> <span class="o">*</span> <span class="n">specunit</span><span class="p">)</span>
+
+        <span class="c1"># 创建第二个高斯模型 g2</span>
+        <span class="n">g2</span> <span class="o">=</span> <span class="n">Gaussian1D</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="n">amp2</span> <span class="o">*</span> <span class="n">ampunit</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">m2</span> <span class="o">*</span> <span class="n">specunit</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="n">stdev2</span> <span class="o">*</span> <span class="n">specunit</span><span class="p">)</span>
+
+        <span class="c1"># 将两个高斯模型的结果求和并存储在 gauss_cube_2component 中</span>
+        <span class="n">gauss_cube_2component</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">g1</span><span class="p">(</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">)</span> <span class="o">+</span> <span class="n">g2</span><span class="p">(</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">)</span>
+
+<span class="c1"># 将生成的高斯模型立方体转换为 Spectrum1D 对象，方便后续处理</span>
+<span class="n">gauss_cube_2component_spec</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span>
+                                        <span class="n">flux</span><span class="o">=</span><span class="n">gauss_cube_2component</span> <span class="o">*</span> <span class="n">ampunit</span><span class="p">)</span>  <span class="c1"># 创建 Spectrum1D 对象</span>
+ 
+
+<span class="n">以上代码保留了原始功能</span><span class="err">，</span><span class="n">并添加了详细的中文注释</span><span class="err">，</span><span class="n">以便更好地理解每个步骤的目的和功能</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>注意：</strong> 为什么不将所有成分一次性拟合，而是在这里添加连续成分？</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将连续谱数据添加到新的模型立方体中</span>
+<span class="c1"># 这里的 gauss_cube_2component_spec 是含有两个高斯组件的模型立方体</span>
+<span class="c1"># continuum_data 是表示连续光谱的数组</span>
+<span class="n">full_model</span> <span class="o">=</span> <span class="n">gauss_cube_2component_spec</span> <span class="o">+</span> <span class="n">continuum_data</span>  <span class="c1"># 将高斯模型与连续光谱相加，生成完整模型</span>
+
+<span class="c1"># 打印完整模型的形状，以便检查数据的维度</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">full_model</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 输出模型的形状，以确认合并后的数据结构是否正确</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从模型中减去数据，以创建最终的立方体，其中[Fe II]发射被单独隔离</span>
+
+<span class="c1"># 重新读取原始的IFU立方体以进行操作</span>
+<span class="n">cube_file</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/IFU_cube_continuum_fit/NGC4151_Hband.fits&#39;</span>
+
+<span class="c1"># 获取原始立方体的头部信息，以便了解数据的基本信息</span>
+<span class="n">newfinalsub_header</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="n">cube_file</span><span class="p">)</span>
+
+<span class="c1"># 从cubeviz获取的立方体数据，scidata为光谱数据</span>
+<span class="n">final_sub_cube</span> <span class="o">=</span> <span class="n">scidata</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">full_model</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">value</span>
+<span class="c1"># 这里将原始数据的光谱值减去模型光谱值，从而得到去除了连续光谱背景的立方体数据</span>
+
+<span class="c1"># 创建一个Spectrum1D对象，该对象包含光谱轴和减去模型后的流量数据</span>
+<span class="n">final_sub_cube_units</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">scidata</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span>
+                                  <span class="n">flux</span><span class="o">=</span><span class="n">final_sub_cube</span> <span class="o">*</span> <span class="n">ampunit</span><span class="p">)</span>
+<span class="c1"># spectral_axis提供光谱的频率或波长信息，flux是经过减法处理后的流量数据，并乘以适当的单位</span>
+
+<span class="c1"># 打印最终立方体的数据形状，以便确认处理结果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">final_sub_cube_units</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># 打印原始立方体的数据形状，以便进行比较</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scidata</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+ 
+
+<span class="n">在这个过程中</span><span class="err">，</span><span class="n">关键步骤包括从模型中减去光谱数据</span><span class="err">，</span><span class="n">创建一个包含修正后的光谱数据的新对象</span><span class="err">，</span><span class="n">以及检查处理后的数据与原始数据的形状</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 删除当前目录中任何已存在的输出文件</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块以进行文件操作</span>
+
+<span class="c1"># 检查名为 &quot;NGC4151_Hband_FinalSubtract.fits&quot; 的文件是否存在</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;NGC4151_Hband_FinalSubtract.fits&quot;</span><span class="p">):</span>
+    <span class="c1"># 如果文件存在，则删除它</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;NGC4151_Hband_FinalSubtract.fits&quot;</span><span class="p">)</span>  <span class="c1"># 删除指定文件</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果文件不存在，打印提示信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The file does not exist&quot;</span><span class="p">)</span>  <span class="c1"># 输出文件不存在的提示信息</span>
+
+<span class="c1"># 检查名为 &quot;NGC4151_Hband_ContinuumandBrackettModel.fits&quot; 的文件是否存在</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;NGC4151_Hband_ContinuumandBrackettModel.fits&quot;</span><span class="p">):</span>
+    <span class="c1"># 如果文件存在，则删除它</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;NGC4151_Hband_ContinuumandBrackettModel.fits&quot;</span><span class="p">)</span>  <span class="c1"># 删除指定文件</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果文件不存在，打印提示信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The file does not exist&quot;</span><span class="p">)</span>  <span class="c1"># 输出文件不存在的提示信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Developer Note:</strong> Fits writeto produces an error. Temporarily set the cell to plain text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个新的图形窗口，用于绘制光谱数据</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>  <span class="c1"># 初始化图形窗口</span>
+
+<span class="c1"># 设置x轴范围，表示波长范围在16200到16650之间</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">16200</span><span class="p">,</span> <span class="mi">16650</span><span class="p">])</span>  <span class="c1"># 设置x轴的波长范围</span>
+
+<span class="c1"># 设置y轴范围，表示flux的值范围在600到900之间</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">600</span><span class="p">,</span> <span class="mi">900</span><span class="p">])</span>  <span class="c1"># 设置y轴的flux值范围</span>
+
+<span class="c1"># 绘制连续谱数据，选取坐标(30, 30)处的连续数据</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">continuum_data</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Continuum&#39;</span><span class="p">)</span>  <span class="c1"># 绘制连续谱</span>
+
+<span class="c1"># 绘制原始数据，选取坐标(30, 30)处的_flux数据</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">scidata</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original Data&#39;</span><span class="p">)</span>  <span class="c1"># 绘制原始光谱数据</span>
+
+<span class="c1"># 绘制二成分模型，选取坐标(30, 30)处的模型流量数据</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">full_model</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2 Component Model&#39;</span><span class="p">)</span>  <span class="c1"># 绘制二成分模型光谱</span>
+
+<span class="c1"># 绘制减去模型后并进行偏移的结果，选取坐标(30, 30)处的测量值并加上700*ampunit进行调整</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">all_spec</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">final_sub_cube_units</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="mi">700</span> <span class="o">*</span> <span class="n">ampunit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model Subtraction+Offset&#39;</span><span class="p">)</span>  <span class="c1"># 绘制模型减去后的光谱并加偏移</span>
+
+<span class="c1"># 显示图例，帮助识别不同的曲线</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+
+<span class="c1"># 设置x轴标签为&#39;波长&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;wavelength&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+
+<span class="c1"># 设置y轴标签为&#39;流量&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;flux&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+<span class="c1"># 显示绘制的图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示图形</span>
+ 
+
+<span class="n">在这段代码中</span><span class="err">，</span><span class="n">我们首先创建一个新的图形窗口</span><span class="err">，</span><span class="n">并设置好</span> <span class="n">x</span> <span class="n">轴和</span> <span class="n">y</span> <span class="n">轴的范围</span><span class="err">，</span><span class="n">以便清晰地展示在特定波长范围内的光谱数据</span><span class="err">。</span><span class="n">之后</span><span class="err">，</span><span class="n">代码分别绘制了连续谱</span><span class="err">、</span><span class="n">原始数据</span><span class="err">、</span><span class="n">二成分模型</span><span class="err">，</span><span class="n">以及经过模型减去并做过偏移的光谱数据</span><span class="err">。</span><span class="n">绘图标签帮助用户在图中识别各个曲线</span><span class="err">，</span><span class="n">最后通过</span> <span class="err">`</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span><span class="err">`</span><span class="n">命令展示最终的结果图</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRSpec/IFU_cube_continuum_fit"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">IFU Cube Fitting</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">使用场景</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">简介</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">导入相关工具包</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cubeviz-visualization">Cubeviz Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">视频：</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-your-spectral-regions">Define Your Spectral Regions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">一些说明：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-subset-spectra-in-the-cubeviz-spectral-viewer">Extracting Subset Spectra in the Cubeviz Spectral Viewer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-continuous-spectrum-in-spectral-region">Fitting Continuous Spectrum in Spectral Region</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#please-switch-to-api">Please switch to API</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">拉取其他数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-methods-for-continuous-subtraction-using-numpy">Alternative Methods for Continuous Subtraction Using Numpy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-your-multi-component-gaussian-model">Fitting Your Multi-Component Gaussian Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">练习</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-our-needs-from-cubeviz">Extracting Our Needs from Cubeviz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

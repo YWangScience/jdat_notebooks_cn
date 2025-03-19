@@ -1,0 +1,999 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'CEERS/Untitled';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/CEERS/Untitled.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.wcs</span><span class="w"> </span><span class="kn">import</span> <span class="n">WCS</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">SkyCoord</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace with the path to your file</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;hlsp_ceers_jwst_nircam_nircam10_f356w_dr0.6_i2d.fits&#39;</span>
+
+<span class="c1"># Open the FITS file</span>
+<span class="n">hdulist</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># Display header information</span>
+<span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SIMPLE  =                    T / conforms to FITS standard                      
+BITPIX  =                    8 / array data type                                
+NAXIS   =                    0 / number of array dimensions                     
+EXTEND  =                    T                                                  
+DATE    = &#39;2022-12-27T23:56:14.791&#39; / UTC date file created                     
+ORIGIN  = &#39;STSCI   &#39;           / Organization responsible for creating file     
+TIMESYS = &#39;UTC     &#39;           / principal time system for time-related keywords
+TIMEUNIT= &#39;s       &#39;           / Default unit applicable to all time values     
+FILENAME= &#39;hlsp_ceers_jwst_nircam_nircam10_f356w_dr0.6_i2d.fits&#39; / Name of the f
+SDP_VER = &#39;2022_4a &#39;           / Data processing software version number        
+PRD_VER = &#39;PRDOPSSOC-059&#39;      / S&amp;OC PRD version number used in data processing
+OSS_VER = &#39;8.5     &#39;           / Observatory Scheduling Software (OSS) version n
+CAL_VER = &#39;1.8.5   &#39;           / Calibration software version number            
+CAL_VCS = &#39;RELEASE &#39;           / Calibration software version control sys number
+DATAMODL= &#39;ImageModel&#39;         / Type of data model                             
+TELESCOP= &#39;JWST    &#39;           / Telescope used to acquire the data             
+HGA_MOVE=                    F / High Gain Antenna moved during data collection 
+PWFSEET =     59933.2156071875 / Previous WFS exposure end time                 
+NWFSEST =                  0.0 / Next WFS exposure start time                   
+COMPRESS=                    F / On-board data compression was used (T/F)       
+                                                                                
+        Association information                                                 
+                                                                                
+ASNPOOL = &#39;none    &#39;           / Name of the ASN pool                           
+ASNTABLE= &#39;nircam10_f356w.json&#39; / Name of the ASN table                         
+                                                                                
+        Program information                                                     
+                                                                                
+TITLE   = &#39;The Cosmic Evolution Early Release Science (CEERS) Survey free&#39; / Pro
+PI_NAME = &#39;Finkelstein, Steven L.&#39; / Principal investigator name                
+CATEGORY= &#39;ERS     &#39;           / Program category                               
+SCICAT  = &#39;Galaxies and the IGM&#39; / Science category assigned during TAC process 
+DOI     = &#39;10.17909/z7p0-8481&#39; / Digital Object Identifier for the HLSP data col
+HLSPID  = &#39;CEERS   &#39;           / The identifier for this HLSP collection        
+HLSPTARG= &#39;nircam10&#39;           / Target designation for this HLSP               
+HLSPVER =                  0.6 / Version identifier for this HLSP product       
+LICENSE = &#39;CC BY 4.0&#39;          / License for use of these data                  
+LICENURL= &#39;https://creativecommons.org/licenses/by/4.0/&#39; / Data license URL     
+                                                                                
+        Observation identifiers                                                 
+                                                                                
+DATE-OBS= &#39;2022-12-22&#39;         / [yyyy-mm-dd] UTC date at start of exposure     
+TIME-OBS= &#39;03:47:21.783000&#39;    / [hh:mm:ss.sss] UTC time at start of exposure   
+DATE-BEG= &#39;2022-12-22T03:47:21.783&#39; / Date-time start of exposure               
+DATE-END= &#39;2022-12-22T04:41:13.578&#39; / Date-time end of exposure                 
+OBS_ID  = &#39;V01345071001P0134507103201&#39; / Programmatic observation identifier    
+VISIT_ID= &#39;01345071001&#39;        / Visit identifier                               
+PROGRAM = &#39;01345   &#39;           / Program number                                 
+OBSERVTN= &#39;071     &#39;           / Observation number                             
+VISIT   = &#39;001     &#39;           / Visit number                                   
+VISITGRP= &#39;03      &#39;           / Visit group identifier                         
+SEQ_ID  = &#39;2       &#39;           / Parallel sequence identifier                   
+ACT_ID  = &#39;01      &#39;           / Activity identifier                            
+EXPOSURE= &#39;1       &#39;           / Exposure request number                        
+BKGDTARG=                    F / Background target                              
+TEMPLATE= &#39;NIRSpec MultiObject Spectroscopy&#39; / Observation template used        
+OBSLABEL= &#39;P10_Mgrat_0x0_0.01_MSATA&#39; / Proposer label for the observation       
+OBSFOLDR= &#39;December NIRSpec+NIRCam&#39; / Name of the APT observation folder        
+                                                                                
+        Visit information                                                       
+                                                                                
+ENG_QUAL= &#39;OK      &#39;           / Engineering data quality indicator from EngDB  
+ENGQLPTG= &#39;CALCULATED_TRACK_TR_202111&#39; / Quality of pointing information from En
+VISITYPE= &#39;PRIME_TARGETED_FIXED&#39; / Visit type                                   
+VSTSTART= &#39;2022-12-22 02:59:56.0800000&#39; / UTC visit start time                  
+VISITSTA= &#39;SUCCESSFUL&#39;         / Status of a visit                              
+NEXPOSUR=                   24 / Total number of planned exposures in visit     
+INTARGET=                    F / At least one exposure in visit is internal     
+TARGOOPP=                    F / Visit scheduled as target of opportunity       
+TSOVISIT=                    F / Time Series Observation visit indicator        
+EXP_ONLY=                    F / Special commanding without SI configuration    
+CROWDFLD=                    F / Are the FGSes in a crowded field?              
+                                                                                
+        Target information                                                      
+                                                                                
+TARGPROP= &#39;CEERS-NIRSPEC-P10-MR-MSATA&#39; / Proposer&#39;s name for the target         
+TARGNAME= &#39;&#39; / Standard astronomical catalog name for target                    
+TARGTYPE= &#39;FIXED   &#39;           / Type of target (fixed, moving, generic)        
+TARG_RA =    214.9116945833333 / Target RA at mid time of exposure              
+TARG_DEC=    52.85838888888889 / Target Dec at mid time of exposure             
+TARGURA =                  0.1 / Target RA uncertainty                          
+TARGUDEC=                  0.1 / Target Dec uncertainty                         
+MU_RA   =                  0.0 / Target proper motion in RA                     
+MU_DEC  =                  0.0 / Target proper motion in Dec                    
+PROP_RA =    214.9116945833333 / Proposer&#39;s target RA                           
+PROP_DEC=    52.85838888888889 / Proposer&#39;s target Dec                          
+                                                                                
+        Instrument configuration information                                    
+                                                                                
+INSTRUME= &#39;NIRCAM  &#39;           / Instrument used to acquire the data            
+DETECTOR= &#39;MULTIPLE&#39;           / Name of detector used to acquire the data      
+MODULE  = &#39;MULTIPLE&#39;           / NIRCam module: A, B, or MULTIPLE               
+CHANNEL = &#39;LONG    &#39;           / Instrument channel                             
+FILTER  = &#39;F356W   &#39;           / Name of the filter element used                
+PUPIL   = &#39;CLEAR   &#39;           / Name of the pupil element used                 
+PILIN   =                    F / Pupil imaging lens in the optical path?        
+OPMODE  = &#39;NONE    &#39;           / Lamp operating mode                            
+                                                                                
+        Exposure parameters                                                     
+                                                                                
+EXPCOUNT=                    5 / Running count of exposures in visit            
+EXPRIPAR= &#39;PARALLEL_COORDINATED&#39; / Prime or parallel exposure                   
+EXP_TYPE= &#39;NRC_IMAGE&#39;          / Type of data in the exposure                   
+EXPSTART=    59935.15789101239 / [d] exposure start time in MJD                 
+EXPMID  =    59935.17659352703 / [d] exposure mid time in MJD                   
+EXPEND  =    59935.19529604167 / [d] exposure end time in MJD                   
+OSF_FILE= &#39;2022356T043252343_001_osf.xml&#39; / Observatory Status File name coverin
+READPATT= &#39;MEDIUM8 &#39;           / Readout pattern                                
+NOUTPUTS=                    4 / Number of detector outputs used                
+NINTS   =                    1 / Number of integrations in exposure             
+NGROUPS =                    9 / Number of groups in integration                
+NFRAMES =                    8 / Number of frames per group                     
+FRMDIVSR=                    8 / Divisor applied to frame-averaged groups       
+GROUPGAP=                    2 / Number of frames dropped between groups        
+DRPFRMS1=                    0 / Frames dropped prior to first integration      
+DRPFRMS3=                    0 / Frames dropped between integrations            
+NSAMPLES=                    1 / Number of A/D samples per pixel                
+TSAMPLE =                 10.0 / [us] Time between samples                      
+TFRAME  =             10.73677 / [s] Time between frames                        
+TGROUP  =             107.3677 / [s] Time between groups                        
+EFFINTTM=    944.8357599999999 / [s] Effective integration time                 
+EFFEXPTM=             2834.508 / [s] Effective exposure time                    
+DURATION=    5669.016000000001 / [s] Total duration of exposure                 
+NRSTSTRT=                    1 / Number of resets at start of exposure          
+NRESETS =                    1 / Number of resets between integrations          
+ZEROFRAM=                    T / Zero frame was downlinked separately           
+DATAPROB=                    F / Science telemetry indicated a problem          
+SCA_NUM =                  485 / Sensor Chip Assembly number                    
+DATAMODE=                   27 / post-processing method used in FPAP            
+SCTARATE= 0.000575842102365937 / [ms/s] Spacecraft Clock Time Adjust RATE       
+                                                                                
+        Subarray parameters                                                     
+                                                                                
+SUBARRAY= &#39;FULL    &#39;           / Subarray used                                  
+SUBSTRT1=                    1 / Starting pixel in axis 1 direction             
+SUBSTRT2=                    1 / Starting pixel in axis 2 direction             
+SUBSIZE1=                 2048 / Number of pixels in axis 1 direction           
+SUBSIZE2=                 2048 / Number of pixels in axis 2 direction           
+FASTAXIS=                   -1 / Fast readout axis direction                    
+SLOWAXIS=                    2 / Slow readout axis direction                    
+                                                                                
+        Dither information                                                      
+                                                                                
+PATTTYPE= &#39;NONE    &#39;           / Primary dither pattern type                    
+PATT_NUM=                    1 / Position number within dither pattern          
+NUMDTHPT=                    1 / Total number of points in pattern              
+XOFFSET =   -376.5267726231926 / x offset from pattern starting position        
+YOFFSET =    86.05423157586783 / y offset from pattern starting position        
+                                                                                
+        Aperture information                                                    
+                                                                                
+APERNAME= &#39;NRCA5_FULL&#39;         / PRD science aperture used                      
+PPS_APER= &#39;NRCALL_FULL&#39;        / original AperName supplied by PPS              
+                                                                                
+        Velocity aberration correction information                              
+                                                                                
+VA_RA   =    214.8499936889986 / [deg] Velocity aberrated apparent reference RA 
+VA_DEC  =    52.77804110431407 / [deg] Velocity aberrated apparent reference Dec
+                                                                                
+        Time information                                                        
+                                                                                
+BARTDELT=    145.3839126974344 / Barycentric time correction                    
+BSTRTIME=    59935.15957369657 / [d] Barycentric exposure start time in MJD     
+BENDTIME=     59935.1706329128 / [d] Barycentric exposure end time in MJD       
+BMIDTIME=    59935.16510330468 / [d] Barycentric exposure mid time in MJD       
+HELIDELT=    147.9061216581613 / Heliocentric time correction                   
+HSTRTIME=     59935.1596028888 / [d] Heliocentric exposure start time in MJD    
+HENDTIME=     59935.1706621051 / [d] Heliocentric exposure end time in MJD      
+HMIDTIME=    59935.16513249695 / [d] Heliocentric exposure mid time in MJD      
+                                                                                
+        NIRCam Focus Adjust Mechanism parameters                                
+                                                                                
+FAM_LA1 =                    0 / position in steps of linear actuator 1         
+FASTEP1 =                    0 / requested focus actuator 1 starting steps      
+FAUNIT1 =                  0.0 / requested focus actuator 1 starting units      
+FAPHASE1= &#39;NULL    &#39;           / requested focus actuator 1 starting phase      
+FA1VALUE=                    0 / requested focus actuator 1 position value      
+FAM_LA2 =                    0 / position in steps of linear actuator 2         
+FASTEP2 =                    0 / requested focus actuator 2 starting steps      
+FAUNIT2 =                  0.0 / requested focus actuator 2 starting units      
+FAPHASE2= &#39;NULL    &#39;           / requested focus actuator 2 starting phase      
+FA2VALUE=                    0 / requested focus actuator 2 position value      
+FAM_LA3 =                    0 / position in steps of linear actuator 3         
+FASTEP3 =                    0 / requested focus actuator 3 starting steps      
+FAUNIT3 =                  0.0 / requested focus actuator 3 starting units      
+FAPHASE3= &#39;NULL    &#39;           / requested focus actuator 3 starting phase      
+FA3VALUE=                    0 / requested focus actuator 3 position value      
+                                                                                
+        Guide star information                                                  
+                                                                                
+GS_ORDER=                    1 / index of guide star within list of selected gui
+GSSTRTTM= &#39;2022-12-22 03:07:33.8070000&#39; / UTC time when guide star activity star
+GSENDTIM= &#39;2022-12-22 03:11:35.4710000&#39; / UTC time when guide star activity comp
+GDSTARID= &#39;N5MV002639&#39;         / guide star identifier                          
+GS_RA   =    214.9678019089899 / guide star right ascension                     
+GS_DEC  =    52.76761585694334 / guide star declination                         
+GS_URA  = 3.93429826814877E-05 / guide star right ascension uncertainty         
+GS_UDEC = 3.82217939678172E-05 / guide star declination uncertainty             
+GS_MAG  =    14.19967269897461 / guide star magnitude in FGS detector           
+GS_UMAG =  0.01668231002986431 / guide star magnitude uncertainty               
+GS_V3_PA=    310.7936988758463 / V3 Position Angle of guide star for science    
+PCS_MODE= &#39;FINEGUIDE&#39;          / Pointing Control System mode                   
+VISITEND= &#39;2022-12-22 06:48:12.0660000&#39; / Observatory UTC time when the visit co
+                                                                                
+        Reference file information                                              
+                                                                                
+                                                                                
+        CRDS parameters                                                         
+                                                                                
+CRDS_VER= &#39;11.16.16&#39;           / Version of CRDS file selection software used   
+CRDS_CTX= &#39;jwst_1023.pmap&#39;     / CRDS context (.pmap) used to select ref files  
+                                                                                
+        Pixel area reference file information                                   
+                                                                                
+R_AREA  = &#39;crds://jwst_nircam_area_0015.fits&#39; / Pixel area reference file name  
+                                                                                
+        Nirspec Camera reference file information                               
+                                                                                
+R_CAMERA= &#39;N/A     &#39;           / Nirspec Camera reference file name             
+                                                                                
+        Nirspec Collimator reference file information                           
+                                                                                
+R_COLLIM= &#39;N/A     &#39;           / Nirspec Collimator reference file name         
+                                                                                
+        Dark reference file information                                         
+                                                                                
+R_DARK  = &#39;crds://jwst_nircam_dark_0365.fits&#39; / Dark reference file name        
+                                                                                
+        Disperser reference file information                                    
+                                                                                
+R_DISPER= &#39;N/A     &#39;           / Disperser reference file name                  
+                                                                                
+        Distortion reference file information                                   
+                                                                                
+R_DISTOR= &#39;crds://jwst_nircam_distortion_0168.asdf&#39; / Distortion reference file 
+                                                                                
+        Drizzle parameters reference file information                           
+                                                                                
+R_DRZPAR= &#39;crds://jwst_nircam_drizpars_0001.fits&#39; / Drizzle parameters reference
+                                                                                
+        Filter Offset reference file information                                
+                                                                                
+R_FILOFF= &#39;crds://jwst_nircam_filteroffset_0007.asdf&#39; / Filter Offset reference 
+                                                                                
+        Flat reference file information                                         
+                                                                                
+R_FLAT  = &#39;crds://jwst_nircam_flat_0475.fits&#39; / Flat reference file name        
+                                                                                
+        DFlat reference file information                                        
+                                                                                
+R_DFLAT = &#39;N/A     &#39;           / DFlat reference file name                      
+                                                                                
+        FFlat reference file information                                        
+                                                                                
+R_FFLAT = &#39;N/A     &#39;           / FFlat reference file name                      
+                                                                                
+        SFlat reference file information                                        
+                                                                                
+R_SFLAT = &#39;N/A     &#39;           / SFlat reference file name                      
+                                                                                
+        Nirspec FORE Model reference file information                           
+                                                                                
+R_FORE  = &#39;N/A     &#39;           / Nirspec FORE Model reference file name         
+                                                                                
+        Nirspec FPA Model reference file information                            
+                                                                                
+R_FPA   = &#39;N/A     &#39;           / Nirspec FPA Model reference file name          
+                                                                                
+        Gain reference file information                                         
+                                                                                
+R_GAIN  = &#39;crds://jwst_nircam_gain_0097.fits&#39; / Gain reference file name        
+                                                                                
+        IFU fore reference file information                                     
+                                                                                
+R_IFUFOR= &#39;N/A     &#39;           / ifufore reference file name                    
+                                                                                
+        IFU post reference file information                                     
+                                                                                
+R_IFUPOS= &#39;N/A     &#39;           / ifupost reference file name                    
+                                                                                
+        IFU slicer reference file information                                   
+                                                                                
+R_IFUSLI= &#39;N/A     &#39;           / ifuslicer reference file name                  
+                                                                                
+        Linearity reference file information                                    
+                                                                                
+R_LINEAR= &#39;crds://jwst_nircam_linearity_0052.fits&#39; / Linearity reference file na
+                                                                                
+        Mask reference file information                                         
+                                                                                
+R_MASK  = &#39;crds://jwst_nircam_mask_0063.fits&#39; / Mask reference file name        
+                                                                                
+        Nirspec MSA Model reference file information                            
+                                                                                
+R_MSA   = &#39;N/A     &#39;           / Nirspec MSA Model reference file name          
+                                                                                
+        Nirspec OTE Model reference file information                            
+                                                                                
+R_OTE   = &#39;N/A     &#39;           / Nirspec OTE Model reference file name          
+                                                                                
+        Persistence saturation reference file information                       
+                                                                                
+R_PERSAT= &#39;crds://jwst_nircam_persat_0021.fits&#39; / Persistence saturation referen
+                                                                                
+        Photometric reference file information                                  
+                                                                                
+R_PHOTOM= &#39;crds://jwst_nircam_photom_0111.fits&#39; / Photometric reference file nam
+                                                                                
+        Read noise reference file information                                   
+                                                                                
+R_READNO= &#39;crds://jwst_nircam_readnoise_0080.fits&#39; / Read noise reference file n
+                                                                                
+        Regions reference file information                                      
+                                                                                
+R_REGION= &#39;N/A     &#39;           / Regions reference file name                    
+                                                                                
+        Saturation reference file information                                   
+                                                                                
+R_SATURA= &#39;crds://jwst_nircam_saturation_0091.fits&#39; / Saturation reference file 
+                                                                                
+        Spectral distortion reference file information                          
+                                                                                
+R_SPCWCS= &#39;N/A     &#39;           / Spectral distortion reference file name        
+                                                                                
+        Superbias reference file information                                    
+                                                                                
+R_SUPERB= &#39;crds://jwst_nircam_superbias_0058.fits&#39; / Superbias reference file na
+                                                                                
+        Trap density reference file information                                 
+                                                                                
+R_TRPDEN= &#39;crds://jwst_nircam_trapdensity_0004.fits&#39; / Trap density reference fi
+                                                                                
+        Trap parameters reference file information                              
+                                                                                
+R_TRPPAR= &#39;crds://jwst_nircam_trappars_0002.fits&#39; / Trap parameters reference fi
+                                                                                
+        Wavelength Range reference file information                             
+                                                                                
+R_WAVRAN= &#39;N/A     &#39;           / Wavelength Range reference file name           
+                                                                                
+        Calibration step information                                            
+                                                                                
+S_WCS   = &#39;COMPLETE&#39;           / Assign World Coordinate System                 
+S_DARK  = &#39;COMPLETE&#39;           / Dark Subtraction                               
+S_DQINIT= &#39;COMPLETE&#39;           / Data Quality Initialization                    
+S_FLAT  = &#39;COMPLETE&#39;           / Flat Field Correction                          
+S_GANSCL= &#39;SKIPPED &#39;           / Gain Scale Correction                          
+S_GRPSCL= &#39;SKIPPED &#39;           / Group Scale Correction                         
+S_IPC   = &#39;SKIPPED &#39;           / Interpixel Capacitance Correction              
+S_JUMP  = &#39;COMPLETE&#39;           / Jump Detection                                 
+S_LINEAR= &#39;COMPLETE&#39;           / Linearity Correction                           
+S_OUTLIR= &#39;SKIPPED &#39;           / Outlier Detection                              
+S_PERSIS= &#39;COMPLETE&#39;           / Persistence Correction                         
+S_PHOTOM= &#39;COMPLETE&#39;           / Photometric Calibration                        
+S_RAMP  = &#39;COMPLETE&#39;           / Ramp Fitting                                   
+S_REFPIX= &#39;COMPLETE&#39;           / Reference Pixel Correction                     
+S_RESAMP= &#39;COMPLETE&#39;           / Image resampling                               
+S_SATURA= &#39;COMPLETE&#39;           / Saturation Checking                            
+S_SKYMAT= &#39;SKIPPED &#39;           / Sky Background Equalization or Subtraction     
+S_SUPERB= &#39;COMPLETE&#39;           / Superbias Subtraction                          
+S_TWKREG= &#39;SKIPPED &#39;           / Image Alignment via Astronomical Sources       
+TCATFILE= &#39;jw01345071001_03201_00001_nrcalong_cal_cat.idxy.ecsv&#39; / Tweakreg cata
+                                                                                
+        Resample Parameters                                                     
+                                                                                
+NDRIZ   =                    3 / Number of groups/pointings included in resample
+TEXPTIME=             2834.508 / [s] Total exposure time for product            
+RESWHT  = &#39;ivm     &#39;           / Type of drizzle weighting to use in resampling 
+PIXFRAC =                  1.0 / Drizzle parameter describing pixel shrinking   
+PXSCLRT =   0.4767312946227961 / Pixel scale ratio relative to native detector s
+                                                                                
+        Background information                                                  
+                                                                                
+BKGMETH = &#39;local   &#39;           / Background computation method on individual cal
+BKGSUB  =                    T / Has background been subtracted from data?      
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your FITS file path</span>
+<span class="n">fits_file</span> <span class="o">=</span> <span class="s1">&#39;hlsp_ceers_jwst_nircam_nircam10_f356w_dr0.6_i2d.fits&#39;</span>
+
+<span class="c1"># Your target coordinates (Replace these with your coordinates)</span>
+<span class="n">target_ra</span> <span class="o">=</span> <span class="mf">214.994</span>  <span class="c1"># in degrees (example RA)</span>
+<span class="n">target_dec</span> <span class="o">=</span> <span class="mf">52.830</span>  <span class="c1"># in degrees (example DEC)</span>
+<span class="n">target_coord</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">target_ra</span><span class="p">,</span> <span class="n">target_dec</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">),</span> <span class="n">frame</span><span class="o">=</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load the FITS file header and WCS information without loading full data</span>
+<span class="n">hdulist</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fits_file</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wcs</span> <span class="o">=</span> <span class="n">WCS</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="s1">&#39;SCI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+
+<span class="c1"># Convert RA, DEC to pixel coordinates</span>
+<span class="n">x_pix</span><span class="p">,</span> <span class="n">y_pix</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">world_to_pixel</span><span class="p">(</span><span class="n">target_coord</span><span class="p">)</span>
+<span class="n">x_pix</span><span class="p">,</span> <span class="n">y_pix</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x_pix</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y_pix</span><span class="p">)</span>
+
+<span class="c1"># Define image cutout size (e.g., 100 x 100 pixels around the target)</span>
+<span class="n">cutout_size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x_pix</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="n">x_pix</span> <span class="o">+</span> <span class="n">cutout_size</span><span class="o">//</span><span class="mi">2</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_pix</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="n">y_pix</span> <span class="o">+</span> <span class="n">cutout_size</span><span class="o">//</span><span class="mi">2</span>
+
+<span class="c1"># Read only the required image section (to handle large file efficiently)</span>
+<span class="n">image_data</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s1">&#39;SCI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">]</span>
+
+<span class="c1"># Plotting the image section</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">wcs</span><span class="o">.</span><span class="n">slice</span><span class="p">((</span><span class="nb">slice</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span><span class="n">y_max</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span><span class="n">x_max</span><span class="p">))))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">image_data</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">image_data</span><span class="p">,</span><span class="mi">99</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_pix</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">y_pix</span> <span class="o">-</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Target RA/DEC&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;RA&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;DEC&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Flux (MJy/sr)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CEERS NIRCam F356W image cutout</span><span class="se">\n</span><span class="s1">RA: </span><span class="si">{</span><span class="n">target_ra</span><span class="si">}</span><span class="s1">, DEC: </span><span class="si">{</span><span class="n">target_dec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Close the file after usage</span>
+<span class="n">hdulist</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: FITSFixedWarning: &#39;datfix&#39; made the change &#39;Set DATE-BEG to &#39;2022-12-22T03:47:21.783&#39; from MJD-BEG.
+Set DATE-AVG to &#39;2022-12-22T04:14:17.681&#39; from MJD-AVG.
+Set DATE-END to &#39;2022-12-22T04:41:13.578&#39; from MJD-END&#39;. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: &#39;obsfix&#39; made the change &#39;Set OBSGEO-L to    99.549768 from OBSGEO-[XYZ].
+Set OBSGEO-B to     8.917036 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1678060450.793 from OBSGEO-[XYZ]&#39;. [astropy.wcs.wcs]
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/45d698f2cc368fb2a24b6bb652d672db9ecec91c162154ee43989c32ae393ca1.png"><img alt="../_images/45d698f2cc368fb2a24b6bb652d672db9ecec91c162154ee43989c32ae393ca1.png" src="../_images/45d698f2cc368fb2a24b6bb652d672db9ecec91c162154ee43989c32ae393ca1.png" style="width: 669px; height: 636px;" />
+</a>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./CEERS"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

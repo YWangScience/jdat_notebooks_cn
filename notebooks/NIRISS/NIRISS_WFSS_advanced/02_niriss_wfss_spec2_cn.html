@@ -1,0 +1,1902 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>运行 spec2 管道 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="IFU立方体拟合" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html" />
+    <link rel="prev" title="运行图像处理管道并创建源目录" href="01_niriss_wfss_image2_image3_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>运行 spec2 管道</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">运行 spec2 管道</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">导入与数据设置</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crds">CRDS 文档</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">数据设置</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">自定义 Spec2 管道运行</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Spec2 关联文件</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">查看Spec2关联文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">修改关联文件以使用自定义源目录</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">运行 spec2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">检查Spec2的输出</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">进一步探索 Spec2 数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">在Spec2数据中查找源</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">限制提取源的数量</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">使用参数输入进行限幅提取</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">使用源目录进行极限提取</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">最终可视化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">查看单个源的所有文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">查看单个文件的所有源</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">可视化提取源在分散图像中的位置，以及与直接图像的比较</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spec2">
+<h1>运行 spec2 管道<a class="headerlink" href="#spec2" title="Link to this heading">#</a></h1>
+<p>WFSS 的分散图像将在运行完相应直接图像的 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/pipeline/calwebb_spec2.html">image2 和 image3 管道</a> 后，通过 spec2 管道进行处理。如前一个笔记本所提到的，如果您有一个仅包含您希望查看的源的源目录，这一步将极为有帮助。任何额外的源都会增加校准所需的时间。</p>
+<p><strong>用例</strong>：在创建自定义源目录后，应在分散的 WFSS 图像上运行 spec2。<br></p>
+<p><strong>数据</strong>：JWST/NIRISS 图像和来自程序 2079 观测 004 的光谱。这些数据应存储在一个名为 <code class="docutils literal notranslate"><span class="pre">data</span></code> 的单一目录中，并可以从笔记本 00_niriss_mast_query_data_setup.ipynb 下载。<br></p>
+<p><strong>工具</strong>：astropy, crds, glob, jdaviz, json, jwst, matplotlib, numpy, os, pandas, shutil, urllib, zipfile<br></p>
+<p><strong>跨仪器</strong>：NIRISS<br></p>
+<p><strong>内容</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#imports"><span class="xref myst">导入与数据设置</span></a></p></li>
+<li><p><a class="reference internal" href="#custom_spec2"><span class="xref myst">自定义 Spec2 管道运行</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#spec2_asn"><span class="xref myst">Spec2 关联文件</span></a></p></li>
+<li><p><a class="reference internal" href="#spec2_run"><span class="xref myst">运行 Spec2</span></a></p></li>
+<li><p><a class="reference internal" href="#spec2_examine"><span class="xref myst">检查 Spec2 的输出</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#explore"><span class="xref myst">进一步探索数据</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#source"><span class="xref myst">查找源</span></a></p></li>
+<li><p><a class="reference internal" href="#limit_source"><span class="xref myst">限制提取源的数量</span></a></p></li>
+<li><p><a class="reference internal" href="#final_visualize"><span class="xref myst">最终可视化</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>作者</strong>：Rachel Plesha (rplesha&#64;stsci.edu), Camilla Pacifici (cpacifici&#64;stsci.edu), JWebbinar 笔记本。<br></p>
+<p><strong>首次发布</strong>：2024年5月<br></p>
+<p><strong>最后编辑</strong>：2024年8月<br></p>
+<p><strong>最后测试</strong>：此笔记本最后一次测试是在 JWST 管道版本 1.12.5 和 CRDS 上下文 jwst_1225.pmap。</p>
+<p><a id='imports'></a></p>
+<section id="id1">
+<h2>导入与数据设置<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="crds">
+<h1>CRDS 文档<a class="headerlink" href="#crds" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/user_documentation/reference_files_crds.html#crds">CRDS Documentation</a></p>
+<p>在这个链接中，您可以找到关于CRDS（Calibration Reference Data System，校准参考数据系统）的详细信息。CRDS是JWST（James Webb Space Telescope，詹姆斯·韦伯太空望远镜）数据处理的重要组成部分，负责管理和分发用于数据校准的参考文件。</p>
+<section id="id2">
+<h2>主要内容<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>CRDS的功能</strong>：CRDS的主要功能是确保JWST数据处理所需的所有参考文件都能被有效管理和访问。</p></li>
+<li><p><strong>参考文件</strong>：这些文件包括各种校准数据，如响应曲线、噪声模型等。</p></li>
+<li><p><strong>数据版本控制</strong>：CRDS还提供版本控制，以确保使用的参考文件是最新的，并与科学数据的处理版本相匹配。</p></li>
+</ul>
+<p>请访问上述链接以获取更详细的信息和指导。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 更新CRDS路径到你的本地目录</span>
+<span class="o">%</span><span class="k">env</span> CRDS_PATH=crds_cache  # 设置CRDS缓存路径为&#39;crds_cache&#39;
+
+<span class="c1"># 设置CRDS服务器的URL</span>
+<span class="o">%</span><span class="k">env</span> CRDS_SERVER_URL=https://jwst-crds.stsci.edu  # 设置CRDS服务器的URL为JWST CRDS服务器
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 导入glob模块，用于文件路径操作</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>  <span class="c1"># 导入json模块，用于处理JSON数据</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于操作系统功能</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>  <span class="c1"># 导入shutil模块，用于文件和目录的高级操作</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>  <span class="c1"># 导入urllib模块，用于处理URL</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>  <span class="c1"># 导入zipfile模块，用于处理ZIP文件</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入numpy库，用于数值计算</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>  <span class="c1"># 导入pandas库，用于数据处理和分析</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>  <span class="c1"># 从astropy.table导入Table类，用于处理表格数据</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从astropy.io导入fits模块，用于处理FITS文件</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>  <span class="c1"># 从astropy导入常量模块，用于天文常数</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  <span class="c1"># 从matplotlib导入pyplot模块，用于绘图</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">patches</span>  <span class="c1"># 从matplotlib导入patches模块，用于绘图中的形状</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> widget  # 设置matplotlib为交互式模式
+
+<span class="c1"># %matplotlib inline  # 设置matplotlib为内联模式（注释掉的代码）</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spec2Pipeline</span>  <span class="c1"># 从jwst.pipeline导入Spec2Pipeline类，用于JWST数据处理</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>检查您正在使用的JWST（詹姆斯·韦伯太空望远镜）管道版本。要查看可用的最新管道版本或安装以前的版本，请访问 <a class="reference external" href="https://github.com/spacetelescope/jwst#software-vs-dms-build-version-map">GitHub</a>。同时，请确认您使用的 <a class="reference external" href="https://jwst-crds.stsci.edu/">CRDS（参考数据系统）版本</a>。 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/user_documentation/reference_files_crds.html">CRDS文档</a> 解释了如何在JWST管道中设置特定的上下文。如果这两个值与上面最后测试的说明不同，可能会导致此笔记本中的差异。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">jwst</span>  <span class="c1"># 导入JWST相关的库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">crds</span>  <span class="c1"># 导入CRDS（Calibration Reference Data System）库</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;JWST Pipeliene Version:&#39;</span><span class="p">,</span> <span class="n">jwst</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># 打印JWST管道的版本信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRDS Context:&#39;</span><span class="p">,</span> <span class="n">crds</span><span class="o">.</span><span class="n">get_context_name</span><span class="p">(</span><span class="s1">&#39;jwst&#39;</span><span class="p">))</span>  <span class="c1"># 获取并打印JWST的CRDS上下文名称</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id3">
+<h3>数据设置<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>数据目录 <code class="docutils literal notranslate"><span class="pre">data_dir</span></code> 应该包含所有的关联文件和速率文件，并且放在一个单一的平面目录中。<code class="docutils literal notranslate"><span class="pre">custom_run_image3</span></code> 应该与笔记本 01_niriss_wfss_image2_image3.ipynb 中的自定义 image3 校准输出目录相匹配。</p>
+<p>对于 spec2，我们需要下载的速率文件，以及来自 image3 的分割图和源目录。因此，我们将创建一个新目录（由 <code class="docutils literal notranslate"><span class="pre">custom_run_spec2</span></code> 定义），切换到该目录，并复制相关数据。</p>
+<p><em>对于常规工作流程，将所有文件保留在一个单一目录中通常比我们在这里创建的多个目录更为简单。</em></p>
+<p>打开我们的数据信息文件，这将使解析速率文件以便复制变得更容易，因为我们只需要分散图像，即那些使用GR150R或GR150C观测的图像。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于处理文件和目录</span>
+
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>  <span class="c1"># 定义数据目录名称</span>
+
+<span class="c1"># 检查数据目录是否存在</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>  <span class="c1"># 如果不存在，则创建数据目录</span>
+
+<span class="n">custom_run_spec2</span> <span class="o">=</span> <span class="s1">&#39;custom_spec2&#39;</span>  <span class="c1"># 定义自定义spec2结果保存目录</span>
+<span class="n">custom_run_image3</span> <span class="o">=</span> <span class="s1">&#39;custom_image3_calibrated&#39;</span>  <span class="c1"># 定义自定义image3校准结果保存目录</span>
+
+<span class="c1"># 如果自定义目录不存在，则创建这些目录</span>
+<span class="k">for</span> <span class="n">custom_dir</span> <span class="ow">in</span> <span class="p">[</span><span class="n">custom_run_spec2</span><span class="p">,</span> <span class="n">custom_run_image3</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_dir</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_dir</span><span class="p">))</span>  <span class="c1"># 创建自定义目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如果您尚未从笔记本00下载数据或尚未运行笔记本01，请运行此单元格。否则，可以跳过它。</span>
+
+<span class="c1"># 从Box下载未校准的数据到数据目录：</span>
+
+<span class="n">boxlink</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/niriss_wfss_advanced/niriss_wfss_advanced_02_input.zip&#39;</span>  <span class="c1"># Box链接</span>
+
+<span class="n">boxfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">boxlink</span><span class="p">)</span>  <span class="c1"># 获取文件名</span>
+
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">boxlink</span><span class="p">,</span> <span class="n">boxfile</span><span class="p">)</span>  <span class="c1"># 下载文件</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">boxfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># 打开zip文件</span>
+
+<span class="n">zf</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">data_dir</span><span class="p">)</span>  <span class="c1"># 解压到指定的数据目录</span>
+
+<span class="c1"># 将从box文件下载的文件移动到顶层数据目录</span>
+
+<span class="n">box_download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">boxfile</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 构建下载目录路径</span>
+
+<span class="c1"># 遍历下载目录中的所有文件</span>
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">box_download_dir</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)):</span>  <span class="c1"># 获取所有文件名</span>
+
+    <span class="k">if</span> <span class="s1">&#39;.csv&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>  <span class="c1"># 如果是CSV文件</span>
+        <span class="c1"># 移动到当前目录</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>  <span class="c1"># 重命名并移动文件到当前目录</span>
+
+    <span class="k">elif</span> <span class="s1">&#39;_segm.fits&#39;</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s1">&#39;_cat.ecsv&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>  <span class="c1"># 如果是分割图像或分类文件</span>
+        <span class="c1"># 将image2产品移动到适当的目录</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_spec2</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)))</span>  <span class="c1"># 移动到指定目录</span>
+
+    <span class="k">elif</span> <span class="s1">&#39;_i2d.fits&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>  <span class="c1"># 如果是图像3产品</span>
+        <span class="c1"># 将image3产品也移动到它们的目录</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_image3</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)))</span>  <span class="c1"># 移动到指定目录</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 其他文件</span>
+        <span class="c1"># 移动到数据目录 </span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)))</span>  <span class="c1"># 移动到数据目录</span>
+
+<span class="c1"># 现在删除不必要的文件</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">boxfile</span><span class="p">)</span>  <span class="c1"># 删除下载的zip文件</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">box_download_dir</span><span class="p">)</span>  <span class="c1"># 删除下载目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从之前创建的csv文件中，找到我们想要用spec2进行校准的所有光栅观测的列表</span>
+
+<span class="n">listrate_file</span> <span class="o">=</span> <span class="s1">&#39;list_ngdeep_rate.csv&#39;</span>  <span class="c1"># 定义包含光栅观测数据的CSV文件名</span>
+
+<span class="n">rate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">listrate_file</span><span class="p">)</span>  <span class="c1"># 读取CSV文件并将其存储为DataFrame</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 复制所有的光栅率文件</span>
+
+<span class="c1"># 获取GR150R滤镜的文件名列表</span>
+<span class="n">gr150r_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rate_df</span><span class="p">[</span><span class="n">rate_df</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GR150R&#39;</span><span class="p">][</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">])</span>
+
+<span class="c1"># 获取GR150C滤镜的文件名列表</span>
+<span class="n">gr150c_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rate_df</span><span class="p">[</span><span class="n">rate_df</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GR150C&#39;</span><span class="p">][</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">])</span>
+
+<span class="c1"># 遍历GR150R和GR150C的文件列表</span>
+<span class="k">for</span> <span class="n">grism_rate</span> <span class="ow">in</span> <span class="n">gr150r_files</span> <span class="o">+</span> <span class="n">gr150c_files</span><span class="p">:</span>
+
+    <span class="c1"># 检查文件是否存在</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">grism_rate</span><span class="p">):</span>
+
+        <span class="c1"># 复制文件到指定目录</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">grism_rate</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_spec2</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">grism_rate</span><span class="p">)))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="c1"># 如果文件不存在，打印错误信息</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">grism_rate</span><span class="si">}</span><span class="s1"> does not exist. Not able to copy file.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 复制所有的 spec2 asn 文件</span>
+
+<span class="k">for</span> <span class="n">asn</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;*spec2*asn*.json&#39;</span><span class="p">)):</span>  <span class="c1"># 遍历匹配的 spec2 asn 文件</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">asn</span><span class="p">):</span>  <span class="c1"># 检查文件是否存在</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">asn</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_spec2</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">asn</span><span class="p">)))</span>  <span class="c1"># 复制文件到指定目录</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果文件不存在</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">asn</span><span class="si">}</span><span class="s1"> does not exist. Not able to copy file.&#39;</span><span class="p">)</span>  <span class="c1"># 输出文件不存在的提示信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 复制所有必要的image3输出文件</span>
+
+<span class="n">cats</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*source*_cat.ecsv&#39;</span><span class="p">))</span>  <span class="c1"># 复制source-match和source118目录</span>
+<span class="n">segm</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_image3</span><span class="p">,</span> <span class="s1">&#39;*_segm.fits&#39;</span><span class="p">))</span>  <span class="c1"># 获取所有分割图像文件</span>
+
+<span class="c1"># 遍历所有的image3文件，包括目录和分割文件</span>
+<span class="k">for</span> <span class="n">image3_file</span> <span class="ow">in</span> <span class="n">cats</span> <span class="o">+</span> <span class="n">segm</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image3_file</span><span class="p">):</span>  <span class="c1"># 检查文件是否存在</span>
+
+        <span class="c1"># 复制文件到指定的目标目录</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image3_file</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_spec2</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">image3_file</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 如果文件不存在，打印错误信息</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">image3_file</span><span class="si">}</span><span class="s1"> does not exist. Not able to copy file.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>  <span class="c1"># 获取当前工作目录</span>
+
+<span class="k">if</span> <span class="n">cwd</span> <span class="o">!=</span> <span class="n">data_dir</span><span class="p">:</span>  <span class="c1"># 如果当前目录不是数据目录，则切换到数据目录</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>  <span class="c1"># 尝试切换到数据目录</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>  <span class="c1"># 如果找不到指定的目录</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not able to change into: </span><span class="si">{</span><span class="n">data_dir</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">Remaining in: </span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印错误信息，显示无法切换目录</span>
+        <span class="k">pass</span>  <span class="c1"># 继续执行后面的代码</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">custom_run_spec2</span><span class="p">):</span>  <span class="c1"># 如果自定义运行目录不存在</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">custom_run_spec2</span><span class="p">)</span>  <span class="c1"># 创建自定义运行目录</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">custom_run_spec2</span><span class="p">)</span>  <span class="c1"># 切换到自定义运行目录</span>
+
+<span class="n">new_cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>  <span class="c1"># 获取新的当前工作目录</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Now in:&#39;</span><span class="p">,</span> <span class="n">new_cwd</span><span class="p">)</span>  <span class="c1"># 打印当前工作目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 为后续校准创建目录</span>
+
+<span class="n">source_outdir</span> <span class="o">=</span> <span class="s1">&#39;new_catalog_calibrated&#39;</span>  <span class="c1"># 定义校准后源目录名称</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">source_outdir</span><span class="p">):</span>  <span class="c1"># 检查目录是否存在</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">source_outdir</span><span class="p">)</span>  <span class="c1"># 如果不存在，则创建该目录</span>
+
+<span class="n">param_outdir</span> <span class="o">=</span> <span class="s1">&#39;parameter_input_calibrated&#39;</span>  <span class="c1"># 定义校准后参数目录名称</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">param_outdir</span><span class="p">):</span>  <span class="c1"># 检查目录是否存在</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">param_outdir</span><span class="p">)</span>  <span class="c1"># 如果不存在，则创建该目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="custom_spec2"></a></p>
+</section>
+</section>
+<section id="id4">
+<h2>自定义 Spec2 管道运行<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>由于这是一个自定义的 Spec2 管道运行，第一步是确保使用正确的源目录（source catalog）。这将定义光谱轨迹切割（spectral trace cutouts），从而告知管道在哪里提取光谱。</p>
+<p><a id="spec2_asn"></a></p>
+<section id="id5">
+<h3>Spec2 关联文件<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>与成像部分的处理流程一样，spec2 也有关联文件。这些文件稍微复杂一些，因为它们需要包含科学数据（WFSS）、直接图像、源目录和分割图作为成员。对于科学数据，速率文件被用作输入，类似于 image2。与 image2 一样，每个观察序列中的每个分散图像抖动位置应该有一个 asn 文件。在这种情况下，这应该与 <code class="docutils literal notranslate"><span class="pre">FILTER=GR150R</span></code> 或 <code class="docutils literal notranslate"><span class="pre">FILTER=GR150C</span></code> 的速率文件数量相匹配。对于这个程序和观测，每个光栅都有三个抖动，并且同时使用 GR150R 和 GR150C，总共在每个观察序列中有六个曝光，观察中使用了五个观察序列，使用的阻挡滤光片为 F115W -&gt; F115W -&gt; F150W -&gt; F150W -&gt; F200W。</p>
+<section id="id6">
+<h4>查看Spec2关联文件<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 导入glob库</span>
+
+<span class="c1"># 获取当前目录下所有包含&#39;spec2&#39;和&#39;asn&#39;的JSON文件，并按字母顺序排序</span>
+<span class="n">spec2_asns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*spec2*asn*.json&#39;</span><span class="p">))</span>
+
+<span class="c1"># 打印找到的Spec2 ASN文件的数量</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spec2_asns</span><span class="p">),</span> <span class="s1">&#39;Spec2 ASN files&#39;</span><span class="p">)</span>
+
+<span class="c1"># 检查ASN文件的数量是否与分散图像的数量匹配 -- 对于观测004，应该是30个</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rate_df</span><span class="p">[(</span><span class="n">rate_df</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GR150R&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">rate_df</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GR150C&#39;</span><span class="p">)]),</span> <span class="s1">&#39;Dispersed image rate files&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 查看其中一个关联文件</span>
+
+<span class="c1"># 从指定的关联文件中加载JSON数据</span>
+<span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">spec2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># 遍历关联数据中的每一个键值对</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">asn_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># 打印键及其对应的数据</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 特别是，仔细查看关联文件中的产品文件名：</span>
+
+<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历关联数据中的每个产品</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># 遍历产品的每个键值对</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;members&#39;</span><span class="p">:</span>  <span class="c1"># 如果键是&#39;members&#39;</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名</span>
+
+            <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># 遍历成员列表</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印每个成员的文件名和类型</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果键不是&#39;members&#39;</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名和对应的值</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h4>修改关联文件以使用自定义源目录<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<p>当前关联文件中使用的是管道源目录。在之前的笔记本中，我们创建了一个自定义源目录，文件扩展名为 <code class="docutils literal notranslate"><span class="pre">source-match_cat.ecsv</span></code>，因此我们需要在关联文件中指向该目录。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_source_ext</span> <span class="o">=</span> <span class="s1">&#39;source-match_cat.ecsv&#39;</span>  <span class="c1"># 新的源目录扩展名</span>
+
+<span class="c1"># loop through all of the spec2 association files in the current directory</span>
+<span class="k">for</span> <span class="n">asn</span> <span class="ow">in</span> <span class="n">spec2_asns</span><span class="p">:</span>  <span class="c1"># 遍历当前目录中的所有spec2关联文件</span>
+
+    <span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">asn</span><span class="p">))</span>  <span class="c1"># 读取关联文件的数据</span>
+
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 对于每个产品，检查其成员        </span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">product</span><span class="p">[</span><span class="s1">&#39;members&#39;</span><span class="p">]:</span>  <span class="c1"># 每个产品有多个成员</span>
+
+            <span class="k">if</span> <span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;sourcecat&#39;</span><span class="p">:</span>  <span class="c1"># 检查成员类型是否为sourcecat</span>
+
+                <span class="n">cat_in_asn</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span>  <span class="c1"># 获取当前成员的文件名</span>
+
+                <span class="c1"># check that we haven&#39;t already updated the source catalog name</span>
+                <span class="k">if</span> <span class="n">new_source_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cat_in_asn</span><span class="p">:</span>  <span class="c1"># 检查是否已经更新过源目录名</span>
+
+                    <span class="n">new_cat</span> <span class="o">=</span> <span class="n">cat_in_asn</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="n">new_source_ext</span><span class="p">)</span>  <span class="c1"># 替换为新的目录名</span>
+
+                    <span class="c1"># actually update the association file member</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">new_cat</span><span class="p">):</span>  <span class="c1"># 检查新的目录文件是否存在</span>
+
+                        <span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_cat</span>  <span class="c1"># 更新成员的文件名</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_cat</span><span class="si">}</span><span class="s2"> does not exist in the current working directory&quot;</span><span class="p">)</span>  <span class="c1"># 输出文件不存在的提示</span>
+
+    <span class="c1"># write out the new association file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">asn</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># 以写入模式打开关联文件</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">asn_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 将更新后的数据写入文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 双重检查数据是否仍然正常：</span>
+
+<span class="n">asn_check</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">spec2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>  <span class="c1"># 从第一个ASN文件中加载JSON数据</span>
+
+<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">asn_check</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历产品列表</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># 遍历每个产品的键值对</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;members&#39;</span><span class="p">:</span>  <span class="c1"># 如果键是&#39;members&#39;</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名</span>
+
+            <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># 遍历成员列表</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印每个成员的名称和类型</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果键不是&#39;members&#39;</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印键名和对应的值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>或者，在您喜欢的文本编辑器中打开 .json 文件，并手动编辑每个目录名称。</p>
+<p><a id="spec2_run"></a></p>
+</section>
+</section>
+<section id="id8">
+<h3>运行 spec2<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>与图像处理管道一样，我们可以为管道中的步骤提供自定义参数。</p>
+<p>关于在 spec2 阶段运行的所有内容的更多信息可以在 <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/pipeline/calwebb_spec2.html">这里</a> 找到。</p>
+<p>首先，我们将仅对一个关联文件运行 spec2，因为如果有很多源，运行 spec2 可能会花费较长时间。我们将输出保存到当前目录中，该目录应为上述创建的 <code class="docutils literal notranslate"><span class="pre">custom_spec2</span></code> 目录。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_asn</span> <span class="o">=</span> <span class="n">spec2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 从spec2_asns列表中获取第一个归档序列号（ASN）</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Calibrating: </span><span class="si">{</span><span class="n">test_asn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 打印正在校准的归档序列号</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 检查校准后的文件是否已经存在</span>
+
+<span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">test_asn</span><span class="p">))</span>  <span class="c1"># 读取ASN文件并解析为JSON格式</span>
+
+<span class="n">x1d_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_x1d.fits&quot;</span>  <span class="c1"># 构建x1d文件的名称</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">):</span>  <span class="c1"># 检查x1d文件是否存在</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">,</span> <span class="s1">&#39;: x1d file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 如果存在，打印提示信息</span>
+
+<span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果文件不存在</span>
+
+    <span class="n">spec2</span> <span class="o">=</span> <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">test_asn</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 调用Spec2Pipeline处理数据并保存结果</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="spec2_examine"></a></p>
+</section>
+<section id="id9">
+<h3>检查Spec2的输出<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Spec2的输出文件为<code class="docutils literal notranslate"><span class="pre">cal.fits</span></code>和<code class="docutils literal notranslate"><span class="pre">x1d.fits</span></code>。在这里，我们快速查看这些文件的一些重要部分。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/data_products/science_products.html#calibrated-data-cal-and-calints">cal 进一步阅读</a></p></li>
+<li><p><a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/data_products/science_products.html#extracted-1-d-spectroscopic-data-x1d-and-x1dints">x1d 进一步阅读</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从指定的ASN文件中加载JSON数据</span>
+<span class="n">asn_example</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">spec2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># 获取第一个成员的速率文件名</span>
+<span class="n">rate_file</span> <span class="o">=</span> <span class="n">asn_example</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;members&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span>
+
+<span class="c1"># 获取第三个成员的源目录文件名</span>
+<span class="n">source_cat</span> <span class="o">=</span> <span class="n">asn_example</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;members&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span>
+
+<span class="c1"># 将速率文件名中的&#39;rate&#39;替换为&#39;cal&#39;，生成校准文件名</span>
+<span class="n">cal_file</span> <span class="o">=</span> <span class="n">rate_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">)</span>
+
+<span class="c1"># 将速率文件名中的&#39;rate&#39;替换为&#39;x1d&#39;，生成一维光谱文件名</span>
+<span class="n">x1d_file</span> <span class="o">=</span> <span class="n">rate_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="s1">&#39;x1d&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打开所有文件以进行查看</span>
+
+<span class="n">rate_hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">rate_file</span><span class="p">)</span>  <span class="c1"># 打开速率文件</span>
+<span class="n">cal_hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cal_file</span><span class="p">)</span>    <span class="c1"># 打开校准文件</span>
+<span class="n">x1d_hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">)</span>    <span class="c1"># 打开一维光谱文件</span>
+
+<span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">source_cat</span><span class="p">)</span>      <span class="c1"># 读取源目录表</span>
+
+<span class="c1"># 首先查看我们期望从目录中识别出多少个源</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span><span class="si">}</span><span class="s1"> sources identified in the current catalog.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 打印识别到的源数量</span>
+
+<span class="c1"># 然后比较校准文件和一维光谱文件的扩展长度</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The x1d file has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">)</span><span class="si">}</span><span class="s1"> extensions &amp; the cal file has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cal_hdu</span><span class="p">)</span><span class="si">}</span><span class="s1"> extensions&#39;</span><span class="p">)</span>  <span class="c1"># 打印扩展数量</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>请注意，每个文件中的第0个和最后一个扩展不包含科学数据，而其余扩展对应于每个源。<code class="docutils literal notranslate"><span class="pre">x1d</span></code> 文件包含每个源的提取光谱，而 <code class="docutils literal notranslate"><span class="pre">cal</span></code> 文件包含七个扩展中的2D切片信息，分别为 SCI、DQ、ERR、WAVELENGTH、VAR_POISSON、VAR_RNOISE 和 VAR_FLAT。</p>
+<p>这部分原因就是为什么拥有一个精细化的源目录如此重要。如果有些源对您的研究没有用处，那么就没有必要创建切片并提取它们。</p>
+<p>请注意，源的数量超过了文件中的扩展数量。这是因为管道默认只提取100个最亮的源。要更改此行为，请向管道提供参数 <code class="docutils literal notranslate"><span class="pre">wfss_nbright</span></code>，我们将在 <a class="reference internal" href="#limit_source"><span class="xref myst">下面</span></a> 进行说明。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打印x1d_hdu对象的信息</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>  <span class="c1"># 输出x1d_hdu的详细信息，包括数据类型、维度等</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cal_hdu</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>  <span class="c1"># 打印cal_hdu对象的信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">x1d</span></code> 文件是一个 BinTable，因此每个数据扩展中包含了额外的列。<a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/data_products/science_products.html#extracted-1-d-spectroscopic-data-x1d-and-x1dints">x1d 进一步阅读</a> 详细介绍了每一列包含的内容，但我们也可以通过查看其中一个数据列快速了解。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 快速查看x1d文件中可用的列</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>  <span class="c1"># 打印x1d文件中第二个HDU的数据列</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="explore"></a></p>
+</section>
+</section>
+<section id="id10">
+<h2>进一步探索 Spec2 数据<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p><a id="source"></a></p>
+<section id="id11">
+<h3>在Spec2数据中查找源<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>每个cal和x1d文件的扩展名在头文件中都有一个源ID。这些值应与源目录中的值相匹配。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">find_source_ext</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">cal_hdu</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># 查找给定源ID在x1d和cal扩展中的位置</span>
+
+    <span class="c1"># x1d扩展首先处理</span>
+    <span class="n">x1d_source_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x1d_hdu</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;SOURCEID&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>  <span class="c1"># 获取x1d文件中所有源ID，去掉第0个和最后一个数据扩展</span>
+
+    <span class="n">wh_x1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x1d_source_ids</span> <span class="o">==</span> <span class="n">source_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 找到源ID的位置，并加1以考虑主头部</span>
+
+    <span class="c1"># 也查找cal扩展，但仅在SCI扩展中；</span>
+    <span class="c1"># 对于所有其他扩展填充源ID为-999，以获取正确的扩展值</span>
+    <span class="n">cal_source_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">cal_hdu</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;SOURCEID&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;EXTNAME&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SCI&#39;</span>
+                               <span class="k">else</span> <span class="o">-</span><span class="mi">999</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cal_hdu</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>  <span class="c1"># 仅在SCI扩展中获取源ID</span>
+
+    <span class="n">wh_cal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cal_source_ids</span> <span class="o">==</span> <span class="n">source_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 找到源ID的位置，并加1以考虑主头部</span>
+
+    <span class="k">if</span> <span class="n">info</span><span class="p">:</span>
+        <span class="c1"># 如果info为真，打印相关信息</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All source IDs in x1d file:</span><span class="se">\n</span><span class="si">{</span><span class="n">x1d_source_ids</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印x1d文件中的所有源ID</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extension </span><span class="si">{</span><span class="n">wh_x1d</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">x1d_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> contains the data for source </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s2"> from our catalog&quot;</span><span class="p">)</span>  <span class="c1"># 打印x1d扩展信息</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extension </span><span class="si">{</span><span class="n">wh_cal</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">cal_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> contains the data for source </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s2"> from our catalog&quot;</span><span class="p">)</span>  <span class="c1"># 打印cal扩展信息</span>
+
+    <span class="k">return</span> <span class="n">wh_x1d</span><span class="p">,</span> <span class="n">wh_cal</span>  <span class="c1"># 返回x1d和cal扩展中源ID的位置</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 我们来查找在之前的笔记本中识别的源118。</span>
+
+<span class="n">source_id</span> <span class="o">=</span> <span class="mi">118</span>  <span class="c1"># 定义源的ID为118</span>
+
+<span class="c1"># 使用find_source_ext函数查找对应的x1d和cal数据的索引</span>
+<span class="n">wh_x1d_118</span><span class="p">,</span> <span class="n">wh_cal_118</span> <span class="o">=</span> <span class="n">find_source_ext</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">cal_hdu</span><span class="p">,</span> <span class="n">source_id</span><span class="p">)</span>
+
+<span class="c1"># 从x1d_hdu中提取源118的数据</span>
+<span class="n">x1d_data_118</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">wh_x1d_118</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> 
+
+<span class="c1"># 从cal_hdu中提取源118的数据</span>
+<span class="n">cal_data_118</span> <span class="o">=</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">wh_cal_118</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>首先，让我们看看提取框在速率图像上的显示。这将帮助我们对管道的提取可靠性有一个整体的了解。</p>
+<p><em>注意：在这个例子中，提取框并没有完全围绕光谱居中。目前正在进行校准工作，以更好地考虑NIRISS探测器上光谱轨迹形状的差异。关于此校准状态的更新可以在<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-calibration-pipeline-caveats/jwst-wide-field-slitless-spectroscopy-pipeline-caveats#JWSTWideFieldSlitlessSpectroscopyPipelineCaveats-NIRISSWFSS">NIRISS jdox</a>上找到。</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 用零填充坏像素的nan值，以便更容易查看</span>
+
+<span class="n">rate_data</span> <span class="o">=</span> <span class="n">rate_hdu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 从rate_hdu中提取数据</span>
+
+<span class="n">rate_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">rate_data</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 将nan值替换为0</span>
+
+<span class="c1"># 从cal数据的头文件中提取提取框参数：</span>
+
+<span class="n">cal_header</span> <span class="o">=</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">wh_cal_118</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># 获取指定cal_hdu的头文件</span>
+
+<span class="n">sx_left</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT1&#39;</span><span class="p">]</span>  <span class="c1"># 提取左侧起始位置</span>
+
+<span class="n">swidth</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSIZE1&#39;</span><span class="p">]</span>  <span class="c1"># 提取宽度</span>
+
+<span class="n">sx_right</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">swidth</span>  <span class="c1"># 计算右侧位置</span>
+
+<span class="n">sy_bottom</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT2&#39;</span><span class="p">]</span>  <span class="c1"># 提取底部起始位置</span>
+
+<span class="n">sheight</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSIZE2&#39;</span><span class="p">]</span>  <span class="c1"># 提取高度</span>
+
+<span class="n">sy_top</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">sheight</span>  <span class="c1"># 计算顶部位置</span>
+
+<span class="c1"># 绘制速率文件和提取框</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># 创建1行2列的子图</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rate_data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>  <span class="c1"># 显示速率数据，可能需要调整缩放</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rate_data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>  <span class="c1"># 显示速率数据，可能需要调整缩放</span>
+
+<span class="n">rectangle</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">sx_left</span><span class="p">,</span> <span class="n">sy_bottom</span><span class="p">),</span> <span class="n">swidth</span><span class="p">,</span> <span class="n">sheight</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建提取框</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rectangle</span><span class="p">)</span>  <span class="c1"># 在ax1中添加提取框</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">rate_file</span><span class="p">)</span>  <span class="c1"># 设置ax1的标题</span>
+
+<span class="n">rectangle2</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">sx_left</span><span class="p">,</span> <span class="n">sy_bottom</span><span class="p">),</span> <span class="n">swidth</span><span class="p">,</span> <span class="n">sheight</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 创建第二个提取框</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rectangle2</span><span class="p">)</span>  <span class="c1"># 在ax2中添加提取框</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">sx_left</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="n">sx_right</span><span class="o">+</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 设置ax2的x轴范围</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">sy_bottom</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="n">sy_top</span><span class="o">+</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 设置ax2的y轴范围</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Source </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s1"> Zoom in&#39;</span><span class="p">)</span>  <span class="c1"># 设置ax2的标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cal_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">cal_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 设置整体标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我们可以在这个框中查看提取的光谱，包括校准文件（cal file）和一维文件（x1d file）。在下面提取的光谱中，您可以看到来自星系的[OII]和H<span class="math notranslate nohighlight">\(\beta\)</span>发射线。</p>
+<p><em>注意：在一维光谱中看到的上翘边缘效应是由于当前光谱校准时在提取框边缘的插值造成的。这也是一个持续的校准工作的一部分。</em></p>
+<p><em>附加说明：来自数据处理管道的默认通量单位是Jansky。然而，在这些提取的光谱中，我们显示的单位是erg/s/cm²/Å。要关闭此功能，请在<code class="docutils literal notranslate"><span class="pre">plot_cutout_and_spectrum</span></code>中设置<code class="docutils literal notranslate"><span class="pre">convert=False</span></code></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Fnu_to_Flam</span><span class="p">(</span><span class="n">wave_micron</span><span class="p">,</span> <span class="n">flux_jansky</span><span class="p">):</span>
+    <span class="c1"># 将Jansky单位的 flux 转换为 erg/s/cm^2/Angstrom，输入波长单位为微米</span>
+
+    <span class="n">f_lambda</span> <span class="o">=</span> <span class="mf">1E-21</span> <span class="o">*</span> <span class="n">flux_jansky</span> <span class="o">*</span> <span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">wave_micron</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算 erg/s/cm^2/Angstrom</span>
+
+    <span class="k">return</span> <span class="n">f_lambda</span>  <span class="c1"># 返回转换后的 flux</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_cutout_and_spectrum</span><span class="p">(</span><span class="n">cal_data</span><span class="p">,</span> <span class="n">x1d_data</span><span class="p">,</span> <span class="n">cal_file</span><span class="p">,</span> <span class="n">x1d_file</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># 创建一个包含两个子图的图形，大小为11x5英寸</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+    <span class="c1"># 绘制校准图像</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cal_data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">cal_data</span><span class="p">)</span><span class="o">*</span><span class="mf">.01</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">cal_file</span><span class="p">))</span>  <span class="c1"># 设置子图标题为校准文件名</span>
+
+    <span class="c1"># 绘制光谱</span>
+    <span class="n">wave</span> <span class="o">=</span> <span class="n">x1d_data</span><span class="p">[</span><span class="s1">&#39;WAVELENGTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>  <span class="c1"># 获取波长数据并展平</span>
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">x1d_data</span><span class="p">[</span><span class="s1">&#39;FLUX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>  <span class="c1"># 获取光通量数据并展平</span>
+
+    <span class="k">if</span> <span class="n">convert</span><span class="p">:</span>  <span class="c1"># 如果需要转换单位</span>
+        <span class="n">flux</span> <span class="o">=</span> <span class="n">Fnu_to_Flam</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">)</span>  <span class="c1"># 将光通量从Fnu转换为Flam</span>
+        <span class="n">fluxunit</span> <span class="o">=</span> <span class="s1">&#39;egs/s/cm^2/Angstrom&#39;</span>  <span class="c1"># 设置单位为ergs/s/cm^2/Angstrom</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fluxunit</span> <span class="o">=</span> <span class="s1">&#39;Jy&#39;</span>  <span class="c1"># 设置单位为Jy</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">)</span>  <span class="c1"># 绘制光谱</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">))</span>  <span class="c1"># 设置子图标题为一维文件名</span>
+
+    <span class="n">edge_buffer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span> <span class="o">*</span> <span class="mf">.25</span><span class="p">)</span>  <span class="c1"># 计算边缘缓冲区大小</span>
+    <span class="n">max_flux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">edge_buffer</span><span class="p">:</span><span class="n">edge_buffer</span><span class="o">*-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 计算有效光通量的最大值</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="n">max_flux</span><span class="o">+</span><span class="p">(</span><span class="n">max_flux</span><span class="o">*</span><span class="mf">0.1</span><span class="p">))</span>  <span class="c1"># 设置y轴范围，添加10%的缓冲区</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (Microns)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为波长（微米）</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Flux (</span><span class="si">{</span><span class="n">fluxunit</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为光通量及其单位</span>
+
+    <span class="c1"># 根据滤光片类型设置x轴和y轴标签</span>
+    <span class="k">if</span> <span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">cal_file</span><span class="p">,</span> <span class="s1">&#39;FILTER&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;GR150C&#39;</span><span class="p">:</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X Pixels (&lt;--- dispersion direction)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y Pixels&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X Pixels&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y Pixels (&lt;--- dispersion direction)&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+    <span class="c1"># 设置总标题，包含滤光片和源ID信息</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">cal_file</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;FILTER&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">cal_file</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PUPIL&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> Source </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_cutout_and_spectrum</span><span class="p">(</span><span class="n">cal_data</span><span class="p">,</span> <span class="n">x1d_data</span><span class="p">,</span> <span class="n">cal_file</span><span class="p">,</span> <span class="n">x1d_file</span><span class="p">,</span> <span class="n">source_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    绘制切片图和光谱图</span>
+<span class="sd">    :param cal_data: 校准后的数据</span>
+<span class="sd">    :param x1d_data: 一维光谱数据</span>
+<span class="sd">    :param cal_file: 校准文件名</span>
+<span class="sd">    :param x1d_file: 一维光谱文件名</span>
+<span class="sd">    :param source_id: 源ID</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># 导入必要的库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库用于数值计算</span>
+    
+    <span class="c1"># 创建一个图形和两个子图</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># 创建2行1列的子图，设置图形大小</span>
+    
+    <span class="c1"># 绘制切片图</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cal_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示校准数据，使用灰度色图</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cutout for Source ID: </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 设置切片图标题</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X Pixel&#39;</span><span class="p">)</span>  <span class="c1"># 设置X轴标签</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y Pixel&#39;</span><span class="p">)</span>  <span class="c1"># 设置Y轴标签</span>
+    
+    <span class="c1"># 绘制光谱图</span>
+    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">x1d_data</span><span class="p">[</span><span class="s1">&#39;wavelength&#39;</span><span class="p">]</span>  <span class="c1"># 获取波长数据</span>
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">x1d_data</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span>  <span class="c1"># 获取光谱通量数据</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>  <span class="c1"># 绘制光谱曲线</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Spectrum for Source ID: </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 设置光谱图标题</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">)</span>  <span class="c1"># 设置X轴标签</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Flux (Jy)&#39;</span><span class="p">)</span>  <span class="c1"># 设置Y轴标签</span>
+    
+    <span class="c1"># 保存图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 自动调整子图参数以填充整个图像区域</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s1">_cutout_and_spectrum.png&#39;</span><span class="p">)</span>  <span class="c1"># 保存图像为PNG文件</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图像</span>
+
+<span class="n">以上代码在每一行添加了中文注释</span><span class="err">，</span><span class="n">以便于理解代码的功能和结构</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="limit_source"></a></p>
+</section>
+<section id="id12">
+<h3>限制提取源的数量<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>由于提取大量源需要很长时间，让我们看看是否可以减少提取的源的数量。我们将通过参数输入（针对亮点源）以及进一步精炼的源目录来实现这一点。</p>
+<section id="id13">
+<h4>使用参数输入进行限幅提取<a class="headerlink" href="#id13" title="Link to this heading">#</a></h4>
+<p>在此校准中，我们明确指出以下步骤的参数：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">extract_2d</span></code>，在此步骤中我们设置了 <code class="docutils literal notranslate"><span class="pre">wfss_nbright</span></code>，该参数限制了提取的亮源数量，以及 <code class="docutils literal notranslate"><span class="pre">wfss_mmag_extract</span></code>，该参数设置了我们希望提取的最暗星等的限制。<a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/extract_2d/main.html#nircam-and-niriss-wfss">进一步阅读</a></p></li>
+</ul>
+<p>在这种情况下，我们将提取限制为仅提取10个最亮的天体。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 检查校准文件是否已经存在</span>
+
+<span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">spec2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>  <span class="c1"># 从指定的ASN文件中加载数据</span>
+
+<span class="n">x1d_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_outdir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_x1d.fits&quot;</span><span class="p">)</span>  <span class="c1"># 构建x1d文件的完整路径</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">):</span>  <span class="c1"># 检查x1d文件是否存在</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">,</span> <span class="s1">&#39;: x1d file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 如果存在，打印提示信息</span>
+
+<span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果文件不存在</span>
+
+    <span class="n">spec2</span> <span class="o">=</span> <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">spec2_asns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># 调用Spec2Pipeline处理数据</span>
+
+                               <span class="n">steps</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;extract_2d&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;wfss_nbright&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="p">},</span>  <span class="c1"># 设置提取2D数据的步骤参数</span>
+
+                               <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 保存处理结果</span>
+
+                               <span class="n">output_dir</span><span class="o">=</span><span class="n">param_outdir</span><span class="p">)</span>  <span class="c1"># 指定输出目录</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入必要的库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>  <span class="c1"># 用于查找符合特定规则的文件路径名</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>    <span class="c1"># 用于处理文件和目录路径</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 用于处理FITS文件格式</span>
+
+<span class="c1"># 打开x1d文件以检查提取了多少个源</span>
+<span class="n">x1ds</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_outdir</span><span class="p">,</span> <span class="s1">&#39;*x1d.fits*&#39;</span><span class="p">))</span>  <span class="c1"># 查找指定目录下所有符合条件的x1d.fits文件</span>
+
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1ds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">temp_x1d</span><span class="p">:</span>  <span class="c1"># 打开找到的第一个x1d文件</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The x1d file has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">temp_x1d</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="si">}</span><span class="s1"> extracted sources&#39;</span><span class="p">)</span>  <span class="c1"># 输出提取的源数量，减去2是因为FITS文件的前两个HDU通常是头信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h4>使用源目录进行极限提取<a class="headerlink" href="#id14" title="Link to this heading">#</a></h4>
+<p>在上一个笔记本中，我们以几种不同的方式限制了目录。在这里，我们将目录限制在一个特定的亮度范围内，然后使用这个新目录提取数据。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入必要的库</span>
+<span class="n">source_match_cats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*source-match_cat.ecsv&#39;</span><span class="p">))</span>  <span class="c1"># 获取所有匹配源的文件并排序</span>
+
+<span class="n">source_match_cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">source_cat</span><span class="p">)</span>  <span class="c1"># 读取源匹配目录的表格数据</span>
+
+<span class="c1"># 查看可能的星等范围</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]</span>  <span class="c1"># 获取星等数据</span>
+
+<span class="n">min_vegmag</span> <span class="o">=</span> <span class="n">mags</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  <span class="c1"># 计算最小星等</span>
+<span class="n">max_vegmag</span> <span class="o">=</span> <span class="n">mags</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>  <span class="c1"># 计算最大星等</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Magnitude range: </span><span class="si">{</span><span class="n">min_vegmag</span><span class="si">}</span><span class="s2"> -  </span><span class="si">{</span><span class="n">max_vegmag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印星等范围</span>
+
+<span class="c1"># 源118的Vega星等应为~21.68</span>
+<span class="n">source_id</span> <span class="o">=</span> <span class="mi">118</span>  <span class="c1"># 定义要查找的源ID</span>
+
+<span class="n">source_mag</span> <span class="o">=</span> <span class="n">source_match_cat</span><span class="p">[</span><span class="n">source_match_cat</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">source_id</span><span class="p">][</span><span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 获取指定源的星等</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Magnitude for source in previous notebook (source </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s2">) : </span><span class="si">{</span><span class="n">source_mag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印指定源的星等</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 查找在特定星等范围内的源的目录（21.18，以确保包含我们的示例源）</span>
+
+<span class="n">min_mag</span> <span class="o">=</span> <span class="mf">21.1</span>  <span class="c1"># 设置最小星等</span>
+
+<span class="n">max_mag</span> <span class="o">=</span> <span class="mf">21.2</span>  <span class="c1"># 设置最大星等</span>
+
+<span class="c1"># 从源匹配目录中筛选出星等在指定范围内的源</span>
+<span class="n">mag_cat</span> <span class="o">=</span> <span class="n">source_match_cat</span><span class="p">[(</span><span class="n">source_match_cat</span><span class="p">[</span><span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">min_mag</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">source_match_cat</span><span class="p">[</span><span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">max_mag</span><span class="p">)]</span>
+
+<span class="c1"># 选择感兴趣的列：标签、x中心、y中心、天空中心、是否扩展、绝对星等、视星等</span>
+<span class="n">mag_cat</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;xcentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;ycentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;is_extended&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_abmag&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag_source_ext</span> <span class="o">=</span> <span class="s1">&#39;mag-limit_cat.ecsv&#39;</span>  <span class="c1"># 定义新的文件扩展名</span>
+
+<span class="n">new_cat</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">mag_cat</span><span class="p">)</span>  <span class="c1"># 将行实例转换为数据框</span>
+
+<span class="c1"># 保存新的目录，使用唯一的名称</span>
+<span class="n">new_cat_name</span> <span class="o">=</span> <span class="n">source_cat</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="n">mag_source_ext</span><span class="p">)</span>  <span class="c1"># 替换文件名中的扩展名</span>
+
+<span class="n">new_cat</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_cat_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 写入新的目录，允许覆盖</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved:&#39;</span><span class="p">,</span> <span class="n">new_cat_name</span><span class="p">)</span>  <span class="c1"># 打印保存的文件名</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>一旦我们有了一个已限制为特定源的源目录（source catalog），接下来我们就可以将剩余的目录与这些源进行匹配。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">cat_name</span> <span class="ow">in</span> <span class="n">source_match_cats</span><span class="p">:</span>  <span class="c1"># 遍历源匹配目录中的每个目录名</span>
+
+    <span class="k">if</span> <span class="n">cat_name</span> <span class="o">==</span> <span class="n">source_cat</span><span class="p">:</span>  <span class="c1"># 如果当前目录名是源目录名</span>
+
+        <span class="c1"># 基础目录已经保存过了</span>
+        <span class="k">continue</span>  <span class="c1"># 跳过当前循环，继续下一个目录</span>
+
+    <span class="c1"># 匹配当前目录与基础目录之间的源ID</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">cat_name</span><span class="p">)</span>  <span class="c1"># 读取当前目录的数据表</span>
+    <span class="n">cat</span><span class="o">.</span><span class="n">add_index</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">)</span>  <span class="c1"># 为数据表添加索引，索引字段为&#39;label&#39;</span>
+    <span class="n">new_cat</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">mag_cat</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])]</span>  <span class="c1"># 根据基础目录中的&#39;label&#39;筛选当前目录的数据</span>
+
+    <span class="c1"># 检查确保所有源都存在</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">new_cat</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;xcentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;ycentroid&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;is_extended&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_abmag&#39;</span><span class="p">,</span> <span class="s1">&#39;isophotal_vegamag&#39;</span><span class="p">]))</span>  <span class="c1"># 打印新目录中的相关字段</span>
+
+    <span class="c1"># 使用唯一名称保存新目录</span>
+    <span class="n">new_cat_name</span> <span class="o">=</span> <span class="n">cat_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="n">mag_source_ext</span><span class="p">)</span>  <span class="c1"># 替换文件扩展名以生成新目录名</span>
+    <span class="n">new_cat</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_cat_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 将新目录写入文件，允许覆盖</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved:&#39;</span><span class="p">,</span> <span class="n">new_cat_name</span><span class="p">)</span>  <span class="c1"># 打印保存的文件名</span>
+    <span class="nb">print</span><span class="p">()</span>  <span class="c1"># 打印空行以分隔输出</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>一旦新的目录（catalogs）生成，我们必须更新关联文件（association files）以使用新的目录。<strong>注意：如果您希望再次使用之前的源目录进行校准（calibrate），则需要再次更新关联文件。</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_source_ext</span> <span class="o">=</span> <span class="n">mag_source_ext</span>  <span class="c1"># 将新的源扩展名赋值给变量</span>
+
+<span class="c1"># loop through all of the spec2 association files in the current directory</span>
+<span class="k">for</span> <span class="n">asn</span> <span class="ow">in</span> <span class="n">spec2_asns</span><span class="p">:</span>  <span class="c1"># 遍历当前目录中的所有spec2关联文件</span>
+
+    <span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">asn</span><span class="p">))</span>  <span class="c1"># 读取关联文件的内容并解析为JSON格式</span>
+
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 对于每个产品，检查其成员        </span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">product</span><span class="p">[</span><span class="s1">&#39;members&#39;</span><span class="p">]:</span>  <span class="c1"># 每个产品有多个成员</span>
+
+            <span class="k">if</span> <span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;sourcecat&#39;</span><span class="p">:</span>  <span class="c1"># 检查成员类型是否为&#39;sourcecat&#39;</span>
+
+                <span class="n">cat_in_asn</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span>  <span class="c1"># 获取当前成员的扩展名</span>
+
+                <span class="c1"># check that we haven&#39;t already updated the source catalog name</span>
+                <span class="k">if</span> <span class="n">new_source_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cat_in_asn</span><span class="p">:</span>  <span class="c1"># 确保我们还没有更新源目录名称</span>
+
+                    <span class="n">new_cat</span> <span class="o">=</span> <span class="n">cat_in_asn</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cat.ecsv&#39;</span><span class="p">,</span> <span class="n">new_source_ext</span><span class="p">)</span>  <span class="c1"># 替换扩展名为新的源扩展名</span>
+
+                    <span class="c1"># actually update the association file member</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">new_cat</span><span class="p">):</span>  <span class="c1"># 检查新的目录文件是否存在</span>
+
+                        <span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_cat</span>  <span class="c1"># 更新成员的扩展名为新的目录文件名</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_cat</span><span class="si">}</span><span class="s2"> does not exist in the current working directory&quot;</span><span class="p">)</span>  <span class="c1"># 如果文件不存在，打印提示信息</span>
+
+    <span class="c1"># write out the new association file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">asn</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># 以写入模式打开关联文件</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">asn_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 将更新后的数据写回文件，确保中文字符正常显示</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 双重检查源目录是否已更改</span>
+
+<span class="k">for</span> <span class="n">spec2_asn</span> <span class="ow">in</span> <span class="n">spec2_asns</span><span class="p">:</span>  <span class="c1"># 遍历每个spec2_asn文件</span>
+
+    <span class="n">asn_check</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">spec2_asn</span><span class="p">))</span>  <span class="c1"># 读取并解析JSON文件</span>
+
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">asn_check</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历产品列表</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># 遍历每个产品的键值对</span>
+
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;members&#39;</span><span class="p">:</span>  <span class="c1"># 如果键是&#39;members&#39;</span>
+
+                <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># 遍历成员列表</span>
+
+                    <span class="k">if</span> <span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;sourcecat&#39;</span><span class="p">:</span>  <span class="c1"># 如果成员类型是&#39;sourcecat&#39;</span>
+
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;exptype&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印成员类型和名称</span>
+
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果键不是&#39;members&#39;</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印其他键值对</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>现在，当我们对所有内容进行校准时，对于单个文件来说，所需时间应该会少很多，因为源的数量有限。然而，我们将在此访问中校准所有文件，因此这个单元格的运行可能需要一些时间。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用新的源目录进行校准</span>
+
+<span class="k">for</span> <span class="n">spec2_asn</span> <span class="ow">in</span> <span class="n">spec2_asns</span><span class="p">:</span>  <span class="c1"># 遍历所有的spec2关联文件</span>
+
+    <span class="c1"># 检查校准后的文件是否已经存在</span>
+
+    <span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">spec2_asn</span><span class="p">))</span>  <span class="c1"># 读取关联文件的JSON数据</span>
+
+    <span class="n">x1d_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_outdir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_x1d.fits&quot;</span><span class="p">)</span>  <span class="c1"># 构建x1d文件的路径</span>
+
+    
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">):</span>  <span class="c1"># 检查x1d文件是否存在</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">,</span> <span class="s1">&#39;: x1d file already exists.&#39;</span><span class="p">)</span>  <span class="c1"># 如果存在，打印提示信息</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果文件不存在</span>
+
+        <span class="n">spec2</span> <span class="o">=</span> <span class="n">Spec2Pipeline</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">spec2_asn</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">source_outdir</span><span class="p">)</span>  <span class="c1"># 调用Spec2Pipeline进行处理并保存结果</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="final_visualize"></a></p>
+</section>
+</section>
+<section id="id15">
+<h3>最终可视化<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>现在所有数据都已校准，查看所有提取的文件是很有用的。来自spec2的cal和x1d文件在每个抖动步骤中被提取，如下所示。然后，Spec3将每个源的单个抖动x1d文件转换为每个光栅和滤光片的单个组合光谱。</p>
+<p>请注意，对于GR150R数据，色散方向在-Y方向，而对于GR150C数据，色散方向在-X方向。</p>
+<section id="id16">
+<h4>查看单个源的所有文件<a class="headerlink" href="#id16" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 探索新数据</span>
+
+<span class="c1"># 获取所有以&quot;x1d.fits&quot;结尾的文件，并按名称排序</span>
+<span class="n">x1ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_outdir</span><span class="p">,</span> <span class="s2">&quot;*x1d.fits&quot;</span><span class="p">)))</span>
+
+<span class="c1"># 从第一个文件中获取所有源ID的列表，以便在此示例中查看</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">x1ds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;SOURCEID&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">ext</span><span class="p">)</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1ds</span><span class="p">[</span><span class="mi">0</span><span class="p">])))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+<span class="c1"># 设置要查找的源ID</span>
+<span class="n">source_id</span> <span class="o">=</span> <span class="mi">118</span>
+
+<span class="c1"># 绘制每个x1d/cal文件</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x1d_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x1ds</span><span class="p">):</span>
+
+    <span class="c1"># 生成对应的cal文件名</span>
+    <span class="n">cal_file</span> <span class="o">=</span> <span class="n">x1d_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;x1d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;cal.fits&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 打开x1d和cal文件</span>
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cal_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">cal_hdu</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># 查找源在x1d和cal文件中的扩展</span>
+            <span class="n">wh_x1d</span><span class="p">,</span> <span class="n">wh_cal</span> <span class="o">=</span> <span class="n">find_source_ext</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">cal_hdu</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="c1"># 如果源不在此观测中，则跳过</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># 获取x1d和cal数据</span>
+        <span class="n">x1d_data</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">wh_x1d</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> 
+        <span class="n">cal_data</span> <span class="o">=</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">wh_cal</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="c1"># 绘制切片和光谱</span>
+    <span class="n">plot_cutout_and_spectrum</span><span class="p">(</span><span class="n">cal_data</span><span class="p">,</span> <span class="n">x1d_data</span><span class="p">,</span> <span class="n">cal_file</span><span class="p">,</span> <span class="n">x1d_file</span><span class="p">,</span> <span class="n">source_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>将这些文件叠加在一起以进行比较。两个光栅（grisms）将使用不同的线条样式，以突出可能由于校准（calibration）、包括污染（contamination）而导致的任何差异，而每个阻挡滤光片（blocking filter）将使用不同的颜色。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将不同的光栅图叠加在一起以显示同一源的光谱</span>
+
+<span class="n">x1ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_outdir</span><span class="p">,</span> <span class="s2">&quot;*x1d.fits&quot;</span><span class="p">)))</span>  <span class="c1"># 获取所有x1d文件并排序</span>
+
+<span class="c1"># 从第一个文件中获取所有源ID的列表，以便在此示例中查看</span>
+
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">x1ds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;SOURCEID&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">ext</span><span class="p">)</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1ds</span><span class="p">[</span><span class="mi">0</span><span class="p">])))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># 获取源ID列表</span>
+
+<span class="n">source_id</span> <span class="o">=</span> <span class="mi">118</span>  <span class="c1"># 选择要查看的源ID</span>
+
+<span class="c1"># 创建一个包含三个面板的图形</span>
+
+<span class="n">src118_fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 创建子图</span>
+
+<span class="n">ls_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GR150R&#39;</span><span class="p">:</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>  <span class="c1"># 定义光栅线型字典</span>
+
+           <span class="s1">&#39;GR150C&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+
+           <span class="p">}</span>
+
+<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;F115W&#39;</span><span class="p">:</span> <span class="s1">&#39;#e1cb00&#39;</span><span class="p">,</span>  <span class="c1"># 定义滤光片颜色字典</span>
+
+              <span class="s1">&#39;F150W&#39;</span><span class="p">:</span> <span class="s1">&#39;#32b45c&#39;</span><span class="p">,</span>
+
+              <span class="s1">&#39;F200W&#39;</span><span class="p">:</span> <span class="s1">&#39;#099ab4&#39;</span><span class="p">,</span>
+
+              <span class="p">}</span>
+
+<span class="n">max_fluxes</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储最大通量的列表</span>
+
+<span class="n">all_waves</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储所有波长的列表</span>
+
+<span class="c1"># 绘制每个x1d文件</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x1d_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x1ds</span><span class="p">):</span>  <span class="c1"># 遍历每个x1d文件</span>
+
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">x1d_hdu</span><span class="p">:</span>  <span class="c1"># 打开x1d文件</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">wh_x1d</span><span class="p">,</span> <span class="n">wh_cal</span> <span class="o">=</span> <span class="n">find_source_ext</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">cal_hdu</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 查找源的扩展</span>
+
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>  <span class="c1"># 如果源不在此观测中</span>
+
+            <span class="k">continue</span>  <span class="c1"># 跳过此文件</span>
+
+        <span class="n">x1d_data</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">wh_x1d</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取x1d数据</span>
+
+        <span class="n">grism</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span>  <span class="c1"># 获取光栅类型</span>
+
+        <span class="nb">filter</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">]</span>  <span class="c1"># 获取滤光片信息</span>
+
+    <span class="n">wave</span> <span class="o">=</span> <span class="n">x1d_data</span><span class="p">[</span><span class="s1">&#39;WAVELENGTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>  <span class="c1"># 获取波长数据并展平</span>
+
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">x1d_data</span><span class="p">[</span><span class="s1">&#39;FLUX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>  <span class="c1"># 获取通量数据并展平</span>
+
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">Fnu_to_Flam</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">)</span>  <span class="c1"># 将Fnu转换为Flam</span>
+
+    <span class="n">fluxunits</span> <span class="o">=</span> <span class="s1">&#39;erg/s/cm^2/Angstrom&#39;</span>  <span class="c1"># 定义通量单位</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_dict</span><span class="p">[</span><span class="nb">filter</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls_dict</span><span class="p">[</span><span class="n">grism</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>  <span class="c1"># 在ax1上绘制光谱</span>
+
+    <span class="k">if</span> <span class="n">grism</span> <span class="o">==</span> <span class="s1">&#39;GR150C&#39;</span><span class="p">:</span>  <span class="c1"># 如果光栅是GR150C</span>
+
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_dict</span><span class="p">[</span><span class="nb">filter</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls_dict</span><span class="p">[</span><span class="n">grism</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>  <span class="c1"># 在ax2上绘制光谱</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 否则</span>
+
+        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_dict</span><span class="p">[</span><span class="nb">filter</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls_dict</span><span class="p">[</span><span class="n">grism</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>  <span class="c1"># 在ax3上绘制光谱</span>
+
+    <span class="c1"># 保存最大通量以供绘图，去除边缘效应</span>
+
+    <span class="n">edge_buffer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span> <span class="o">*</span> <span class="mf">.25</span><span class="p">)</span>  <span class="c1"># 计算边缘缓冲区大小</span>
+
+    <span class="n">max_fluxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">edge_buffer</span><span class="p">:</span><span class="n">edge_buffer</span><span class="o">*-</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># 记录最大通量</span>
+
+    <span class="n">all_waves</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wave</span><span class="p">)</span>  <span class="c1"># 扩展所有波长列表</span>
+
+<span class="c1"># 设置绘图限制和标签</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">max_fluxes</span><span class="p">))</span>  <span class="c1"># 设置y轴范围</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">all_waves</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">all_waves</span><span class="p">))</span>  <span class="c1"># 设置x轴范围</span>
+
+<span class="n">src118_fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Source </span><span class="si">{</span><span class="n">source_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 设置总标题</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GR150R &amp; GR150C&#39;</span><span class="p">)</span>  <span class="c1"># 设置ax1标题</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GR150C&#39;</span><span class="p">)</span>  <span class="c1"># 设置ax2标题</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GR150R&#39;</span><span class="p">)</span>  <span class="c1"># 设置ax3标题</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">]:</span>  <span class="c1"># 为每个轴设置标签</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (Microns)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Flux (</span><span class="si">{</span><span class="n">fluxunits</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+<span class="c1"># 为每个滤光片添加标签</span>
+
+<span class="k">for</span> <span class="n">filt</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">color_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># 遍历滤光片和颜色字典</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">filt</span><span class="p">)</span>  <span class="c1"># 在ax1上添加标签</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">))</span>  <span class="c1"># 设置图例位置</span>
+
+<span class="n">src118_fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整布局以避免重叠</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id17">
+<h4>查看单个文件的所有源<a class="headerlink" href="#id17" title="Link to this heading">#</a></h4>
+<p>请注意，有些源可能实际上并没有提取出任何有趣的内容。如果是这种情况，请返回您的源目录和图像，以确保您已正确识别源，并且目标在切割图像中居中。此笔记本使用简单的示例来创建和限制源目录，因此它可能并不总是显示最具科学价值的源。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于处理文件和目录路径</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 导入astropy.io.fits模块，用于处理FITS文件</span>
+
+<span class="n">x1d_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_outdir</span><span class="p">,</span> <span class="s1">&#39;jw02079004002_11101_00002_nis_x1d.fits&#39;</span><span class="p">)</span>  <span class="c1"># 定义x1d文件的路径</span>
+<span class="n">cal_file</span> <span class="o">=</span> <span class="n">x1d_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;x1d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;cal.fits&#39;</span><span class="p">)</span>  <span class="c1"># 将x1d文件名替换为cal文件名</span>
+
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cal_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">cal_hdu</span><span class="p">:</span>  <span class="c1"># 打开x1d和cal文件</span>
+
+    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># 遍历x1d文件的扩展，跳过第一个和最后一个扩展</span>
+
+        <span class="n">source_id</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;SOURCEID&#39;</span><span class="p">]</span>  <span class="c1"># 获取当前扩展的源ID</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">wh_x1d</span><span class="p">,</span> <span class="n">wh_cal</span> <span class="o">=</span> <span class="n">find_source_ext</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">cal_hdu</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 查找源在x1d和cal文件中的扩展索引</span>
+
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>  <span class="c1"># 捕获索引错误</span>
+            <span class="c1"># 这意味着该源不在此观测中</span>
+            <span class="k">continue</span>  <span class="c1"># 跳过当前循环，继续下一个扩展</span>
+
+        <span class="n">x1d_data</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">wh_x1d</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取x1d数据</span>
+        <span class="n">cal_data</span> <span class="o">=</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">wh_cal</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取cal数据</span>
+
+        <span class="n">plot_cutout_and_spectrum</span><span class="p">(</span><span class="n">cal_data</span><span class="p">,</span> <span class="n">x1d_data</span><span class="p">,</span> <span class="n">cal_file</span><span class="p">,</span> <span class="n">x1d_file</span><span class="p">,</span> <span class="n">source_id</span><span class="p">)</span>  <span class="c1"># 绘制cutout和光谱</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id18">
+<h4>可视化提取源在分散图像中的位置，以及与直接图像的比较<a class="headerlink" href="#id18" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置图形</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># **光栅数据</span>
+
+<span class="c1"># 为分散图像绘制</span>
+
+<span class="c1"># x1d_file 和 cal_file 使用相同的根名，因为我们正在查看单个源</span>
+<span class="n">rate_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">x1d_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;x1d.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;rate.fits&#39;</span><span class="p">))</span>
+
+<span class="c1"># 用零填充坏像素的nan值，以便更容易查看</span>
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">rate_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">rate_hdu</span><span class="p">:</span>
+    <span class="n">rate_data</span> <span class="o">=</span> <span class="n">rate_hdu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 读取速率数据</span>
+
+<span class="n">rate_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">rate_data</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 将nan值替换为0</span>
+
+<span class="c1"># 绘制速率文件和提取框</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rate_data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">rate_data</span><span class="p">)</span><span class="o">*</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cal_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">cal_hdu</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># 遍历扩展</span>
+
+        <span class="n">source_id</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;SOURCEID&#39;</span><span class="p">]</span>  <span class="c1"># 获取源ID</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">wh_x1d</span><span class="p">,</span> <span class="n">wh_cal</span> <span class="o">=</span> <span class="n">find_source_ext</span><span class="p">(</span><span class="n">x1d_hdu</span><span class="p">,</span> <span class="n">cal_hdu</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 查找源的扩展</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="c1"># 这意味着源不在此观测中</span>
+            <span class="k">continue</span>
+
+        <span class="n">x1d_data</span> <span class="o">=</span> <span class="n">x1d_hdu</span><span class="p">[</span><span class="n">wh_x1d</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取x1d数据</span>
+        <span class="n">cal_data</span> <span class="o">=</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">wh_cal</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取校准数据</span>
+
+        <span class="c1"># 从校准数据的头文件中提取框参数：</span>
+        <span class="n">cal_header</span> <span class="o">=</span> <span class="n">cal_hdu</span><span class="p">[</span><span class="n">wh_cal</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+        <span class="n">sx_left</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT1&#39;</span><span class="p">]</span>  <span class="c1"># 提取框左侧</span>
+        <span class="n">swidth</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSIZE1&#39;</span><span class="p">]</span>    <span class="c1"># 提取框宽度</span>
+        <span class="n">sx_right</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">swidth</span>  <span class="c1"># 提取框右侧</span>
+        <span class="n">sy_bottom</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT2&#39;</span><span class="p">]</span>  <span class="c1"># 提取框底部</span>
+        <span class="n">sheight</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSIZE2&#39;</span><span class="p">]</span>    <span class="c1"># 提取框高度</span>
+        <span class="n">sy_top</span> <span class="o">=</span> <span class="n">cal_header</span><span class="p">[</span><span class="s1">&#39;SLTSTRT2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">sheight</span>  <span class="c1"># 提取框顶部</span>
+
+        <span class="n">rectangle</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">sx_left</span><span class="p">,</span> <span class="n">sy_bottom</span><span class="p">),</span> <span class="n">swidth</span><span class="p">,</span> <span class="n">sheight</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建提取框</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rectangle</span><span class="p">)</span>  <span class="c1"># 将提取框添加到图中</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sx_left</span><span class="p">,</span> <span class="n">sy_top</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="n">source_id</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">)</span>  <span class="c1"># 在提取框上方添加源ID</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_nis&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cal_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FILTER&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">cal_hdu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;PUPIL&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+<span class="c1"># **成像数据</span>
+<span class="n">asn_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">fits</span><span class="o">.</span><span class="n">getval</span><span class="p">(</span><span class="n">x1d_file</span><span class="p">,</span> <span class="s1">&#39;ASNTABLE&#39;</span><span class="p">)))</span>  <span class="c1"># 读取关联数据</span>
+<span class="n">i2d_name</span> <span class="o">=</span> <span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;members&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span>  <span class="c1"># 获取i2d文件名</span>
+<span class="n">cat_name</span> <span class="o">=</span> <span class="n">asn_data</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;members&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;expname&#39;</span><span class="p">]</span>  <span class="c1"># 获取目录文件名</span>
+
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">custom_run_image3</span><span class="p">,</span> <span class="n">i2d_name</span><span class="p">))</span> <span class="k">as</span> <span class="n">i2d</span><span class="p">:</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">i2d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">i2d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># 绘制i2d数据</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">i2d_name</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_i2d&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+<span class="c1"># 也绘制相关目录</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">cat_name</span><span class="p">)</span>  <span class="c1"># 读取目录</span>
+<span class="n">extended_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 1为真；即为扩展源</span>
+<span class="n">point_sources</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;is_extended&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 0为假；即为点源</span>
+
+<span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">sources</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">extended_sources</span><span class="p">,</span> <span class="n">point_sources</span><span class="p">]):</span>  <span class="c1"># 遍历颜色和源</span>
+    <span class="c1"># 绘制源</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># 添加源标签</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">source_num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]):</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">source_num</span><span class="p">,</span> 
+                     <span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">),</span> 
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>  <span class="c1"># 在源旁边添加标签</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整图形布局</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>继续深入探索，包括使用<a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/pipeline/calwebb_spec3.html">spec3阶段</a>的管道！</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png"><img alt="太空望远镜标志" src="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png" style="width: 200px;" />
+</a>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRISS/NIRISS_WFSS_advanced"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_niriss_wfss_image2_image3_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">运行图像处理管道并创建源目录</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">IFU立方体拟合</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">运行 spec2 管道</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">导入与数据设置</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crds">CRDS 文档</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">数据设置</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">自定义 Spec2 管道运行</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Spec2 关联文件</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">查看Spec2关联文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">修改关联文件以使用自定义源目录</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">运行 spec2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">检查Spec2的输出</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">进一步探索 Spec2 数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">在Spec2数据中查找源</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">限制提取源的数量</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">使用参数输入进行限幅提取</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">使用源目录进行极限提取</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">最终可视化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">查看单个源的所有文件</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">查看单个文件的所有源</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">可视化提取源在分散图像中的位置，以及与直接图像的比较</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

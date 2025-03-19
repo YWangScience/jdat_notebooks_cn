@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Specviz 简单演示 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="提高纯平行数据集世界坐标系统的准确性" href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html" />
+    <link rel="prev" title="使用Imviz创建RGB图像" href="../rgb_imviz/imviz_rgb_carina_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Specviz 简单演示</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#niriss">1. 加载NIRISS管道输出</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specviz1d">2. 打开Specviz并加载我们感兴趣的1D光谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gui">3. 使用GUI和笔记本选择发射线</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">查看此 SpecViz 实例中使用的数据</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">查看在GUI中定义的子集</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">以编程方式选择相同区域</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">使用matplotlib绘制光谱及其子集</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4. 在Specviz中使用红移滑块查找红移</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrum1d-redshift">从Spectrum1D对象中获取红移（redshift）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5. 对光谱的连续谱进行建模</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="specviz">
+<h1>Specviz 简单演示<a class="headerlink" href="#specviz" title="Link to this heading">#</a></h1>
+<p><strong>用例：</strong> 本笔记本演示了如何在Specviz中检查光谱，如何从笔记本的GUI中导出光谱，如何在GUI和笔记本中选择区域，以及如何在GUI中测量源的红移（redshift）。<br></p>
+<p><strong>数据：</strong> 来自<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2023arXiv230205466B/abstract">NGDEEP调查</a>的NIRISS 1D光谱。该数据集直接从经过默认JWST管道处理的MAST获取。<br></p>
+<p><strong>工具：</strong> specutils, jdaviz。<br></p>
+<p><strong>跨仪器：</strong> 所有仪器。<br></p>
+<p><strong>文档：</strong> 本笔记本是STScI更大<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理数据分析工具生态系统</a>的一部分。<br></p>
+<p><strong>更新于</strong>: 2023/10/11</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用浏览器窗口的100%</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>  <span class="c1"># 导入显示和HTML模块</span>
+
+<span class="c1"># 设置容器宽度为100%</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;.container { width:100% !important; }&lt;/style&gt;&quot;</span><span class="p">))</span>  <span class="c1"># 显示HTML样式</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>导入：</p>
+<ul class="simple">
+<li><p>matplotlib 用于绘制数据</p></li>
+<li><p>astropy 用于处理 FITS 文件、单位和表格</p></li>
+<li><p>specutils 用于与 Specviz 的交互以及区域定义/提取</p></li>
+<li><p>jdaviz 用于可视化工具 Specviz</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘图和表格处理</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库</span>
+
+<span class="c1"># 导入astropy库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy</span>  <span class="c1"># 导入astropy库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>  <span class="c1"># 导入单位模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从astropy.io导入fits模块，用于处理FITS文件</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.nddata</span><span class="w"> </span><span class="kn">import</span> <span class="n">StdDevUncertainty</span>  <span class="c1"># 从astropy.nddata导入标准偏差不确定性类</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTable</span>  <span class="c1"># 从astropy.table导入QTable类，用于处理表格数据</span>
+
+<span class="c1"># 导入specutils库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">specutils</span>  <span class="c1"># 导入specutils库</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spectrum1D</span><span class="p">,</span> <span class="n">SpectralRegion</span>  <span class="c1"># 从specutils导入Spectrum1D和SpectralRegion类</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">specutils.manipulation</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_region</span>  <span class="c1"># 从specutils.manipulation导入提取区域的函数</span>
+
+<span class="c1"># 导入viztools库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">jdaviz</span>  <span class="c1"># 导入jdaviz库</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jdaviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Specviz</span>  <span class="c1"># 从jdaviz导入Specviz类，用于可视化光谱数据</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 自定义matplotlib样式</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 设置图形的默认大小为10x5英寸</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>  <span class="c1"># 设置图例字体大小为18</span>
+    <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>    <span class="c1"># 设置坐标轴标签字体大小为18</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>    <span class="c1"># 设置坐标轴标题字体大小为18</span>
+    <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>    <span class="c1"># 设置x轴刻度标签字体大小为18</span>
+    <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>    <span class="c1"># 设置y轴刻度标签字体大小为18</span>
+    <span class="s1">&#39;lines.linewidth&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>       <span class="c1"># 设置线条宽度为2</span>
+    <span class="s1">&#39;axes.linewidth&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>        <span class="c1"># 设置坐标轴线宽度为2</span>
+    <span class="s1">&#39;animation.html&#39;</span><span class="p">:</span> <span class="s1">&#39;html5&#39;</span><span class="p">,</span>  <span class="c1"># 设置动画输出格式为html5</span>
+    <span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>    <span class="c1"># 设置图形的默认大小为8x6英寸</span>
+<span class="p">}</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>  <span class="c1"># 更新matplotlib的配置参数</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.max_open_warning&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>  <span class="c1"># 禁用最大打开图形警告</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>检查版本</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打印 astropy 库的版本</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;astropy:&#39;</span><span class="p">,</span> <span class="n">astropy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="c1"># 打印 specutils 库的版本</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;specutils:&#39;</span><span class="p">,</span> <span class="n">specutils</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="c1"># 打印 jdaviz 库的版本</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;jdaviz:&#39;</span><span class="p">,</span> <span class="n">jdaviz</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="niriss">
+<h2>1. 加载NIRISS管道输出<a class="headerlink" href="#niriss" title="Link to this heading">#</a></h2>
+<p>JWST/NIRISS数据存储在box上。我们使用x1d文件，该文件包含所有提取的1D光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义JWST数据文件的链接</span>
+<span class="n">filelink</span> <span class="o">=</span> <span class="s1">&#39;https://data.science.stsci.edu/redirect/JWST/jwst-data_analysis_tools/specviz_notebook_gui_interaction/jw02079004002_11101_00001_nis_x1d.fits&#39;</span>
+
+<span class="c1"># 使用fits模块打开FITS文件</span>
+<span class="n">hdu</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filelink</span><span class="p">)</span>
+
+<span class="c1"># 打印HDU列表的信息</span>
+<span class="n">hdu</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="specviz1d">
+<h2>2. 打开Specviz并加载我们感兴趣的1D光谱<a class="headerlink" href="#specviz1d" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viz</span> <span class="o">=</span> <span class="n">Specviz</span><span class="p">()</span>  <span class="c1"># 创建一个Specviz对象，用于可视化光谱数据</span>
+
+<span class="n">viz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示光谱可视化界面</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下单元打开x1d文件的一个扩展（75），创建一个Spectrum1D对象，并将其加载到Specviz中。设置了一个掩膜，仅保留在F150W滤光片中具有良好灵敏度的光谱部分（1.34到1.66微米）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">74</span><span class="p">,</span> <span class="mi">75</span><span class="p">):</span>  <span class="c1"># 遍历指定范围的索引</span>
+
+    <span class="n">spec_load</span> <span class="o">=</span> <span class="n">hdu</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 从HDU中加载数据</span>
+
+    <span class="n">wave</span> <span class="o">=</span> <span class="n">spec_load</span><span class="p">[</span><span class="s1">&#39;WAVELENGTH&#39;</span><span class="p">]</span>  <span class="c1"># 获取波长数据</span>
+
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">spec_load</span><span class="p">[</span><span class="s1">&#39;FLUX&#39;</span><span class="p">]</span>  <span class="c1"># 获取光通量数据</span>
+
+    <span class="n">error</span> <span class="o">=</span> <span class="n">spec_load</span><span class="p">[</span><span class="s1">&#39;FLUX_ERROR&#39;</span><span class="p">]</span>  <span class="c1"># 获取光通量误差数据</span>
+
+    <span class="c1"># 掩蔽波段内灵敏度较差的部分</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">((</span><span class="n">wave</span> <span class="o">&gt;</span> <span class="mf">1.34</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&lt;</span> <span class="mf">1.66</span><span class="p">))</span>  <span class="c1"># 创建掩蔽掩码</span>
+
+    <span class="c1"># 创建一维光谱对象，应用掩蔽</span>
+    <span class="n">spec1d</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">wave</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span>  <span class="c1"># 设置光谱轴为掩蔽后的波长</span>
+                        <span class="n">flux</span><span class="o">=</span><span class="n">flux</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">Jy</span><span class="p">,</span>  <span class="c1"># 设置光通量为掩蔽后的光通量</span>
+                        <span class="n">uncertainty</span><span class="o">=</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">error</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">Jy</span><span class="p">))</span>  <span class="c1"># 设置光通量的不确定性</span>
+
+    <span class="n">viz</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">spec1d</span><span class="p">,</span> <span class="s2">&quot;NIRISS 1D </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span>  <span class="c1"># 将数据加载到可视化工具中</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gui">
+<h2>3. 使用GUI和笔记本选择发射线<a class="headerlink" href="#gui" title="Link to this heading">#</a></h2>
+<p>我选择了大约从1.58到1.63微米的发射线区域。</p>
+<p>指令: <a class="reference external" href="https://jdaviz.readthedocs.io/en/latest/specviz/displaying.html#defining-spectral-regions">https://jdaviz.readthedocs.io/en/latest/specviz/displaying.html#defining-spectral-regions</a></p>
+<section id="id1">
+<h3>查看此 SpecViz 实例中使用的数据<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataout</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">get_spectra</span><span class="p">(</span><span class="n">apply_slider_redshift</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 获取光谱数据，不应用红移滑块</span>
+
+<span class="n">spec1d_line</span> <span class="o">=</span> <span class="n">dataout</span><span class="p">[</span><span class="s2">&quot;NIRISS 1D 75&quot;</span><span class="p">]</span>  <span class="c1"># 从数据中提取NIRISS 1D 75光谱</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打印变量spec1d_line的内容</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spec1d_line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>查看在GUI中定义的子集<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>我包含了一个try-except语句，以防在没有人工交互的情况下运行笔记本。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 获取光谱区域</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">get_spectral_regions</span><span class="p">()</span>
+
+    <span class="c1"># 打印子集1的区域信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;Subset 1&#39;</span><span class="p">])</span>
+
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="c1"># 如果没有在GUI中定义区域，则打印错误信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No region defined in the GUI&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>以编程方式选择相同区域<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>我可以在任意边界之间定义自己的区域（cont_region）。我选择1.598微米（um）和1.621微米（um）。然后，我可以提取该区域内的光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义一个光谱区域，范围从1.598微米到1.621微米</span>
+<span class="n">cont_region</span> <span class="o">=</span> <span class="n">SpectralRegion</span><span class="p">(</span><span class="mf">1.598</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="mf">1.621</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>
+
+<span class="c1"># 从光谱数据中提取指定的光谱区域</span>
+<span class="n">spec1d_el_code</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spec1d_line</span><span class="p">,</span> <span class="n">cont_region</span><span class="p">)</span>
+
+<span class="c1"># 打印提取的光谱区域数据</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spec1d_el_code</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>或者，我可以提取我在图形用户界面（GUI）中定义的区域（region[‘Subset 1’]）中的光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+
+    <span class="c1"># 从spec1d_line中提取Subset 1区域的数据</span>
+    <span class="n">spec1d_el_viz</span> <span class="o">=</span> <span class="n">extract_region</span><span class="p">(</span><span class="n">spec1d_line</span><span class="p">,</span> <span class="n">region</span><span class="p">[</span><span class="s1">&#39;Subset 1&#39;</span><span class="p">])</span>
+
+    <span class="c1"># 打印提取的光谱数据</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">spec1d_el_viz</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+
+    <span class="c1"># 如果在GUI中未定义区域，则打印错误信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Region was not defined in the GUI&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 将spec1d_el_viz定义为spec1d_el_code</span>
+    <span class="n">spec1d_el_viz</span> <span class="o">=</span> <span class="n">spec1d_el_code</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matplotlib">
+<h3>使用matplotlib绘制光谱及其子集<a class="headerlink" href="#matplotlib" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec1d_line</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec1d_line</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>  <span class="c1"># 绘制数据的光谱轴和通量</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec1d_el_viz</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec1d_el_viz</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;subset defined in tool&#39;</span><span class="p">)</span>  <span class="c1"># 绘制工具定义的子集的光谱轴和通量</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec1d_el_code</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spec1d_el_code</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;subset defined in code&#39;</span><span class="p">)</span>  <span class="c1"># 绘制代码定义的子集的光谱轴和通量</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;wavelength ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec1d_line</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置x轴标签为波长，单位为光谱轴的单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;flux ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec1d_line</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置y轴标签为通量，单位为通量的单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;NIRISS ID 75&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图表</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>4. 在Specviz中使用红移滑块查找红移<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>我首先打开一个新的Specviz实例，这样就不需要频繁上下滚动了。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viz2</span> <span class="o">=</span> <span class="n">Specviz</span><span class="p">()</span>  <span class="c1"># 创建一个Specviz对象，用于可视化光谱数据</span>
+
+<span class="n">viz2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示Specviz界面</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我加载了仅有趣的光谱（spec1d_line）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加载NIRISS 1D光谱线数据</span>
+<span class="n">viz2</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">spec1d_line</span><span class="p">,</span> <span class="s2">&quot;NIRISS 1D lines&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我可以使用现有的谱线列表或定义我自己的谱线（我知道我需要 Hb4861.3 和 [OIII]4958.9,5006.8 双线），并通过调整红移滑块来将谱线列表中的谱线与光谱中的谱线匹配。谱线列表插件可以通过点击查看器右上角的插件图标找到。要输入仅这三条谱线，我可以使用“自定义”菜单。</p>
+<p>以下是解释谱线列表的文档： <a class="reference external" href="https://jdaviz.readthedocs.io/en/latest/specviz/plugins.html#line-lists">https://jdaviz.readthedocs.io/en/latest/specviz/plugins.html#line-lists</a></p>
+<p>我还可以通过编程方式定义感兴趣的谱线，如下方的单元格所示。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lt</span> <span class="o">=</span> <span class="n">QTable</span><span class="p">()</span>  <span class="c1"># 创建一个空的QTable对象</span>
+
+<span class="n">lt</span><span class="p">[</span><span class="s1">&#39;linename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hb&#39;</span><span class="p">,</span> <span class="s1">&#39;[OIII]1&#39;</span><span class="p">,</span> <span class="s1">&#39;[OIII]2&#39;</span><span class="p">]</span>  <span class="c1"># 添加谱线名称</span>
+
+<span class="n">lt</span><span class="p">[</span><span class="s1">&#39;rest&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4861.3</span><span class="p">,</span> <span class="mf">4958.9</span><span class="p">,</span> <span class="mf">5006.8</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">AA</span>  <span class="c1"># 添加谱线的静止波长，并指定单位为Ångström</span>
+
+<span class="n">viz2</span><span class="o">.</span><span class="n">load_line_list</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span>  <span class="c1"># 加载谱线列表到viz2对象中</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>这些线条现在没有显示，因为它们的静止值超出了此处绘制的范围。我可以使用线列表插件中的红移滑块来移动这些线条。最好先在数字框中将红移设置为2，然后移动滑块以将线条放置在观测到的发射线之上。</p>
+<section id="spectrum1d-redshift">
+<h3>从Spectrum1D对象中获取红移（redshift）<a class="headerlink" href="#spectrum1d-redshift" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取应用红移滑块后的NIRISS 1D光谱数据</span>
+<span class="n">spec1d_redshift</span> <span class="o">=</span> <span class="n">viz2</span><span class="o">.</span><span class="n">get_spectra</span><span class="p">(</span><span class="n">apply_slider_redshift</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;NIRISS 1D lines&quot;</span><span class="p">]</span>
+
+<span class="c1"># 打印获取的光谱数据</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spec1d_redshift</span><span class="p">)</span>
+
+<span class="c1"># 打印空行以增加可读性</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># 检查光谱的红移值是否为0.0</span>
+<span class="k">if</span> <span class="n">spec1d_redshift</span><span class="o">.</span><span class="n">redshift</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+    <span class="c1"># 如果红移不为0.0，打印红移值</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NIRISS 1D lines redshift=&quot;</span><span class="p">,</span> <span class="n">spec1d_redshift</span><span class="o">.</span><span class="n">redshift</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 如果红移未在GUI中定义，则在此处定义红移</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Redshift was not defined in GUI. Defining it here.&quot;</span><span class="p">)</span>
+    <span class="c1"># 设置光谱的红移为2.2138</span>
+    <span class="n">spec1d_redshift</span><span class="o">.</span><span class="n">set_redshift_to</span><span class="p">(</span><span class="mf">2.2138</span><span class="p">)</span>
+    <span class="c1"># 打印设置后的红移值</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NIRISS 1D lines redshift=&quot;</span><span class="p">,</span> <span class="n">spec1d_redshift</span><span class="o">.</span><span class="n">redshift</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2>5. 对光谱的连续谱进行建模<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>我打开了另一个 Specviz 实例，并加载了之前使用的相同光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viz3</span> <span class="o">=</span> <span class="n">Specviz</span><span class="p">()</span>  <span class="c1"># 创建一个Specviz对象，用于可视化光谱数据</span>
+
+<span class="n">viz3</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示Specviz窗口</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加载NIRISS 1D光谱数据</span>
+<span class="n">viz3</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">spec1d_line</span><span class="p">,</span> <span class="s2">&quot;NIRISS 1D lines&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我可以使用图形用户界面（GUI）选择我看到的连续区域。<em>挑战</em>：选择一个不连续的子集，覆盖两个区间（1.35-1.55微米和1.63-1.65微米）。<em>提示</em>：在子集下拉菜单附近的顶部选择“添加”。</p>
+<p>我可以在插件图标下使用模型拟合插件来对选定区域拟合线性模型。具体说明可以在这里找到：https://jdaviz.readthedocs.io/en/latest/specviz/plugins.html#model-fitting。完成此任务的具体步骤如下：</p>
+<ul class="simple">
+<li><p>在数据下选择子集 1</p></li>
+<li><p>在模型下选择 Linear1D</p></li>
+<li><p>点击添加模型</p></li>
+<li><p>在模型标签下输入模型名称（我选择“continuum”）</p></li>
+<li><p>点击拟合</p></li>
+</ul>
+<p>我可以从正在使用的数据集中提取模型及其参数。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+
+    <span class="n">dataout3</span> <span class="o">=</span> <span class="n">viz3</span><span class="o">.</span><span class="n">get_spectra</span><span class="p">()</span>  <span class="c1"># 获取光谱数据</span>
+
+    <span class="n">spectrum</span> <span class="o">=</span> <span class="n">dataout3</span><span class="p">[</span><span class="s2">&quot;NIRISS 1D lines&quot;</span><span class="p">]</span>  <span class="c1"># 获取NIRISS 1D光谱线数据，与之前加载的spec1d_lines相同</span>
+
+    <span class="n">continuum</span> <span class="o">=</span> <span class="n">dataout3</span><span class="p">[</span><span class="s2">&quot;continuum&quot;</span><span class="p">]</span>  <span class="c1"># 获取连续谱数据</span>
+
+    <span class="n">model_param</span> <span class="o">=</span> <span class="n">viz3</span><span class="o">.</span><span class="n">get_model_parameters</span><span class="p">()</span>  <span class="c1"># 获取模型参数</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">continuum</span><span class="p">)</span>  <span class="c1"># 打印连续谱数据</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">model_param</span><span class="p">[</span><span class="s1">&#39;continuum&#39;</span><span class="p">])</span>  <span class="c1"># 打印模型中的连续谱参数</span>
+
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># 捕获键错误异常</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Continuum has not been created. Setting it to 0&quot;</span><span class="p">)</span>  <span class="c1"># 输出错误信息，表示连续谱未创建，设置为0</span>
+
+    <span class="n">continuum</span> <span class="o">=</span> <span class="n">Spectrum1D</span><span class="p">(</span><span class="n">spectral_axis</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">flux</span><span class="o">=</span><span class="mf">0.</span><span class="o">*</span><span class="n">spectrum</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span>  <span class="c1"># 创建一个零值的连续谱</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我可以进行连续体减法并使用matplotlib绘制结果。如果在图形用户界面（GUI）中未定义连续体，这个操作将返回未更改的原始光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spectrum_sub</span> <span class="o">=</span> <span class="n">spectrum</span> <span class="o">-</span> <span class="n">continuum</span>  <span class="c1"># 从光谱中减去连续背景，得到去除背景的光谱</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spectrum_sub</span><span class="o">.</span><span class="n">spectral_axis</span><span class="p">,</span> <span class="n">spectrum_sub</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span>  <span class="c1"># 绘制光谱数据，x轴为光谱轴，y轴为通量</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># 在y=0的位置绘制水平线，范围从1.3到1.7</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;wavelength ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spectrum_sub</span><span class="o">.</span><span class="n">spectral_axis</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置x轴标签，显示波长单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;flux ({:latex})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spectrum_sub</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>  <span class="c1"># 设置y轴标签，显示通量单位</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;NIRISS ID 75&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示绘制的图表</span>
+</pre></div>
+</div>
+</div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png"><img alt="空间望远镜标志" src="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png" style="width: 200px;" />
+</a>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/cross_instrument/specviz_notebookGUI_interaction"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../rgb_imviz/imviz_rgb_carina_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">使用Imviz创建RGB图像</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">提高纯平行数据集世界坐标系统的准确性</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#niriss">1. 加载NIRISS管道输出</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specviz1d">2. 打开Specviz并加载我们感兴趣的1D光谱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gui">3. 使用GUI和笔记本选择发射线</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">查看此 SpecViz 实例中使用的数据</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">查看在GUI中定义的子集</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">以编程方式选择相同区域</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">使用matplotlib绘制光谱及其子集</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4. 在Specviz中使用红移滑块查找红移</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrum1d-redshift">从Spectrum1D对象中获取红移（redshift）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5. 对光谱的连续谱进行建模</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

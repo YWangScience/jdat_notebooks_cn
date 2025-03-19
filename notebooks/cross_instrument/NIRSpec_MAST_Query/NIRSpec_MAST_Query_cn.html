@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MAST 查询 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="使用Imviz创建RGB图像" href="../rgb_imviz/imviz_rgb_carina_cn.html" />
+    <link rel="prev" title="复合模型光谱拟合" href="../composite_model_fitting/specfit_demo_3_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>MAST 查询</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">引言</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nirspec">执行所有 NIRSpec 数据的搜索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">使用一个查询参数：</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">使用多个查询参数：</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">可用的过滤参数列表在档案中：</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">潜在重复检查</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">额外资源</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">关于这个笔记本：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mast">
+<h1>MAST 查询<a class="headerlink" href="#mast" title="Link to this heading">#</a></h1>
+<p><strong>用例：</strong> 能够对NIRSpec数据执行MAST查询。<br></p>
+<p><strong>数据：</strong> 无</p>
+<p><strong>工具：</strong> astroquery。<br></p>
+<p><strong>跨仪器：</strong> 所有仪器。<br></p>
+<p><strong>文档：</strong> 此笔记本是STScI更大<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">后处理数据分析工具生态系统</a>的一部分。<br></p>
+<p>在本教程结束时，您将能够：</p>
+<ol class="arabic simple">
+<li><p>执行针对NIRSpec数据的MAST查询</p></li>
+<li><p>理解NIRSpec MOS、IFU和固定光缝数据的MAST搜索选项</p></li>
+<li><p>按各种参数过滤MAST查询</p></li>
+<li><p>对您的目标进行潜在重复性检查</p></li>
+</ol>
+<section id="id1">
+<h2>引言<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>MAST（巴巴拉·A·米库尔斯基太空望远镜档案）提供了多种方法来检索数据。<a class="reference external" href="https://outerspace.stsci.edu/display/MASTDOCS/Portal+Guide">MAST门户</a>允许用户以交互方式搜索特定观测并按关键词过滤。为帮助用户以这种方式访问MAST，提供了详细的<a class="reference external" href="https://outerspace.stsci.edu/display/MASTDOCS/Portal+Guide">教程</a>。在某些情况下，特别是对于大型查询，使用<a class="reference external" href="https://astroquery.readthedocs.io/en/latest/mast/mast.html">Astroquery</a>可能更为高效。文档中描述了一些广泛的功能，包括位置查询、元数据查询和目录查询。关于<a class="reference external" href="https://mast.stsci.edu/api/v0/">MAST API</a>的一般文档也可用。</p>
+<p>用户可能希望搜索档案的一个原因是寻找其提案的潜在重复观测。如<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-opportunities-and-policies/jwst-general-science-policies/jwst-duplicate-observations-policy">JWST重复观测政策</a>中所述，如果观测使用相同的仪器观察相同的天文源或领域，并且具有相似的灵敏度和光谱范围，则该观测可能是另一观测的重复。有关更具体的仪器细节，请参阅文档。</p>
+<p>本笔记本涵盖以下主题：</p>
+<ol class="arabic simple">
+<li><p>如何使用Python提交NIRSpec MAST查询</p>
+<ul class="simple">
+<li><p>如何对所有NIRSpec数据进行广泛搜索</p></li>
+<li><p>如何使用一个查询过滤参数进行搜索</p></li>
+<li><p>如何使用多个查询过滤参数进行搜索</p></li>
+<li><p>可用搜索参数的信息</p></li>
+</ul>
+</li>
+<li><p>如何通过与现有MAST数据进行比较，检查任何给定目标的潜在重复问题（注意：这可能不包括已安排的观测，结果应在APT中确认）</p>
+<ul class="simple">
+<li><p>定义描述潜在观测的输入目录</p></li>
+<li><p>在搜索半径内查询MAST，以获取具有重叠波长和相似曝光时间的观测</p></li>
+<li><p>检查潜在的重复观测</p></li>
+</ul>
+</li>
+</ol>
+<p>尽管本笔记本是为NIRSpec用户设计的，但其他JWST仪器的MAST查询结构类似。有关其他仪器的更多相关信息，请参阅<a class="reference external" href="https://astroquery.readthedocs.io/en/latest/mast/mast.html">Astroquery</a>网页。</p>
+</section>
+<section id="id2">
+<h2>主要内容<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 导入MAST库</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astroquery.mast</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mast</span>  <span class="c1"># 从astroquery库中导入Mast模块，用于访问MAST数据</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="nirspec">
+<h3>执行所有 NIRSpec 数据的搜索<a class="headerlink" href="#nirspec" title="Link to this heading">#</a></h3>
+<p>这个第一个示例演示了如何使用 <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/api/astroquery.mast.MastClass.html#astroquery.mast.MastClass.service_request_async">Mast.service_request_async()</a>，该方法基于服务和参数构建并执行一个 <a class="reference external" href="https://mast.stsci.edu/api/v0/class_mashup_1_1_mashup_request.html">Mashup</a> 查询。有关更多信息和选项描述，请参见 <a class="reference external" href="https://mast.stsci.edu/api/v0/class_mashup_1_1_mashup_request.html">文档</a>。这种格式的响应提供了一种可以列出文件名的格式。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置要查询的仪器服务，格式为首字母大写</span>
+
+<span class="n">service</span> <span class="o">=</span> <span class="s2">&quot;Mast.Jwst.Filtered.Nirspec&quot;</span>
+
+<span class="c1"># 输入查询参数，或者像这里一样留空以检索该仪器的所有数据。</span>
+
+<span class="c1"># 将 &#39;columns&#39; 留为空星号将包括所有数据列。将 &#39;columns&#39; 替换为 COUNT_BIG(*) 将 </span>
+
+<span class="c1">#     返回搜索中的文件数量。</span>
+
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>  <span class="c1"># 查询所有列</span>
+
+               <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[]}</span>  <span class="c1"># 过滤器为空，表示不使用任何过滤条件</span>
+
+<span class="c1"># 检索 MAST 响应（此步骤可能需要几秒钟）</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">Mast</span><span class="o">.</span><span class="n">service_request_async</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>  <span class="c1"># 异步请求服务并获取响应</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 收集结果</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>  <span class="c1"># 从响应中提取数据部分</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从每个结果中提取文件名，如果你想要一个文件名列表</span>
+
+<span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化一个空列表，用于存储文件名</span>
+
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>  <span class="c1"># 遍历结果列表中的每个结果</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 获取文件名并去掉扩展名</span>
+
+    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># 将处理后的文件名添加到列表中</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打印前十个文件名</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># 输出filenames列表中的前十个元素</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>使用一个查询参数：<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输入一个查询参数：</span>
+
+<span class="n">service</span> <span class="o">=</span> <span class="s2">&quot;Mast.Jwst.Filtered.Nirspec&quot;</span>  <span class="c1"># 设置服务名称为JWST NIRSpec过滤服务</span>
+
+<span class="n">one_parameter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>  <span class="c1"># 查询所有列</span>
+
+               <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;paramName&quot;</span><span class="p">:</span> <span class="s2">&quot;exp_type&quot;</span><span class="p">,</span>  <span class="c1"># 设置过滤条件，参数名称为exp_type</span>
+
+                            <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NRS_MSASPEC&#39;</span><span class="p">]</span>  <span class="c1"># 过滤值为NRS_MSASPEC</span>
+
+                            <span class="p">}]</span>
+
+             <span class="p">}</span>
+
+<span class="n">response_one_parameter</span> <span class="o">=</span> <span class="n">Mast</span><span class="o">.</span><span class="n">service_request_async</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">one_parameter</span><span class="p">)</span>  <span class="c1"># 异步请求服务</span>
+
+<span class="n">results_one_parameter</span> <span class="o">=</span> <span class="n">response_one_parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>  <span class="c1"># 获取返回结果中的数据部分</span>
+
+<span class="c1"># 打印前十个文件名</span>
+
+<span class="k">for</span> <span class="n">result_one_parameter</span> <span class="ow">in</span> <span class="n">results_one_parameter</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>  <span class="c1"># 遍历前十个结果</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">result_one_parameter</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 打印文件名（去掉扩展名）</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>使用多个查询参数：<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用多个查询参数</span>
+
+<span class="n">service</span> <span class="o">=</span> <span class="s2">&quot;Mast.Jwst.Filtered.Nirspec&quot;</span>  <span class="c1"># 设置服务名称</span>
+
+<span class="n">multiple_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>  <span class="c1"># 查询所有列</span>
+
+    <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;paramName&quot;</span><span class="p">:</span> <span class="s2">&quot;apername&quot;</span><span class="p">,</span>  <span class="c1"># 过滤器参数：光圈名称</span>
+         <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NRS1_FULL&#39;</span><span class="p">,</span> <span class="s1">&#39;NRS_FULL_MSA&#39;</span><span class="p">]</span>  <span class="c1"># 允许的光圈名称值</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;paramName&quot;</span><span class="p">:</span> <span class="s2">&quot;detector&quot;</span><span class="p">,</span>  <span class="c1"># 过滤器参数：探测器</span>
+         <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NRS1&#39;</span><span class="p">]</span>  <span class="c1"># 允许的探测器值</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;paramName&quot;</span><span class="p">:</span> <span class="s2">&quot;filter&quot;</span><span class="p">,</span>  <span class="c1"># 过滤器参数：滤光片</span>
+         <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;F290LP&#39;</span><span class="p">,</span> <span class="s1">&#39;F170LP&#39;</span><span class="p">]</span>  <span class="c1"># 允许的滤光片值</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;paramName&quot;</span><span class="p">:</span> <span class="s2">&quot;exp_type&quot;</span><span class="p">,</span>  <span class="c1"># 过滤器参数：曝光类型</span>
+         <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NRS_IFU&#39;</span><span class="p">,</span> <span class="s1">&#39;NRS_MSASPEC&#39;</span><span class="p">,</span> <span class="s1">&#39;NRS_BRIGHTOBJ&#39;</span><span class="p">,</span> <span class="s1">&#39;NRS_WATA&#39;</span><span class="p">]</span>  <span class="c1"># 允许的曝光类型值</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;paramName&quot;</span><span class="p">:</span> <span class="s2">&quot;readpatt&quot;</span><span class="p">,</span>  <span class="c1"># 过滤器参数：读取模式</span>
+         <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NRS&#39;</span><span class="p">,</span> <span class="s1">&#39;NRSRAPID&#39;</span><span class="p">]</span>  <span class="c1"># 允许的读取模式值</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">response_multiple_parameters</span> <span class="o">=</span> <span class="n">Mast</span><span class="o">.</span><span class="n">service_request_async</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">multiple_parameters</span><span class="p">)</span>  <span class="c1"># 异步请求服务</span>
+
+<span class="n">results_multiple_parameters</span> <span class="o">=</span> <span class="n">response_multiple_parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>  <span class="c1"># 获取返回的JSON数据</span>
+
+<span class="c1"># 打印前十个文件名</span>
+<span class="k">for</span> <span class="n">result_multiple_parameters</span> <span class="ow">in</span> <span class="n">results_multiple_parameters</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="c1"># 除了文件名，还可以打印其他参数。下面是可用选项的列表。</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result_multiple_parameters</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;     &#39;</span> <span class="o">+</span> <span class="n">result_multiple_parameters</span><span class="p">[</span><span class="s1">&#39;visitype&#39;</span><span class="p">])</span>  <span class="c1"># 打印文件名和可视类型</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>可用的过滤参数列表在档案中：<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>以下参数可用于MAST查询服务的过滤器。要使用这些过滤器，请将过滤器作为’paramName’添加，并将您希望过滤的各种选项作为’values’。</p>
+<p>除了用作过滤器之外，如果您希望返回除文件名以外的内容，任何这些键也可以用来访问或返回结果的任何组成部分。例如，您可以通过将”result[‘filename’]”替换为”result[‘pi_name’]”来打印PI名称，而不是打印文件名。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 所有NIRSpec数据的字典键（不带任何滤镜）：</span>
+
+<span class="n">all_keys</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># 初始化一个空字符串，用于存储所有键</span>
+
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>  <span class="c1"># 遍历结果列表中的每个结果</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># 遍历当前结果的所有键</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_keys</span><span class="p">:</span>  <span class="c1"># 如果当前键不在all_keys中</span>
+
+            <span class="n">all_keys</span> <span class="o">=</span> <span class="n">all_keys</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span>  <span class="c1"># 将键添加到all_keys中，并加上逗号和空格</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">all_keys</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># 打印所有键，去掉最后的逗号和空格</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>注意，上述某些参数是特定于某种观测模式的。例如，’msaconid’、’msametfl’、’msametid’ 和 ‘msastate’ 对应于多目标光谱（MOS）观测。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 存储给定参数（例如，exp_type）的所有选项</span>
+<span class="n">exp_type_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># 遍历结果集</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="c1"># 如果当前的exp_type不在exp_type_list中，则添加它</span>
+    <span class="n">exp_type_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;exp_type&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;exp_type&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exp_type_list</span> <span class="k">else</span> <span class="n">exp_type_list</span>
+
+<span class="c1"># 遍历所有唯一的exp_type并打印</span>
+<span class="k">for</span> <span class="n">exp_type</span> <span class="ow">in</span> <span class="n">exp_type_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">exp_type</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>潜在重复检查<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>NIRSpec的重复观测可能发生在重复搜索半径内存在一个目标，该目标不仅使用相同的光栅（grating）和色散器（disperser），而且其曝光时间（exposure time）与之前观测的曝光时间相差不超过四倍。在宽场成像中，视场重叠（field overlap）必须大于50%才能被视为重复观测。有关<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-duplication-checking/identifying-potential-duplicate-observations">识别潜在重复观测</a>的更多信息可能对观测者有所帮助。</p>
+<p>在此演示中，使用输入目录（input catalog）搜索一个半径等于光圈最长边的区域，查询那些符合波长（wavelength）和曝光时间标准的观测，并在档案中找到可能是目录中任何目标的重复观测的源。</p>
+<p>虽然上面提到的<a class="reference external" href="https://astroquery.readthedocs.io/en/latest/api/astroquery.mast.MastClass.html#astroquery.mast.MastClass.service_request_async">Mast.service_request_async()</a>方法对于使用元数据参数过滤数据非常有用，但在这种情况下使用<a class="reference external" href="https://astroquery.readthedocs.io/en/latest/mast/mast.html#observation-criteria-queries">Observations.query_criteria()</a>来搜索特定的天空区域，并附加其他参数。</p>
+<p>重复搜索半径依赖于光圈大小，这些光圈在<a class="reference external" href="https://jwst-docs.stsci.edu/near-infrared-spectrograph/nirspec-instrumentation/nirspec-fixed-slits#:~:text=NIRSpec%20has%20five%20fixed%20slits,series%20(BOTS)%20observing%20mode">NIRSpec固定光缝JDox页面</a>中进行了描述。光缝的最长边用于固定光缝的重复搜索半径。以下单元格包含每个NIRSpec光圈的重复搜索半径（以度为单位）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 默认重复搜索半径</span>
+
+<span class="n">mos_radius</span> <span class="o">=</span> <span class="mi">180</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，180角秒/360</span>
+<span class="n">mos_slit_radius</span> <span class="o">=</span> <span class="mf">0.46</span><span class="o">/</span><span class="mi">360</span> <span class="c1"># 将角秒转换为度，0.46角秒/360</span>
+<span class="n">ifu_radius</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，3角秒/360</span>
+<span class="n">fs_S1600A1_radius</span> <span class="o">=</span> <span class="mf">1.6</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，1.6角秒/360</span>
+<span class="n">fs_S200A1_radius</span> <span class="o">=</span> <span class="mf">3.3</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，3.3角秒/360</span>
+<span class="n">fs_S200A2_radius</span> <span class="o">=</span> <span class="mf">3.3</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，3.3角秒/360</span>
+<span class="n">fs_S400A1_radius</span> <span class="o">=</span> <span class="mf">3.8</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，3.8角秒/360</span>
+<span class="n">fs_S200B1_radius</span> <span class="o">=</span> <span class="mf">3.3</span><span class="o">/</span><span class="mi">360</span>  <span class="c1"># 将角秒转换为度，3.3角秒/360</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在潜在重复观测搜索中使用的搜索区域由上述定义的孔径的最长边决定。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义一个字典，包含不同观测区域的半径</span>
+<span class="n">search_area</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;MSA&quot;</span><span class="p">:</span> <span class="n">mos_radius</span><span class="p">,</span>          <span class="c1"># MSA区域的半径</span>
+    <span class="s2">&quot;IFU&quot;</span><span class="p">:</span> <span class="n">ifu_radius</span><span class="p">,</span>          <span class="c1"># IFU区域的半径</span>
+    <span class="s2">&quot;S1600A1&quot;</span><span class="p">:</span> <span class="n">fs_S1600A1_radius</span><span class="p">,</span>  <span class="c1"># S1600A1区域的半径</span>
+    <span class="s2">&quot;S200A1&quot;</span><span class="p">:</span> <span class="n">fs_S200A1_radius</span><span class="p">,</span>    <span class="c1"># S200A1区域的半径</span>
+    <span class="s2">&quot;S200A2&quot;</span><span class="p">:</span> <span class="n">fs_S200A2_radius</span><span class="p">,</span>    <span class="c1"># S200A2区域的半径</span>
+    <span class="s2">&quot;S400A1&quot;</span><span class="p">:</span> <span class="n">fs_S400A1_radius</span><span class="p">,</span>    <span class="c1"># S400A1区域的半径</span>
+    <span class="s2">&quot;S200B1&quot;</span><span class="p">:</span> <span class="n">fs_S200B1_radius</span>      <span class="c1"># S200B1区域的半径</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在这种情况下，标记为 ‘instrument_name’ 的值包括仪器和模式。此字典用于确定在查询中使用的适当名称。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义一个字典，包含不同仪器名称及其对应的描述</span>
+<span class="n">instrument_name</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;MSA&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/MSA&quot;</span><span class="p">,</span>  <span class="c1"># 多目标光谱仪</span>
+    <span class="s2">&quot;IFU&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/IFU&quot;</span><span class="p">,</span>  <span class="c1"># 介质光纤光谱仪</span>
+    <span class="s2">&quot;S1600A1&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/SLIT&quot;</span><span class="p">,</span>  <span class="c1"># 光纤光谱仪 S1600A1</span>
+    <span class="s2">&quot;S200A1&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/SLIT&quot;</span><span class="p">,</span>  <span class="c1"># 光纤光谱仪 S200A1</span>
+    <span class="s2">&quot;S200A2&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/SLIT&quot;</span><span class="p">,</span>  <span class="c1"># 光纤光谱仪 S200A2</span>
+    <span class="s2">&quot;S400A1&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/SLIT&quot;</span><span class="p">,</span>  <span class="c1"># 光纤光谱仪 S400A1</span>
+    <span class="s2">&quot;S200B1&quot;</span><span class="p">:</span> <span class="s2">&quot;NIRSPEC/SLIT&quot;</span>   <span class="c1"># 光纤光谱仪 S200B1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>设置输入目录，包括目标目录号、光圈（aperture）、赤经（RA）、赤纬（DEC）、光栅（grating）、滤光片（filter）、曝光时间（exposure time）、搜索区域（search area）以及每个目标的仪器/模式名称（instrument/mode name）。选择这种格式是为了方便将额外的目标轻松添加到输入目录列表中。尽管这些是进行重复检查的主要考虑因素，但也可以使用这种字典格式添加其他标准。使用Astroquery检查哪些<a class="reference external" href="https://mast.stsci.edu/api/v0/_c_a_o_mfields.html">观测场</a>可用于过滤NIRSpec数据可能会很有用。</p>
+<p>请注意，NIRSpec FS或IFU光谱观测可以被视为与相同天文目标的MOS观测在相似波长范围和分辨率下的重复。因此，在搜索FS或IFU观测潜在重复时，查询MOS观测也可能会有所帮助。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输入用于查询的目标目录</span>
+
+<span class="n">target1_number</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>  <span class="c1"># 目标1的编号</span>
+<span class="n">target1_aperture</span> <span class="o">=</span> <span class="s2">&quot;MSA&quot;</span>  <span class="c1"># 目标1的光圈类型</span>
+<span class="n">target1_RA</span> <span class="o">=</span> <span class="mf">53.13</span>  <span class="c1"># 目标1的右升角</span>
+<span class="n">target1_DEC</span> <span class="o">=</span> <span class="o">-</span><span class="mf">27.8</span>  <span class="c1"># 目标1的 declination（赤纬）</span>
+<span class="n">target1_grating</span> <span class="o">=</span> <span class="s2">&quot;G395H&quot;</span>  <span class="c1"># 目标1的光栅类型</span>
+<span class="n">target1_filters</span> <span class="o">=</span> <span class="s2">&quot;F290LP&quot;</span>  <span class="c1"># 目标1的滤光片</span>
+<span class="n">target1_exposure_time</span> <span class="o">=</span> <span class="mi">950</span>  <span class="c1"># 目标1的曝光时间</span>
+<span class="n">target1_search_area</span> <span class="o">=</span> <span class="n">search_area</span><span class="p">[</span><span class="n">target1_aperture</span><span class="p">]</span>  <span class="c1"># 目标1的搜索区域</span>
+<span class="n">target1_instrument_name</span> <span class="o">=</span> <span class="n">instrument_name</span><span class="p">[</span><span class="n">target1_aperture</span><span class="p">]</span>  <span class="c1"># 目标1的仪器名称</span>
+<span class="n">target1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="n">target1_number</span><span class="p">,</span> <span class="s1">&#39;RA&#39;</span><span class="p">:</span> <span class="n">target1_RA</span><span class="p">,</span> <span class="s1">&#39;DEC&#39;</span><span class="p">:</span> <span class="n">target1_DEC</span><span class="p">,</span> <span class="s1">&#39;grating&#39;</span><span class="p">:</span> <span class="n">target1_grating</span><span class="p">,</span> 
+           <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="n">target1_filters</span><span class="p">,</span> <span class="s1">&#39;exposure_time&#39;</span><span class="p">:</span> <span class="n">target1_exposure_time</span><span class="p">,</span> <span class="s1">&#39;search_area&#39;</span><span class="p">:</span> <span class="n">target1_search_area</span><span class="p">,</span>
+           <span class="s1">&#39;instrument_name&#39;</span><span class="p">:</span> <span class="n">target1_instrument_name</span><span class="p">}</span>  <span class="c1"># 目标1的字典信息</span>
+
+<span class="n">target2_number</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>  <span class="c1"># 目标2的编号</span>
+<span class="n">target2_aperture</span> <span class="o">=</span> <span class="s2">&quot;IFU&quot;</span>  <span class="c1"># 目标2的光圈类型</span>
+<span class="n">target2_RA</span> <span class="o">=</span> <span class="mf">68.73091</span>  <span class="c1"># 目标2的右升角</span>
+<span class="n">target2_DEC</span> <span class="o">=</span> <span class="mf">24.48140</span>  <span class="c1"># 目标2的 declination（赤纬）</span>
+<span class="n">target2_grating</span> <span class="o">=</span> <span class="s2">&quot;G395H&quot;</span>  <span class="c1"># 目标2的光栅类型</span>
+<span class="n">target2_filters</span> <span class="o">=</span> <span class="s2">&quot;F290LP&quot;</span>  <span class="c1"># 目标2的滤光片</span>
+<span class="n">target2_exposure_time</span> <span class="o">=</span> <span class="mf">22.749</span>  <span class="c1"># 目标2的曝光时间</span>
+<span class="n">target2_search_area</span> <span class="o">=</span> <span class="n">search_area</span><span class="p">[</span><span class="n">target2_aperture</span><span class="p">]</span>  <span class="c1"># 目标2的搜索区域</span>
+<span class="n">target2_instrument_name</span> <span class="o">=</span> <span class="n">instrument_name</span><span class="p">[</span><span class="n">target2_aperture</span><span class="p">]</span>  <span class="c1"># 目标2的仪器名称</span>
+<span class="n">target2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="n">target2_number</span><span class="p">,</span> <span class="s1">&#39;RA&#39;</span><span class="p">:</span> <span class="n">target2_RA</span><span class="p">,</span> <span class="s1">&#39;DEC&#39;</span><span class="p">:</span> <span class="n">target2_DEC</span><span class="p">,</span> <span class="s1">&#39;grating&#39;</span><span class="p">:</span> <span class="n">target2_grating</span><span class="p">,</span>
+           <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="n">target2_filters</span><span class="p">,</span> <span class="s1">&#39;exposure_time&#39;</span><span class="p">:</span> <span class="n">target2_exposure_time</span><span class="p">,</span> <span class="s1">&#39;search_area&#39;</span><span class="p">:</span> <span class="n">target2_search_area</span><span class="p">,</span>
+           <span class="s1">&#39;instrument_name&#39;</span><span class="p">:</span> <span class="n">target2_instrument_name</span><span class="p">}</span>  <span class="c1"># 目标2的字典信息</span>
+
+<span class="n">target3_number</span> <span class="o">=</span> <span class="s2">&quot;3&quot;</span>  <span class="c1"># 目标3的编号</span>
+<span class="n">target3_aperture</span> <span class="o">=</span> <span class="s2">&quot;S200B1&quot;</span>  <span class="c1"># 目标3的光圈类型</span>
+<span class="n">target3_RA</span> <span class="o">=</span> <span class="mf">5.130</span>  <span class="c1"># 目标3的右升角</span>
+<span class="n">target3_DEC</span> <span class="o">=</span> <span class="o">-</span><span class="mf">36.895</span>  <span class="c1"># 目标3的 declination（赤纬）</span>
+<span class="n">target3_grating</span> <span class="o">=</span> <span class="s2">&quot;G140H&quot;</span>  <span class="c1"># 目标3的光栅类型</span>
+<span class="n">target3_filters</span> <span class="o">=</span> <span class="s2">&quot;F070LP&quot;</span>  <span class="c1"># 目标3的滤光片</span>
+<span class="n">target3_exposure_time</span> <span class="o">=</span> <span class="mf">1880.22</span>  <span class="c1"># 目标3的曝光时间</span>
+<span class="n">target3_search_area</span> <span class="o">=</span> <span class="n">search_area</span><span class="p">[</span><span class="n">target3_aperture</span><span class="p">]</span>  <span class="c1"># 目标3的搜索区域</span>
+<span class="n">target3_instrument_name</span> <span class="o">=</span> <span class="n">instrument_name</span><span class="p">[</span><span class="n">target3_aperture</span><span class="p">]</span>  <span class="c1"># 目标3的仪器名称</span>
+<span class="n">target3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="n">target3_number</span><span class="p">,</span> <span class="s1">&#39;RA&#39;</span><span class="p">:</span> <span class="n">target3_RA</span><span class="p">,</span> <span class="s1">&#39;DEC&#39;</span><span class="p">:</span> <span class="n">target3_DEC</span><span class="p">,</span> <span class="s1">&#39;grating&#39;</span><span class="p">:</span> <span class="n">target3_grating</span><span class="p">,</span>
+           <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="n">target3_filters</span><span class="p">,</span> <span class="s1">&#39;exposure_time&#39;</span><span class="p">:</span> <span class="n">target3_exposure_time</span><span class="p">,</span> <span class="s1">&#39;search_area&#39;</span><span class="p">:</span> <span class="n">target3_search_area</span><span class="p">,</span>
+           <span class="s1">&#39;instrument_name&#39;</span><span class="p">:</span> <span class="n">target3_instrument_name</span><span class="p">}</span>  <span class="c1"># 目标3的字典信息</span>
+
+<span class="n">input_catalog</span> <span class="o">=</span> <span class="p">[</span><span class="n">target1</span><span class="p">,</span> <span class="n">target2</span><span class="p">,</span> <span class="n">target3</span><span class="p">]</span>  <span class="c1"># 输入目录包含目标1、目标2和目标3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>导入 <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/mast/mast.html#observation-criteria-queries">MAST 的 Observations 包</a>，以便根据特定条件进行查询，而不仅仅是基于位置或目标名称。该包还允许您通过 ‘proposal_pi’ 或其他 <a class="reference external" href="https://mast.stsci.edu/api/v0/_c_a_o_mfields.html">观测字段</a> 进行搜索。在重复检查的情况下，这种查询格式特别有用，因为它允许用户在最小和最大 RA（赤经）和 Dec（赤纬）值范围内进行搜索，此外还可以使用过滤器和光栅等其他参数。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">astroquery.mast</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observations</span>  <span class="c1"># 从astroquery库导入Observations模块，用于查询MAST数据</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入numpy库，用于数值计算</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>接下来，使用目标的目录编号作为键生成一个字典，该字典包含输入目录中每个目标的观测表。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 生成观测表的字典</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 初始化一个空字典，用于存储观测结果</span>
+
+<span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">input_catalog</span><span class="p">:</span>  <span class="c1"># 遍历输入目录中的所有目标</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]</span>  <span class="c1"># 获取目标的编号作为字典的键</span>
+
+    <span class="c1"># 使用输入目录中的信息执行查询</span>
+
+    <span class="n">table</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Observations</span><span class="o">.</span><span class="n">query_criteria</span><span class="p">(</span><span class="n">instrument_name</span><span class="o">=</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;instrument_name&#39;</span><span class="p">],</span>  <span class="c1"># 查询仪器名称</span>
+                     <span class="n">s_ra</span><span class="o">=</span><span class="p">[(</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">]),</span> <span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">])],</span>  <span class="c1"># 查询右升角范围</span>
+                     <span class="n">s_dec</span><span class="o">=</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">]],</span>  <span class="c1"># 查询天赤纬范围</span>
+                     <span class="n">grating</span><span class="o">=</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;grating&#39;</span><span class="p">],</span>  <span class="c1"># 查询光栅</span>
+                     <span class="n">filters</span><span class="o">=</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;filters&#39;</span><span class="p">],</span>  <span class="c1"># 查询滤光片</span>
+                     <span class="n">t_exptime</span><span class="o">=</span><span class="p">[(</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;exposure_time&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;exposure_time&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">4</span><span class="p">])</span>  <span class="c1"># 查询曝光时间范围</span>
+
+    <span class="c1"># 对于MOS数据执行查询，因为FS和IFU观测可能是MOS观测的重复</span>
+
+    <span class="k">if</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;instrument_name&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;NIRSPEC/MSA&quot;</span><span class="p">:</span>  <span class="c1"># 如果仪器不是NIRSPEC/MSA</span>
+
+        <span class="n">table</span><span class="p">[</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;MOS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Observations</span><span class="o">.</span><span class="n">query_criteria</span><span class="p">(</span><span class="n">instrument_name</span><span class="o">=</span><span class="s2">&quot;NIRSPEC/MSA&quot;</span><span class="p">,</span>  <span class="c1"># 查询NIRSPEC/MSA仪器</span>
+                         <span class="n">s_ra</span><span class="o">=</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">]],</span>  <span class="c1"># 查询右升角范围</span>
+                         <span class="n">s_dec</span><span class="o">=</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;search_area&#39;</span><span class="p">]],</span>  <span class="c1"># 查询天赤纬范围</span>
+                         <span class="n">grating</span><span class="o">=</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;grating&#39;</span><span class="p">],</span>  <span class="c1"># 查询光栅</span>
+                         <span class="n">filters</span><span class="o">=</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;filters&#39;</span><span class="p">],</span>  <span class="c1"># 查询滤光片</span>
+                         <span class="n">t_exptime</span><span class="o">=</span><span class="p">[(</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;exposure_time&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;exposure_time&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># 查询曝光时间范围</span>
+                         <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The observation table below contains potential duplicate observations for </span>
+
+<span class="s2">          target </span><span class="si">{}</span><span class="s2"> in the input catalog.&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>  <span class="c1"># 打印目标编号的提示信息</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># 打印观测表的前五条结果（可以去掉[:5]以显示所有结果）</span>
+
+    <span class="nb">print</span><span class="p">()</span>  <span class="c1"># 打印空行以分隔输出</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>因为在APT中检查这些观测是很重要的，以更可靠地确定这些潜在的重复观测是否确实被视为重复，因此可以使用此工具来检索提案ID，然后在APT中进行搜索。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打印完整表格中生成的提案ID列表</span>
+
+<span class="n">proposal_ids</span><span class="o">=</span><span class="p">[]</span>  <span class="c1"># 初始化一个空列表以存储提案ID</span>
+
+<span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">input_catalog</span><span class="p">:</span>  <span class="c1"># 遍历输入目录中的每个目标</span>
+
+    <span class="k">for</span> <span class="n">proposal_id</span> <span class="ow">in</span> <span class="n">table</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]][</span><span class="s1">&#39;proposal_id&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历每个观测的提案ID</span>
+
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">proposal_id</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">proposal_ids</span><span class="p">:</span>  <span class="c1"># 检查提案ID是否已存在以去除重复</span>
+
+            <span class="n">proposal_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">proposal_id</span><span class="p">))</span>  <span class="c1"># 将唯一的提案ID添加到列表中</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It may be helpful to check these proposal IDs in APT to compare proposal details:&quot;</span><span class="p">,</span> <span class="n">proposal_ids</span><span class="p">)</span>  <span class="c1"># 打印提案ID列表以供参考</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取产品组ID列表（使用obsid而不是观察ID / obs_id）</span>
+
+<span class="n">obs_ids</span><span class="o">=</span><span class="p">[]</span>  <span class="c1"># 初始化一个空列表以存储唯一的obsid</span>
+
+<span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">input_catalog</span><span class="p">:</span>  <span class="c1"># 遍历输入目录中的每个目标</span>
+
+    <span class="k">for</span> <span class="n">obs_id</span> <span class="ow">in</span> <span class="n">table</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]][</span><span class="s1">&#39;obsid&#39;</span><span class="p">]:</span>  <span class="c1"># 遍历每个观察的提案ID</span>
+
+        <span class="k">if</span> <span class="n">obs_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obs_ids</span><span class="p">:</span>  <span class="c1"># 检查obs_id是否已存在于列表中以去除重复项</span>
+
+            <span class="n">obs_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obs_id</span><span class="p">)</span>  <span class="c1"># 如果不存在，则将其添加到列表中</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Product group IDs:&#39;</span><span class="p">,</span> <span class="n">obs_ids</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># 打印前10个产品组ID</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 根据产品组ID（例如 &#39;2003839997&#39;）下载数据产品</span>
+
+<span class="c1"># 数据将下载到当前工作目录下名为 &quot;mastDownload&quot; 的文件夹，除非作为参数提供了下载目录。</span>
+
+<span class="c1"># 警告：此单元格可能需要几分钟才能运行。</span>
+
+<span class="n">product_group_ID</span> <span class="o">=</span> <span class="s1">&#39;2003839997&#39;</span>  <span class="c1"># 定义产品组ID</span>
+
+<span class="n">manifest</span> <span class="o">=</span> <span class="n">Observations</span><span class="o">.</span><span class="n">download_products</span><span class="p">(</span><span class="n">product_group_ID</span><span class="p">,</span> <span class="n">download_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># 下载产品并返回清单</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>请注意，如果您想访问专有数据，您可能需要先登录。更多信息可以在文档中找到，链接为 <a class="reference external" href="https://astroquery.readthedocs.io/en/v0.3.7/mast/mast.html#accessing-proprietary-data">访问专有数据</a>。</p>
+<section id="id7">
+<h3>额外资源<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>有一个<a class="reference external" href="https://github.com/spacetelescope/JWST_Planned_Observations/blob/master/Querying_JWST_in_astroquery.ipynb">笔记本</a>可用，它通过查询位置展示了目标区域。另一个笔记本提供了关于<a class="reference external" href="https://github.com/spacetelescope/JWST_Planned_Observations/blob/master/Querying_JWST_in_mashup.ipynb">Mashup</a>的详细信息。这些笔记本可能对更一般的JWST重复检查有用，因为它们提供了上传目标文件列表或在<a class="reference external" href="https://aladin.u-strasbg.fr/">Aladin</a>中可视化结果等信息。</p>
+<p>正如在<a class="reference external" href="https://jwst-docs.stsci.edu/jwst-duplication-checking/identifying-potential-duplicate-observations#IdentifyingPotentialDuplicateObservations-Portaltargetsearch">识别潜在重复观测</a>中更详细地指出的，检查这些目标在<a class="reference external" href="https://www.stsci.edu/scientific-community/software/astronomers-proposal-tool-apt">APT</a>中是至关重要的。</p>
+<p>如果您使用astroquery，请引用论文<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...98G/abstract">Ginsburg, Sipőcz, Brasseur等 2019</a>。</p>
+<section id="id8">
+<h4>关于这个笔记本：<a class="headerlink" href="#id8" title="Link to this heading">#</a></h4>
+<p><em><strong>作者：</strong></em> Teagan King，科学支持分析师</p>
+<p><em><strong>更新时间：</strong></em> 2021年3月12日</p>
+<p>看起来您发送的内容为空。如果您有特定的Markdown内容需要翻译，请提供文本，我将很高兴为您翻译并保持格式。</p>
+<p><a class="reference internal" href="#top"><span class="xref myst">页面顶部</span></a></p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png"><img alt="太空望远镜标志" src="https://raw.githubusercontent.com/spacetelescope/notebooks/master/assets/stsci_pri_combo_mark_horizonal_white_bkgd.png" style="width: 200px;" />
+</a>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/cross_instrument/NIRSpec_MAST_Query"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../composite_model_fitting/specfit_demo_3_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">复合模型光谱拟合</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../rgb_imviz/imviz_rgb_carina_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">使用Imviz创建RGB图像</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">引言</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nirspec">执行所有 NIRSpec 数据的搜索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">使用一个查询参数：</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">使用多个查询参数：</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">可用的过滤参数列表在档案中：</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">潜在重复检查</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">额外资源</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">关于这个笔记本：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

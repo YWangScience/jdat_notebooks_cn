@@ -1,0 +1,1349 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>WFSS框提取示例 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/NIRCam/NIRCam_WFSS_Box_extraction/BoxExtraction_using_Grismconf_CRDS_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cross_instrument/stpsf_examples/stpsf_examples_cn.html">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/NIRCam/NIRCam_WFSS_Box_extraction/BoxExtraction_using_Grismconf_CRDS_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>WFSS框提取示例</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">包导入</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crds">设置 CRDS 路径和服务器</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">定义函数和参数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">下载数据</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">运行管道步骤</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">WFSS信息的基本计算</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">计算光的分散位置</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">计算给定对象的光谱轨迹</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">基本盒子提取</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">检查数据中的源</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">计算轨迹位置</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">估计背景</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">指定波长</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#box-extraction">Box extraction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">波长校准</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">转换为物理单位</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="wfss">
+<h1>WFSS框提取示例<a class="headerlink" href="#wfss" title="Link to this heading">#</a></h1>
+<p>这个笔记本演示了如何在宽场无缝光谱观测（WFSS）中使用广义世界坐标系统（gWCS）来确定源的位置和波长。它展示了如何根据对应成像观测中的源位置计算WFSS观测中的源位置，以及如何计算沿着物体轨迹的特定像素的波长。</p>
+<p>接下来，它展示了如何使用gWCS进行光谱的盒提取，并将一维光谱转换为物理单位。</p>
+<p>在这个例子中，我们使用JWST项目01076的曝光数据。我们希望处理具有完整gWCS信息的文件，并且已经应用了平场校正。我们还需要运行管道的光通量校准步骤，以便在WFSS文件的头部（在S_PHOTOM头关键字中）填充光度参考文件的名称。这个参考文件将在下面的提取过程中使用。光度步骤不会改变WFSS曝光中的科学数据值，因为文件中的观察模式（OBS_MODE头关键字）设置为NRC_WFSS。</p>
+<p>为了实现这一点，必须对数据运行管道的<b>assign_wcs</b>、<b>flat field</b>和<b>photom</b>步骤。通常，这意味着我们可以简单地从MAST下载*_cal.fits文件，这对于本笔记本中使用的成像模式数据是正确的。然而，正如我们下面所示，我们希望将成像模式的平场应用于WFSS数据。这意味着我们必须下载*_rate.fits文件，并手动对数据运行这些管道步骤。为了保持一致，我们对成像模式数据也执行相同的操作。</p>
+<p>JWST探测器在其平场中几乎没有波长依赖性，正如通常对HST WFSS数据所做的那样，在这个例子中，我们让管道将直接交叉滤光片的平场应用于所有成像和WFSS观测。我们不使用特定于WFSS的平场。</p>
+<p>一旦数据经过适当的校准，笔记本使用<b>grismconf</b>包在成像和WFSS数据中的源位置之间进行转换，并计算与WFSS数据中给定位置相关的波长。<b>grismconf</b>还使用光度参考文件中的光通量校准曲线，将数据从<span class="math notranslate nohighlight">\(DN/sec\)</span>单位转换为<span class="math notranslate nohighlight">\(F_{lambda}\)</span>单位（<span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>）。<b>grismconf</b>将从校准参考数据系统（CRDS）获取所需的NIRCam WFSS配置文件。请注意，必须对数据运行光度步骤，以便获得适当的CRDS灵敏度文件的名称。</p>
+<p>注意：在这个阶段，重要的部分不是WCS的绝对准确性。相反，我们依赖于成像和WFSS观测之间的准确自洽性。</p>
+<p>作者：N. Pirzkal <br></p>
+<p>创建日期：2024年9月24日</p>
+<section id="id1">
+<h2>目录<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Package-Imports"><span class="xref myst">包导入</span></a></p></li>
+<li><p><a class="reference internal" href="#Define-Functions-and-Parameters"><span class="xref myst">定义函数和参数</span></a></p></li>
+<li><p><a class="reference internal" href="#Download-Data"><span class="xref myst">下载数据</span></a></p></li>
+<li><p><a class="reference internal" href="#Run-Pipeline-Steps"><span class="xref myst">运行管道步骤</span></a></p></li>
+<li><p><a class="reference internal" href="#Basic-Computation-of-WFSS-Information"><span class="xref myst">WFSS信息的基本计算</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#Compute-where-light-gets-dispersed-to"><span class="xref myst">计算光的分散位置</span></a></p></li>
+<li><p><a class="reference internal" href="#Compute-the-spectral-trace-for-a-given-object"><span class="xref myst">计算给定对象的光谱轨迹</span></a></p></li>
+<li><p><a class="reference internal" href="#Basic-Box-Extraction"><span class="xref myst">基本框提取</span></a></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id2">
+<h2>包导入<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>  <span class="c1"># 导入深拷贝模块</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入操作系统接口库</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>  <span class="c1"># 导入HTTP请求库</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">sigmaclip</span>  <span class="c1"># 从SciPy库导入sigma裁剪函数</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">grismconf</span>  <span class="c1"># 导入grismconf模块</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.assign_wcs</span><span class="w"> </span><span class="kn">import</span> <span class="n">AssignWcsStep</span>  <span class="c1"># 从JWST库导入WCS分配步骤</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.flatfield</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlatFieldStep</span>  <span class="c1"># 从JWST库导入平场校正步骤</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jwst.photom</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhotomStep</span>  <span class="c1"># 从JWST库导入光度测量步骤</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="crds">
+<h2>设置 CRDS 路径和服务器<a class="headerlink" href="#crds" title="Link to this heading">#</a></h2>
+<p>在运行管道步骤之前，我们需要确保我们的CRDS（Calibrated Reference Data System）环境已配置好。这包括定义一个CRDS缓存目录，用于存放校准管道将使用的参考文件。</p>
+<p>如果本地CRDS缓存的根目录尚未设置，它将会在主目录中创建。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 检查本地 CRDS 缓存目录是否已设置。</span>
+
+<span class="c1"># 如果没有设置，则将其设置为用户主目录</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">),</span> <span class="s1">&#39;crds&#39;</span><span class="p">)</span>  <span class="c1"># 设置 CRDS_PATH 环境变量</span>
+
+<span class="c1"># 检查 CRDS 服务器 URL 是否已设置。如果没有设置，则进行设置。</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;https://jwst-crds.stsci.edu&#39;</span>  <span class="c1"># 设置 CRDS_SERVER_URL 环境变量</span>
+
+<span class="c1"># 输出当前使用的 CRDS 路径和上下文</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRDS local filepath:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_PATH&#39;</span><span class="p">])</span>  <span class="c1"># 打印本地 CRDS 文件路径</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRDS file server:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">])</span>  <span class="c1"># 打印 CRDS 文件服务器 URL</span>
+
+<span class="c1"># 在设置所需的环境变量后导入 crds</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crds</span><span class="w"> </span><span class="kn">import</span> <span class="n">client</span>  <span class="c1"># 导入 crds 客户端</span>
+
+<span class="c1"># 检查当前 CRDS 服务器是否与环境变量中的 URL 匹配</span>
+<span class="k">if</span> <span class="n">client</span><span class="o">.</span><span class="n">get_crds_server</span><span class="p">()</span> <span class="o">!=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CRDS_SERVER_URL&#39;</span><span class="p">]:</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">set_crds_server</span><span class="p">(</span><span class="s1">&#39;https://jwst-crds.stsci.edu&#39;</span><span class="p">)</span>  <span class="c1"># 如果不匹配，则设置 CRDS 服务器</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>定义函数和参数<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>定义一个函数，通过MAST API将指定文件下载到当前目录。该函数包含身份验证逻辑，但本笔记本中的示例使用公共数据，因此不需要MAST API令牌。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_jwst_file</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mast_api_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a JWST data file from MAST archive.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the file to download from MAST</span>
+<span class="sd">        </span>
+<span class="sd">    mast_api_token : str</span>
+<span class="sd">        MAST API token. Required only for proprietary data</span>
+<span class="sd">        </span>
+<span class="sd">    overwrite : bool</span>
+<span class="sd">        If True and the requested file already exists locally, the file will not be downloaded. IF False,</span>
+<span class="sd">        the file will be downloaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># 如果文件已经存在于本地，除非用户设置了overwrite参数，否则不重新下载</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="c1"># 如果overwrite为False，打印信息并跳过下载</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> already exists locally. Skipping download.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 如果overwrite为True，打印信息并重新下载</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> exists locally. Re-downloading.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># MAST下载文件的API URL</span>
+    <span class="n">mast_url</span> <span class="o">=</span> <span class="s2">&quot;https://mast.stsci.edu/api/v0.1/Download/file&quot;</span>
+    <span class="c1"># 设置请求参数，包含要下载的文件URI</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;mast:JWST/product/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 如果提供了API token，设置请求头</span>
+    <span class="k">if</span> <span class="n">mast_api_token</span><span class="p">:</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Authorization</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;token </span><span class="si">{</span><span class="n">mast_api_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># 发送GET请求以下载文件</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mast_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># 检查请求是否成功</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+    <span class="c1"># 以二进制写入模式打开文件并写入下载的内容</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+        <span class="c1"># 分块写入文件，块大小为1024000字节</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024000</span><span class="p">):</span>
+            <span class="n">fobj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>定义一个函数，该函数将对输入的速率文件运行 <code class="docutils literal notranslate"><span class="pre">assign_wcs</span></code> 和平场校正（flat fielding）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_pipeline_steps</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;运行 assign_wcs、flat field 和 photom 校准步骤在给定文件上。</span>
+
+<span class="sd">    如果文件包含 WFSS 数据，则欺骗管道使用成像模式的平场参考文件。</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        要运行步骤的输入文件名</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        管道步骤保存的输出文件名</span>
+
+<span class="sd">    photom : jwst.datamodels.ImageModel</span>
+<span class="sd">        包含校准数据的 Datamodel 实例</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># 调用 AssignWcsStep 处理输入文件</span>
+    <span class="n">assign_wcs</span> <span class="o">=</span> <span class="n">AssignWcsStep</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c1"># 为了将成像模式的平场参考文件应用于数据，</span>
+    <span class="c1"># 我们需要通过暂时将光阑值更改为 CLEAR 来欺骗 CRDS</span>
+    <span class="n">reset_pupil</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 初始化重置光阑的标志</span>
+
+    <span class="c1"># 检查光阑是否为 GRISM，如果是，则进行处理</span>
+    <span class="k">if</span> <span class="s1">&#39;GRISM&#39;</span> <span class="ow">in</span> <span class="n">assign_wcs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span><span class="p">:</span>
+        <span class="n">true_pupil</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">assign_wcs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span><span class="p">)</span>  <span class="c1"># 保存原始光阑值</span>
+        <span class="n">assign_wcs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span> <span class="o">=</span> <span class="s1">&#39;CLEAR&#39;</span>  <span class="c1"># 将光阑值设置为 CLEAR</span>
+        <span class="n">reset_pupil</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># 设置重置光阑的标志为 True</span>
+
+    <span class="c1"># 运行平场步骤</span>
+    <span class="n">flat</span> <span class="o">=</span> <span class="n">FlatFieldStep</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">assign_wcs</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 运行 photom 步骤以填充 WFSS 灵敏度的名称</span>
+    <span class="n">photom</span> <span class="o">=</span> <span class="n">PhotomStep</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">flat</span><span class="p">,</span> <span class="n">save_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 在平场处理完成后，将光阑值恢复为原始值</span>
+    <span class="k">if</span> <span class="n">reset_pupil</span><span class="p">:</span>
+        <span class="n">photom</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">pupil</span> <span class="o">=</span> <span class="n">true_pupil</span>  <span class="c1"># 恢复光阑值</span>
+        <span class="n">photom</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">photom</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># 保存校准后的数据</span>
+
+    <span class="c1"># 返回输出文件的名称以及数据模型</span>
+    <span class="k">return</span> <span class="n">photom</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">photom</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>下载数据<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>下载一个示例成像模式速率文件和相应的WFSS（宽场光谱仪）模式速率文件，从MAST（微波天文数据中心）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 首先，从MAST下载成像和WFSS文件</span>
+
+<span class="n">imaging_file</span> <span class="o">=</span> <span class="s2">&quot;jw01076103001_02102_00001_nrcalong_rate.fits&quot;</span>  <span class="c1"># 成像文件的名称</span>
+
+<span class="n">wfss_file</span> <span class="o">=</span> <span class="s2">&quot;jw01076103001_02101_00001_nrcalong_rate.fits&quot;</span>  <span class="c1"># WFSS文件的名称</span>
+
+<span class="n">get_jwst_file</span><span class="p">(</span><span class="n">imaging_file</span><span class="p">)</span>  <span class="c1"># 下载成像文件</span>
+
+<span class="n">get_jwst_file</span><span class="p">(</span><span class="n">wfss_file</span><span class="p">)</span>  <span class="c1"># 下载WFSS文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>运行管道步骤<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>在成像文件和WFSS文件上运行assign_wcs、平场（flat field）和光度校准（photom calibration）步骤。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 运行 AssignWcsStep、FlatFieldStep 和 PhotomStep 处理成像速率文件</span>
+
+<span class="n">imaging_flat_file</span><span class="p">,</span> <span class="n">imaging_data</span> <span class="o">=</span> <span class="n">run_pipeline_steps</span><span class="p">(</span><span class="n">imaging_file</span><span class="p">)</span>  <span class="c1"># 调用管道步骤处理成像文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 运行 AssignWcsStep、FlatFieldStep 和 PhotomStep 处理 WFSS 数据文件</span>
+
+<span class="c1"># 调用 run_pipeline_steps 函数处理 wfss_file，返回平场文件和数据</span>
+<span class="n">wfss_flat_file</span><span class="p">,</span> <span class="n">wfss_data</span> <span class="o">=</span> <span class="n">run_pipeline_steps</span><span class="p">(</span><span class="n">wfss_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>WFSS信息的基本计算<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>所有WFSS（宽场光谱扫描，Wide Field Slitless Spectroscopy）计算均在探测器坐标空间中进行。分散轨迹的所有特征，包括相对位置的变化和轨迹的全局形状（例如，曲率、偏移等），均通过一系列简单的方程处理。这在<a href="https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2017/WFC3-2017-01.pdf">ISR WFC3 2017-01</a>中进行了描述：“一种更通用的坐标变换方法用于光栅（grisms）”。</p>
+<p>在这里，我们假设一个源位于像素坐标（<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>）处。对于同一源，分散轨迹上单个像素的坐标记为（<span class="math notranslate nohighlight">\(x_g\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>），因此该分散轨迹元素的相对位置相对于源的位置偏移为（<span class="math notranslate nohighlight">\(x_g\)</span>-<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>-<span class="math notranslate nohighlight">\(y\)</span>）像素。坐标（<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>）、（<span class="math notranslate nohighlight">\(x_g\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>）与光的波长<span class="math notranslate nohighlight">\(\lambda\)</span>之间的函数关系及其逆关系为：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{align}\\\begin{split}\delta x = x_g - x = f_x(x,y;t)\\\end{split}\\\begin{split}\delta y = y_g - y = f_y(x,y;t)\\\end{split}\\\lambda = f_\lambda(x,y;t)\\\end{align}\end{aligned}\end{align} \]</div>
+<p>和</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{align}\\\begin{split}t = f^{-1}_x(x,y;\delta x)\\\end{split}\\\begin{split}t = f^{-1}_y(x,y;\delta y)\\\end{split}\\t = f^{-1}_\lambda(x,y;\lambda)\\\end{align}\end{aligned}\end{align} \]</div>
+<p>注意，这些函数是相对于参数 <span class="math notranslate nohighlight">\(t\)</span> 进行参数化的。这为校准工作提供了一定的灵活性，因为 <span class="math notranslate nohighlight">\(t\)</span> 可以被定义得相对任意。然而，在 NIRCam 的光栅（grisms）情况下，<span class="math notranslate nohighlight">\(t\)</span> 被选择为 GRISMR 和 GRISMC 的 <span class="math notranslate nohighlight">\(\delta x\)</span> 或 <span class="math notranslate nohighlight">\(\delta y\)</span>，分别因为这些光栅沿 x 方向和 y 方向分散光线。然而，为了额外的便利，<span class="math notranslate nohighlight">\(t\)</span> 参数被归一化为 1，使得 <span class="math notranslate nohighlight">\(t = 0\)</span> 和 <span class="math notranslate nohighlight">\(t = 1\)</span> 对应于分散光谱的蓝光和红光边缘。</p>
+<p>使用上述 6 个方程，可以关联任何组合的 (<span class="math notranslate nohighlight">\(x\)</span>,<span class="math notranslate nohighlight">\(y\)</span>)、(<span class="math notranslate nohighlight">\(x'\)</span>,<span class="math notranslate nohighlight">\(y'\)</span>)、<span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(\lambda\)</span> 值。上述方程在 GRISMCONF 包中实现为 DISPX()、DISPY()、DISPL()、INVDISPX()、INVDISPY() 和 INVDISPL()。</p>
+<p>现在我们将使用 Grismconf 包来检索有关 WFSS 文件的信息。请注意，我们使用的是上述校准步骤的输出文件。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 这是从上面的WFSS文件管道调用生成的最终输出文件</span>
+
+<span class="n">wfss_file</span> <span class="o">=</span> <span class="s2">&quot;jw01076103001_02101_00001_nrcalong_photomstep.fits&quot;</span>  <span class="c1"># 定义WFSS文件的路径</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加载一个WFSS配置文件以在下面的示例中使用</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">grismconf</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span><span class="n">wfss_file</span><span class="p">)</span>  <span class="c1"># 使用grismconf模块中的Config类加载指定的wfss_file配置文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id7">
+<h3>计算光的分散位置<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>在这里，我们展示如何计算与给定波长对应的轨迹上的点的位置，针对位于给定探测器位置 (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>) 的源。对于这些计算，我们只需要 WFSS 文件。相应的成像模式文件并不是必需的。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># 像素 x 坐标</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># 像素 y 坐标</span>
+
+<span class="n">wavelength</span> <span class="o">=</span> <span class="mf">3.5</span>  <span class="c1"># 波长，单位为微米</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我们想要计算 <span class="math notranslate nohighlight">\(\hat x\)</span>，即波长为 <span class="math notranslate nohighlight">\(\lambda\)</span> 的光子在一个像素中的分散量。我们首先使用 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(\lambda\)</span> 之间的关系，然后使用 <span class="math notranslate nohighlight">\(\hat x\)</span> 和 <span class="math notranslate nohighlight">\(t\)</span> 之间的关系。这个过程是通过对位于 (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>) 的物体使用 INVDISPL() 函数来完成的，顺序为 “+1”：</p>
+<p>检查可用的订单</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您提到的</span> <span class="s2">&quot;C.orders&quot;</span> <span class="n">可能是一个数据结构或数据库表的名称</span><span class="err">，</span><span class="n">但没有提供具体的代码或上下文</span><span class="err">。</span><span class="n">为了帮助您</span><span class="err">，</span><span class="n">我需要更详细的信息或代码片段</span><span class="err">，</span><span class="n">以便我可以为您添加中文注释</span><span class="err">。</span>
+
+<span class="n">请提供相关的代码或数据结构示例</span><span class="err">，</span><span class="n">这样我才能为您添加行级中文注释</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To calculate ( t ) for the given position and wavelength, we need more specific information about the context or the equations involved. Typically, in physics, ( t ) could represent time, and its calculation might depend on the wave equation or other relevant formulas.</p>
+<p>For example, if we are dealing with a wave described by the equation:</p>
+<p>[
+y(x, t) = A \sin(kx - \omega t + \phi)
+]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>( A ) is the amplitude,</p></li>
+<li><p>( k ) is the wave number,</p></li>
+<li><p>( \omega ) is the angular frequency,</p></li>
+<li><p>( \phi ) is the phase constant,</p></li>
+<li><p>( x ) is the position,</p></li>
+<li><p>( t ) is the time.</p></li>
+</ul>
+<p>The wave number ( k ) is related to the wavelength ( \lambda ) by:</p>
+<p>[
+k = \frac{2\pi}{\lambda}
+]</p>
+<p>And the angular frequency ( \omega ) is related to the frequency ( f ) by:</p>
+<p>[
+\omega = 2\pi f
+]</p>
+<p>If you provide the specific position ( x ) and wavelength ( \lambda ), along with any other necessary parameters (like amplitude, frequency, or phase), I can help you calculate ( t ). Please provide those details for a more accurate calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">INVDISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">)</span>  <span class="c1"># 调用C库中的INVDISPL函数，传入参数&quot;+1&quot;、x、y和wavelength，计算t</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t =&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># 打印t的值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我们现在可以使用 DISPX() 计算 <span class="math notranslate nohighlight">\(\delta x\)</span> 和 <span class="math notranslate nohighlight">\(\delta y\)</span>：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 计算在给定位置 (x, y) 和时间 t 下，x 方向的位移</span>
+<span class="n">𝛿x</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># 调用 DISPX 函数，计算 x 方向的位移</span>
+
+<span class="c1"># 计算在给定位置 (x, y) 和时间 t 下，y 方向的位移</span>
+<span class="n">𝛿y</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPY</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># 调用 DISPY 函数，计算 y 方向的位移</span>
+
+<span class="c1"># 输出 x 方向的位移</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;𝛿x =&quot;</span><span class="p">,</span> <span class="n">𝛿x</span><span class="p">)</span>  <span class="c1"># 打印 x 方向的位移值</span>
+
+<span class="c1"># 输出 y 方向的位移</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;𝛿y =&quot;</span><span class="p">,</span> <span class="n">𝛿y</span><span class="p">)</span>  <span class="c1"># 打印 y 方向的位移值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>最终的像素坐标为：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xg</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">𝛿x</span>  <span class="c1"># 计算新的x坐标，xg为原始x坐标加上变化量𝛿x</span>
+
+<span class="n">yg</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">𝛿y</span>  <span class="c1"># 计算新的y坐标，yg为原始y坐标加上变化量𝛿y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trace coordinates:&quot;</span><span class="p">,</span> <span class="n">xg</span><span class="p">,</span> <span class="n">yg</span><span class="p">)</span>  <span class="c1"># 输出新的坐标</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>或者，我们可以计算光在光谱轨迹上某一特定位置的近似波长。例如，我们希望计算一个像素的波长，该像素位于坐标 (<span class="math notranslate nohighlight">\(x_g\)</span>, <span class="math notranslate nohighlight">\(y_g\)</span>)，而该光源的坐标已知为 (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>)。由于这是一个光栅 R 光谱，我们可以使用 <span class="math notranslate nohighlight">\(\delta x\)</span> 与 t 和 <span class="math notranslate nohighlight">\(\lambda\)</span> 之间的关系。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 源的位置坐标为 (1000, 1000)，我们正在查看像素坐标 1558 处的像素</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># 源的 x 坐标</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># 源的 y 坐标</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">INVDISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xg</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>  <span class="c1"># 调用C库中的INVDISPX函数，计算反向显示的X坐标</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用C.DISPL函数，计算给定坐标(x, y)和时间t下的波长</span>
+<span class="n">wavelength</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># 打印波长值，单位为微米</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wavelength = </span><span class="si">{</span><span class="n">wavelength</span><span class="si">}</span><span class="s2"> microns&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在这里，我们看到返回了我们在计算 <span class="math notranslate nohighlight">\(x_g\)</span> 和 <span class="math notranslate nohighlight">\(y_g\)</span> 时使用的3.5微米波长。</p>
+</section>
+<section id="id8">
+<h3>计算给定对象的光谱轨迹<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>我们可以以类似的方式计算出我们期望的某个对象的分散一阶轨迹的位置。我们可以使用一系列 <span class="math notranslate nohighlight">\(t\)</span> 值来覆盖整个光谱轨迹（在这种情况下，NIRCam 校准假设 <span class="math notranslate nohighlight">\(0&lt;t&lt;1\)</span>）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># 设置变量x的值为1000</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># 设置变量y的值为1000</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># 创建一个从0到1（不包括1），步长为0.01的数组</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我们可以计算所有对应的轨迹坐标和波长 (x<span class="math notranslate nohighlight">\(_g\)</span>, y<span class="math notranslate nohighlight">\(_g\)</span>, <span class="math notranslate nohighlight">\(\lambda\)</span>)：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 计算在给定位置 (x, y) 和时间 ts 下的 x 坐标的位移</span>
+<span class="n">xgs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span>  <span class="c1"># 调用 DISPX 函数计算 x 方向的位移并加上原始 x 坐标</span>
+
+<span class="c1"># 计算在给定位置 (x, y) 和时间 ts 下的 y 坐标的位移</span>
+<span class="n">ygs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPY</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span>  <span class="c1"># 调用 DISPY 函数计算 y 方向的位移并加上原始 y 坐标</span>
+
+<span class="c1"># 计算在给定位置 (x, y) 和时间 ts 下的波长</span>
+<span class="n">waves</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>  <span class="c1"># 调用 DISPL 函数计算波长</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>显示探测器上轨迹位置的图像。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 创建一个1行1列的子图，图形大小为20x2英寸</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xgs</span><span class="p">,</span> <span class="n">ygs</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">waves</span><span class="p">)</span>  <span class="c1"># 绘制散点图，x轴为xgs，y轴为ygs，点的颜色由waves决定</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Wavelength (μm)&quot;</span><span class="p">)</span>  <span class="c1"># 添加颜色条，标签为“波长 (μm)”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>  <span class="c1"># 显示网格</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;y$_g$&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为y_g，使用LaTeX格式</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x$_g$&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为x_g，使用LaTeX格式</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Trace location across the detector&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>基本盒子提取<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>一个非常基本的光谱“提取”可以使用上述列出的WFSS（宽场光谱扫描）转换来完成。在这里，我们展示如何对一个良好隔离的目标进行基本的“盒子”提取，即不受场中其他源的重叠光谱的污染。</p>
+<p>一个关键概念是源在分散的WFSS（宽场分光光谱）观测中的虚拟位置。我们无法仅使用WFSS数据精确确定该位置，必须依赖额外的信息。源的位置通常是在该区域的直接图像中测量的。在成像和WFSS数据相对于彼此未进行抖动的情况下，WFSS观测中源的位置就是在未抖动成像中相同源的位置。</p>
+<p>如果进行了抖动，可以依赖WCS（世界坐标系统）来估计在与WFSS观测相同位置和方向下观察到的成像数据中源的位置。这是通过计算在可用成像数据中源的观测RA（赤经）和Dec（赤纬），然后使用来自抖动WFSS观测的WCS将这些新计算的天体坐标转换回探测器的(<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>)位置来完成的。</p>
+<section id="id10">
+<h4>检查数据中的源<a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+<p>查看成像数据中的源</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span> <span class="o">=</span> <span class="mi">1562</span><span class="p">,</span> <span class="mi">696</span>  <span class="c1"># 定义变量xd和yd，分别赋值为1562和696</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示图像数据的一个区域</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imaging_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">yd</span> <span class="o">-</span> <span class="mi">20</span><span class="p">:</span><span class="n">yd</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">xd</span> <span class="o">-</span> <span class="mi">20</span><span class="p">:</span><span class="n">xd</span> <span class="o">+</span> <span class="mi">20</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># 从图像数据中提取中心点周围的40x40像素区域，并设置显示参数</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“列号”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Row Number&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“行号”</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h4>计算轨迹位置<a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
+<p>现在获取成像和WFSS文件中的WCS（世界坐标系统），以便我们可以执行坐标转换并计算该源在WFSS观测中的轨迹位置。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取从探测器坐标系到世界坐标系的转换</span>
+<span class="n">imaging_to_world</span> <span class="o">=</span> <span class="n">imaging_data</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">get_transform</span><span class="p">(</span><span class="s1">&#39;detector&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 获取WFSS数据的元数据中的WCS（世界坐标系统）信息，并将其转换为检测器坐标系</span>
+<span class="n">wfss_to_pix</span> <span class="o">=</span> <span class="n">wfss_data</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">get_transform</span><span class="p">(</span><span class="s1">&#39;world&#39;</span><span class="p">,</span> <span class="s1">&#39;detector&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>将成像模式数据中的源的 (x, y) 位置转换为 RA（赤经）和 Dec（赤纬），使用成像模式的 WCS（世界坐标系统）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将图像坐标 (xd, yd) 转换为世界坐标 (ra, dec)</span>
+<span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">imaging_to_world</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">)</span>
+
+<span class="c1"># 打印转换后的世界坐标</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>现在将RA（赤经）和Dec（赤纬）转换为WFSS（宽场光谱扫描）数据中探测器上的位置，使用WFSS文件中的WCS（世界坐标系统）。请注意，对于此转换，波长和阶数是必需的输入，但它们实际上并不影响计算。在下面的单元格中，我们将使用波长3.56微米和阶数1，但您会发现更改这些值并不会改变最终的x、y值。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用 wfss_to_pix 函数，将天体的 RA 和 DEC 转换为像素坐标和波长</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">wav</span><span class="p">,</span> <span class="nb">ord</span> <span class="o">=</span> <span class="n">wfss_to_pix</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="mf">3.56</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># ra: 右升角, dec: Declination, 3.56: 波长, 1: 订单</span>
+
+<span class="c1"># 输出转换后的像素坐标和波长</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">wav</span><span class="p">,</span> <span class="nb">ord</span>  <span class="c1"># x: x坐标, y: y坐标, wav: 波长, ord: 订单</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>计算该源光谱的近似边界框。我们利用校准定义光谱在色散方向上t=0和t=1处的边界。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 首先计算从名义的 x, y 位置到盒子的左边和右边的距离</span>
+<span class="c1"># （即 t = 0 和 t = 1 的位置）</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># 创建一个包含 t = 0 和 t = 1 的数组</span>
+
+<span class="n">dxs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>  <span class="c1"># 计算在 x 方向上的位移</span>
+
+<span class="n">dys</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPY</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>  <span class="c1"># 计算在 y 方向上的位移</span>
+
+<span class="n">dxs</span><span class="p">,</span> <span class="n">dys</span>  <span class="c1"># 返回 x 和 y 方向上的位移</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用上面的距离计算框的左边和右边的 x 位置</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dxs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 计算框的左边界 x 位置</span>
+
+<span class="n">x_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dxs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 计算框的右边界 x 位置</span>
+
+<span class="c1"># 设置框的高度为 50 像素（在名义位置上方和下方各 25 像素）</span>
+
+<span class="n">y_min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dys</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">25</span><span class="p">)</span>  <span class="c1"># 计算框的下边界 y 位置</span>
+
+<span class="n">y_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dys</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">25</span><span class="p">)</span>  <span class="c1"># 计算框的上边界 y 位置</span>
+
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span>  <span class="c1"># 返回框的左边界和右边界的 x 位置</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>显示要提取的框的图像。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># 创建一个1行1列的子图，图像大小为20x5英寸</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 显示指定区域的图像数据，设置原点在左下角，数据值范围为0.25到1</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dxs</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dys</span> <span class="o">-</span> <span class="n">y_min</span><span class="p">)</span>  <span class="c1"># 绘制经过偏移后的坐标点</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“列号”</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Row Number&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“行号”</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>最简单的提取可以在以下假设下进行：光谱轨迹基本上是线性的，并且照射到一个像素上的光的波长仅是色散方向的函数。因此，我们可以使用近似方法，认为一列中的所有像素对应于相同的波长。这仅适用于几乎平坦的色散，并且在过去常常被假设。这还假设在光谱覆盖的区域内，色散的场依赖性是很小的。</p>
+</section>
+<section id="id12">
+<h4>估计背景<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
+<p>在这个最简单的案例中，我们估计并从数据中减去一个简单的背景值，该值被认为是包含我们光谱的区域中的中位数值。这个非常简单的步骤说明了简单框提取的局限性，因为任何这样的估计都会受到场中其他源的影响，或者受到分散背景结构中任何不平坦性的偏倚。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 我们想要忽略所有NaN像素，因此定位所有非NaN像素</span>
+<span class="n">ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">])</span>  <span class="c1"># 检查wfss_data数据中指定区域的每个像素是否为有限值</span>
+
+<span class="c1"># 对框内的像素进行Sigma裁剪</span>
+<span class="n">clipped</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">upp</span> <span class="o">=</span> <span class="n">sigmaclip</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">][</span><span class="n">ok</span><span class="p">],</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>  <span class="c1"># 对非NaN像素进行Sigma裁剪，阈值为1.5</span>
+
+<span class="c1"># 计算Sigma裁剪后像素的中位数</span>
+<span class="n">med_bck</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">clipped</span><span class="p">)</span>  <span class="c1"># 计算裁剪后像素的中位数，忽略NaN值</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Background level estimate:&quot;</span><span class="p">,</span> <span class="n">med_bck</span><span class="p">)</span>  <span class="c1"># 输出背景水平估计值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制数据的直方图，并添加一条表示中位数水平的线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">]),</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>  <span class="c1"># 绘制直方图，数据范围为0到1.5，分为100个区间</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">med_bck</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># 添加一条红色竖线表示中位数</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Histogram of pixel values in extraction box&#39;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Signal Value (DN/sec)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occurrences&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h4>指定波长<a class="headerlink" href="#id13" title="Link to this heading">#</a></h4>
+<p>计算该物体在整个阵列上的波长。我们在这里使用完整的阵列以简化计算，并计算像素与源之间在 x 方向（色散方向）的距离。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ys</span><span class="p">,</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>  <span class="c1"># 创建与wfss_data数据形状相同的索引网格，ys为行索引，xs为列索引</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>将x值转换为与名义源位置的距离</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dxs</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">-</span> <span class="n">x</span>  <span class="c1"># 计算数组xs与标量x之间的差值，结果存储在dxs中</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>我们使用光栅配置（grismconf）关系来计算各处的 <span class="math notranslate nohighlight">\(t\)</span> 值，然后再次计算各处的波长。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">INVDISPX</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dxs</span><span class="p">)</span>  <span class="c1"># 调用INVDISPX函数，计算ts，参数包括&quot;+1&quot;、x、y和dxs</span>
+
+<span class="n">lams</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">DISPL</span><span class="p">(</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>     <span class="c1"># 调用DISPL函数，计算lams，参数包括&quot;+1&quot;、x、y和ts</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在探测器上显示与光谱相同区域的波长数组，我们可以看到现在我们为2D WFSS数据的每个元素都有了波长估计。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># 创建一个1行1列的子图，设置图形大小为20x3</span>
+
+<span class="n">tt</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lams</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 显示指定范围的波长数据，设置原点在下方，vmin和vmax用于设置颜色映射的范围</span>
+
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>  <span class="c1"># 添加颜色条并设置其标签，旋转270度，字体大小为12，标签与颜色条的间距为25</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Wavelength array covering all pixels of extraction box&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“列号”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Row Number&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“行号”</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="box-extraction">
+<h4>Box extraction<a class="headerlink" href="#box-extraction" title="Link to this heading">#</a></h4>
+<p>盒子提取</p>
+<p>从上述数据创建一维光谱（1D spectrum）在其最简单的形式上，就是沿着交叉色散方向（y方向）进行压缩。 一维光谱将受到坏像素（bad pixels）、任何光谱污染（spectra contamination）以及背景减除量（background subtracted）中的任何误差的影响。 随着盒子大小（box size）的增加，这些影响变得越来越重要。我们还从每一列中减去中位数背景（median background）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 计算指定区域内的信号总和，减去背景值</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">wfss_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">]</span> <span class="o">-</span> <span class="n">med_bck</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 绘制信号总和的曲线</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>
+
+<span class="c1"># 设置y轴的范围</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># 显示网格</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="c1"># 设置x轴标签</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Column Number&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置y轴标签</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal (DN/sec)&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置图表标题</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Extracted 1D spectrum versus detector column&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h4>波长校准<a class="headerlink" href="#id14" title="Link to this heading">#</a></h4>
+<p>在这种情况下，我们可以在交叉色散方向（y方向）上对波长数组进行平均，以获得一个适合我们刚刚框提取的光谱的单一波长向量。将由此创建的1D计数向量与波长向量绘制在一起，结果是一个波长校准的1D光谱。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">lams</span><span class="p">[</span><span class="n">y_min</span><span class="p">:</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span><span class="n">x_max</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 计算指定区域内的波长平均值，忽略NaN值</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cs</span><span class="p">)</span>  <span class="c1"># 绘制波长与信号的关系图</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># 设置y轴的范围为-5到20</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>  <span class="c1"># 显示网格</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长（微米）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal (DN/sec)&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“信号（DN/秒）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Extracted 1D spectrum versus wavelength&#39;</span><span class="p">)</span>  <span class="c1"># 设置图表标题为“提取的1D光谱与波长的关系”</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h4>转换为物理单位<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
+<p>在这里，我们使用包含在 grismconf 中的信息，将我们的 1D 光谱（单位为 DN/sec，按 bin 或像素计算，因为数据没有重新采样）转换为单位为 <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>。grismconf 中的光栅逆灵敏度曲线单位为 DN/sec（每像素）每 <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>。由于灵敏度是按埃（Angstrom）定义的，而我们的 1D 光谱是按像素提取的，因此在应用灵敏度时需要考虑这一点。在大多数 WFSS 数据中，波长单位的像素大小变化较小，但我们可以通过计算每个像素在波长单位（埃）中的大小来轻松处理这一点，如下所示。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 绘制逆灵敏度曲线</span>
+
+<span class="n">tws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># 创建一个从2.9到4.2的数组，步长为0.01</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tws</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">SENS</span><span class="p">[</span><span class="s2">&quot;+1&quot;</span><span class="p">](</span><span class="n">tws</span><span class="p">))</span>  <span class="c1"># 绘制逆灵敏度曲线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>  <span class="c1"># 添加网格线</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (micron)&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长（微米）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Inverse Sensitivity&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“逆灵敏度”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Inverse sensitivity curve&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题为“逆灵敏度曲线”</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>计算我们一维光谱中每个元素的大小，单位为埃（Angstrom）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 10000的值来自NIRCam的色散值，约为每像素10Å</span>
+
+<span class="n">dws</span> <span class="o">=</span> <span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">ws</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mi">10000</span>  <span class="c1"># 计算相邻波长之间的差值并乘以10000以转换单位</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>通过将一维计数除以灵敏度和每个波段的大小（以埃为单位），应用灵敏度曲线，以生成单位为 <span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span> 的通量值。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">cs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">/</span> <span class="n">C</span><span class="o">.</span><span class="n">SENS</span><span class="p">[</span><span class="s2">&quot;+1&quot;</span><span class="p">](</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="n">dws</span>  <span class="c1"># 计算频谱 fs，使用 cs 数组的切片，调用 C.SENS 函数并进行归一化</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>绘制结果的通量数组与我们的波长尺度相比，显示了完全校准的1D光谱。将DN/秒每像素转换为<span class="math notranslate nohighlight">\(erg / sec / cm^2 / \overset{\circ}{A}\)</span>时的一个注意事项是，众所周知的边缘效应，这种效应是由于将接近零或为零的计数值除以灵敏度而引起的。由于这种方法没有考虑到物体在色散方向上的足迹导致的光谱展宽，因此对于扩展源，这种效应更为严重。只有通过更前向建模的提取方法才能减轻这种效应。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">fs</span><span class="p">)</span>  <span class="c1"># 绘制波长ws（从第二个元素开始）与信号fs的关系图</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (micron)&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长（微米）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Signal ($erg/s/cm^2/A$)&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“信号（$erg/s/cm^2/A$）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Extracted 1D spectrum in $F_</span><span class="si">{lambda}</span><span class="s2">$ units&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题为“提取的1D光谱（$F_{lambda}$单位）”</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>集中在光谱边缘的区域可以揭示我们源的光谱。这种简单的盒子提取方法的众多缺点之一是坏像素和任何残留宇宙射线的影响。这些因素可能在光谱中造成显著的峰值，可能会被误认为是发射线。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">fs</span><span class="p">)</span>  <span class="c1"># 绘制波长(ws)与信号(fs)的关系图，ws从第二个元素开始</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>  <span class="c1"># 设置x轴范围为3.1到4.0微米</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5e-16</span><span class="p">)</span>  <span class="c1"># 设置y轴范围为0到0.5e-16 erg/s/cm²/Å</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength (micron)&quot;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签为“波长（微米）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Signal ($erg/s/cm^2/A$)&quot;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签为“信号（erg/s/cm²/Å）”</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Extracted 1D spectrum in $F_</span><span class="si">{lambda}</span><span class="s2">$ units&quot;</span><span class="p">)</span>  <span class="c1"># 设置图表标题为“提取的1D光谱（$F_{lambda}$单位）”</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/NIRCam/NIRCam_WFSS_Box_extraction"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目录</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">包导入</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crds">设置 CRDS 路径和服务器</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">定义函数和参数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">下载数据</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">运行管道步骤</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">WFSS信息的基本计算</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">计算光的分散位置</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">计算给定对象的光谱轨迹</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">基本盒子提取</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">检查数据中的源</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">计算轨迹位置</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">估计背景</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">指定波长</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#box-extraction">Box extraction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">波长校准</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">转换为物理单位</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

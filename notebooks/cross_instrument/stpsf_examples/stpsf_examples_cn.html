@@ -1,0 +1,1838 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>JWST 使用轨道测量的波前 &#8212; STScI JDAT Notebooks 中文版</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css?v=b44a18d9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/cross_instrument/stpsf_examples/stpsf_examples_cn';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="MRS立方体分析" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html" />
+    <link rel="prev" title="提高纯平行数据集世界坐标系统的准确性" href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro_cn.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/stsci_logo2.png" class="logo__image only-light" alt="STScI JDAT Notebooks 中文版 - Home"/>
+    <script>document.write(`<img src="../../../_static/stsci_logo2.png" class="logo__image only-dark" alt="STScI JDAT Notebooks 中文版 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro_cn.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index_cn.html">主页</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_cn.html">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">开发</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/submitting_notebooks_cn.html">提交笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/requirements_cn.html">需求文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/notebooks_cn.html">Jupyter 笔记本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/data_files_cn.html">数据文件</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GitHub 指南</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_setup_cn.html">GitHub 设置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_workflow_cn.html">GitHub 工作流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/github_pr_cn.html">GitHub PR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">跨仪器通用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../asdf_example/asdf_example_cn.html">ASDF 示例</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../background_estimation_imaging/Imaging_Sky_Background_Estimation_cn.html">复杂的二维背景</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../composite_model_fitting/specfit_demo_3_cn.html">复合模型光谱拟合</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../NIRSpec_MAST_Query/NIRSpec_MAST_Query_cn.html">MAST 查询</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rgb_imviz/imviz_rgb_carina_cn.html">Imviz RGB图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift_cn.html">Specviz 简单示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html">提高纯平行数据集的WCS精度</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">STPSF 示例</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MIRI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html">MRS Mstar - 数据分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc_cn.html">LMC中的IFU YSOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MIRI/MIRI_LRS_spectral_extraction/miri_lrs_advanced_extraction_part1_cn.html">LRS 光谱提取</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRCam</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/aperture_photometry/NIRCam_Aperture_Photometry_Example_cn.html">点源光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_photometry/NIRCam_multiband_photometry_cn.html">扩展孔径光度测量</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry_cn.html">交叉滤光片 PSF 匹配</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/psf_photometry/NIRCam_PSF_Photometry_Example_cn.html">PSF 光度测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRCam/NIRCam_wisp_subtraction/nircam_wisp_subtraction_cn.html">NIRCam 光晕去除</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRISS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/00_Optimal_extraction_cn.html">WFSS 光谱 - 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra_cn.html">WFSS 光谱 - 合并和归一化 1D 光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/02_Cross_correlation_template_cn.html">WFSS 光谱 - 相关性模版</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map_cn.html">WFSS 光谱 - 发射线图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/00_niriss_mast_query_data_setup_cn.html">NIRISS MAST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/01_niriss_wfss_image2_image3_cn.html">运行图像处理管道并创建源目录</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRISS/NIRISS_WFSS_advanced/02_niriss_wfss_spec2_cn.html">运行 spec2 管道</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NIRSpec</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit_cn.html">IFU立方体拟合</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/cube_fitting/cube_fitting_cn.html">IFU Cube 建模</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/ifu_optimal/ifu_optimal_cn.html">IFU 光谱提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/optimal_extraction/Spectral_Extraction-static_cn.html">MOS 提取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/mos_spectroscopy_advanced/MOSspec_advanced_cn.html">星系外场的MOS光谱</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST_cn.html">BOTS 时间序列观测</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/galaxy_redshift/redshift_fitting_cn.html">红移和模板拟合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/FS_NSClean_example_cn.html">FS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/IFU_NSClean_example_cn.html">IFU 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/MOS_NSClean_example_cn.html">MOS 数据生成 （NSClean）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NIRSpec/NIRSpec_NSClean/BOTS_NSClean_example_cn.html">BOTS 数据生成 （NSClean）</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/cross_instrument/stpsf_examples/stpsf_examples_cn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>JWST 使用轨道测量的波前</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">索引</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">导入和设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">在给定日期附近寻找测量的波前</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opd">OPD 文件描述</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">观测时间周围的波前误差变化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psf">使用特定观测设置PSF模拟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">随时间变化的波前趋势</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">波前时间序列和直方图绘图</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">所有OPD的表格</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">趋势图</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">在时间范围内绘图</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">加载并绘制单个 OPD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jwst-psf">JWST 模拟点扩散函数（PSF）从在轨数据中减除</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">提取感兴趣源周围的子数组，并测量源位置</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">找到源头</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">使用之前的函数来设置我们的模拟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils-psf">使用 photutils 创建我们的模型 PSF</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">检查要减去的源的位置</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">减去点扩散函数（PSF）并创建残差图像</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">PSF 属性和差异</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ifu">改进的IFU模拟</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="jwst">
+<h1>JWST 使用轨道测量的波前<a class="headerlink" href="#jwst" title="Link to this heading">#</a></h1>
+<p>STPSF，前称为WebbPSF，包含用于使用在飞行中波前传感测量结果的代码，通过检索光程差（Optical Path Difference，OPD）文件。这些文件可以用于创建适合特定仪器、探测器和时间的模拟点扩散函数（Point Spread Functions，PSFs）。</p>
+<p>本笔记本作为参考，说明如何使用STPSF搜索和检索OPD文件，并解释该文件的内容。它还展示了如何加载多个OPD文件并绘制波前特性随时间的变化。此外，它还包含一个使用OPD文件创建并从在飞行图像中减去模拟PSF的示例案例。</p>
+<p>关于STPSF在飞行中OPD使用的详细信息，请参见：</p>
+<p>https://stpsf.readthedocs.io/en/latest/jwst_measured_opds.html</p>
+<p>作者：Marcio Melendez Hernandez<br></p>
+<p>最后更新：2025年2月13日</p>
+<section id="id1">
+<h2>索引<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#Imports-and-Setup"><span class="xref myst">导入和设置</span></a></p></li>
+<li><p><a class="reference internal" href="#Finding-the-measured-wavefront-near-a-given-date"><span class="xref myst">在给定日期附近查找测量的波前</span></a></p></li>
+<li><p><a class="reference internal" href="#OPD-File-description"><span class="xref myst">OPD 文件描述</span></a></p></li>
+<li><p><a class="reference internal" href="#Delta-Wavefront-Error-Around-Time-of-Observation"><span class="xref myst">观测时间附近的波前误差变化</span></a></p></li>
+<li><p><a class="reference internal" href="#Setup-a-PSF-simulation-using-a-particular-observation"><span class="xref myst">使用特定观测设置 PSF 模拟</span></a></p></li>
+<li><p><a class="reference internal" href="#Trending-Wavefront-Changes-over-Time"><span class="xref myst">随时间变化的波前趋势</span></a></p></li>
+<li><p><a class="reference internal" href="#Wavefront-time-series-and-histogram-plots"><span class="xref myst">波前时间序列和直方图绘图</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#Table-of-all-OPDs"><span class="xref myst">所有 OPD 的表格</span></a></p></li>
+<li><p><a class="reference internal" href="#Trending-Plots"><span class="xref myst">趋势图</span></a></p></li>
+<li><p><a class="reference internal" href="#Plot-over-a-time-range"><span class="xref myst">在时间范围内绘图</span></a></p></li>
+<li><p><a class="reference internal" href="#Load-and-plot-a-Single-OPD"><span class="xref myst">加载并绘制单个 OPD</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#JWST-Simulated-PSF-Subtraction-from-in-flight-data"><span class="xref myst">JWST 从飞行数据中模拟 PSF 减法</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#Extract-a-subarray-around-source-of-interest,-and-measure-source-location"><span class="xref myst">提取感兴趣源周围的子数组，并测量源位置</span></a></p></li>
+<li><p><a class="reference internal" href="#Find-the-source"><span class="xref myst">查找源</span></a></p></li>
+<li><p><a class="reference internal" href="#Use-previous-function-to-set-up-our-simulation"><span class="xref myst">使用前一个函数设置我们的模拟</span></a></p></li>
+<li><p><a class="reference internal" href="#Use-photutils-to-create-our-model-PSF"><span class="xref myst">使用 photutils 创建我们的模型 PSF</span></a></p></li>
+<li><p><a class="reference internal" href="#Subtract-PSF-and-create-residual-image"><span class="xref myst">减去 PSF 并创建残差图像</span></a></p></li>
+<li><p><a class="reference internal" href="#PSF-properties-and-differences"><span class="xref myst">PSF 属性和差异</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#Improved-IFU-sims"><span class="xref myst">改进的 IFU 模拟</span></a></p></li>
+</ul>
+<p>对于其他 STPSF 示例：</p>
+<p>https://stpsf.readthedocs.io/en/latest/more_examples.html</p>
+</section>
+<section id="id2">
+<h2>导入和设置<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pylab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入matplotlib库，用于绘图</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">poppy</span>  <span class="c1"># 导入poppy库，用于光学系统模拟</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入numpy库，用于数值计算</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os库，用于操作系统功能</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>  <span class="c1"># 导入datetime库，用于处理日期和时间</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tarfile</span>  <span class="c1"># 导入tarfile库，用于处理tar文件</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlparse</span>  <span class="c1"># 从urllib库导入urlparse，用于解析URL</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>  <span class="c1"># 导入requests库，用于发送HTTP请求</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">stpsf</span>  <span class="c1"># 导入stpsf库，用于处理点扩散函数</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy</span>  <span class="c1"># 导入astropy库，天文学数据处理的基础库</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.nddata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cutout2D</span>  <span class="c1"># 从astropy.nddata导入Cutout2D，用于生成图像切片</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">simple_norm</span>  <span class="c1"># 从astropy.visualization导入simple_norm，用于简单的图像归一化</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">fits</span>  <span class="c1"># 从astropy.io导入fits，用于处理FITS文件格式</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">SigmaClip</span>  <span class="c1"># 从astropy.stats导入SigmaClip，用于统计分析中的信号剪切</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.visualization.mpl_normalize</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageNormalize</span>  <span class="c1"># 从astropy.visualization.mpl_normalize导入ImageNormalize，用于图像归一化</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogStretch</span>  <span class="c1"># 从astropy.visualization导入LogStretch，用于对数伸缩</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.modeling</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">fitting</span>  <span class="c1"># 从astropy.modeling导入模型和拟合工具</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">photutils</span>  <span class="c1"># 导入photutils库，用于天文图像处理</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.background</span><span class="w"> </span><span class="kn">import</span> <span class="n">Background2D</span><span class="p">,</span> <span class="n">MedianBackground</span>  <span class="c1"># 从photutils.background导入背景处理工具</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.detection</span><span class="w"> </span><span class="kn">import</span> <span class="n">IRAFStarFinder</span>  <span class="c1"># 从photutils.detection导入IRAFStarFinder，用于星点检测</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">photutils.psf</span><span class="w"> </span><span class="kn">import</span> <span class="n">PSFPhotometry</span>  <span class="c1"># 从photutils.psf导入PSFPhotometry，用于点扩散函数光度测量</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 包含JWST光瞳形状、仪器透过率和光圈位置等信息的文件与STPSF分开分发。</span>
+
+<span class="c1"># 要运行STPSF，您必须下载这些文件，并使用STPSF_PATH环境变量告诉STPSF在哪里可以找到它们。</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块以处理操作系统功能</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>  <span class="c1"># 导入requests模块以处理HTTP请求</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlparse</span>  <span class="c1"># 导入urlparse以解析URL</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tarfile</span>  <span class="c1"># 导入tarfile模块以处理tar文件</span>
+
+<span class="c1"># 设置环境变量</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;STPSF_PATH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./data/stpsf-data&quot;</span>  <span class="c1"># 指定STPSF数据的路径</span>
+
+<span class="c1"># STPSF数据的URL和文件路径</span>
+<span class="n">stpsf_url</span> <span class="o">=</span> <span class="s1">&#39;https://stsci.box.com/shared/static/kqfolg2bfzqc4mjkgmujo06d3iaymahv.gz&#39;</span>  <span class="c1"># STPSF数据的下载链接</span>
+<span class="n">stpsf_file</span> <span class="o">=</span> <span class="s1">&#39;./stpsf-data-LATEST.tar.gz&#39;</span>  <span class="c1"># 下载后保存的文件名</span>
+<span class="n">stpsf_folder</span> <span class="o">=</span> <span class="s2">&quot;./data&quot;</span>  <span class="c1"># 存放解压后文件的文件夹</span>
+
+<span class="c1"># 定义下载文件的函数</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+    <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c1"># 解析URL</span>
+
+    <span class="k">if</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">]:</span>  <span class="c1"># 检查URL协议是否支持</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported URL scheme: </span><span class="si">{</span><span class="n">parsed_url</span><span class="o">.</span><span class="n">scheme</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 抛出不支持的协议错误</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>  <span class="c1"># 发送GET请求下载文件</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># 检查请求是否成功</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># 以二进制写入模式打开目标文件</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>  <span class="c1"># 分块读取内容</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>  <span class="c1"># 写入文件</span>
+
+<span class="c1"># 收集stpsf文件</span>
+<span class="n">stpsfExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stpsf_folder</span><span class="p">)</span>  <span class="c1"># 检查文件夹是否存在</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">stpsfExist</span><span class="p">:</span>  <span class="c1"># 如果文件夹不存在</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">stpsf_folder</span><span class="p">)</span>  <span class="c1"># 创建文件夹</span>
+    <span class="n">download_file</span><span class="p">(</span><span class="n">stpsf_url</span><span class="p">,</span> <span class="n">stpsf_file</span><span class="p">)</span>  <span class="c1"># 下载STPSF文件</span>
+    <span class="n">gzf</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">stpsf_file</span><span class="p">)</span>  <span class="c1"># 打开下载的tar文件</span>
+    <span class="n">gzf</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">stpsf_folder</span><span class="p">)</span>  <span class="c1"># 解压文件到指定文件夹</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>在给定日期附近寻找测量的波前<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nrc</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">NIRCam</span><span class="p">()</span>  <span class="c1"># 创建NIRCam对象</span>
+
+<span class="n">nrc</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="s1">&#39;F200W&#39;</span>  <span class="c1"># 设置滤光片为F200W</span>
+
+<span class="n">nrc</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="s1">&#39;NRCB2&#39;</span>  <span class="c1"># 选择探测器为NRCB2</span>
+
+<span class="n">nrc</span><span class="o">.</span><span class="n">detector_position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>  <span class="c1"># 设置探测器位置为(1024, 1024)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>像素间电容效应现在已包含在过采样输出以及探测器采样输出中（在几何失真扩展中）。请记住，一般来说，输出 PSF FITS 文件的最后一个（“DET_DIST”）FITS 扩展是最能代表在探测器上实际观测到的 PSF 的输出数据产品。</p>
+<p>无论如何，有方法可以禁用任何探测器效应或调整电荷扩散的经验近似。例如：</p>
+<p>nrc.options[‘charge_diffusion_sigma’] = 0</p>
+<p>nrc.options[‘add_ipc’] = False</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块以处理文件和目录</span>
+
+<span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>  <span class="c1"># 获取当前工作目录并赋值给output_path</span>
+
+<span class="c1"># 加载指定日期的WSS OPD数据，并进行绘图，输出路径为output_path</span>
+<span class="n">nrc</span><span class="o">.</span><span class="n">load_wss_opd_by_date</span><span class="p">(</span><span class="s1">&#39;2022-07-01T00:00:00&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>
+
+<span class="c1"># choice : string . Default &#39;closest&#39;  # 选择OPD文件的方法，默认为&#39;closest&#39;</span>
+
+<span class="c1"># 方法用于选择使用哪个OPD文件，例如&#39;before&#39;或&#39;after&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>左上角：这是在NIRCam的“场点1”处测得的光程差（OPD），该点位于NRCA3的左上角，相对接近NIRCam模块的中心。该天文台的总光程差测量包括望远镜和NIRCam对波前误差（WFE）的贡献。</p></li>
+<li><p>左中：这是在该场点处NIRCam部分的波前图。该数据来自地面校准测试，而非飞行中测量。</p></li>
+<li><p>右上角：NIRCam的波前误差贡献从总天文台波前误差中减去，以得出仅光学传输元件（OTE）部分的波前误差估计值。</p></li>
+<li><p>左下角和中间：这些是OTE光程差在NRCA3的感测场点与请求场点（在本例中为NRCB2）之间的场依赖模型。这种场依赖主要源于三级镜的形状。这些模型用于将估计的OTE光程差从一个场位置转换到另一个场位置。</p></li>
+<li><p>右下角：这是在请求场点（在本例中为NRCB2）处的OTE光程差的最终估计值。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OPD文件的内容是什么？</span>
+
+<span class="n">opd_fn</span> <span class="o">=</span> <span class="s1">&#39;R2022070403-NRCA3_FP1-0.fits&#39;</span>  <span class="c1"># 定义OPD文件名</span>
+
+<span class="n">opd</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">opd_fn</span><span class="p">))</span>  <span class="c1"># 打开OPD文件并读取数据</span>
+
+<span class="n">opd</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># 输出OPD文件的信息</span>
+
+<span class="n">norm</span> <span class="o">=</span> <span class="n">ImageNormalize</span><span class="p">(</span><span class="n">stretch</span><span class="o">=</span><span class="n">LogStretch</span><span class="p">(),</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>  <span class="c1"># 定义图像归一化参数</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">18</span><span class="p">])</span>  <span class="c1"># 创建一个新的图形，设置图形大小</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">opd</span><span class="p">)):</span>  <span class="c1"># 遍历OPD文件中的每个扩展</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>  <span class="c1"># 创建一个5行3列的子图，并选择第i个子图</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># 如果是第二个子图</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">opd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示图像数据，应用归一化，原点在下方</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># 对于其他子图</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">opd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示图像数据，原点在下方</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="opd">
+<h2>OPD 文件描述<a class="headerlink" href="#opd" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>RESULT_PHASE 图像扩展</p></li>
+</ul>
+<p>该 FITS 文件包含一个 ‘RESULT’ 图像扩展，这是所有分析图像的光程差结果的平均值，来自相位恢复过程。</p>
+<ul class="simple">
+<li><p>RESULT_PSF 图像扩展</p></li>
+</ul>
+<p>该 FITS 文件包含一个 ‘RESULT_PSF’ 图像扩展，这是通过 WAS 计算出的结果相位的点扩散函数（PSF）。</p>
+<ul class="simple">
+<li><p>EXPECTED 图像扩展</p></li>
+</ul>
+<p>该 FITS 文件包含一个 ‘EXPECTED’ 图像扩展，这是如果应用 WAS 推荐的校正时预期的光程差。</p>
+<ul class="simple">
+<li><p>PUPIL_MASK 图像扩展</p></li>
+</ul>
+<p>该 FITS 文件包含一个 ‘PUPIL_MASK’ 图像扩展，这是用于从结果相位计算 PSF 的瞳孔掩模。</p>
+<p><b>该 FITS 文件为每个分析的输入图像包含五个图像扩展。在传感程序的情况下，有 2 张图像 +/-8WL</b></p>
+<ul class="simple">
+<li><p>RAW_PSF 图像扩展</p></li>
+</ul>
+<p>对于每个输入图像，Raw PSF 扩展将包含从校准后的科学数据中提取的原始子图像。</p>
+<ul class="simple">
+<li><p>CALC_PSF 图像扩展</p></li>
+</ul>
+<p>对于每个输入图像，Calculated PSF 扩展将包含一个图像，表示通过相位恢复过程计算的估计 PSF。</p>
+<ul class="simple">
+<li><p>CALC_AMP 图像扩展</p></li>
+</ul>
+<p>对于每个输入图像，Calculated Amplitude 扩展将包含一个图像，表示通过相位恢复过程计算的估计瞳孔振幅。</p>
+<ul class="simple">
+<li><p>HO_PHASE 图像扩展</p></li>
+</ul>
+<p>对于每个输入图像，High-Order Phase 扩展将包含一个图像，表示恢复的相位信息减去通过相位恢复过程计算的低阶（可控）相位。</p>
+<ul class="simple">
+<li><p>LO_PHASE 图像扩展</p></li>
+</ul>
+<p>对于每个输入图像，Low-Order Phase 扩展将包含一个图像，表示通过相位恢复过程计算的恢复的可控相位信息。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 让我们从上述的OPD模拟Webb的点扩散函数(PSF)</span>
+
+<span class="c1"># 下面的PSF是使用实际的</span>
+
+<span class="c1"># 在请求日期附近的望远镜WFE的测量状态计算的，</span>
+
+<span class="c1"># 在这种情况下是2022年7月1日。</span>
+
+<span class="n">psf</span> <span class="o">=</span> <span class="n">nrc</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">fov_pixels</span><span class="o">=</span><span class="mi">101</span><span class="p">)</span>  <span class="c1"># 计算视场为101像素的PSF</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>  <span class="c1"># 创建一个16x9英寸的图形窗口</span>
+
+<span class="n">stpsf</span><span class="o">.</span><span class="n">display_psf</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 显示点扩散函数（PSF），扩展参数设为1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>观测时间周围的波前误差变化<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用stpsf对象的trending模块，计算在指定时间点周围的波前误差（WFE）变化</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">delta_wfe_around_time</span><span class="p">(</span><span class="s1">&#39;2024-05-11 01:50:25.231&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="psf">
+<h2>使用特定观测设置PSF模拟<a class="headerlink" href="#psf" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">mast_retrieve_files</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;从MAST下载文件。</span>
+
+<span class="sd">    如果文件已经存在于本地，则跳过下载并使用缓存的文件。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>  <span class="c1"># 导入os模块，用于处理文件和目录</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">requests.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPError</span>  <span class="c1"># 导入HTTPError异常处理</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">astroquery.mast</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mast</span>  <span class="c1"># 从astroquery库导入Mast类，用于与MAST交互</span>
+
+    <span class="k">if</span> <span class="n">token</span><span class="p">:</span>  <span class="c1"># 如果提供了token</span>
+        <span class="n">Mast</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>  <span class="c1"># 使用token登录MAST</span>
+
+    <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># 如果没有指定输出路径</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>  <span class="c1"># 默认输出路径为当前目录</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">output_path</span>  <span class="c1"># 使用用户指定的输出路径</span>
+
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>  <span class="c1"># 生成完整的输出文件路径</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>  <span class="c1"># 如果输出路径不存在</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>  <span class="c1"># 创建输出路径</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_filename</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">redownload</span><span class="p">:</span>  <span class="c1"># 如果文件已存在且不需要重新下载</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>  <span class="c1"># 如果verbose为True</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found file previously downloaded: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 打印找到的文件信息</span>
+        <span class="k">return</span> <span class="n">output_filename</span>  <span class="c1"># 返回已存在的文件路径</span>
+
+    <span class="n">data_uri</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;mast:JWST/product/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># 构建数据URI</span>
+
+    <span class="c1"># 下载文件</span>
+    <span class="n">url_path</span> <span class="o">=</span> <span class="n">Mast</span><span class="o">.</span><span class="n">_portal_api_connection</span><span class="o">.</span><span class="n">MAST_DOWNLOAD_URL</span>  <span class="c1"># 获取MAST下载URL</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">Mast</span><span class="o">.</span><span class="n">_download_file</span><span class="p">(</span><span class="n">url_path</span> <span class="o">+</span> <span class="s2">&quot;?uri=&quot;</span> <span class="o">+</span> <span class="n">data_uri</span><span class="p">,</span> <span class="n">output_filename</span><span class="p">)</span>  <span class="c1"># 下载文件并保存到指定路径</span>
+    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>  <span class="c1"># 捕获HTTP错误</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>  <span class="c1"># 打印错误信息</span>
+
+    <span class="k">return</span> <span class="n">output_filename</span>  <span class="c1"># 返回下载的文件路径</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;jw04500-o056_t012_nircam_f212n-wlm8-nrca3_wfscmb-04.fits&#39;</span>  <span class="c1"># 定义要处理的JWST文件名</span>
+
+<span class="n">mast_retrieve_files</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># 调用函数以检索指定的文件</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">setup_sim_to_match_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># 设置模拟以匹配文件</span>
+
+<span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>  <span class="c1"># 源位置</span>
+
+<span class="n">size_pixels</span> <span class="o">=</span> <span class="mi">128</span>  <span class="c1"># 像素大小</span>
+
+<span class="n">inst</span><span class="o">.</span><span class="n">detector_position</span> <span class="o">=</span> <span class="n">position</span>  <span class="c1"># 设置探测器位置</span>
+
+<span class="n">single_stpsf_nrc</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">fov_pixels</span><span class="o">=</span><span class="n">size_pixels</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 计算点扩散函数并显示</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>随时间变化的波前趋势<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用stpsf库中的monthly_trending_plot函数，生成2024年6月的趋势图</span>
+<span class="n">trend_table</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">monthly_trending_plot</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您提到的</span><span class="err">“</span><span class="n">trend_table</span><span class="err">”</span><span class="n">并没有提供具体的代码或上下文</span><span class="err">。</span><span class="n">为了帮助您</span><span class="err">，</span><span class="n">我需要您提供相关的Python代码或数据处理的具体内容</span><span class="err">。</span><span class="n">请您分享相关的代码片段或描述</span><span class="err">，</span><span class="n">以便我可以为您添加中文注释并保持代码结构不变</span><span class="err">。</span><span class="n">谢谢</span><span class="err">！</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>波前时间序列和直方图绘图<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>所有OPD的表格<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><b>检索所有可用的OPD（光程差）表并绘制随时间变化的测量结果</b></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从MAST（微波天文科学技术中心）检索OPD（光学传递函数）表</span>
+<span class="n">opdtable</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">mast_wss</span><span class="o">.</span><span class="n">retrieve_mast_opd_table</span><span class="p">()</span>
+
+<span class="c1"># 去重OPD表中的重复项</span>
+<span class="n">opdtable</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">mast_wss</span><span class="o">.</span><span class="n">deduplicate_opd_table</span><span class="p">(</span><span class="n">opdtable</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">看起来您提到的</span><span class="err">“</span><span class="n">opdtable</span><span class="err">”</span><span class="n">可能是一个变量或数据结构的名称</span><span class="err">，</span><span class="n">但没有提供具体的代码或上下文</span><span class="err">。</span><span class="n">为了帮助您</span><span class="err">，</span><span class="n">我需要更多的信息或代码片段</span><span class="err">，</span><span class="n">以便我可以添加中文注释并保持代码结构不变</span><span class="err">。</span>
+
+<span class="n">请提供相关的代码或详细说明您希望我处理的内容</span><span class="err">。</span><span class="n">谢谢</span><span class="err">！</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><b>从opdtable对象中下载所有的OPD。请注意，有些函数需要所有的OPD可用。</b></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用mast_wss模块中的download_all_opds函数，下载所有的OPD（光学性能数据）表</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">mast_wss</span><span class="o">.</span><span class="n">download_all_opds</span><span class="p">(</span><span class="n">opdtable</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>趋势图<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 调用 stpsf 模块中的 trending 子模块，绘制波前时间序列图</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">wavefront_time_series_plot</span><span class="p">(</span><span class="n">opdtable</span><span class="p">)</span>  <span class="c1"># 使用 opdtable 数据绘制波前的时间序列图</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>在时间范围内绘图<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>  <span class="c1"># 导入datetime模块以处理日期和时间</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="s1">&#39;2022-11-22&#39;</span><span class="p">)</span>  <span class="c1"># 从ISO格式字符串创建开始日期</span>
+
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="s1">&#39;2022-12-01&#39;</span><span class="p">)</span>  <span class="c1"># 从ISO格式字符串创建结束日期</span>
+
+<span class="c1"># 调用wavefront_time_series_plot函数绘制波前时间序列图</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">wavefront_time_series_plot</span><span class="p">(</span><span class="n">opdtable</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>  <span class="c1"># 传入opdtable和开始日期</span>
+                                          <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>  <span class="c1"># 传入结束日期</span>
+                                          <span class="n">ymax</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span>  <span class="c1"># 设置y轴最大值为85</span>
+                                          <span class="n">ymin</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>  <span class="c1"># 设置y轴最小值为60</span>
+                                          <span class="n">label_visits</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 启用访问标签</span>
+                                          <span class="n">label_events</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 启用事件标签</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 我们还可以绘制指定时间段内所有测量的波前漂移</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="s1">&#39;2024-01-01T00:00:00&#39;</span><span class="p">)</span>  <span class="c1"># 设置开始时间为2024年1月1日00:00:00</span>
+
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  <span class="c1"># 设置结束时间为当前时间</span>
+
+<span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">wavefront_drift_plots</span><span class="p">(</span><span class="n">opdtable</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span> <span class="n">n_per_row</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  
+<span class="c1"># 调用函数绘制波前漂移图，传入的参数包括opdtable、开始时间、结束时间和每行显示的图像数量</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 我们可以绘制随时间变化的波前误差水平的直方图</span>
+
+<span class="c1"># 调用wfe_histogram_plot函数，绘制波前误差直方图</span>
+<span class="c1"># opdtable: 输入的波前误差数据表</span>
+<span class="c1"># thresh: 设置的阈值，超过该值的波前误差将被考虑</span>
+<span class="c1"># ote_only: 是否仅考虑光学传输元件（OTE）的数据</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">wfe_histogram_plot</span><span class="p">(</span><span class="n">opdtable</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">ote_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 或选择特定的时间段</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="s1">&#39;2024-04-01&#39;</span><span class="p">)</span>  <span class="c1"># 设置开始日期为2024年4月1日</span>
+
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  <span class="c1"># 获取当前时间作为结束日期</span>
+
+<span class="c1"># 绘制波前误差（WFE）直方图，使用给定的OPD表和时间范围</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">trending</span><span class="o">.</span><span class="n">wfe_histogram_plot</span><span class="p">(</span><span class="n">opdtable</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">ote_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>加载并绘制单个 OPD<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>检查上面的 OPD 表，以找到与您的观测相关的 OPD。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nrc</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">NIRCam</span><span class="p">()</span>  <span class="c1"># 创建NIRCam对象</span>
+
+<span class="n">nrc</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="s1">&#39;F212N&#39;</span>  <span class="c1"># 设置滤光片为F212N</span>
+
+<span class="n">opd_fn</span> <span class="o">=</span> <span class="s1">&#39;R2022120204-NRCA3_FP1-1.fits&#39;</span>  <span class="c1"># 定义OPD文件名</span>
+
+<span class="n">nrc</span><span class="o">.</span><span class="n">load_wss_opd</span><span class="p">(</span><span class="n">opd_fn</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>  <span class="c1"># 加载OPD文件到NIRCam对象中，指定输出路径</span>
+
+<span class="n">fov_pixels</span> <span class="o">=</span> <span class="mi">511</span>  <span class="c1"># 定义视场像素大小</span>
+
+<span class="n">psf</span> <span class="o">=</span> <span class="n">nrc</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">oversample</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fov_pixels</span><span class="o">=</span><span class="n">fov_pixels</span><span class="p">)</span>  <span class="c1"># 计算点扩散函数(PSF)，超采样因子为4，视场像素为511</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示点扩散函数（PSF）的信息</span>
+<span class="n">psf</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># 调用psf对象的info方法，输出PSF的相关信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示点扩散函数（PSF）并绘制包围能量</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个12x6英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建1行2列的子图，选择第1个子图</span>
+
+<span class="n">stpsf</span><span class="o">.</span><span class="n">display_psf</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span> <span class="n">colorbar_orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>  <span class="c1"># 显示PSF，颜色条为水平</span>
+
+<span class="n">axis2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 创建1行2列的子图，选择第2个子图</span>
+
+<span class="n">stpsf</span><span class="o">.</span><span class="n">display_ee</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis2</span><span class="p">)</span>  <span class="c1"># 显示包围能量，扩展参数为1，指定坐标轴为axis2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="jwst-psf">
+<h2>JWST 模拟点扩散函数（PSF）从在轨数据中减除<a class="headerlink" href="#jwst-psf" title="Link to this heading">#</a></h2>
+<p>https://stpsf.readthedocs.io/en/latest/jwst_psf_subtraction.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 定义要处理的文件名</span>
+<span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;jw02725-o484_t097_nircam_clear-f356w-nrcalong_wfscmb-04.fits&#39;</span>
+
+<span class="c1"># 从Mast数据库中检索文件</span>
+<span class="n">mast_retrieve_files</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 打开并检查观测数据</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># 使用FITS库打开指定的文件</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">psf</span><span class="p">[</span><span class="s1">&#39;SCI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 获取科学数据部分</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">psf</span><span class="p">[</span><span class="s1">&#39;DQ&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;bool&#39;</span><span class="p">)</span>  <span class="c1"># 创建掩膜，标记数据质量（DQ）中不合格的像素</span>
+
+<span class="n">sigma_clip</span> <span class="o">=</span> <span class="n">SigmaClip</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>  <span class="c1"># 设置sigma剪切，去除异常值，阈值为3.0</span>
+
+<span class="n">bkg_estimator</span> <span class="o">=</span> <span class="n">MedianBackground</span><span class="p">()</span>  <span class="c1"># 使用中值背景估计器</span>
+
+<span class="c1"># norm = simple_norm(data1, &#39;log&#39;,min_cut = min_cut, max_cut = max_cut)  # 归一化数据（注释掉的代码）</span>
+
+<span class="c1"># 计算二维背景，使用指定的窗口大小和掩膜</span>
+<span class="n">bkg</span> <span class="o">=</span> <span class="n">Background2D</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                   <span class="n">sigma_clip</span><span class="o">=</span><span class="n">sigma_clip</span><span class="p">,</span> <span class="n">bkg_estimator</span><span class="o">=</span><span class="n">bkg_estimator</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>  <span class="c1"># 进行背景估计</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 创建一个6x6英寸的图形</span>
+
+<span class="c1"># 使用简单的归一化方法，计算数据与背景的差值，并进行反双曲正弦归一化</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">simple_norm</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="s1">&#39;asinh&#39;</span><span class="p">,</span> <span class="n">min_percent</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">max_percent</span><span class="o">=</span><span class="mf">98.99</span><span class="p">)</span>
+
+<span class="c1"># 显示数据与背景差值的图像，设置归一化、原点位置和颜色映射</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id11">
+<h3>提取感兴趣源周围的子数组，并测量源位置<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">550</span><span class="p">,</span> <span class="mi">1950</span><span class="p">)</span>  <span class="c1"># 近似位置，稍后会进行改进</span>
+
+<span class="n">size_pixels</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># 设置像素大小</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从背景中减去数据并创建一个Cutout2D对象</span>
+<span class="n">data_source</span> <span class="o">=</span> <span class="n">Cutout2D</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">size_pixels</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># 创建一个6x6英寸的图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># 使用简单的归一化方法，设置最小和最大百分比</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">simple_norm</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="s1">&#39;asinh&#39;</span><span class="p">,</span> <span class="n">min_percent</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">max_percent</span><span class="o">=</span><span class="mf">99.6</span><span class="p">)</span>
+
+<span class="c1"># 显示图像，设置归一化、原点位置和颜色映射</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置图形标题</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Cutout around a galaxy merger and a star&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>找到源头<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个星体查找器，设置全宽半最大值和阈值</span>
+<span class="n">starfind</span> <span class="o">=</span> <span class="n">IRAFStarFinder</span><span class="p">(</span><span class="n">fwhm</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">100.</span> <span class="o">*</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background_median</span><span class="p">)</span>
+
+<span class="c1"># 使用星体查找器在数据源中查找星体</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="n">starfind</span><span class="p">(</span><span class="n">data_source</span><span class="p">)</span>
+
+<span class="c1"># 创建一个6x6英寸的图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># 显示数据源图像，设置归一化、原点位置和颜色映射</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置图形标题</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Cutout around a galaxy merger and a star&quot;</span><span class="p">)</span>
+
+<span class="c1"># 在图像上绘制找到的星体的中心位置，使用红色的&#39;x&#39;标记</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 让我们重新中心化图像</span>
+
+<span class="c1"># 从背景中减去背景数据，创建一个Cutout2D对象，并将其位置转换为原始位置</span>
+<span class="n">positions_original</span> <span class="o">=</span> <span class="n">Cutout2D</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">size_pixels</span><span class="p">)</span><span class="o">.</span><span class="n">to_original_position</span><span class="p">((</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;xcentroid&#39;</span><span class="p">],</span> <span class="n">sources</span><span class="p">[</span><span class="s1">&#39;ycentroid&#39;</span><span class="p">]))</span>
+
+<span class="c1"># 更新位置为原始位置的第一个值</span>
+<span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="n">positions_original</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">positions_original</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># 设置切割区域的大小</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="c1"># 创建一个新的Cutout2D对象，提取中心化后的数据</span>
+<span class="n">data_source</span> <span class="o">=</span> <span class="n">Cutout2D</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">bkg</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">size_pixels</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># 创建一个6x6英寸的图形</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># 使用简单归一化方法设置数据的归一化，使用反双曲正弦函数</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">simple_norm</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="s1">&#39;asinh&#39;</span><span class="p">,</span> <span class="n">min_percent</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">max_percent</span><span class="o">=</span><span class="mf">99.6</span><span class="p">)</span>
+
+<span class="c1"># 显示切割后的数据图像，设置原点为下方，使用viridis色图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置图像标题</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Cutout centered on the star&quot;</span><span class="p">)</span>
+
+<span class="c1"># 打印出新的位置</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3>使用之前的函数来设置我们的模拟<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">setup_sim_to_match_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># 设置模拟以匹配文件</span>
+
+<span class="n">inst</span><span class="o">.</span><span class="n">detector_position</span> <span class="o">=</span> <span class="n">position</span>  <span class="c1"># 设置探测器位置</span>
+
+<span class="n">single_stpsf_nrc</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">fov_pixels</span><span class="o">=</span><span class="n">size_pixels</span><span class="p">)</span>  <span class="c1"># 计算点扩散函数（PSF），以指定的视场像素大小</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示JWST望远镜数据的单个STPSF（点扩散函数）图像的头部信息</span>
+<span class="n">single_stpsf_nrc</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># 访问单个STPSF图像的头部信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="photutils-psf">
+<h3>使用 photutils 创建我们的模型 PSF<a class="headerlink" href="#photutils-psf" title="Link to this heading">#</a></h3>
+<p>我们将使用 photutils 来拟合并减去数据中的 PSF。首先，我们将输出的模拟 PSF 转换为一个可供 photutils 拟合的模型：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建一个FittableImageModel对象，用于表示点扩散函数（PSF）</span>
+<span class="n">stpsf_model</span> <span class="o">=</span> <span class="n">photutils</span><span class="o">.</span><span class="n">psf</span><span class="o">.</span><span class="n">FittableImageModel</span><span class="p">(</span>
+    <span class="n">single_stpsf_nrc</span><span class="p">[</span><span class="s1">&#39;DET_DIST&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>  <span class="c1"># 从单个STPSF数据中提取DET_DIST数据</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                      <span class="c1"># 归一化PSF</span>
+    <span class="n">oversampling</span><span class="o">=</span><span class="mi">1</span>                       <span class="c1"># 过采样因子设置为1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 定义拟合形状为5x5的元组</span>
+
+<span class="c1"># 创建PSFPhotometry对象，使用给定的PSF模型和拟合形状</span>
+<span class="n">psfphot</span> <span class="o">=</span> <span class="n">PSFPhotometry</span><span class="p">(</span><span class="n">stpsf_model</span><span class="p">,</span> <span class="n">fit_shape</span><span class="p">,</span>
+
+                        <span class="n">finder</span><span class="o">=</span><span class="n">starfind</span><span class="p">,</span> <span class="n">aperture_radius</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># 设置星源查找器和光圈半径</span>
+
+<span class="c1"># 将模型PSF拟合到经过背景减除的数据上</span>
+<span class="n">phot</span> <span class="o">=</span> <span class="n">psfphot</span><span class="p">(</span><span class="n">data_source</span><span class="p">)</span>  <span class="c1"># 对数据源进行PSF光度测量</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id14">
+<h4>检查要减去的源的位置<a class="headerlink" href="#id14" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">phot</span><span class="p">)</span> <span class="c1"># 打印单个源的光度信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id15">
+<h3>减去点扩散函数（PSF）并创建残差图像<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用psfphot库创建残差图像</span>
+<span class="n">residual</span> <span class="o">=</span> <span class="n">psfphot</span><span class="o">.</span><span class="n">make_residual_image</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="n">psf_shape</span><span class="o">=</span><span class="p">(</span><span class="n">size_pixels</span><span class="p">,</span> <span class="n">size_pixels</span><span class="p">))</span>  <span class="c1"># 生成残差图像，数据来源为data_source，PSF形状为(size_pixels, size_pixels)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>  <span class="c1"># 创建一个14x16英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建1行2列的子图，选择第1个子图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>  <span class="c1"># 显示原始数据图像，使用viridis色图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Original - zoom&#39;</span><span class="p">)</span>  <span class="c1"># 设置第1个子图的标题</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 选择第2个子图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">residual</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>  <span class="c1"># 显示清理后的数据图像，使用viridis色图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Clean - PSFPhotometry zoom&#39;</span><span class="p">)</span>  <span class="c1"># 设置第2个子图的标题</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id16">
+<h3>PSF 属性和差异<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pixelscale</span> <span class="o">=</span> <span class="n">nrc</span><span class="o">.</span><span class="n">pixelscale</span>  <span class="c1"># 获取像素比例</span>
+
+<span class="n">ee_pixel_radius</span> <span class="o">=</span> <span class="mf">2.5</span>  <span class="c1"># 定义有效半径（以像素为单位）</span>
+
+<span class="n">ee_arcsec_radius</span> <span class="o">=</span> <span class="n">ee_pixel_radius</span> <span class="o">*</span> <span class="n">pixelscale</span>  <span class="c1"># 将有效半径转换为角秒</span>
+
+<span class="n">ee_psf</span> <span class="o">=</span> <span class="n">poppy</span><span class="o">.</span><span class="n">measure_ee</span><span class="p">(</span><span class="n">single_stpsf_nrc</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>  <span class="c1"># 测量点扩散函数（PSF）的有效能量</span>
+
+<span class="n">ee_val</span> <span class="o">=</span> <span class="n">ee_psf</span><span class="p">(</span><span class="n">ee_arcsec_radius</span><span class="p">)</span>  <span class="c1"># 计算给定角秒半径的有效能量值</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ee (</span><span class="si">{}</span><span class="s2">px, </span><span class="si">{:.3f}</span><span class="s2">arsec)  = </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ee_pixel_radius</span><span class="p">,</span> <span class="n">ee_arcsec_radius</span><span class="p">,</span> <span class="n">ee_val</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>  <span class="c1"># 打印有效能量值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">measure_fwhm</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fit a Gaussian2D model to a PSF and return the fitted PSF</span>
+
+<span class="sd">    the FWHM is x and y can be found with fitted_psf.x_fwhm, fitted_psf.y_fwhm</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : numpy.ndarray</span>
+<span class="sd">        Array containing PSF</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x_fwhm : float</span>
+<span class="sd">        FWHM in x direction in units of pixels</span>
+
+<span class="sd">    y_fwhm : float</span>
+<span class="sd">        FWHM in y direction in units of pixels</span>
+<span class="sd">        </span>
+<span class="sd">    x_mean : float</span>
+<span class="sd">        x centroid position in units of pixels</span>
+<span class="sd">    </span>
+<span class="sd">    y_mean : float</span>
+<span class="sd">        y centroid position in units of pixels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">yp</span><span class="p">,</span> <span class="n">xp</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># 获取输入数组的形状，yp为行数，xp为列数</span>
+
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[:</span><span class="n">yp</span><span class="p">,</span> <span class="p">:</span><span class="n">xp</span><span class="p">]</span>  <span class="c1"># 创建网格坐标，y和x分别表示行和列的坐标</span>
+
+    <span class="c1"># 初始化高斯模型参数，幅度为数组最大值，x和y的均值为数组中心</span>
+    <span class="n">p_init</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Gaussian2D</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">x_mean</span><span class="o">=</span><span class="n">xp</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">y_mean</span><span class="o">=</span><span class="n">yp</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">fit_p</span> <span class="o">=</span> <span class="n">fitting</span><span class="o">.</span><span class="n">LevMarLSQFitter</span><span class="p">()</span>  <span class="c1"># 创建最小二乘拟合器</span>
+
+    <span class="n">fitted_psf</span> <span class="o">=</span> <span class="n">fit_p</span><span class="p">(</span><span class="n">p_init</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">array</span><span class="p">)</span>  <span class="c1"># 拟合高斯模型到输入数组</span>
+
+    <span class="k">return</span> <span class="n">fitted_psf</span>  <span class="c1"># 返回拟合后的PSF模型</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用measure_fwhm函数计算单个STPSF的全宽半最大值（FWHM）</span>
+<span class="n">fitted_psf</span> <span class="o">=</span> <span class="n">measure_fwhm</span><span class="p">(</span><span class="n">single_stpsf_nrc</span><span class="p">[</span><span class="s2">&quot;DET_SAMP&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># 打印FWHM在X方向和Y方向的值，格式化输出</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FWHM X-direction: </span><span class="si">{:.3f}</span><span class="s2">, FWHM y-direction: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fitted_psf</span><span class="o">.</span><span class="n">x_fwhm</span><span class="p">,</span> <span class="n">fitted_psf</span><span class="o">.</span><span class="n">y_fwhm</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 注意，OPD（光学路径差）已加载到STPSF仪器对象中</span>
+
+<span class="c1"># norm = ImageNormalize(stretch=LinearStretch(), vmin = 1e-9 , vmax = 1e-7)  # 归一化设置（已注释掉）</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>  <span class="c1"># 创建一个10x10英寸的图形</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">pupilopd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示OPD数据，原点位于图像的下方</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 检查OPD（光学路径差）头信息</span>
+
+<span class="n">nrc</span><span class="o">.</span><span class="n">pupilopd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># 访问nrc对象中的pupilopd数组的第一个元素，并获取其头信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 让我们计算两个不同时间之间的差异</span>
+
+<span class="c1"># 我们可以使用之前相同的仪器设置</span>
+
+<span class="n">opd_fn</span> <span class="o">=</span> <span class="s1">&#39;R2022120404-NRCA3_FP1-1.fits&#39;</span>  <span class="c1"># 定义OPD文件名</span>
+
+<span class="n">inst</span><span class="o">.</span><span class="n">load_wss_opd</span><span class="p">(</span><span class="n">opd_fn</span><span class="p">)</span>  <span class="c1"># 加载指定的OPD文件</span>
+
+<span class="n">psf2</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">fov_pixels</span><span class="o">=</span><span class="n">size_pixels</span><span class="p">)</span>  <span class="c1"># 计算点扩散函数（PSF），并指定视场像素大小</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pixelscale</span> <span class="o">=</span> <span class="n">nrc</span><span class="o">.</span><span class="n">pixelscale</span>  <span class="c1"># 获取像素比例</span>
+
+<span class="n">ee_pixel_radius</span> <span class="o">=</span> <span class="mf">2.5</span>  <span class="c1"># 定义有效半径（以像素为单位）</span>
+
+<span class="n">ee_arcsec_radius</span> <span class="o">=</span> <span class="n">ee_pixel_radius</span> <span class="o">*</span> <span class="n">pixelscale</span>  <span class="c1"># 将有效半径转换为角秒</span>
+
+<span class="n">ee_psf</span> <span class="o">=</span> <span class="n">poppy</span><span class="o">.</span><span class="n">measure_ee</span><span class="p">(</span><span class="n">psf2</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>  <span class="c1"># 测量点扩散函数（PSF）的包络能量</span>
+
+<span class="n">ee_val</span> <span class="o">=</span> <span class="n">ee_psf</span><span class="p">(</span><span class="n">ee_arcsec_radius</span><span class="p">)</span>  <span class="c1"># 计算给定角秒半径的包络能量值</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ee (</span><span class="si">{}</span><span class="s2">px, </span><span class="si">{:.3f}</span><span class="s2">arsec)  = </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ee_pixel_radius</span><span class="p">,</span> <span class="n">ee_arcsec_radius</span><span class="p">,</span> <span class="n">ee_val</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>  <span class="c1"># 打印结果</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示两个点扩散函数（PSF）之间的差异</span>
+<span class="n">stpsf</span><span class="o">.</span><span class="n">display_psf_difference</span><span class="p">(</span><span class="n">single_stpsf_nrc</span><span class="p">,</span> <span class="n">psf2</span><span class="p">,</span> <span class="n">imagecrop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Difference between two OPDs&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gist_heat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">miri_psfs_for_ee</span><span class="p">():</span>
+    <span class="c1"># 创建MIRI PSF对象</span>
+    <span class="n">miri</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">MIRI</span><span class="p">()</span>
+
+    <span class="c1"># opd_fn = &#39;R2022120404-NRCA3_FP1-1.fits&#39;  # 注释掉的文件名</span>
+
+    <span class="c1"># miri.load_wss_opd(opd_fn, output_path = output_path)  # 注释掉的OPD加载函数</span>
+
+    <span class="c1"># 根据日期加载WSS OPD，并绘制图像</span>
+    <span class="n">miri</span><span class="o">.</span><span class="n">load_wss_opd_by_date</span><span class="p">(</span><span class="s1">&#39;2022-07-12T00:00:00&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>
+
+    <span class="c1"># 遍历不同波长</span>
+    <span class="k">for</span> <span class="n">wave</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">]:</span>
+        <span class="n">fov</span> <span class="o">=</span> <span class="mi">18</span>  <span class="c1"># 视场大小</span>
+
+        <span class="c1"># 输出文件名</span>
+        <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;PSF_MIRI_</span><span class="si">%.1f</span><span class="s2">um_wfed.fits&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">wave</span><span class="p">)</span>
+
+        <span class="c1"># 计算PSF并保存</span>
+        <span class="n">psf</span> <span class="o">=</span> <span class="n">miri</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="n">monochromatic</span><span class="o">=</span><span class="n">wave</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span>
+                             <span class="n">oversample</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fov_arcsec</span><span class="o">=</span><span class="n">fov</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">psf</span>  <span class="c1"># 返回最后计算的PSF</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_ee_curves</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>  <span class="c1"># 清除当前图形</span>
+
+    <span class="c1"># 遍历不同波长</span>
+    <span class="k">for</span> <span class="n">iw</span><span class="p">,</span> <span class="n">wave</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">]):</span>
+        <span class="n">ees60</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储0.60&quot;内的EE值</span>
+        <span class="n">ees51</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储0.51&quot;内的EE值</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建子图</span>
+
+        <span class="c1"># 生成文件名</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;PSF_MIRI_</span><span class="si">%.1f</span><span class="s2">um_wfed.fits&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">wave</span><span class="p">)</span>
+
+        <span class="c1"># 显示EE曲线</span>
+        <span class="n">stpsf</span><span class="o">.</span><span class="n">display_ee</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">mark_levels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># 测量EE</span>
+        <span class="n">eefn</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">measure_ee</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">ees60</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eefn</span><span class="p">(</span><span class="mf">0.60</span><span class="p">))</span>  <span class="c1"># 记录0.60&quot;的EE值</span>
+        <span class="n">ees51</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eefn</span><span class="p">(</span><span class="mf">0.51</span><span class="p">))</span>  <span class="c1"># 记录0.51&quot;的EE值</span>
+
+        <span class="c1"># 在图中添加文本</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;Mean EE inside 0.60&quot;: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ees60</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;Mean EE inside 0.51&quot;: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ees51</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wavelength = </span><span class="si">{</span><span class="n">wave</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> $</span><span class="se">\\</span><span class="s2">mu$m&quot;</span><span class="p">)</span>  <span class="c1"># 设置标题</span>
+
+        <span class="c1"># 添加垂直线标记EE的阈值</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.51</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图布局</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">miri_psfs_for_ee</span><span class="p">():</span>
+    <span class="c1"># 定义一个函数，用于处理JWST MIRI的点扩散函数（PSF）</span>
+
+    <span class="c1"># 导入必要的库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入Matplotlib库，用于绘图</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">jwst</span><span class="w"> </span><span class="kn">import</span> <span class="n">datamodels</span>  <span class="c1"># 从JWST数据模型导入数据处理模块</span>
+
+    <span class="c1"># 读取MIRI PSF数据</span>
+    <span class="n">psf_data</span> <span class="o">=</span> <span class="n">datamodels</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;path_to_psf_data.fits&#39;</span><span class="p">)</span>  <span class="c1"># 打开PSF数据文件</span>
+
+    <span class="c1"># 提取PSF图像</span>
+    <span class="n">psf_image</span> <span class="o">=</span> <span class="n">psf_data</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># 从数据模型中提取PSF图像数据</span>
+
+    <span class="c1"># 计算PSF的中心位置</span>
+    <span class="n">center_x</span> <span class="o">=</span> <span class="n">psf_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># 计算PSF图像的中心x坐标</span>
+    <span class="n">center_y</span> <span class="o">=</span> <span class="n">psf_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># 计算PSF图像的中心y坐标</span>
+
+    <span class="c1"># 创建一个新的图形</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># 设置图形的大小</span>
+
+    <span class="c1"># 显示PSF图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">psf_image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>  <span class="c1"># 显示PSF图像，使用灰度色图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># 添加颜色条</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;MIRI PSF&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X pixel&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y pixel&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+    <span class="c1"># 标记PSF中心</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>  <span class="c1"># 在PSF中心位置绘制红色圆点</span>
+
+    <span class="c1"># 显示图形</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图形</span>
+
+<span class="c1"># 调用函数以执行PSF处理</span>
+<span class="n">miri_psfs_for_ee</span><span class="p">()</span>  <span class="c1"># 调用定义的函数</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_ee_curves</span><span class="p">():</span>
+    <span class="c1"># 导入必要的库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入数值计算库</span>
+
+    <span class="c1"># 生成示例数据</span>
+    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 生成1到10之间的100个点</span>
+    <span class="n">ee_curve1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">wavelengths</span><span class="p">)</span>  <span class="c1"># 计算第一个EE曲线</span>
+    <span class="n">ee_curve2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span> <span class="o">*</span> <span class="n">wavelengths</span><span class="p">)</span>  <span class="c1"># 计算第二个EE曲线</span>
+
+    <span class="c1"># 创建图形</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 设置图形大小</span>
+
+    <span class="c1"># 绘制EE曲线</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">ee_curve1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;EE Curve 1&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第一个EE曲线</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">ee_curve2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;EE Curve 2&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第二个EE曲线</span>
+
+    <span class="c1"># 添加图例</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+
+    <span class="c1"># 添加标题和标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;EE Curves&#39;</span><span class="p">)</span>  <span class="c1"># 设置图形标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;EE Value&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+
+    <span class="c1"># 显示图形</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>  <span class="c1"># 显示网格</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示图形</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nsp</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">NIRSpec</span><span class="p">()</span>  <span class="c1"># 创建NIRSpec对象</span>
+
+<span class="c1"># or you can specify a full path name.  # 或者可以指定完整的路径名</span>
+
+<span class="c1"># please make an output PSF with its center  # 请生成一个输出PSF，其中心</span>
+
+<span class="c1"># aligned to the center of a single pixel  # 对齐到单个像素的中心</span>
+
+<span class="n">nsp</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;parity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;odd&#39;</span>  <span class="c1"># 设置奇偶性为&#39;odd&#39;</span>
+
+<span class="n">opd_fn</span> <span class="o">=</span> <span class="s1">&#39;R2022120404-NRCA3_FP1-1.fits&#39;</span>  <span class="c1"># 定义OPD文件名</span>
+
+<span class="n">nsp</span><span class="o">.</span><span class="n">load_wss_opd</span><span class="p">(</span><span class="n">opd_fn</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">)</span>  <span class="c1"># 加载OPD文件</span>
+
+<span class="n">waves</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-6</span>  <span class="c1"># 以米为单位迭代波长</span>
+
+<span class="k">for</span> <span class="n">iw</span><span class="p">,</span> <span class="n">wavelength</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">waves</span><span class="p">):</span>  <span class="c1"># 遍历波长数组</span>
+
+    <span class="n">psffile</span> <span class="o">=</span> <span class="s1">&#39;psf_NIRSPec_mono_</span><span class="si">%.1f</span><span class="s1">um_opd1.fits&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">wavelength</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span>  <span class="c1"># 定义PSF文件名</span>
+
+    <span class="n">psf</span> <span class="o">=</span> <span class="n">nsp</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">fov_arcsec</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">oversample</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># 计算PSF</span>
+
+                       <span class="n">monochromatic</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># 单色波长，关闭显示</span>
+
+                       <span class="n">outfile</span><span class="o">=</span><span class="n">psffile</span><span class="p">)</span>  <span class="c1"># 输出文件名</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">iw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建子图</span>
+
+    <span class="n">stpsf</span><span class="o">.</span><span class="n">display_psf</span><span class="p">(</span><span class="n">psffile</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;DET_SAMP&#39;</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">imagecrop</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># 显示PSF</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># 设置标题为空</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 隐藏x轴</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 隐藏y轴</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{0:.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wavelength</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">))</span>  <span class="c1"># 在图中添加波长文本</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>  <span class="c1"># 创建一个8x12英寸的图形</span>
+
+<span class="n">nsp</span><span class="o">.</span><span class="n">image_mask</span> <span class="o">=</span> <span class="s1">&#39;MSA all open&#39;</span>  <span class="c1"># 设置图像掩膜为“所有MSA开放”</span>
+
+<span class="n">nsp</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>  <span class="c1"># 显示当前的nsp对象</span>
+
+<span class="n">msapsf</span> <span class="o">=</span> <span class="n">nsp</span><span class="o">.</span><span class="n">calc_psf</span><span class="p">(</span><span class="n">monochromatic</span><span class="o">=</span><span class="mf">2e-6</span><span class="p">,</span> <span class="n">oversample</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># 计算点扩散函数（PSF），波长为2微米，过采样率为8</span>
+
+<span class="n">stpsf</span><span class="o">.</span><span class="n">display_psf</span><span class="p">(</span><span class="n">msapsf</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;DET_SAMP&#39;</span><span class="p">)</span>  <span class="c1"># 显示计算得到的PSF，扩展名为&#39;DET_SAMP&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">miri_psfs_for_ee</span><span class="p">():</span>
+    <span class="c1"># 定义一个函数，用于计算MIRI PSF（点扩散函数）以供EE（有效曝光）使用</span>
+    
+    <span class="c1"># 这里可以添加代码来加载必要的库和数据</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入NumPy库，用于数值计算</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入Matplotlib库，用于绘图</span>
+
+    <span class="c1"># 定义一些参数</span>
+    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>  <span class="c1"># 定义波长数组（单位：微米）</span>
+    <span class="n">psfs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 初始化一个空列表，用于存储PSF数据</span>
+
+    <span class="c1"># 遍历每个波长，计算对应的PSF</span>
+    <span class="k">for</span> <span class="n">wavelength</span> <span class="ow">in</span> <span class="n">wavelengths</span><span class="p">:</span>
+        <span class="c1"># 这里可以添加代码来计算每个波长的PSF</span>
+        <span class="n">psf</span> <span class="o">=</span> <span class="n">calculate_psf</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>  <span class="c1"># 调用计算PSF的函数</span>
+        <span class="n">psfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">psf</span><span class="p">)</span>  <span class="c1"># 将计算得到的PSF添加到列表中</span>
+
+    <span class="c1"># 绘制PSF图像</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># 创建一个图形窗口，设置大小</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">psf</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">psfs</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">psfs</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 创建子图</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>  <span class="c1"># 显示PSF图像，使用灰度色图</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PSF at </span><span class="si">{</span><span class="n">wavelengths</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1"> μm&#39;</span><span class="p">)</span>  <span class="c1"># 设置子图标题</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># 关闭坐标轴</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># 调整子图布局</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 显示图像</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_psf</span><span class="p">(</span><span class="n">wavelength</span><span class="p">):</span>
+    <span class="c1"># 定义一个函数，用于计算给定波长的PSF</span>
+    <span class="c1"># 这里可以添加具体的PSF计算逻辑</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># 定义PSF的大小</span>
+    <span class="n">psf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>  <span class="c1"># 创建一个大小为size x size的零数组</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># 计算中心位置</span>
+
+    <span class="c1"># 这里可以添加代码来生成PSF的具体形状</span>
+    <span class="c1"># 例如，使用高斯函数来模拟PSF</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">wavelength</span> <span class="o">/</span> <span class="mf">10.0</span>  <span class="c1"># 根据波长计算标准差</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">psf</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 计算高斯值</span>
+
+    <span class="n">psf</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">psf</span><span class="p">)</span>  <span class="c1"># 归一化PSF</span>
+    <span class="k">return</span> <span class="n">psf</span>  <span class="c1"># 返回计算得到的PSF</span>
+ 
+
+<span class="n">以上代码在每一行添加了中文注释</span><span class="err">，</span><span class="n">保持了原始功能和结构</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">为了提供一个完整的代码示例</span><span class="err">，</span><span class="n">我将假设</span> <span class="err">`</span><span class="n">plot_ee_curves</span><span class="p">()</span><span class="err">`</span> <span class="n">是一个函数</span><span class="err">，</span><span class="n">并添加行级中文注释</span><span class="err">。</span><span class="n">以下是一个示例代码</span><span class="err">，</span><span class="n">展示了如何实现这一点</span><span class="err">：</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_ee_curves</span><span class="p">():</span>
+    <span class="c1"># 导入必要的库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># 导入绘图库</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 导入数值计算库</span>
+
+    <span class="c1"># 生成示例数据</span>
+    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 生成1到10的100个均匀分布的波长数据</span>
+    <span class="n">ee_curve1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">wavelengths</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算第一个光谱的能量分布曲线</span>
+    <span class="n">ee_curve2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">wavelengths</span> <span class="o">-</span> <span class="mi">7</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 计算第二个光谱的能量分布曲线</span>
+
+    <span class="c1"># 创建绘图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 设置绘图的大小</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">ee_curve1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;EE Curve 1&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第一个能量分布曲线</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">ee_curve2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;EE Curve 2&#39;</span><span class="p">)</span>  <span class="c1"># 绘制第二个能量分布曲线</span>
+
+    <span class="c1"># 添加图例</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># 显示图例</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy Efficiency Curves&#39;</span><span class="p">)</span>  <span class="c1"># 设置图表标题</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (microns)&#39;</span><span class="p">)</span>  <span class="c1"># 设置x轴标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Energy Efficiency&#39;</span><span class="p">)</span>  <span class="c1"># 设置y轴标签</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 显示网格</span>
+
+    <span class="c1"># 显示绘图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 展示绘制的图形</span>
+
+<span class="c1"># 调用函数以绘制能量效率曲线</span>
+<span class="n">plot_ee_curves</span><span class="p">()</span>  <span class="c1"># 调用绘制函数</span>
+
+<span class="n">在这个示例中</span><span class="err">，</span><span class="n">我添加了详细的中文注释</span><span class="err">，</span><span class="n">以帮助理解每一行代码的功能</span><span class="err">。</span><span class="n">请根据您的具体需求调整数据生成和绘图部分</span><span class="err">。</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ifu">
+<h2>改进的IFU模拟<a class="headerlink" href="#ifu" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">miri</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">MIRI</span><span class="p">()</span>  <span class="c1"># 创建一个MIRI类的实例</span>
+
+<span class="n">miri</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;IFU&#39;</span>  <span class="c1"># 设置模式为IFU（积分场光谱）</span>
+
+<span class="n">miri</span><span class="o">.</span><span class="n">band</span> <span class="o">=</span> <span class="s1">&#39;2A&#39;</span>  <span class="c1"># 设置波段为2A</span>
+
+<span class="n">waves</span> <span class="o">=</span> <span class="n">miri</span><span class="o">.</span><span class="n">get_IFU_wavelengths</span><span class="p">()</span>  <span class="c1"># 获取IFU模式下的波长</span>
+
+<span class="n">cube</span> <span class="o">=</span> <span class="n">miri</span><span class="o">.</span><span class="n">calc_datacube_fast</span><span class="p">(</span><span class="n">waves</span><span class="p">)</span>  <span class="c1"># 快速计算数据立方体</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输出立方体数据的基本信息</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># 调用info()方法，显示立方体数据的结构和属性信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nrs</span> <span class="o">=</span> <span class="n">stpsf</span><span class="o">.</span><span class="n">NIRSpec</span><span class="p">()</span>  <span class="c1"># 创建NIRSpec对象</span>
+
+<span class="n">nrs</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;IFU&#39;</span>  <span class="c1"># 设置模式为IFU（积分场光谱）</span>
+
+<span class="n">nrs</span><span class="o">.</span><span class="n">disperser</span> <span class="o">=</span> <span class="s1">&#39;PRISM&#39;</span>  <span class="c1"># 设置色散元件为棱镜</span>
+
+<span class="n">nrs</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="s1">&#39;CLEAR&#39;</span>  <span class="c1"># 设置滤光片为透明滤光片</span>
+
+<span class="n">waves</span> <span class="o">=</span> <span class="n">nrs</span><span class="o">.</span><span class="n">get_IFU_wavelengths</span><span class="p">()</span>  <span class="c1"># 获取IFU模式下的波长</span>
+
+<span class="n">cube</span> <span class="o">=</span> <span class="n">nrs</span><span class="o">.</span><span class="n">calc_datacube_fast</span><span class="p">(</span><span class="n">waves</span><span class="p">)</span>  <span class="c1"># 快速计算数据立方体</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示立方体数据的基本信息</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># 调用立方体对象的info方法，输出其结构和属性信息</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/cross_instrument/stpsf_examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../update_pure_parallel_wcs/NIRISS_correct_pure_parallel_WCS_cn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">提高纯平行数据集世界坐标系统的准确性</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../MIRI/MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MRS立方体分析</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">索引</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">导入和设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">在给定日期附近寻找测量的波前</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opd">OPD 文件描述</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">观测时间周围的波前误差变化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psf">使用特定观测设置PSF模拟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">随时间变化的波前趋势</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">波前时间序列和直方图绘图</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">所有OPD的表格</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">趋势图</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">在时间范围内绘图</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">加载并绘制单个 OPD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jwst-psf">JWST 模拟点扩散函数（PSF）从在轨数据中减除</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">提取感兴趣源周围的子数组，并测量源位置</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">找到源头</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">使用之前的函数来设置我们的模拟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#photutils-psf">使用 photutils 创建我们的模型 PSF</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">检查要减去的源的位置</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">减去点扩散函数（PSF）并创建残差图像</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">PSF 属性和差异</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ifu">改进的IFU模拟</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By STScI
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
