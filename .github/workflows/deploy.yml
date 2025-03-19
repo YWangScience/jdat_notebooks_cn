@@ -3,7 +3,7 @@ name: Deploy Jupyter Book
 on:
   push:
     branches:
-      - main  # 监听 main 分支的变化
+      - main  # 当 main 分支有更新时触发
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.8'
 
       - name: Install dependencies
         run: |
@@ -26,4 +26,4 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          ghp-import -n -p -f _build/html
+          ghp-import -n -p -f _build/html -b gh-pages
