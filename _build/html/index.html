@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>JWST Data Analysis Tool Notebooks &#8212; STScI JDAT Notebooks 中文版</title>
+    <title>JWST 数据分析工具笔记本 &#8212; STScI JDAT Notebooks 中文版</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/main.css?v=b44a18d9" />
@@ -61,6 +61,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="安装说明" href="install_cn.html" />
+    <link rel="prev" title="" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,8 +125,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -143,7 +143,7 @@
     
   
 
-<a class="navbar-brand logo" href="intro_cn.html">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -175,14 +175,14 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro_cn.html">
-                    <no title>
+                <a class="reference internal" href="intro.html">
+                    
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">通用</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="index_cn.html">主页</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">主页</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install_cn.html">安装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/notebook_development_workflow_cn.html">笔记本开发工作流程</a></li>
 </ul>
@@ -406,7 +406,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>JWST Data Analysis Tool Notebooks</h1>
+    <h1>JWST 数据分析工具笔记本</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -416,10 +416,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-listing-and-descriptions">Summary Listing and Descriptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-instructions">Installation Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help">Help</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">摘要列表和描述</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">安装说明</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">帮助</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">贡献</a></li>
 </ul>
             </nav>
         </div>
@@ -431,63 +431,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="jwst-data-analysis-tool-notebooks">
-<h1>JWST Data Analysis Tool Notebooks<a class="headerlink" href="#jwst-data-analysis-tool-notebooks" title="Link to this heading">#</a></h1>
-<p>The <a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks">jdat_notebooks repository</a>
-contains notebooks illustrating workflows for post-pipeline analysis of JWST data.
-Some of the notebooks also illustrate generic
-analysis workflows that are applicable to data from other observatories
-as well. This repository and the notebooks are one component of STScI’s
-larger <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">Data Analysis Tools
-Ecosystem</a>.</p>
-<section id="summary-listing-and-descriptions">
-<h2>Summary Listing and Descriptions<a class="headerlink" href="#summary-listing-and-descriptions" title="Link to this heading">#</a></h2>
-<p>The sidebar on the left of this page provides a summery listing of the notebooks,
-and clicking will take you to html-rendered
-versions of the notebooks. These are easily readable, and
-require no special tools beyond your web browser. The notebooks are
-organized by JWST instrument, or are marked as
-cross-instrument. At the top of each notebook you will find a brief
-description of the specific science use case
-that is demonstrated by the notebook, a description of the data that are used,
-and a listing of the data analysis tools that
-are demonstrated by the use case.</p>
+  <section id="jwst">
+<h1>JWST 数据分析工具笔记本<a class="headerlink" href="#jwst" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks">jdat_notebooks 仓库</a> 包含了展示 JWST 数据后处理分析工作流程的笔记本。一些笔记本还展示了适用于其他天文台数据的通用分析工作流程。该仓库及其笔记本是 STScI 更大 <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">数据分析工具生态系统</a> 的一个组成部分。</p>
+<section id="id2">
+<h2>摘要列表和描述<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>本页面左侧的侧边栏提供了笔记本的摘要列表，点击后将带您到 HTML 渲染版本的笔记本。这些版本易于阅读，并且只需您的网页浏览器即可，无需特殊工具。笔记本按 JWST 仪器组织，或标记为跨仪器。在每个笔记本的顶部，您将找到该笔记本展示的特定科学用例的简要描述、所使用数据的描述以及通过该用例展示的数据分析工具列表。</p>
 </section>
-<section id="installation-instructions">
-<h2>Installation Instructions<a class="headerlink" href="#installation-instructions" title="Link to this heading">#</a></h2>
-<p>To download and execute the notebooks, we recommend that you
-clone the <a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks">jdat_notebooks repository</a>
-to your local computer as described
-in the <a class="reference internal" href="install_cn.html#install"><span class="std std-ref">installation instructions</span></a>.</p>
+<section id="id3">
+<h2>安装说明<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>要下载和执行笔记本，我们建议您按照 <a class="reference internal" href="install_cn.html#install"><span class="std std-ref">安装说明</span></a> 中的描述将 <a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks">jdat_notebooks 仓库</a> 克隆到您的本地计算机。</p>
 </section>
-<section id="help">
-<h2>Help<a class="headerlink" href="#help" title="Link to this heading">#</a></h2>
-<p>If you uncover any issues or bugs, you can open a
-<a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks/issues">GitHub issue</a>.
-For faster responses, however, we encourage you to submit
-a <a class="reference external" href="https://stsci.service-now.com/jwst">JWST Help Desk Ticket</a>.</p>
+<section id="id5">
+<h2>帮助<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>如果您发现任何问题或错误，可以打开一个 <a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks/issues">GitHub 问题</a>。然而，为了更快的响应，我们鼓励您提交 <a class="reference external" href="https://stsci.service-now.com/jwst">JWST 帮助台工单</a>。</p>
 </section>
-<section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h2>
-<p>Contributions are welcome from both the scientist and developer
-community. If you wish to contribute fixes or clarifications to existing
-notebooks, feel free to do so directly to this repository. If you wish
-to contribute new notebooks or major reworks of existing notebooks, see the <a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks/blob/main/CONTRIBUTING.rst/">contributing
-instructions</a>.
-The notebooks attempt to utilize a number of software packages supported by
-STScI, including <a class="reference external" href="https://www.astropy.org">Astropy</a>,
-<a class="reference external" href="http://docs.glueviz.org/en/stable/index.html">glue</a>,
-<a class="reference external" href="https://ginga.readthedocs.io/en/latest/">ginga</a>,
-<a class="reference external" href="https://photutils.readthedocs.io">photutils</a>,
-<a class="reference external" href="https://specutils.readthedocs.io/en/stable/">specutils</a>,
-<a class="reference external" href="http://astroimtools.readthedocs.io">astroimtools</a>,
-<a class="reference external" href="http://imexam.readthedocs.io">imexam</a>,
-<a class="reference external" href="https://jdaviz.readthedocs.io/en/latest/">jdaviz</a>,
-<a class="reference external" href="http://asdf.readthedocs.io/en/latest/">asdf</a>,
-<a class="reference external" href="https://gwcs.readthedocs.io/en/latest/">gwcs</a>, and
-<a class="reference external" href="http://synphot.readthedocs.io/en/latest/index.html">synphot</a>. Note
-jdaviz is STScI’s JWST Data Analysis Visualization Tool, designed to be
-used with spectra, IFU cubes, and multi-object spectroscopy (MOS).</p>
+<section id="id7">
+<h2>贡献<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>欢迎科学家和开发者社区的贡献。如果您希望对现有笔记本进行修复或澄清，请随意直接对该仓库进行贡献。如果您希望贡献新的笔记本或对现有笔记本进行重大重构，请参见 <a class="reference external" href="https://github.com/spacetelescope/jdat_notebooks/blob/main/CONTRIBUTING.rst/">贡献说明</a>。这些笔记本尝试利用 STScI 支持的多个软件包，包括 <a class="reference external" href="https://www.astropy.org">Astropy</a>、<a class="reference external" href="http://docs.glueviz.org/en/stable/index.html">glue</a>、<a class="reference external" href="https://ginga.readthedocs.io/en/latest/">ginga</a>、<a class="reference external" href="https://photutils.readthedocs.io">photutils</a>、<a class="reference external" href="https://specutils.readthedocs.io/en/stable/">specutils</a>、<a class="reference external" href="http://astroimtools.readthedocs.io">astroimtools</a>、<a class="reference external" href="http://imexam.readthedocs.io">imexam</a>、<a class="reference external" href="https://jdaviz.readthedocs.io/en/latest/">jdaviz</a>、<a class="reference external" href="http://asdf.readthedocs.io/en/latest/">asdf</a>、<a class="reference external" href="https://gwcs.readthedocs.io/en/latest/">gwcs</a> 和 <a class="reference external" href="http://synphot.readthedocs.io/en/latest/index.html">synphot</a>。请注意，jdaviz 是 STScI 的 JWST 数据分析可视化工具，旨在与光谱、IFU 立方体和多目标光谱 (MOS) 一起使用。</p>
 </section>
 </section>
 
@@ -521,6 +482,24 @@ used with spectra, IFU cubes, and multi-object spectroscopy (MOS).</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="install_cn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">安装说明</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -537,10 +516,10 @@ used with spectra, IFU cubes, and multi-object spectroscopy (MOS).</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-listing-and-descriptions">Summary Listing and Descriptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-instructions">Installation Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help">Help</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">摘要列表和描述</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">安装说明</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">帮助</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">贡献</a></li>
 </ul>
   </nav></div>
 

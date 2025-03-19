@@ -1,13 +1,13 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 format: jb-book
-root: intro_cn
+root: intro
 defaults:  # The defaults key will be applied to all chapters and sub-sections
   titlesonly: True
 parts:
   - caption: 通用
     chapters:
-    - file: index_cn.rst
+    - file: index.rst
       title: 主页
     - file: install_cn.rst
       title: 安装
